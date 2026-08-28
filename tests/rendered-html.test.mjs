@@ -51,6 +51,13 @@ test("chapter order, compact goods gallery and map match revision two", async ()
   assert.doesNotMatch(goodsHtml, /catalog-index|product-gallery-count|product-gallery-dots|product-gallery-controls/);
   assert.match(goodsHtml, /product-gallery-arrow-prev/);
   assert.match(goodsHtml, /product-gallery-arrow-next/);
+  assert.match(goodsHtml, /goods-01-cutout\.png/);
+  assert.match(goodsHtml, /goods-01-photo\.jpg/);
+  assert.match(goodsHtml, /product-image-cutout/);
+  assert.ok(
+    goodsHtml.indexOf("goods-01-cutout.png") < goodsHtml.indexOf("goods-01-photo.jpg"),
+    "the cutout product image should be first",
+  );
 
   const guogangResponse = await render("/guogang");
   const guogangHtml = await guogangResponse.text();

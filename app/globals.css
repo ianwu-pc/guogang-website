@@ -1251,6 +1251,11 @@ body { font-size: var(--type-body); }
 .person-article-title h1 { font-size: clamp(3.2rem, 6vw, 5.8rem); }
 
 .product-gallery-main { overflow: hidden; }
+.product-image-cutout { background: var(--paper); }
+.image-placeholder.product-image-cutout img {
+  padding: clamp(0.75rem, 2vw, 1.5rem);
+  object-fit: contain;
+}
 .product-gallery-arrow {
   position: absolute;
   top: 50%;
