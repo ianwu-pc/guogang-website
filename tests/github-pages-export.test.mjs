@@ -16,6 +16,8 @@ const requiredFiles = [
   "people/index.html",
   "about/index.html",
   "images/guogang-history-1949.png",
+  "images/goods/goods-01-cutout.png",
+  "images/goods/goods-01-photo.jpg",
   "og-revision.png",
   ".nojekyll",
   "404.html",

@@ -183,11 +183,14 @@ export const GOODS: Good[] = Array.from({ length: 6 }, (_, index) => {
     maker: "製作者｜資料待補",
     story: "產品與過港的關係及製作故事｜資料待補",
     purchaseMethod: "購買方式｜資料待補",
-    coverImage: `好物照片 ${number}｜待提供`,
-    galleryImages: [
-      `好物細節照片 ${number}-A｜待提供`,
-      `好物細節照片 ${number}-B｜待提供`,
-    ],
+    coverImage: index === 0 ? "/images/goods/goods-01-cutout.png" : `好物照片 ${number}｜待提供`,
+    galleryImages:
+      index === 0
+        ? ["/images/goods/goods-01-photo.jpg"]
+        : [
+            `好物細節照片 ${number}-A｜待提供`,
+            `好物細節照片 ${number}-B｜待提供`,
+          ],
   };
 });
 

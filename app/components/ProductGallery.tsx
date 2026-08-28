@@ -13,6 +13,8 @@ type ProductGalleryProps = {
 export function ProductGallery({ images, name, tone = "clay", ratio = "landscape" }: ProductGalleryProps) {
   const availableImages = images.length ? images : [`${name}照片｜待提供`];
   const [activeIndex, setActiveIndex] = useState(0);
+  const activeImage = availableImages[activeIndex];
+  const isCutoutImage = /-cutout\.(?:avif|png|webp)(?:\?.*)?$/i.test(activeImage);
 
   const move = (direction: number) => {
     setActiveIndex((current) => (current + direction + availableImages.length) % availableImages.length);
@@ -26,10 +28,11 @@ export function ProductGallery({ images, name, tone = "clay", ratio = "landscape
       <div className="product-gallery-main" aria-live="polite">
         <ImagePlaceholder
           key={`${name}-${activeIndex}`}
-          label={availableImages[activeIndex]}
+          label={activeImage}
           alt={`${name}照片 ${activeIndex + 1}`}
           ratio={ratio}
           tone={tone}
+          className={isCutoutImage ? "product-image-cutout" : ""}
         />
         {availableImages.length > 1 ? (
           <>
