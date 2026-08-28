@@ -1,4 +1,4 @@
-import { cp, mkdir, rm, writeFile } from "node:fs/promises";
+import { cp, mkdir, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -39,6 +39,7 @@ const redirectRoutes = [
 await rm(outputDirectory, { recursive: true, force: true });
 await mkdir(outputDirectory, { recursive: true });
 await cp(clientDirectory, outputDirectory, { recursive: true });
+await flattenBasePathAssets();
 
 // These files remain in the source archive for reference but are not part of the public website.
 await Promise.all([
@@ -118,6 +119,29 @@ function toRequestPath(route) {
 function routeToFile(route) {
   if (route === "/") return path.join(outputDirectory, "index.html");
   return path.join(outputDirectory, route.replace(/^\//, ""), "index.html");
+}
+
+async function flattenBasePathAssets() {
+  if (!basePath) return;
+
+  const nestedDirectory = path.join(outputDirectory, basePath.replace(/^\/+/, ""));
+  let entries;
+
+  try {
+    entries = await readdir(nestedDirectory, { withFileTypes: true });
+  } catch (error) {
+    if (error.code === "ENOENT") return;
+    throw error;
+  }
+
+  for (const entry of entries) {
+    await cp(path.join(nestedDirectory, entry.name), path.join(outputDirectory, entry.name), {
+      recursive: entry.isDirectory(),
+      force: true,
+    });
+  }
+
+  await rm(nestedDirectory, { recursive: true, force: true });
 }
 
 function rewriteMetadataUrls(html) {

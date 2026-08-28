@@ -53,6 +53,24 @@ test("repository subpath is applied to every root-relative link and asset", asyn
   }
 });
 
+test("every exported local asset reference resolves inside the Pages artifact", async () => {
+  const pages = ["index.html", "goods/index.html", "guogang/index.html", "people/index.html", "about/index.html"];
+  const assetPaths = new Set();
+
+  for (const relativePath of pages) {
+    const html = await read(relativePath);
+    const references = [...html.matchAll(/(?:href|src)="(\/[^"#]*)"/g)].map((match) => match[1]);
+
+    for (const reference of references) {
+      const assetPath = toArtifactAssetPath(reference);
+      if (assetPath) assetPaths.add(assetPath);
+    }
+  }
+
+  assert.ok(assetPaths.size > 0, "exported pages should reference local assets");
+  for (const assetPath of assetPaths) await access(path.join(outputRoot, assetPath));
+});
+
 async function read(relativePath) {
   return readFile(path.join(outputRoot, relativePath), "utf8");
 }
@@ -67,4 +85,21 @@ function normalizeBasePath(value) {
   const trimmed = String(value ?? "").trim();
   if (!trimmed || trimmed === "/") return "";
   return `/${trimmed.replace(/^\/+|\/+$/g, "")}`;
+}
+
+function toArtifactAssetPath(reference) {
+  const pathname = new URL(reference, "https://example.invalid").pathname;
+  const relativePath = basePath && pathname.startsWith(`${basePath}/`)
+    ? pathname.slice(basePath.length + 1)
+    : pathname.replace(/^\/+/, "");
+
+  if (
+    relativePath.startsWith("_next/") ||
+    relativePath.startsWith("images/") ||
+    /\.(?:avif|css|gif|ico|jpe?g|js|png|svg|webp|woff2?)$/i.test(relativePath)
+  ) {
+    return decodeURIComponent(relativePath);
+  }
+
+  return null;
 }
