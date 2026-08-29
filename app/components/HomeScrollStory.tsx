@@ -12,6 +12,8 @@ type StoryStage = {
   imageLabel: string;
   tone: "paper" | "ink" | "ochre" | "green";
   image?: string;
+  imageMobile?: string;
+  objectPosition?: string;
 };
 
 const STAGES: StoryStage[] = [
@@ -20,31 +22,43 @@ const STAGES: StoryStage[] = [
     eyebrow: "RIVER / PLACE",
     title: "這裡是過港。",
     description: "一個沿著基隆河生活的地方。",
-    imageLabel: "基隆河、過港環境大景｜待提供",
+    imageLabel: "過港河岸、岩石與周邊環境",
+    image: "/images/home/home-scroll-01.webp",
+    imageMobile: "/images/home/home-scroll-01-1280.webp",
+    objectPosition: "center center",
     tone: "paper",
   },
   {
     number: "02",
     eyebrow: "PEOPLE / DAILY LIFE",
     title: "過港的樣子，藏在每個人的日常裡。",
-    description: "居民的日常生活與工作影像｜待提供",
-    imageLabel: "居民日常、社區志工與工作畫面｜待提供",
+    description: "居民相聚、活動的日常，也慢慢留下過港的樣子。",
+    imageLabel: "過港居民在社區空間進行團體活動",
+    image: "/images/home/home-scroll-02.webp",
+    imageMobile: "/images/home/home-scroll-02-1280.webp",
+    objectPosition: "center center",
     tone: "ink",
   },
   {
     number: "03",
     eyebrow: "HANDS / FLAVOR",
     title: "而這些日常，也被一雙雙手做成了味道。",
-    description: "商品製作、備料過程與完成品影像｜待提供",
-    imageLabel: "備料、料理、手部與商品製作過程｜待提供",
+    description: "從備料到料理，一雙雙手把熟悉的味道慢慢做出來。",
+    imageLabel: "居民在大鍋中製作滷蛋",
+    image: "/images/home/home-scroll-03.webp",
+    imageMobile: "/images/home/home-scroll-03-1280.webp",
+    objectPosition: "center center",
     tone: "ochre",
   },
   {
     number: "04",
     eyebrow: "STORY / FURTHER",
     title: "把過港的故事，帶到更遠的地方。",
-    description: "完成的產品、人與產品合照｜待提供",
-    imageLabel: "最能代表現在過港的影像｜待提供",
+    description: "完成的商品，也把過港的生活與故事帶向更遠的地方。",
+    imageLabel: "過港雞片鐵蛋包裝商品",
+    image: "/images/home/home-scroll-04.webp",
+    imageMobile: "/images/home/home-scroll-04-1280.webp",
+    objectPosition: "center center",
     tone: "green",
   },
 ];
@@ -94,10 +108,18 @@ export function HomeScrollStory() {
   if (reducedMotion) {
     return (
       <section className="scroll-story-static" aria-label="過港地方故事">
-        {STAGES.map((stage) => (
+        {STAGES.map((stage, index) => (
           <article className={`scroll-story-static-card tone-${stage.tone}`} key={stage.number}>
             {stage.image ? (
-              <img src={sitePath(stage.image)} alt={stage.imageLabel} />
+              <img
+                src={sitePath(stage.image)}
+                srcSet={stage.imageMobile ? `${sitePath(stage.imageMobile)} 1280w, ${sitePath(stage.image)} 2560w` : undefined}
+                sizes="100vw"
+                alt={stage.imageLabel}
+                loading={index === 0 ? "eager" : "lazy"}
+                fetchPriority={index === 0 ? "high" : "auto"}
+                style={{ objectPosition: stage.objectPosition }}
+              />
             ) : (
               <div className="scroll-story-static-placeholder" role="img" aria-label={stage.imageLabel}>
                 {stage.imageLabel}
@@ -122,10 +144,18 @@ export function HomeScrollStory() {
       style={{ "--stage-count": STAGES.length } as CSSProperties}
       aria-label="捲動閱讀過港地方故事"
     >
-      <div className={`scroll-story-sticky tone-${stage.tone}`}>
+      <div className={`scroll-story-sticky tone-${stage.tone}${stage.image ? " has-photo" : ""}`}>
         {stage.image ? (
           <div className="scroll-story-photo" key={stage.image}>
-            <img src={sitePath(stage.image)} alt={stage.imageLabel} />
+            <img
+              src={sitePath(stage.image)}
+              srcSet={stage.imageMobile ? `${sitePath(stage.imageMobile)} 1280w, ${sitePath(stage.image)} 2560w` : undefined}
+              sizes="100vw"
+              alt={stage.imageLabel}
+              loading={activeIndex === 0 ? "eager" : "lazy"}
+              fetchPriority={activeIndex === 0 ? "high" : "auto"}
+              style={{ objectPosition: stage.objectPosition }}
+            />
             <span aria-hidden="true" />
           </div>
         ) : (
