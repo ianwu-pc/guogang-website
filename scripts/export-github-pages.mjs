@@ -40,6 +40,7 @@ await rm(outputDirectory, { recursive: true, force: true });
 await mkdir(outputDirectory, { recursive: true });
 await cp(clientDirectory, outputDirectory, { recursive: true });
 await flattenBasePathAssets();
+await copyBundledFontAssets();
 
 // These files remain in the source archive for reference but are not part of the public website.
 await Promise.all([
@@ -142,6 +143,17 @@ async function flattenBasePathAssets() {
   }
 
   await rm(nestedDirectory, { recursive: true, force: true });
+}
+
+async function copyBundledFontAssets() {
+  const sourceDirectory = path.join(outputDirectory, "fonts");
+  const staticDirectory = path.join(outputDirectory, "_next", "static", "fonts");
+
+  try {
+    await cp(sourceDirectory, staticDirectory, { recursive: true, force: true });
+  } catch (error) {
+    if (error.code !== "ENOENT") throw error;
+  }
 }
 
 function rewriteMetadataUrls(html) {
