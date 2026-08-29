@@ -24,6 +24,10 @@ const requiredFiles = [
   "images/home/home-scroll-03-1280.webp",
   "images/home/home-scroll-04.webp",
   "images/home/home-scroll-04-1280.webp",
+  "images/認識過港.jpg",
+  "images/過港人物.jpg",
+  "images/過港好味.jpg",
+  "images/關於我們.jpg",
   "images/goods/goods-01-cutout.png",
   "images/goods/goods-01-photo.jpg",
   "og-revision.png",
@@ -50,9 +54,13 @@ test("exported pages preserve revision content and interactions", async () => {
   assert.match(home, /如果喜歡過港/);
   assert.match(home, /02-2458-8802/);
   assert.match(goods, /product-gallery-arrow-next/);
+  assert.match(goods, /過港好味\.jpg/);
+  assert.match(guogang, /認識過港\.jpg/);
   assert.match(guogang, /過港散策互動地圖/);
   assert.match(guogang, /地點名單待確認/);
+  assert.match(people, /過港人物\.jpg/);
   assert.match(people, /人物6/);
+  assert.match(about, /關於我們\.jpg/);
   assert.doesNotMatch(`${home}${about}`, /association-structure\.png|組織架構圖|會員大會/);
 });
 
