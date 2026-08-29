@@ -12,7 +12,18 @@ export function SiteHeader() {
 
   useEffect(() => {
     setPathname(stripSiteBasePath(window.location.pathname));
-    const updateHeader = () => setScrolled(window.scrollY > 32);
+  const updateHeader = () => {
+    const story = document.querySelector<HTMLElement>(
+      ".scroll-story, .scroll-story-static",
+    );
+    const headerHeight = window.innerWidth <= 760 ? 70 : 82;
+
+    setScrolled(
+      story
+        ? story.getBoundingClientRect().bottom <= headerHeight
+        : window.scrollY > 32,
+    );
+  };
     const updatePath = () => setPathname(stripSiteBasePath(window.location.pathname));
     updateHeader();
     window.addEventListener("scroll", updateHeader, { passive: true });
