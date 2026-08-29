@@ -85,14 +85,17 @@ test("homepage photo story shows the header fade before scrolling", async () => 
   );
 });
 
-test("serif typography prioritizes the native iPhone Songti family", async () => {
+test("desktop serif stays unchanged while mobile uses the bundled serif font", async () => {
   const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
   assert.match(
     css,
-    /--serif:\s*"Songti TC",\s*"STSongti-TC-Regular",\s*"STSong",\s*"LiSong Pro"/,
+    /:root\s*\{[\s\S]*?--serif:\s*"Noto Serif TC",\s*"Source Han Serif TC",\s*"Songti TC",\s*"PMingLiU",\s*serif/,
   );
-  assert.match(css, /h1,\s*\n+h2,\s*\n+h3\s*\{[\s\S]*?font-family:\s*var\(--serif\)/);
-  assert.match(css, /\.wordmark span\s*\{[\s\S]*?font-family:\s*var\(--serif\)/);
+  assert.match(css, /@font-face\s*\{[\s\S]*?font-family:\s*"Guogang Mobile Serif"[\s\S]*?guogang-serif-mobile\.woff2/);
+  assert.match(
+    css,
+    /@media \(max-width: 760px\)\s*\{[\s\S]*?:root\s*\{[\s\S]*?--serif:\s*"Guogang Mobile Serif"/,
+  );
 });
 
 test("header color follows the visual section instead of a small scroll threshold", async () => {

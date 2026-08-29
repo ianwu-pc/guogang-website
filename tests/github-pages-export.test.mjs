@@ -15,6 +15,8 @@ const requiredFiles = [
   "guogang/index.html",
   "people/index.html",
   "about/index.html",
+  "fonts/guogang-serif-mobile.woff2",
+  "fonts/OFL-NotoSerifTC.txt",
   "images/guogang-history-1949.png",
   "images/home/home-scroll-01.webp",
   "images/home/home-scroll-01-1280.webp",
