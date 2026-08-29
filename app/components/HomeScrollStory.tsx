@@ -19,7 +19,7 @@ type StoryStage = {
 const STAGES: StoryStage[] = [
   {
     number: "01",
-    eyebrow: "RIVER / PLACE",
+    eyebrow: "River notes · place",
     title: "這裡是過港。",
     description: "一個沿著基隆河生活的地方。",
     imageLabel: "過港河岸、岩石與周邊環境",
@@ -30,7 +30,7 @@ const STAGES: StoryStage[] = [
   },
   {
     number: "02",
-    eyebrow: "PEOPLE / DAILY LIFE",
+    eyebrow: "Daily notes · people",
     title: "過港的樣子，藏在每個人的日常裡。",
     description: "居民相聚、活動的日常，也慢慢留下過港的樣子。",
     imageLabel: "過港居民在社區空間進行團體活動",
@@ -41,7 +41,7 @@ const STAGES: StoryStage[] = [
   },
   {
     number: "03",
-    eyebrow: "HANDS / FLAVOR",
+    eyebrow: "Kitchen notes · flavor",
     title: "而這些日常，也被一雙雙手做成了味道。",
     description: "從備料到料理，一雙雙手把熟悉的味道慢慢做出來。",
     imageLabel: "居民在大鍋中製作滷蛋",
@@ -52,7 +52,7 @@ const STAGES: StoryStage[] = [
   },
   {
     number: "04",
-    eyebrow: "STORY / FURTHER",
+    eyebrow: "Field notes · onward",
     title: "把過港的故事，帶到更遠的地方。",
     description: "完成的商品，也把過港的生活與故事帶向更遠的地方。",
     imageLabel: "過港雞片鐵蛋包裝商品",
@@ -169,8 +169,8 @@ export function HomeScrollStory() {
 
         <div className="scroll-story-copy" key={stage.number} aria-live="polite">
           <div className="scroll-story-meta">
-            <span>{stage.number}</span>
-            <span>{stage.eyebrow}</span>
+            <span className="scroll-story-number">{stage.number}</span>
+            <span className="scroll-story-note">{stage.eyebrow}</span>
           </div>
           <h1>{stage.title}</h1>
           <p>{stage.description}</p>
@@ -182,9 +182,6 @@ export function HomeScrollStory() {
           ) : null}
         </div>
 
-        <div className="scroll-story-progress" aria-hidden="true">
-          {STAGES.map((item, index) => <span className={index === activeIndex ? "is-active" : ""} key={item.number} />)}
-        </div>
       </div>
     </section>
   );
