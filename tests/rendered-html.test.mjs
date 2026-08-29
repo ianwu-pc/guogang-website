@@ -114,7 +114,7 @@ test("header color follows the visual section instead of a small scroll threshol
   );
 });
 
-test("chapter order, photo intros, compact goods gallery and map match the current site", async () => {
+test("chapter order, photo intros, compact goods gallery and interactive map match the current site", async () => {
   const goodsResponse = await render("/goods");
   const goodsHtml = await goodsResponse.text();
   assert.match(goodsHtml, /page-intro-index[^>]*>03</);
@@ -135,10 +135,25 @@ test("chapter order, photo intros, compact goods gallery and map match the curre
   assert.match(guogangHtml, /page-intro-index[^>]*>01</);
   assert.match(guogangHtml, /認識過港\.jpg/);
   assert.match(guogangHtml, /新的居民，在過港落腳/);
-  assert.match(guogangHtml, /過港散策互動地圖/);
-  assert.match(guogangHtml, /地點名單待確認/);
+  assert.match(guogangHtml, /過港互動示意地圖/);
+  assert.match(guogangHtml, /暖暖溪河岸/);
+  assert.match(guogangHtml, /社區發展協會/);
+  assert.doesNotMatch(guogangHtml, /地點名單待確認/);
   assert.match(guogangHtml, /故事走到今天/);
-  assert.doesNotMatch(guogangHtml, /暖暖溪河岸|關懷據點|ABOUT THE SOURCE/);
+  assert.doesNotMatch(guogangHtml, /ABOUT THE SOURCE/);
+});
+
+test("interactive map supports pointer, touch and keyboard selection", async () => {
+  const map = await readFile(
+    new URL("../app/components/GuogangInteractiveMap.tsx", import.meta.url),
+    "utf8",
+  );
+  assert.match(map, /useState/);
+  assert.match(map, /onMouseEnter=/);
+  assert.match(map, /onFocus=/);
+  assert.match(map, /onClick=/);
+  assert.match(map, /aria-pressed=/);
+  assert.match(map, /id="guogang-map"/);
 });
 
 test("people page provides six neutral interview positions without invented profiles", async () => {

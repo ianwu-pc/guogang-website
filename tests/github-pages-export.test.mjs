@@ -59,8 +59,10 @@ test("exported pages preserve revision content and interactions", async () => {
   assert.match(goods, /product-gallery-arrow-next/);
   assert.match(goods, /過港好味\.jpg/);
   assert.match(guogang, /認識過港\.jpg/);
-  assert.match(guogang, /過港散策互動地圖/);
-  assert.match(guogang, /地點名單待確認/);
+  assert.match(guogang, /過港互動示意地圖/);
+  assert.match(guogang, /暖暖溪河岸/);
+  assert.match(guogang, /社區發展協會/);
+  assert.doesNotMatch(guogang, /地點名單待確認/);
   assert.match(people, /過港人物\.jpg/);
   assert.match(people, /人物6/);
   assert.match(about, /關於我們\.jpg/);
