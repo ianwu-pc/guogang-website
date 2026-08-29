@@ -36,9 +36,12 @@ test("exported pages preserve revision content and interactions", async () => {
   const people = await read("people/index.html");
   const about = await read("about/index.html");
 
-  assert.match(home, /過港，從一條河的對岸開始/);
+  assert.match(home, /這裡是過港/);
+  assert.match(home, /如果喜歡過港/);
+  assert.match(home, /02-2458-8802/);
   assert.match(goods, /product-gallery-arrow-next/);
-  assert.match(guogang, /過港互動示意地圖/);
+  assert.match(guogang, /過港散策互動地圖/);
+  assert.match(guogang, /地點名單待確認/);
   assert.match(people, /人物6/);
   assert.doesNotMatch(`${home}${about}`, /association-structure\.png|組織架構圖|會員大會/);
 });

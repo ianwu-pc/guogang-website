@@ -10,7 +10,7 @@ type GoodPageProps = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: GoodPageProps): Promise<Metadata> {
   const { slug } = await params;
   const good = GOODS.find((item) => item.slug === slug);
-  return { title: good?.name ?? "過港好物", description: good?.summary ?? "過港好物內容" };
+  return { title: good?.name ?? "過港好味", description: good?.summary ?? "過港好味內容" };
 }
 
 export default async function GoodDetailPage({ params }: GoodPageProps) {
@@ -21,7 +21,7 @@ export default async function GoodDetailPage({ params }: GoodPageProps) {
 
   return (
     <main className="article-page good-detail-page">
-      <div className="breadcrumb"><a href={sitePath("/")}>首頁</a><span>/</span><a href={sitePath("/goods")}>過港好物</a><span>/</span><span>{good.name}</span></div>
+      <div className="breadcrumb"><a href={sitePath("/")}>首頁</a><span>/</span><a href={sitePath("/goods")}>過港好味</a><span>/</span><span>{good.name}</span></div>
       <header className="good-detail-hero">
         <div className="good-title-block">
           <p className="eyebrow">GUOGANG GOODS / {String(index + 1).padStart(2, "0")}</p>

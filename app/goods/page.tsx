@@ -6,14 +6,14 @@ import { GOODS } from "../data/site";
 import { sitePath } from "../utils/sitePath";
 
 export const metadata: Metadata = {
-  title: "過港好物",
+  title: "過港好味",
   description: "從地方的味道、材料與雙手，認識過港的生活。",
 };
 
 export default function GoodsPage() {
   return (
     <main className="inner-page">
-      <PageIntro index="01" title="過港好物" description="從地方的味道、材料與雙手，認識過港的生活。" vertical="GOODS / HANDS / FLAVOR" />
+      <PageIntro index="01" title="過港好味" description="從地方的味道、材料與雙手，認識過港的生活。" vertical="GOODS / HANDS / FLAVOR" />
       <section className="goods-catalog-intro">
         <p>每件好物以一段簡短故事與可切換的多張照片呈現。正式產品文字與影像到位後，只需替換內容，不會再變成繁複的規格表。</p>
         <span>第一輯 / 01—06</span>

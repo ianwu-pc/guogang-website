@@ -20,13 +20,11 @@ export function SiteFooter() {
         </nav>
         <address>
           <span>地址｜{SITE_CONFIG.address}</span>
-          <span>電話｜{SITE_CONFIG.phone}</span>
-          <span>Email｜{SITE_CONFIG.email}</span>
+          <a href={`tel:${SITE_CONFIG.phone.replace(/-/g, "")}`}>電話｜{SITE_CONFIG.phone}</a>
         </address>
         <div className="footer-social">
-          <span>LINE｜連結待提供</span>
-          <span>Facebook｜連結待提供</span>
-          <span>Instagram｜連結待提供</span>
+          <span>LINE｜社群連結待提供</span>
+          <a href={SITE_CONFIG.facebookUrl} target="_blank" rel="noreferrer">Facebook｜前往專頁</a>
         </div>
       </div>
       <div className="footer-bottom">
