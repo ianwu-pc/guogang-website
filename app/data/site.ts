@@ -50,9 +50,9 @@ export const SITE_CONFIG = {
 };
 
 export const NAV_ITEMS = [
-  { label: "過港好味", href: "/goods" },
   { label: "認識過港", href: "/guogang" },
   { label: "過港人物", href: "/people" },
+  { label: "過港好味", href: "/goods" },
   { label: "關於我們", href: "/about" },
 ];
 
