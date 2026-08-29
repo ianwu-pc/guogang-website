@@ -85,10 +85,37 @@ test("homepage photo story shows the header fade before scrolling", async () => 
   );
 });
 
-test("chapter order, compact goods gallery and map match the latest document", async () => {
+test("serif typography prioritizes the native iPhone Songti family", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.match(
+    css,
+    /--serif:\s*"Songti TC",\s*"STSongti-TC-Regular",\s*"STSong",\s*"LiSong Pro"/,
+  );
+  assert.match(css, /h1,\s*\n+h2,\s*\n+h3\s*\{[\s\S]*?font-family:\s*var\(--serif\)/);
+  assert.match(css, /\.wordmark span\s*\{[\s\S]*?font-family:\s*var\(--serif\)/);
+});
+
+test("header color follows the visual section instead of a small scroll threshold", async () => {
+  const header = await readFile(
+    new URL("../app/components/SiteHeader.tsx", import.meta.url),
+    "utf8",
+  );
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+
+  assert.match(header, /const visualSection = pagePhoto \?\? story/);
+  assert.match(header, /visualSection\.getBoundingClientRect\(\)\.bottom <= headerHeight/);
+  assert.match(header, /overPagePhoto && !menuOpen/);
+  assert.match(
+    css,
+    /body:has\(\.scroll-story-sticky\.has-photo\) \.site-header:not\(\.is-scrolled\)/,
+  );
+});
+
+test("chapter order, photo intros, compact goods gallery and map match the current site", async () => {
   const goodsResponse = await render("/goods");
   const goodsHtml = await goodsResponse.text();
-  assert.match(goodsHtml, /page-intro-index[^>]*>01</);
+  assert.match(goodsHtml, /page-intro-index[^>]*>03</);
+  assert.match(goodsHtml, /過港好味\.jpg/);
   assert.doesNotMatch(goodsHtml, /catalog-index|product-gallery-count|product-gallery-dots|product-gallery-controls/);
   assert.match(goodsHtml, /product-gallery-arrow-prev/);
   assert.match(goodsHtml, /product-gallery-arrow-next/);
@@ -102,7 +129,8 @@ test("chapter order, compact goods gallery and map match the latest document", a
 
   const guogangResponse = await render("/guogang");
   const guogangHtml = await guogangResponse.text();
-  assert.match(guogangHtml, /page-intro-index[^>]*>02</);
+  assert.match(guogangHtml, /page-intro-index[^>]*>01</);
+  assert.match(guogangHtml, /認識過港\.jpg/);
   assert.match(guogangHtml, /新的居民，在過港落腳/);
   assert.match(guogangHtml, /過港散策互動地圖/);
   assert.match(guogangHtml, /地點名單待確認/);
@@ -113,6 +141,8 @@ test("chapter order, compact goods gallery and map match the latest document", a
 test("people page provides six neutral interview positions without invented profiles", async () => {
   const response = await render("/people");
   const html = await response.text();
+  assert.match(html, /page-intro-index[^>]*>02</);
+  assert.match(html, /過港人物\.jpg/);
   assert.match(html, /人物1/);
   assert.match(html, /人物6/);
   assert.match(html, /訪談資料整理中/);
@@ -122,6 +152,8 @@ test("people page provides six neutral interview positions without invented prof
 test("about page does not publish the supplied organization chart", async () => {
   const response = await render("/about");
   const html = await response.text();
+  assert.match(html, /page-intro-index[^>]*>04</);
+  assert.match(html, /關於我們\.jpg/);
   assert.doesNotMatch(html, /association-structure\.png|組織架構圖|會員大會/);
 });
 

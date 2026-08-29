@@ -11,7 +11,7 @@
   --line: rgba(23, 36, 29, 0.25);
   --line-light: rgba(241, 238, 227, 0.35);
   --line-green: #06c755;
-  --serif: "Noto Serif TC", "Source Han Serif TC", "Songti TC", "PMingLiU", serif;
+  --serif: "Songti TC", "STSongti-TC-Regular", "STSong", "LiSong Pro", "Noto Serif TC", "Source Han Serif TC", "PMingLiU", ui-serif, serif;
   --sans: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", "Heiti TC", sans-serif;
   --page-x: clamp(1.25rem, 4vw, 5rem);
   --max: 1440px;
