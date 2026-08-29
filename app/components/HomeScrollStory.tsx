@@ -4,34 +4,47 @@ import type { CSSProperties } from "react";
 import { useEffect, useRef, useState } from "react";
 import { sitePath } from "../utils/sitePath";
 
-const STAGES = [
+type StoryStage = {
+  number: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  imageLabel: string;
+  tone: "paper" | "ink" | "ochre" | "green";
+  image?: string;
+};
+
+const STAGES: StoryStage[] = [
   {
     number: "01",
     eyebrow: "RIVER / PLACE",
-    title: "過港，從一條河的對岸開始。",
-    description: "早年的河岸有港口，茶葉與大菁由渡船往來。人們把河的另一端叫作過港，一個地方的名字就這樣留了下來。",
+    title: "這裡是過港。",
+    description: "一個沿著基隆河生活的地方。",
+    imageLabel: "基隆河、過港環境大景｜待提供",
     tone: "paper",
   },
   {
     number: "02",
-    eyebrow: "1949 / SETTLEMENT",
-    title: "人們搬進來，地方開始有了新的日常。",
-    description: "民國三十八年後，新的居民在這裡落腳。宿舍、學校與生活設施，慢慢把聚落連成一個社區。",
+    eyebrow: "PEOPLE / DAILY LIFE",
+    title: "過港的樣子，藏在每個人的日常裡。",
+    description: "居民的日常生活與工作影像｜待提供",
+    imageLabel: "居民日常、社區志工與工作畫面｜待提供",
     tone: "ink",
-    image: "/images/guogang-history-1949.png",
   },
   {
     number: "03",
-    eyebrow: "LIFE / MEMORY",
-    title: "地方不是一張地圖，是每天一起生活的人。",
-    description: "市場、河岸、老宿舍與新住宅並存。不同世代帶著各自的記憶，在過港相遇。",
+    eyebrow: "HANDS / FLAVOR",
+    title: "而這些日常，也被一雙雙手做成了味道。",
+    description: "商品製作、備料過程與完成品影像｜待提供",
+    imageLabel: "備料、料理、手部與商品製作過程｜待提供",
     tone: "ochre",
   },
   {
     number: "04",
-    eyebrow: "STORY / CONTINUES",
-    title: "把故事留下來，也把下一段生活一起寫下去。",
-    description: "從地方歷史、過港好物到協會的行動，往下繼續閱讀這個社區如何走到今天。",
+    eyebrow: "STORY / FURTHER",
+    title: "把過港的故事，帶到更遠的地方。",
+    description: "完成的產品、人與產品合照｜待提供",
+    imageLabel: "最能代表現在過港的影像｜待提供",
     tone: "green",
   },
 ];
@@ -83,7 +96,13 @@ export function HomeScrollStory() {
       <section className="scroll-story-static" aria-label="過港地方故事">
         {STAGES.map((stage) => (
           <article className={`scroll-story-static-card tone-${stage.tone}`} key={stage.number}>
-            {stage.image ? <img src={sitePath(stage.image)} alt="過港早期聚落歷史照片" /> : null}
+            {stage.image ? (
+              <img src={sitePath(stage.image)} alt={stage.imageLabel} />
+            ) : (
+              <div className="scroll-story-static-placeholder" role="img" aria-label={stage.imageLabel}>
+                {stage.imageLabel}
+              </div>
+            )}
             <span>{stage.number}</span>
             <p className="eyebrow">{stage.eyebrow}</p>
             <h1>{stage.title}</h1>
@@ -106,14 +125,15 @@ export function HomeScrollStory() {
       <div className={`scroll-story-sticky tone-${stage.tone}`}>
         {stage.image ? (
           <div className="scroll-story-photo" key={stage.image}>
-            <img src={sitePath(stage.image)} alt="過港早期聚落歷史照片" />
+            <img src={sitePath(stage.image)} alt={stage.imageLabel} />
             <span aria-hidden="true" />
           </div>
         ) : (
-          <div className="scroll-story-art" aria-hidden="true" key={stage.number}>
+          <div className="scroll-story-art" role="img" aria-label={stage.imageLabel} key={stage.number}>
             <span />
             <span />
             <span />
+            <small>{stage.imageLabel}</small>
           </div>
         )}
 

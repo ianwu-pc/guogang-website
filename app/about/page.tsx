@@ -75,15 +75,14 @@ export default function AboutPage() {
         <div>
           <p className="eyebrow light">CONTACT US</p>
           <h2>與過港保持聯絡</h2>
-          <p>網站只會刊登協會確認可公開的正式聯絡方式；附檔中的個人電話、Email 與內部資料不會直接公開。</p>
-          <LineAction />
+          <p>想知道最近的社區好味與活動，可以加入 LINE 社群；也歡迎從 Facebook 看見更多過港的日常。</p>
+          <LineAction label="加入 LINE 看本期好味" />
         </div>
         <dl>
           <div><dt>地址</dt><dd>{SITE_CONFIG.address}</dd></div>
-          <div><dt>電話</dt><dd>{SITE_CONFIG.phone}</dd></div>
-          <div><dt>Email</dt><dd>{SITE_CONFIG.email}</dd></div>
-          <div><dt>Facebook</dt><dd>連結待提供</dd></div>
-          <div><dt>Instagram</dt><dd>連結待提供</dd></div>
+          <div><dt>電話</dt><dd><a href={`tel:${SITE_CONFIG.phone.replace(/-/g, "")}`}>{SITE_CONFIG.phone}</a></dd></div>
+          <div><dt>Facebook</dt><dd><a href={SITE_CONFIG.facebookUrl} target="_blank" rel="noreferrer">前往 Facebook 專頁</a></dd></div>
+          <div><dt>LINE 社群</dt><dd>連結／QR Code 待提供</dd></div>
         </dl>
       </section>
 

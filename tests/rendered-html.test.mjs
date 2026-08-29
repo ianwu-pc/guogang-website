@@ -33,18 +33,26 @@ test("all required public routes render", async () => {
 test("homepage contains the complete editorial structure", async () => {
   const response = await render("/");
   const html = await response.text();
-  assert.match(html, /過港，從一條河的對岸開始/);
-  assert.match(html, /河岸、宿舍與市場/);
-  assert.match(html, /一件好物，不只說明材料/);
-  assert.match(html, /先把位置留給真正的聲音/);
-  assert.match(html, /一個協會的歷程/);
-  assert.match(html, /一起生活，/);
+  assert.match(html, /這裡是過港/);
+  assert.match(html, /一個名字，/);
+  assert.match(html, /把熟悉的日常/);
+  assert.match(html, /goods-01-cutout\.png/);
+  assert.match(html, /好物 02/);
+  assert.match(html, /好物 03/);
+  assert.match(html, /瓶蓋牆奶奶/);
+  assert.match(html, /早餐店老闆娘/);
+  assert.match(html, /製作社區商品的媽媽/);
+  assert.match(html, /一群人一起做的事/);
+  assert.match(html, /如果喜歡過港/);
+  assert.match(html, /205 基隆市暖暖區過港里過港路 54 號/);
+  assert.match(html, /02-2458-8802/);
+  assert.match(html, /前往 Facebook/);
   assert.doesNotMatch(html, /association-structure\.png|組織架構圖/);
-  assert.doesNotMatch(html, /六組人物|姓名｜待提供|社區故事 01/);
+  assert.doesNotMatch(html, /社區故事 01/);
   assert.doesNotMatch(html, /codex-preview|Starter Project|Building your site|react-loading-skeleton/i);
 });
 
-test("chapter order, compact goods gallery and map match revision two", async () => {
+test("chapter order, compact goods gallery and map match the latest document", async () => {
   const goodsResponse = await render("/goods");
   const goodsHtml = await goodsResponse.text();
   assert.match(goodsHtml, /page-intro-index[^>]*>01</);
@@ -62,9 +70,11 @@ test("chapter order, compact goods gallery and map match revision two", async ()
   const guogangResponse = await render("/guogang");
   const guogangHtml = await guogangResponse.text();
   assert.match(guogangHtml, /page-intro-index[^>]*>02</);
-  assert.match(guogangHtml, /過港互動示意地圖/);
-  assert.match(guogangHtml, /暖暖溪河岸/);
-  assert.match(guogangHtml, /關懷據點/);
+  assert.match(guogangHtml, /新的居民，在過港落腳/);
+  assert.match(guogangHtml, /過港散策互動地圖/);
+  assert.match(guogangHtml, /地點名單待確認/);
+  assert.match(guogangHtml, /故事走到今天/);
+  assert.doesNotMatch(guogangHtml, /暖暖溪河岸|關懷據點|ABOUT THE SOURCE/);
 });
 
 test("people page provides six neutral interview positions without invented profiles", async () => {
@@ -99,5 +109,6 @@ test("unset LINE links render safe buttons without fake URLs", async () => {
   const response = await render("/");
   const html = await response.text();
   assert.match(html, /LINE 連結即將提供/);
+  assert.match(html, /加入 LINE 看本期好味/);
   assert.doesNotMatch(html, /line\.me|lin\.ee/i);
 });

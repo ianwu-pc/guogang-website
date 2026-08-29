@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
       default: "過港｜地方、人物與生活的故事",
       template: "%s｜過港",
     },
-    description: "從地方的名字、好物、人物與社區生活，慢慢認識過港。",
+    description: "從河岸的名字、過港好味、人物與社區生活，慢慢認識過港。",
     openGraph: {
       type: "website",
       locale: "zh_TW",

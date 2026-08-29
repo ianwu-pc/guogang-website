@@ -3,6 +3,7 @@ import { GuogangInteractiveMap } from "../components/GuogangInteractiveMap";
 import { PageIntro } from "../components/PageIntro";
 import { Timeline } from "../components/Timeline";
 import { GUOGANG_TIMELINE } from "../data/site";
+import { sitePath } from "../utils/sitePath";
 
 export const metadata: Metadata = {
   title: "認識過港",
@@ -22,19 +23,22 @@ export default function GuogangPage() {
       <section className="timeline-opening">
         <p className="eyebrow">THE STORY OF GUOGANG</p>
         <h2>過港不是一個突然出現的名字，<br />而是被河流、移居與日常慢慢寫下的地方。</h2>
-        <p>以下依據社區認證資料整理地方發展脈絡。年份同時保留民國與西元標示，讓每一段記憶都能回到清楚的時間位置。</p>
       </section>
 
       <section className="timeline-section">
         <Timeline entries={GUOGANG_TIMELINE} label="過港地方故事時間線" />
       </section>
 
-      <aside className="timeline-source-note">
-        <span>ABOUT THE SOURCE</span>
-        <p>時間線以附檔中的地方沿革與社區資料為基礎，濃縮為適合公開閱讀的內容；未刊登個人聯絡資料與內部表格。</p>
-      </aside>
-
       <GuogangInteractiveMap />
+
+      <section className="guogang-ending">
+        <p className="eyebrow light">THE STORY CONTINUES</p>
+        <h2>故事走到今天，<br />生活還在繼續。</h2>
+        <div className="button-row">
+          <a className="button button-outline-light" href={sitePath("/goods")}>看看過港好味</a>
+          <a className="button button-outline-light" href={sitePath("/people")}>人與過港</a>
+        </div>
+      </section>
     </main>
   );
 }
