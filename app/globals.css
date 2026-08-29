@@ -147,7 +147,8 @@ h3 {
 }
 
 .site-header.is-scrolled::before,
-.site-header.menu-open::before {
+.site-header.menu-open::before,
+body:has(.scroll-story-sticky.has-photo) .site-header::before {
   position: absolute;
   inset: 0;
   z-index: 0;
