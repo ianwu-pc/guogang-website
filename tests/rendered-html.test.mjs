@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -34,6 +35,9 @@ test("homepage contains the complete editorial structure", async () => {
   const response = await render("/");
   const html = await response.text();
   assert.match(html, /這裡是過港/);
+  assert.match(html, /home-scroll-01\.webp/);
+  assert.match(html, /home-scroll-01-1280\.webp/);
+  assert.match(html, /scroll-story-sticky tone-paper has-photo/);
   assert.match(html, /一個名字，/);
   assert.match(html, /把熟悉的日常/);
   assert.match(html, /goods-01-cutout\.png/);
@@ -50,6 +54,27 @@ test("homepage contains the complete editorial structure", async () => {
   assert.doesNotMatch(html, /association-structure\.png|組織架構圖/);
   assert.doesNotMatch(html, /社區故事 01/);
   assert.doesNotMatch(html, /codex-preview|Starter Project|Building your site|react-loading-skeleton/i);
+});
+
+test("homepage scroll story maps all four supplied photos in order", async () => {
+  const source = await readFile(
+    new URL("../app/components/HomeScrollStory.tsx", import.meta.url),
+    "utf8",
+  );
+  const desktopImages = ["01", "02", "03", "04"].map(
+    (number) => `home-scroll-${number}.webp`,
+  );
+
+  for (const number of ["01", "02", "03", "04"]) {
+    assert.match(source, new RegExp(`home-scroll-${number}\\.webp`));
+    assert.match(source, new RegExp(`home-scroll-${number}-1280\\.webp`));
+  }
+
+  assert.deepEqual(
+    desktopImages.map((image) => source.indexOf(image)),
+    desktopImages.map((image) => source.indexOf(image)).toSorted((a, b) => a - b),
+    "homepage scroll photos should follow scene order",
+  );
 });
 
 test("chapter order, compact goods gallery and map match the latest document", async () => {

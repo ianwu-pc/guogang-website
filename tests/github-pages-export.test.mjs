@@ -16,6 +16,14 @@ const requiredFiles = [
   "people/index.html",
   "about/index.html",
   "images/guogang-history-1949.png",
+  "images/home/home-scroll-01.webp",
+  "images/home/home-scroll-01-1280.webp",
+  "images/home/home-scroll-02.webp",
+  "images/home/home-scroll-02-1280.webp",
+  "images/home/home-scroll-03.webp",
+  "images/home/home-scroll-03-1280.webp",
+  "images/home/home-scroll-04.webp",
+  "images/home/home-scroll-04-1280.webp",
   "images/goods/goods-01-cutout.png",
   "images/goods/goods-01-photo.jpg",
   "og-revision.png",
@@ -37,6 +45,8 @@ test("exported pages preserve revision content and interactions", async () => {
   const about = await read("about/index.html");
 
   assert.match(home, /這裡是過港/);
+  assert.match(home, /home-scroll-01\.webp/);
+  assert.match(home, /home-scroll-01-1280\.webp/);
   assert.match(home, /如果喜歡過港/);
   assert.match(home, /02-2458-8802/);
   assert.match(goods, /product-gallery-arrow-next/);
