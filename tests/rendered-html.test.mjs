@@ -77,6 +77,14 @@ test("homepage scroll story maps all four supplied photos in order", async () =>
   );
 });
 
+test("homepage photo story shows the header fade before scrolling", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.match(
+    css,
+    /body:has\(\.scroll-story-sticky\.has-photo\) \.site-header::before/,
+  );
+});
+
 test("chapter order, compact goods gallery and map match the latest document", async () => {
   const goodsResponse = await render("/goods");
   const goodsHtml = await goodsResponse.text();
