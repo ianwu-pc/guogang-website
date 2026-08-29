@@ -27,7 +27,6 @@ const requiredFiles = [
   "images/home/home-scroll-03-1280.webp",
   "images/home/home-scroll-04.webp",
   "images/home/home-scroll-04-1280.webp",
-  "images/illustrations/guogang-river-sketch.png",
   "images/認識過港.jpg",
   "images/過港人物.jpg",
   "images/過港好味.jpg",

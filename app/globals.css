@@ -289,6 +289,41 @@ body:has(.scroll-story-sticky.has-photo) .site-header::before {
 .button-primary:hover { background: var(--clay-dark); }
 .button-line { background: var(--line-green); color: #081d11; }
 .button-line:hover { background: #10b84f; }
+.header-line-button {
+  min-height: 44px;
+  padding: 0.55rem 0.18rem 0.48rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+}
+.header-line-button::before {
+  order: 2;
+  margin-left: 0.35rem;
+  content: "↗";
+  font-size: 1rem;
+  font-weight: 400;
+  opacity: 0.62;
+  transform: rotate(-3deg);
+}
+.header-line-button::after {
+  position: absolute;
+  right: -0.15rem;
+  bottom: 0.28rem;
+  left: -0.15rem;
+  height: 0.26rem;
+  border-radius: 52% 48% 63% 37%;
+  background: currentColor;
+  content: "";
+  opacity: 0.16;
+  transform: rotate(-1.2deg) skewX(-12deg);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+.header-line-button:hover,
+.header-line-button:focus-visible { background: transparent; color: inherit; }
+.header-line-button:hover::after,
+.header-line-button:focus-visible::after { opacity: 0.48; transform: rotate(-1.2deg) skewX(-12deg) scaleX(1.05); }
 .button-outline { border-color: var(--ink); background: transparent; }
 .button-outline:hover { background: var(--ink); color: var(--paper); }
 .button-outline-light { border-color: var(--paper); color: var(--paper); }
@@ -765,7 +800,7 @@ body:has(.scroll-story-sticky.has-photo) .site-header::before {
   .menu-open .primary-navigation { display: flex; flex-direction: column; }
   .primary-navigation ul { display: grid; grid-template-columns: repeat(2, 1fr); align-items: stretch; }
   .primary-navigation a:not(.button) { min-height: 48px; display: flex; align-items: center; border-bottom: 1px solid var(--line); }
-  .header-line-button { width: 100%; }
+  .header-line-button { width: max-content; align-self: flex-start; }
   .hero-layout { grid-template-columns: 0.9fr 1.1fr; }
   .hero-copy h1 { width: 128%; }
   .topic-row,
@@ -1014,48 +1049,9 @@ body:has(.scroll-story-sticky.has-photo) .site-header:not(.is-scrolled) { color:
   to { transform: translateY(0); }
 }
 
-.scroll-story-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-}
-
-.scroll-story-number {
-  color: inherit;
-  font-family: var(--serif);
-  font-size: clamp(1.3rem, 2vw, 1.8rem);
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  line-height: 1;
-}
-
-.scroll-story-note {
-  position: relative;
-  padding: 0.1rem 0.3rem 0.35rem;
-  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
-  font-size: clamp(0.67rem, 0.75vw, 0.82rem);
-  font-style: italic;
-  font-weight: 500;
-  letter-spacing: 0.055em;
-  text-transform: none;
-}
-
-.scroll-story-note::after {
-  position: absolute;
-  right: -0.2rem;
-  bottom: 0;
-  left: -0.1rem;
-  height: 0.22rem;
-  border-radius: 62% 38% 58% 42%;
-  background: currentColor;
-  content: "";
-  opacity: 0.42;
-  transform: rotate(-1.4deg) skewX(-12deg);
-}
-
 .scroll-story-copy h1 {
   max-width: 940px;
-  margin: clamp(2rem, 5vh, 4rem) 0 1.5rem;
+  margin: 0 0 1.5rem;
   color: inherit;
   font-size: clamp(4rem, 9.2vw, 9.5rem);
   line-height: 1.02;
@@ -1106,7 +1102,6 @@ body:has(.scroll-story-sticky.has-photo) .site-header:not(.is-scrolled) { color:
 .home-people-placeholder span { font-size: 0.68rem; letter-spacing: 0.2em; }
 .home-people-placeholder strong { max-width: 10ch; font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 600; line-height: 1.15; }
 
-.home-river-sketch { position: absolute; right: -2vw; bottom: -1.5rem; z-index: -1; width: min(34vw, 470px); height: auto; opacity: 0.14; mix-blend-mode: multiply; pointer-events: none; }
 .home-feature-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.25rem, 2.4vw, 2.5rem); align-items: start; border: 0; background: transparent; }
 .home-feature-card { min-width: 0; height: 100%; padding: 0 0 1.4rem; background: transparent; }
 .home-feature-card .image-placeholder { width: 100%; margin: 0 0 1.2rem; }
@@ -1250,7 +1245,6 @@ body:has(.scroll-story-sticky.has-photo) .site-header:not(.is-scrolled) { color:
   .home-guide,
   .home-guide:nth-child(odd) { padding: 5rem 0; display: block; }
   .home-guide-number { display: block; margin-bottom: 1rem; }
-  .home-river-sketch { right: -18vw; bottom: 1rem; width: min(92vw, 430px); opacity: 0.09; }
   .home-guide-copy { margin-top: 2rem; }
   .scroll-story-art small { right: 1.2rem; bottom: 3.8rem; max-width: 14rem; }
   .home-feature-grid { grid-template-columns: 1fr; }

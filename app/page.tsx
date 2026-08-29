@@ -24,14 +24,6 @@ export default function Home() {
       <section className="home-guides" id="home-guides" aria-label="認識過港的地方、好味與人物">
         <article className="home-guide home-guide-place">
           <div className="home-guide-number">01</div>
-          <img
-            className="home-river-sketch"
-            src={sitePath("/images/illustrations/guogang-river-sketch.png")}
-            alt=""
-            aria-hidden="true"
-            loading="lazy"
-            decoding="async"
-          />
           <ImagePlaceholder
             label="/images/guogang-history-1949.png"
             alt="過港早期聚落歷史照片"
