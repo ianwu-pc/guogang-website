@@ -85,6 +85,16 @@ test("homepage photo story shows the header fade before scrolling", async () => 
   );
 });
 
+test("serif typography prioritizes the native iPhone Songti family", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.match(
+    css,
+    /--serif:\s*"Songti TC",\s*"STSongti-TC-Regular",\s*"STSong",\s*"LiSong Pro"/,
+  );
+  assert.match(css, /h1,\s*\n+h2,\s*\n+h3\s*\{[\s\S]*?font-family:\s*var\(--serif\)/);
+  assert.match(css, /\.wordmark span\s*\{[\s\S]*?font-family:\s*var\(--serif\)/);
+});
+
 test("header color follows the visual section instead of a small scroll threshold", async () => {
   const header = await readFile(
     new URL("../app/components/SiteHeader.tsx", import.meta.url),
