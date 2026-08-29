@@ -46,7 +46,7 @@ export function ProductGallery({ images, name, tone = "clay", ratio = "landscape
               }}
               aria-label={`查看${name}上一張照片`}
             >
-              <span aria-hidden="true">‹</span>
+              <span aria-hidden="true">&lt;</span>
             </button>
             <button
               className="product-gallery-arrow product-gallery-arrow-next"
@@ -58,7 +58,7 @@ export function ProductGallery({ images, name, tone = "clay", ratio = "landscape
               }}
               aria-label={`查看${name}下一張照片`}
             >
-              <span aria-hidden="true">›</span>
+              <span aria-hidden="true">&gt;</span>
             </button>
           </>
         ) : null}

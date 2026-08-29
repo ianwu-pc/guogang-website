@@ -38,6 +38,11 @@ test("homepage contains the complete editorial structure", async () => {
   assert.match(html, /home-scroll-01\.webp/);
   assert.match(html, /home-scroll-01-1280\.webp/);
   assert.match(html, /scroll-story-sticky tone-paper has-photo/);
+  assert.match(html, /River notes · place/);
+  assert.match(html, /scroll-story-number/);
+  assert.match(html, /scroll-story-note/);
+  assert.match(html, /guogang-river-sketch\.png/);
+  assert.doesNotMatch(html, /scroll-story-progress/);
   assert.match(html, /一個名字，/);
   assert.match(html, /把熟悉的日常/);
   assert.match(html, /goods-01-cutout\.png/);
@@ -75,6 +80,19 @@ test("homepage scroll story maps all four supplied photos in order", async () =>
     desktopImages.map((image) => source.indexOf(image)).toSorted((a, b) => a - b),
     "homepage scroll photos should follow scene order",
   );
+});
+
+test("homepage and goods controls use the organic, borderless treatment", async () => {
+  const home = await readFile(new URL("../app/components/HomeScrollStory.tsx", import.meta.url), "utf8");
+  const gallery = await readFile(new URL("../app/components/ProductGallery.tsx", import.meta.url), "utf8");
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+
+  assert.doesNotMatch(home, /scroll-story-progress/);
+  assert.match(home, /scroll-story-number/);
+  assert.match(gallery, /&lt;/);
+  assert.match(gallery, /&gt;/);
+  assert.match(css, /\.product-gallery-arrow\s*\{[\s\S]*?border:\s*0;[\s\S]*?background:\s*transparent;/);
+  assert.match(css, /\.product-gallery \.image-placeholder\s*\{\s*border:\s*0;/);
 });
 
 test("homepage photo story shows the header fade before scrolling", async () => {
