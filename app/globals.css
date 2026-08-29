@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Guogang Mobile Serif";
+  src: url("/fonts/guogang-serif-mobile.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 :root {
   --paper: #f1eee3;
   --paper-deep: #e7e1d2;
@@ -11,7 +19,7 @@
   --line: rgba(23, 36, 29, 0.25);
   --line-light: rgba(241, 238, 227, 0.35);
   --line-green: #06c755;
-  --serif: "Songti TC", "STSongti-TC-Regular", "STSong", "LiSong Pro", "Noto Serif TC", "Source Han Serif TC", "PMingLiU", ui-serif, serif;
+  --serif: "Noto Serif TC", "Source Han Serif TC", "Songti TC", "PMingLiU", serif;
   --sans: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", "Heiti TC", sans-serif;
   --page-x: clamp(1.25rem, 4vw, 5rem);
   --max: 1440px;
@@ -780,7 +788,10 @@ body:has(.scroll-story-sticky.has-photo) .site-header::before {
 }
 
 @media (max-width: 760px) {
-  :root { --page-x: 1.2rem; }
+  :root {
+    --page-x: 1.2rem;
+    --serif: "Guogang Mobile Serif", "Noto Serif TC", "Source Han Serif TC", "Songti TC", "PMingLiU", serif;
+  }
   body { font-size: 15px; }
   .header-inner { min-height: 70px; }
   .primary-navigation { top: 70px; }
