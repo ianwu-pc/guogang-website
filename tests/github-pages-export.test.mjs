@@ -17,6 +17,7 @@ const requiredFiles = [
   "about/index.html",
   "fonts/guogang-serif-mobile.woff2",
   "fonts/OFL-NotoSerifTC.txt",
+  "_next/static/fonts/guogang-serif-mobile.woff2",
   "images/guogang-history-1949.png",
   "images/home/home-scroll-01.webp",
   "images/home/home-scroll-01-1280.webp",
@@ -93,6 +94,17 @@ test("every exported local asset reference resolves inside the Pages artifact", 
   }
 
   assert.ok(assetPaths.size > 0, "exported pages should reference local assets");
+
+  for (const assetPath of [...assetPaths].filter((value) => value.endsWith(".css"))) {
+    const css = await read(assetPath);
+    const references = [...css.matchAll(/url\(([^)]+)\)/g)].map((match) => match[1].replace(/["']/g, ""));
+    for (const reference of references) {
+      if (/^(?:data:|https?:)/i.test(reference)) continue;
+      const referencedAsset = toArtifactAssetPath(reference);
+      if (referencedAsset) assetPaths.add(referencedAsset);
+    }
+  }
+
   for (const assetPath of assetPaths) await access(path.join(outputRoot, assetPath));
 });
 
