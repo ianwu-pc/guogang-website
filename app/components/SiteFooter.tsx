@@ -7,7 +7,7 @@ export function SiteFooter() {
     <footer className="site-footer">
       <div className="footer-lead">
         <p className="eyebrow light">KEEP THE STORY GOING</p>
-        <h2>從一個地方的名字開始，慢慢認識過港。</h2>
+        <h2><span className="heading-line">從一個地方的</span><span className="heading-line">名字開始，</span><span className="heading-line">慢慢認識過港。</span></h2>
         <LineAction />
       </div>
       <div className="footer-grid">

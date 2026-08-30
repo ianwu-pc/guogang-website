@@ -49,7 +49,7 @@ test("homepage contains the complete editorial structure", async () => {
   assert.match(html, /瓶蓋牆奶奶/);
   assert.match(html, /早餐店老闆娘/);
   assert.match(html, /煮飯媽媽/);
-  assert.match(html, /一群人一起做的事/);
+  assert.match(html, /一群人一起做的[\s\S]*?事/);
   assert.match(html, /如果喜歡過港/);
   assert.match(html, /205 基隆市暖暖區過港里過港路 54 號/);
   assert.match(html, /02-2458-8802/);
@@ -143,6 +143,7 @@ test("editorial headings balance naturally and matching levels share one size", 
   }
 
   assert.match(css, /h1,\s*h2,\s*h3\s*\{[\s\S]*?text-wrap:\s*balance/);
+  assert.match(css, /\.heading-line\s*\{[\s\S]*?display:\s*block;[\s\S]*?white-space:\s*nowrap/);
   assert.match(css, /\.about-people-power h2\s*\{\s*font-size:\s*var\(--type-section\)/);
   assert.match(
     css,

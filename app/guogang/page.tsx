@@ -22,7 +22,7 @@ export default function GuogangPage() {
 
       <section className="timeline-opening">
         <p className="eyebrow">THE STORY OF GUOGANG</p>
-        <h2>過港不是一個突然出現的名字，而是被河流、移居與日常慢慢寫下的地方。</h2>
+        <h2><span className="heading-line">過港不是一個</span><span className="heading-line">突然出現的名字，</span><span className="heading-line">而是被河流、移居</span><span className="heading-line">與日常慢慢寫下</span><span className="heading-line">的地方。</span></h2>
       </section>
 
       <section className="timeline-section">
@@ -33,7 +33,7 @@ export default function GuogangPage() {
 
       <section className="guogang-ending">
         <p className="eyebrow light">THE STORY CONTINUES</p>
-        <h2>故事走到今天，生活還在繼續。</h2>
+        <h2><span className="heading-line">故事走到今天，</span><span className="heading-line">生活還在繼續。</span></h2>
         <div className="button-row">
           <a className="button button-outline-light" href={sitePath("/goods")}>看看過港好味</a>
           <a className="button button-outline-light" href={sitePath("/people")}>人與過港</a>
