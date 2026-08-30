@@ -25,9 +25,15 @@ const host = process.env.PAGES_HOST ?? new URL(origin).host;
 const routes = [
   "/",
   "/goods",
-  ...Array.from({ length: 6 }, (_, index) => `/goods/goods-${String(index + 1).padStart(2, "0")}`),
+  ...Array.from({ length: 5 }, (_, index) => `/goods/goods-${String(index + 1).padStart(2, "0")}`),
   "/guogang",
   "/people",
+  "/people/bottle-cap-grandma",
+  "/people/breakfast-shop-owner",
+  "/people/community-kitchen-mother",
+  "/people/community-volunteer",
+  "/people/couple-story-one",
+  "/people/couple-story-two",
   "/about",
 ];
 

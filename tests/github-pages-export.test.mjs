@@ -11,7 +11,7 @@ const requiredFiles = [
   "index.html",
   "goods/index.html",
   "goods/goods-01/index.html",
-  "goods/goods-06/index.html",
+  "goods/goods-05/index.html",
   "guogang/index.html",
   "people/index.html",
   "about/index.html",
@@ -64,7 +64,8 @@ test("exported pages preserve revision content and interactions", async () => {
   assert.match(guogang, /社區發展協會/);
   assert.doesNotMatch(guogang, /地點名單待確認/);
   assert.match(people, /過港人物\.jpg/);
-  assert.match(people, /人物6/);
+  assert.match(people, /瓶蓋牆奶奶/);
+  assert.match(people, /夫妻故事二/);
   assert.match(about, /關於我們\.jpg/);
   assert.doesNotMatch(`${home}${about}`, /association-structure\.png|組織架構圖|會員大會/);
 });
