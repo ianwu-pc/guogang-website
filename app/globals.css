@@ -1292,21 +1292,13 @@ body { font-size: var(--type-body); }
   z-index: 4;
   left: 50%;
   bottom: clamp(1.4rem, 3vw, 2.4rem);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.1rem;
   color: rgba(248, 243, 231, 0.82);
-  font-family: var(--serif);
-  font-size: 0.78rem;
-  font-style: italic;
-  letter-spacing: 0.14em;
   text-shadow: 0 1px 8px rgba(8, 17, 13, 0.72);
   transform: translateX(-50%) rotate(-1.5deg);
   animation: scroll-cue-float 1.9s ease-in-out infinite;
   pointer-events: none;
 }
-.scroll-story-cue b { font-family: var(--sans); font-size: 1.55rem; font-style: normal; font-weight: 300; line-height: 1; }
+.scroll-story-cue span { display: block; font-family: var(--sans); font-size: 1.65rem; font-weight: 300; line-height: 1; }
 .scroll-story-cue-static { position: absolute; }
 @keyframes scroll-cue-float {
   0%, 100% { transform: translate(-50%, 0) rotate(-1.5deg); opacity: 0.72; }
@@ -1579,7 +1571,7 @@ body { font-size: var(--type-body); }
   .scroll-story-copy h1 { font-size: var(--type-display); }
   .scroll-story { height: calc(var(--stage-count) * 55svh + 30svh); }
   .scroll-story-static-card { min-height: max(42svh, 470px); }
-  .scroll-story-cue { bottom: 1.2rem; font-size: 0.72rem; }
+  .scroll-story-cue { bottom: 1.2rem; }
   .home-guides-opening h2,
   .timeline-opening h2 { font-size: var(--type-display); }
   .home-guide-copy h2,

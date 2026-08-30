@@ -124,8 +124,7 @@ export function HomeScrollStory() {
             <p>{stage.description}</p>
             {index === 0 ? (
               <div className="scroll-story-cue scroll-story-cue-static" aria-hidden="true">
-                <span>往下看看</span>
-                <b>↓</b>
+                <span>⌄</span>
               </div>
             ) : null}
           </article>
@@ -179,8 +178,7 @@ export function HomeScrollStory() {
 
         {activeIndex === 0 ? (
           <div className="scroll-story-cue" aria-hidden="true">
-            <span>往下看看</span>
-            <b>↓</b>
+            <span>⌄</span>
           </div>
         ) : null}
 
