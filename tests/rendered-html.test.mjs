@@ -102,6 +102,16 @@ test("homepage photo story shows the header fade before scrolling", async () => 
   );
 });
 
+test("homepage uses one organic scroll cue instead of the retired four-line progress", async () => {
+  const response = await render("/");
+  const html = await response.text();
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.match(html, /往下看看/);
+  assert.match(html, /scroll-story-cue/);
+  assert.match(css, /@keyframes scroll-cue-float/);
+  assert.doesNotMatch(html, /scroll-story-progress/);
+});
+
 test("desktop serif stays unchanged while mobile uses the bundled serif font", async () => {
   const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
   assert.match(
