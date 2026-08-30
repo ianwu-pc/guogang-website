@@ -1089,8 +1089,8 @@ body:has(.scroll-story-sticky.has-photo) .site-header:not(.is-scrolled) { color:
 .home-guides-opening h2 { grid-column: 1 / span 2; max-width: 1150px; font-size: clamp(3.5rem, 7vw, 7.3rem); }
 .home-guides-opening > p:last-child { grid-column: 2; max-width: 42rem; color: var(--green-soft); }
 
-.home-guide { position: relative; padding: clamp(6rem, 10vw, 11rem) 0; display: grid; grid-template-columns: 70px minmax(0, 1.2fr) minmax(280px, 0.8fr); gap: clamp(1.5rem, 4vw, 5rem); align-items: center; border-bottom: 1px solid var(--line); isolation: isolate; }
-.home-guide:nth-child(odd) { grid-template-columns: 70px minmax(280px, 0.8fr) minmax(0, 1.2fr); }
+.home-guide { position: relative; padding: clamp(6rem, 10vw, 11rem) 0; display: grid; grid-template-columns: 70px minmax(0, 1fr) minmax(280px, 1fr); gap: clamp(1.5rem, 4vw, 5rem); align-items: center; border-bottom: 1px solid var(--line); isolation: isolate; }
+.home-guide:nth-child(odd) { grid-template-columns: 70px minmax(280px, 1fr) minmax(0, 1fr); }
 .home-guide:nth-child(odd) .image-placeholder,
 .home-guide:nth-child(odd) .home-people-placeholder,
 .home-guide:nth-child(odd) .home-feature-grid { grid-column: 3; }
@@ -1120,7 +1120,7 @@ body:has(.scroll-story-sticky.has-photo) .site-header:not(.is-scrolled) { color:
   background: var(--green);
   color: var(--paper);
 }
-.home-more h2 { max-width: 12ch; margin: 0.8rem 0 1.5rem; color: inherit; font-size: var(--type-section); }
+.home-more h2 { max-width: none; margin: 0.8rem 0 1.5rem; color: inherit; font-size: var(--type-section); }
 .home-more-copy > p:not(.eyebrow) { max-width: 44rem; color: #d5ddd3; }
 .home-more .button-row { margin-top: 2rem; }
 .home-more .button-outline { border-color: var(--paper); color: var(--paper); }
@@ -1563,7 +1563,7 @@ body { font-size: var(--type-body); }
 @media (max-width: 620px) {
   :root {
     --type-display: clamp(2.8rem, 12vw, 4.25rem);
-    --type-section: clamp(2.25rem, 10vw, 3.5rem);
+    --type-section: clamp(2.25rem, 9.5vw, 3.5rem);
     --type-card: clamp(1.65rem, 8vw, 2.5rem);
   }
   .page-intro { min-height: 0; padding-top: 3.5rem; padding-bottom: 3rem; }
@@ -1723,6 +1723,11 @@ h2,
 h3 {
   overflow-wrap: normal;
   text-wrap: balance;
+}
+
+.heading-line {
+  display: block;
+  white-space: nowrap;
 }
 
 .people-overview-heading,

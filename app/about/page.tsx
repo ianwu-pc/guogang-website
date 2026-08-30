@@ -35,7 +35,7 @@ export default function AboutPage() {
         <ImagePlaceholder label="協會成員、志工與居民一起工作的自然照片｜待提供" ratio="landscape" tone="paper" />
         <div>
           <p className="eyebrow">WHO WE ARE</p>
-          <h2>從一起生活，到一起做社區。</h2>
+          <h2><span className="heading-line">從一起生活，</span><span className="heading-line">到一起做社區。</span></h2>
           <p>過港社區發展協會成立後，居民開始用更有組織的方式，一起面對社區裡不同的需要。從環境、居民照顧，到活動、課程與地方營造，許多事情不是由一個人完成，而是靠著居民、志工與不同夥伴，一點一點累積起來。</p>
           <p>對過港來說，社區不只是一個居住的範圍，也是大家可以一起參與、一起改變生活的地方。</p>
         </div>
@@ -44,7 +44,7 @@ export default function AboutPage() {
       <section className="about-work" aria-labelledby="about-work-title">
         <header>
           <p className="eyebrow">WHAT WE DO</p>
-          <h2 id="about-work-title">從生活裡看見需要，再一起想辦法。</h2>
+          <h2 id="about-work-title"><span className="heading-line">從生活裡看見需要，</span><span className="heading-line">再一起想辦法。</span></h2>
         </header>
         <div className="about-work-grid">
           {WORK_AREAS.map((area, index) => (
@@ -61,7 +61,7 @@ export default function AboutPage() {
       <section className="about-people-power">
         <div>
           <p className="eyebrow light">PEOPLE MAKE A COMMUNITY</p>
-          <h2>很多事情，都是從「有人願意」開始。</h2>
+          <h2><span className="heading-line">很多事情，</span><span className="heading-line">都是從「有人願意」</span><span className="heading-line">開始。</span></h2>
         </div>
         <p>社區裡的活動、課程與服務，背後都有許多居民與志工一起投入。有人準備餐食，有人陪伴長輩，有人照顧孩子，有人整理環境，也有人負責把大家重新聚在一起。每一件事情看起來或許不大，但長時間累積下來，就成為過港持續往前的力量。</p>
       </section>
@@ -69,7 +69,7 @@ export default function AboutPage() {
       <section className="about-journey" aria-labelledby="about-journey-title">
         <header>
           <p className="eyebrow">OUR JOURNEY</p>
-          <h2 id="about-journey-title">從過港開始，把經驗慢慢分享出去。</h2>
+          <h2 id="about-journey-title"><span className="heading-line">從過港開始，</span><span className="heading-line">把經驗慢慢分享</span><span className="heading-line">出去。</span></h2>
         </header>
         <ol>
           {JOURNEY.map(([year, text]) => <li key={year}><span>{year}</span><strong>{text}</strong></li>)}
@@ -79,14 +79,14 @@ export default function AboutPage() {
       <section className="about-future">
         <div>
           <p className="eyebrow">WHAT COMES NEXT</p>
-          <h2>讓過港被看見，也讓地方的生活繼續走下去。</h2>
+          <h2><span className="heading-line">讓過港被看見，</span><span className="heading-line">也讓地方的生活</span><span className="heading-line">繼續走下去。</span></h2>
           <p>現在的過港，除了持續陪伴居民與推動社區服務，也開始把地方的故事、人物與好味整理下來。希望讓原本發生在社區裡的事情，能被更多人認識；也讓過港的產品與生活故事，有機會走到更遠的地方。</p>
         </div>
         <ImagePlaceholder label="人物訪談、產品製作與過港現在的生活景象｜待提供" ratio="portrait" tone="ochre" />
       </section>
 
       <section className="about-ending">
-        <h2>過港的故事，還會繼續寫下去。</h2>
+        <h2><span className="heading-line">過港的故事，</span><span className="heading-line">還會繼續寫下去。</span></h2>
         <p>一個社區能走多遠，從來不是一個人的事情。謝謝每一位願意參與、願意留下來一起做事的人，也歡迎更多人從不同的方式，慢慢認識過港。</p>
         <div className="button-row">
           <a className="button button-primary" href={sitePath("/guogang")}>認識過港</a>
