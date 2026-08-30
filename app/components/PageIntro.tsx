@@ -20,7 +20,7 @@ const PAGE_INTRO_VISUALS: Record<
     image: "/images/認識過港.jpg",
     position: "center center",
   },
-  過港人物: {
+  人與過港: {
     index: "02",
     image: "/images/過港人物.jpg",
     position: "68% center",

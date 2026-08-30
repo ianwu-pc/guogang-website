@@ -44,11 +44,11 @@ test("homepage contains the complete editorial structure", async () => {
   assert.match(html, /一個名字，/);
   assert.match(html, /把熟悉的日常/);
   assert.match(html, /goods-01-cutout\.png/);
-  assert.match(html, /好物 02/);
-  assert.match(html, /好物 03/);
+  assert.match(html, /港式蘿蔔糕/);
+  assert.match(html, /鴉片鐵蛋/);
   assert.match(html, /瓶蓋牆奶奶/);
   assert.match(html, /早餐店老闆娘/);
-  assert.match(html, /製作社區商品的媽媽/);
+  assert.match(html, /煮飯媽媽/);
   assert.match(html, /一群人一起做的事/);
   assert.match(html, /如果喜歡過港/);
   assert.match(html, /205 基隆市暖暖區過港里過港路 54 號/);
@@ -173,14 +173,16 @@ test("interactive map supports pointer, touch and keyboard selection", async () 
   assert.match(map, /id="guogang-map"/);
 });
 
-test("people page provides six neutral interview positions without invented profiles", async () => {
+test("people page presents the six manuscript story directions without invented names", async () => {
   const response = await render("/people");
   const html = await response.text();
   assert.match(html, /page-intro-index[^>]*>02</);
   assert.match(html, /過港人物\.jpg/);
-  assert.match(html, /人物1/);
-  assert.match(html, /人物6/);
-  assert.match(html, /訪談資料整理中/);
+  assert.match(html, /瓶蓋牆奶奶/);
+  assert.match(html, /早餐店老闆娘/);
+  assert.match(html, /夫妻故事一/);
+  assert.match(html, /夫妻故事二/);
+  assert.match(html, /人物姓名與完整訪談仍在確認/);
   assert.doesNotMatch(html, /people-empty-index|01—/);
 });
 

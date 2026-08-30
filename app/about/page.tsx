@@ -2,67 +2,54 @@ import type { Metadata } from "next";
 import { ImagePlaceholder } from "../components/ImagePlaceholder";
 import { LineAction } from "../components/LineAction";
 import { PageIntro } from "../components/PageIntro";
-import { Timeline } from "../components/Timeline";
-import { ASSOCIATION_TIMELINE, HOME_COPY, SITE_CONFIG } from "../data/site";
+import { SITE_CONFIG } from "../data/site";
+import { sitePath } from "../utils/sitePath";
 
 export const metadata: Metadata = {
   title: "關於我們",
-  description: "沿著時間線認識過港社區發展協會、地方工作與參與方式。",
+  description: "從居民的生活出發，認識過港社區發展協會一路累積的地方行動。",
 };
 
 const WORK_AREAS = [
-  {
-    number: "01",
-    title: "全人服務",
-    description: "從長者照顧、兒少陪伴到家庭支持，讓不同生命階段都能在社區裡找到可依靠的連結。",
-  },
-  {
-    number: "02",
-    title: "環境與地方記憶",
-    description: "從河川巡守、壺穴守護到地方故事整理，讓生活環境與共同記憶一起被看見。",
-  },
-  {
-    number: "03",
-    title: "跨社區共好",
-    description: "分享領航經驗、陪伴夥伴提案與培力，讓一個社區累積的能力成為彼此可以使用的資源。",
-  },
+  { number: "01", title: "陪伴長者", description: "從關懷據點、樂齡學習，到巷弄長照、餐食與關懷訪視，讓長輩在熟悉的社區裡，有人陪伴，也能繼續參與生活。", image: "長者課程、共餐與志工陪伴｜待提供" },
+  { number: "02", title: "陪孩子成長", description: "透過課後陪伴、安心學園、親子活動與不同的學習體驗，陪孩子在社區裡安心長大，也慢慢認識自己生活的地方。", image: "兒少課程、親子活動與學習畫面｜待提供" },
+  { number: "03", title: "守護生活的環境", description: "從河川巡守、環境教育，到地方環境與壺穴等自然資源的關心，居民用自己的方式，一起照顧每天生活的地方。", image: "河川巡守、環境整理與壺穴守護｜待提供" },
+  { number: "04", title: "一起讓社區變得更好", description: "累積多年社區工作的經驗後，過港也開始和暖暖地區其他社區交流、合作，讓原本從過港開始的力量，慢慢連結到更多地方。", image: "跨社區交流、工作坊與聯合活動｜待提供" },
+];
+
+const JOURNEY = [
+  ["1993", "過港社區發展協會成立"],
+  ["地方行動", "開始投入地方環境、社區營造與居民服務"],
+  ["服務發展", "陸續發展長者、兒少、樂齡與環境相關服務"],
+  ["經驗分享", "成為福利社區化旗艦計畫的領航社區"],
+  ["跨區合作", "與暖暖地區其他社區交流合作"],
+  ["今天", "持續從居民的需要出發，尋找過港下一步能一起完成的事情"],
 ];
 
 export default function AboutPage() {
   return (
     <main className="inner-page about-page">
-      <PageIntro index="04" title="關於我們" description="一個協會的歷程，也是居民一起生活的紀錄。" vertical="ABOUT / TOGETHER / LOCAL" />
+      <PageIntro index="04" title="關於我們" description="過港社區發展協會成立於民國 82 年，做的事情一直從一個很簡單的問題開始：這個地方，現在需要什麼？" vertical="ABOUT US / GUOGANG" />
 
-      <section className="about-lead about-lead-revised">
-        <div className="about-logo-column">
-          <ImagePlaceholder label={SITE_CONFIG.logoImage || "過港社區發展協會 Logo｜待提供"} alt="過港社區發展協會 Logo" ratio="square" tone="paper" />
-          <span>GUOGANG COMMUNITY</span>
-        </div>
+      <section className="about-who">
+        <ImagePlaceholder label="協會成員、志工與居民一起工作的自然照片｜待提供" ratio="landscape" tone="paper" />
         <div>
-          <p className="eyebrow">ABOUT THE ASSOCIATION</p>
-          <h2>{SITE_CONFIG.associationName}</h2>
-          <p>{HOME_COPY.associationDescription}</p>
-          <blockquote>「全人服務、全方位的照顧，打造快樂安居的社區。」</blockquote>
+          <p className="eyebrow">WHO WE ARE</p>
+          <h2>從一起生活，<br />到一起做社區。</h2>
+          <p>過港社區發展協會成立後，居民開始用更有組織的方式，一起面對社區裡不同的需要。從環境、居民照顧，到活動、課程與地方營造，許多事情不是由一個人完成，而是靠著居民、志工與不同夥伴，一點一點累積起來。</p>
+          <p>對過港來說，社區不只是一個居住的範圍，也是大家可以一起參與、一起改變生活的地方。</p>
         </div>
       </section>
 
-      <section className="association-history" id="history">
-        <header className="timeline-opening association-timeline-opening">
-          <p className="eyebrow">OUR STORY / 協會歷程</p>
-          <h2>從居民關心的一件事開始，<br />一步一步走成今天的過港。</h2>
-          <p>這條時間線整合社區認證資料與民國 115 年計畫內容，已完成的成果與當年度計畫會分開標示。</p>
+      <section className="about-work" aria-labelledby="about-work-title">
+        <header>
+          <p className="eyebrow">WHAT WE DO</p>
+          <h2 id="about-work-title">從生活裡看見需要，<br />再一起想辦法。</h2>
         </header>
-        <Timeline entries={ASSOCIATION_TIMELINE} label="過港社區發展協會歷程時間線" />
-      </section>
-
-      <section className="association-work">
-        <div className="association-work-heading">
-          <p className="eyebrow">WHAT WE CARE ABOUT</p>
-          <h2>協會關心的，<br />始終是居民如何一起生活。</h2>
-        </div>
-        <div className="association-work-list">
-          {WORK_AREAS.map((area) => (
+        <div className="about-work-grid">
+          {WORK_AREAS.map((area, index) => (
             <article key={area.number}>
+              <ImagePlaceholder label={area.image} ratio="landscape" tone={index % 2 ? "clay" : "green"} />
               <span>{area.number}</span>
               <h3>{area.title}</h3>
               <p>{area.description}</p>
@@ -71,24 +58,51 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="contact-section" id="contact">
+      <section className="about-people-power">
         <div>
-          <p className="eyebrow light">CONTACT US</p>
-          <h2>與過港保持聯絡</h2>
-          <p>想知道最近的社區好味與活動，可以加入 LINE 社群；也歡迎從 Facebook 看見更多過港的日常。</p>
-          <LineAction label="加入 LINE 看本期好味" />
+          <p className="eyebrow light">PEOPLE MAKE A COMMUNITY</p>
+          <h2>很多事情，<br />都是從「有人願意」開始。</h2>
         </div>
+        <p>社區裡的活動、課程與服務，背後都有許多居民與志工一起投入。有人準備餐食，有人陪伴長輩，有人照顧孩子，有人整理環境，也有人負責把大家重新聚在一起。每一件事情看起來或許不大，但長時間累積下來，就成為過港持續往前的力量。</p>
+      </section>
+
+      <section className="about-journey" aria-labelledby="about-journey-title">
+        <header>
+          <p className="eyebrow">OUR JOURNEY</p>
+          <h2 id="about-journey-title">從過港開始，<br />把經驗慢慢分享出去。</h2>
+        </header>
+        <ol>
+          {JOURNEY.map(([year, text]) => <li key={year}><span>{year}</span><strong>{text}</strong></li>)}
+        </ol>
+      </section>
+
+      <section className="about-future">
+        <div>
+          <p className="eyebrow">WHAT COMES NEXT</p>
+          <h2>讓過港被看見，<br />也讓地方的生活繼續走下去。</h2>
+          <p>現在的過港，除了持續陪伴居民與推動社區服務，也開始把地方的故事、人物與好味整理下來。希望讓原本發生在社區裡的事情，能被更多人認識；也讓過港的產品與生活故事，有機會走到更遠的地方。</p>
+        </div>
+        <ImagePlaceholder label="人物訪談、產品製作與過港現在的生活景象｜待提供" ratio="portrait" tone="ochre" />
+      </section>
+
+      <section className="about-ending">
+        <h2>過港的故事，<br />還會繼續寫下去。</h2>
+        <p>一個社區能走多遠，從來不是一個人的事情。謝謝每一位願意參與、願意留下來一起做事的人，也歡迎更多人從不同的方式，慢慢認識過港。</p>
+        <div className="button-row">
+          <a className="button button-primary" href={sitePath("/guogang")}>認識過港</a>
+          <a className="button button-outline" href={sitePath("/people")}>人與過港</a>
+          <a className="button button-outline" href={sitePath("/goods")}>看看過港好味</a>
+        </div>
+      </section>
+
+      <section className="contact-section" id="contact">
+        <div><p className="eyebrow light">CONTACT US</p><h2>與過港保持聯絡</h2><p>想知道最近的社區好味與活動，可以加入 LINE 社群；也歡迎從 Facebook 看見更多過港的日常。</p><LineAction label="加入 LINE 看本期好味" /></div>
         <dl>
           <div><dt>地址</dt><dd>{SITE_CONFIG.address}</dd></div>
           <div><dt>電話</dt><dd><a href={`tel:${SITE_CONFIG.phone.replace(/-/g, "")}`}>{SITE_CONFIG.phone}</a></dd></div>
           <div><dt>Facebook</dt><dd><a href={SITE_CONFIG.facebookUrl} target="_blank" rel="noreferrer">前往 Facebook 專頁</a></dd></div>
           <div><dt>LINE 社群</dt><dd>連結／QR Code 待提供</dd></div>
         </dl>
-      </section>
-
-      <section className="site-info-note" id="site-info">
-        <h2>網站資訊與隱私權</h2>
-        <p>正式網站資訊與隱私權內容待提供。</p>
       </section>
     </main>
   );

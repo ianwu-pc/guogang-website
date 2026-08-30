@@ -2,19 +2,13 @@ import type { Metadata } from "next";
 import { HomeScrollStory } from "./components/HomeScrollStory";
 import { ImagePlaceholder } from "./components/ImagePlaceholder";
 import { LineAction } from "./components/LineAction";
-import { GOODS, HOME_COPY, SITE_CONFIG } from "./data/site";
+import { GOODS, HOME_COPY, PEOPLE, SITE_CONFIG } from "./data/site";
 import { sitePath } from "./utils/sitePath";
 
 export const metadata: Metadata = {
   title: { absolute: "過港｜地方、人物與生活的故事" },
   description: "從河岸的名字、過港好味與居民日常，慢慢認識過港。",
 };
-
-const HOME_PEOPLE = [
-  { number: "01", name: "瓶蓋牆奶奶", image: "人物肖像與瓶蓋牆生活照｜待提供" },
-  { number: "02", name: "早餐店老闆娘", image: "人物肖像與店內工作畫面｜待提供" },
-  { number: "03", name: "製作社區商品的媽媽", image: "人物肖像與商品製作過程｜待提供" },
-];
 
 export default function Home() {
   return (
@@ -68,13 +62,13 @@ export default function Home() {
         <article className="home-guide home-guide-people">
           <div className="home-guide-number">03</div>
           <div className="home-feature-grid home-people-grid">
-            {HOME_PEOPLE.map((person, index) => (
-              <article className="home-feature-card" key={person.number}>
-                <ImagePlaceholder label={person.image} ratio="portrait" tone={index % 2 ? "paper" : "green"} />
-                <span>{person.number}</span>
+            {PEOPLE.slice(0, 3).map((person, index) => (
+              <article className="home-feature-card" key={person.id}>
+                <ImagePlaceholder label={person.coverImage} ratio="portrait" tone={index % 2 ? "paper" : "green"} />
+                <span>{String(index + 1).padStart(2, "0")}</span>
                 <h3>{person.name}</h3>
-                <p>人物故事｜待提供</p>
-                <a className="text-link" href={sitePath("/people")}>閱讀故事 <span aria-hidden="true">→</span></a>
+                <p>{person.quote}</p>
+                <a className="text-link" href={sitePath(`/people/${person.slug}`)}>閱讀故事 <span aria-hidden="true">→</span></a>
               </article>
             ))}
           </div>

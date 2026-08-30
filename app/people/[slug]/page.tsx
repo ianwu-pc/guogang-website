@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: PersonPageProps): Promise<Met
   const person = PEOPLE.find((item) => item.slug === slug);
   const number = PEOPLE.findIndex((item) => item.slug === slug) + 1;
   return {
-    title: person ? `人物專訪 ${String(number).padStart(2, "0")}` : "過港人物",
+    title: person ? `人物故事 ${String(number).padStart(2, "0")}` : "人與過港",
     description: person?.summary ?? "過港人物專訪",
   };
 }
@@ -26,7 +26,7 @@ export default async function PersonDetailPage({ params }: PersonPageProps) {
 
   return (
     <main className="article-page person-detail-page">
-      <div className="breadcrumb"><a href={sitePath("/")}>首頁</a><span>/</span><a href={sitePath("/people")}>過港人物</a><span>/</span><span>專訪 {String(index + 1).padStart(2, "0")}</span></div>
+      <div className="breadcrumb"><a href={sitePath("/")}>首頁</a><span>/</span><a href={sitePath("/people")}>人與過港</a><span>/</span><span>故事 {String(index + 1).padStart(2, "0")}</span></div>
       <header className="person-article-hero">
         <div className="person-article-title">
           <p className="eyebrow">INTERVIEW / {String(index + 1).padStart(2, "0")}</p>

@@ -51,7 +51,7 @@ export const SITE_CONFIG = {
 
 export const NAV_ITEMS = [
   { label: "認識過港", href: "/guogang" },
-  { label: "過港人物", href: "/people" },
+  { label: "人與過港", href: "/people" },
   { label: "過港好味", href: "/goods" },
   { label: "關於我們", href: "/about" },
 ];
@@ -177,30 +177,95 @@ export const ASSOCIATION_TIMELINE = [
 
 // 日後替換圖片：把 coverImage / galleryImages 改成 /images/...，元件會自動顯示真實圖片。
 // 日後更新好物：維持欄位結構，新增項目即可自動出現在列表中。
-export const GOODS: Good[] = Array.from({ length: 6 }, (_, index) => {
+const GOOD_NAMES = ["雙匯水餃", "港式蘿蔔糕", "鴉片鐵蛋", "清潤銀耳露", "石花凍"];
+
+export const GOODS: Good[] = GOOD_NAMES.map((name, index) => {
   const number = String(index + 1).padStart(2, "0");
+  const isRadishCake = index === 1;
   return {
     id: `good-${number}`,
     slug: `goods-${number}`,
-    name: `好物 ${number}`,
-    summary: "產品內容｜資料待補",
-    flavor: "味道或特色｜資料待補",
-    maker: "製作者｜資料待補",
-    story: "產品與過港的關係及製作故事｜資料待補",
-    purchaseMethod: "購買方式｜資料待補",
-    coverImage: index === 0 ? "/images/goods/goods-01-cutout.png" : `好物照片 ${number}｜待提供`,
-    galleryImages:
-      index === 0
-        ? ["/images/goods/goods-01-photo.jpg"]
-        : [
-            `好物細節照片 ${number}-A｜待提供`,
-            `好物細節照片 ${number}-B｜待提供`,
-          ],
+    name,
+    summary: "商品故事與特色待社區確認後補上。",
+    flavor: "味道或特色｜待確認",
+    maker: "製作者｜待確認",
+    story: "產品與過港的關係及製作故事，待商品資料確認後整理。",
+    purchaseMethod: "採社區小量製作，最新商品與開團資訊將於 LINE 社群公告。",
+    coverImage: isRadishCake ? "/images/goods/goods-01-cutout.png" : `${name}完整照｜待提供`,
+    galleryImages: isRadishCake
+      ? ["/images/goods/goods-01-photo.jpg"]
+      : [`${name}製作過程照｜待提供`, `${name}料理或食用情境照｜待提供`],
   };
 });
 
-// 人物內容尚未提供。保留資料型別與路由，待取得正式訪談後再加入。
-export const PEOPLE: Person[] = [];
+export const PEOPLE: Person[] = [
+  {
+    id: "person-01",
+    slug: "bottle-cap-grandma",
+    name: "瓶蓋牆奶奶",
+    role: "人物姓名待確認",
+    summary: "過港熟悉的瓶蓋牆，來自一雙願意慢慢把事情做完的手。從一個個不起眼的瓶蓋開始，她用自己的方式，為社區留下了一道特別的地方風景。",
+    quote: "一個個瓶蓋，拼出了她眼中的過港。",
+    coverImage: "奶奶與瓶蓋牆｜待提供",
+    galleryImages: ["奶奶自然生活照｜待提供", "瓶蓋牆細節｜待提供"],
+    interviewContent: ["完整人物訪談正在整理中。正式內容完成後，將從她與瓶蓋牆的日常出發，記錄這道地方風景背後的故事。"],
+  },
+  {
+    id: "person-02",
+    slug: "breakfast-shop-owner",
+    name: "早餐店老闆娘",
+    role: "人物姓名待確認",
+    summary: "一間早餐店，也是街坊每天相遇的地方。從一份份早餐到一句句熟悉的招呼，她在店裡度過的日常，也陪著過港一天一天往前走。",
+    quote: "每天清晨，她比許多人更早看見過港醒來。",
+    coverImage: "早餐店老闆娘與店內工作畫面｜待提供",
+    galleryImages: ["早餐店店面與街坊｜待提供", "與熟客互動的自然照片｜待提供"],
+    interviewContent: ["完整人物訪談正在整理中。正式內容完成後，將從早餐店的清晨與街坊相遇的日常開始說起。"],
+  },
+  {
+    id: "person-03",
+    slug: "community-kitchen-mother",
+    name: "煮飯媽媽",
+    role: "人物姓名待確認",
+    summary: "從廚房裡的一道道料理，到現在一起製作社區的好味，她用一雙手，參與著過港每天最平常卻重要的生活。",
+    quote: "把熟悉的手路，做成一份可以分享的味道。",
+    coverImage: "煮飯媽媽自然肖像｜待提供",
+    galleryImages: ["煮飯與備料畫面｜待提供", "製作社區產品與手部細節｜待提供"],
+    interviewContent: ["完整人物訪談正在整理中。正式內容完成後，將從她熟悉的料理方式與社區好味的製作日常展開。"],
+  },
+  {
+    id: "person-04",
+    slug: "community-volunteer",
+    name: "協會志工",
+    role: "人物姓名待確認",
+    summary: "社區裡的一場活動、一次陪伴，或一件看似平常的小事，背後總有人默默準備。一點一點累積起來，也成為過港日常裡重要的力量。",
+    quote: "有些事情很小，但總要有人願意一直做。",
+    coverImage: "協會志工本人與服務畫面｜待提供",
+    galleryImages: ["志工與居民互動｜待提供", "社區工作或活動準備｜待提供"],
+    interviewContent: ["完整人物訪談正在整理中。正式內容完成後，將從一次次服務、陪伴與活動準備，記錄志工與過港的連結。"],
+  },
+  {
+    id: "person-05",
+    slug: "couple-story-one",
+    name: "夫妻故事一",
+    role: "人物姓名待確認",
+    summary: "人物介紹待訪談內容整理後決定。之後會從兩人和過港之間最特別的關係出發，找出屬於他們自己的故事。",
+    quote: "故事角度待訪談內容整理後決定。",
+    coverImage: "夫妻自然合照｜待提供",
+    galleryImages: ["在過港生活的畫面｜待提供", "與故事有關的地點或物件｜待提供"],
+    interviewContent: ["這組人物故事將依實際訪談內容整理，目前不先套用固定模板。"],
+  },
+  {
+    id: "person-06",
+    slug: "couple-story-two",
+    name: "夫妻故事二",
+    role: "人物姓名待確認",
+    summary: "人物介紹待訪談內容整理後決定。之後將依實際訪談內容，找出兩人看待過港最不一樣的地方。",
+    quote: "故事角度待訪談內容整理後決定。",
+    coverImage: "夫妻自然合照｜待提供",
+    galleryImages: ["夫妻生活畫面｜待提供", "與故事相關的地方照片｜待提供"],
+    interviewContent: ["這組人物故事將依實際訪談內容整理，並避免與上一組夫妻使用相同角度。"],
+  },
+];
 
 // 日後新增故事：複製一筆資料並更新 slug、分類與內容即可。
 export const STORIES: Story[] = Array.from({ length: 8 }, (_, index) => {
