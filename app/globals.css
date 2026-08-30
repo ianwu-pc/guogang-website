@@ -1687,6 +1687,7 @@ body { font-size: var(--type-body); }
 .about-work-grid h3 { margin: 0.4rem 0 0.8rem; font-size: var(--type-card); }
 .about-work-grid p { color: var(--green-soft); }
 .about-people-power { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(2rem, 7vw, 8rem); }
+.about-people-power h2 { font-size: var(--type-section); }
 .about-people-power > p { max-width: 46rem; color: #d5ddd3; }
 .about-journey ol { padding: 0; margin: 0; list-style: none; border-top: 1px solid var(--line); }
 .about-journey li { padding: 1.5rem 0; display: grid; grid-template-columns: minmax(110px, 0.3fr) 1fr; gap: 1rem; border-bottom: 1px solid var(--line); }
@@ -1714,4 +1715,57 @@ body { font-size: var(--type-body); }
   .goods-order li,
   .about-journey li { grid-template-columns: 1fr; }
   .about-people-power { padding-inline: 1.4rem; }
+}
+
+/* Balanced headings: avoid isolated Chinese characters and keep matching levels consistent. */
+h1,
+h2,
+h3 {
+  overflow-wrap: normal;
+  text-wrap: balance;
+}
+
+.people-overview-heading,
+.goods-catalog-intro,
+.about-work > header,
+.about-journey > header {
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+}
+
+.home-guide-copy h2,
+.timeline-card h2,
+.people-overview-heading h2,
+.goods-story-intro h2,
+.goods-catalog-intro h2,
+.goods-makers h2,
+.goods-small-batch h2,
+.goods-order h2,
+.goods-ending h2,
+.about-who h2,
+.about-work > header h2,
+.about-people-power h2,
+.about-journey > header h2,
+.about-future h2,
+.about-ending h2,
+.contact-section h2,
+.guogang-ending h2 {
+  font-size: var(--type-section);
+}
+
+.home-feature-card h3,
+.people-story-copy h3,
+.about-work-grid h3,
+.catalog-copy h2,
+.guogang-map-detail h3,
+.guogang-map-pending > aside h3 {
+  font-size: var(--type-card);
+}
+
+@media (max-width: 900px) {
+  .people-overview-heading,
+  .goods-catalog-intro,
+  .about-work > header,
+  .about-journey > header {
+    grid-template-columns: 1fr;
+  }
 }

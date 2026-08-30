@@ -26,7 +26,7 @@ export default function Home() {
           />
           <div className="home-guide-copy">
             <p className="eyebrow">01 / 認識過港</p>
-            <h2>一個名字，<br />從河的另一岸開始。</h2>
+            <h2>一個名字，從河的另一岸開始。</h2>
             <p>早年暖暖河岸設有港口，往來的人們乘著渡船渡過基隆河，而港口的另一岸，便被稱作「過港」。隨著不同的人來到這裡生活、落腳，過港也一點一點成為今天的模樣。</p>
             <a className="text-link" href={sitePath("/guogang")}>認識過港 <span aria-hidden="true">→</span></a>
           </div>
@@ -53,7 +53,7 @@ export default function Home() {
           </div>
           <div className="home-guide-copy">
             <p className="eyebrow">02 / 過港好味</p>
-            <h2>把熟悉的日常，<br />做成可以分享的味道。</h2>
+            <h2>把熟悉的日常，做成可以分享的味道。</h2>
             <p>有些味道，是在過港的生活裡慢慢累積下來的。從社區媽媽的一雙雙手，到大家一起製作、一起分享，這些屬於過港的好味，也成了認識這個地方的另一種方式。</p>
             <a className="text-link" href={sitePath("/goods")}>更多過港好味 <span aria-hidden="true">→</span></a>
           </div>
@@ -74,7 +74,7 @@ export default function Home() {
           </div>
           <div className="home-guide-copy">
             <p className="eyebrow">03 / 人與過港</p>
-            <h2>過港的樣子，<br />藏在生活於這裡的人身上。</h2>
+            <h2>過港的樣子，藏在生活於這裡的人身上。</h2>
             <p>有人守著每天清晨的味道，有人用雙手留下地方的風景，也有人默默投入社區，把一件件平凡的小事慢慢累積成今天的過港。從他們的生活裡，也能看見這個地方不同的模樣。</p>
             <a className="text-link" href={sitePath("/people")}>認識更多過港的人 <span aria-hidden="true">→</span></a>
           </div>
@@ -85,7 +85,7 @@ export default function Home() {
           <ImagePlaceholder label="協會成員、志工與居民互動畫面｜待提供" ratio="landscape" tone="clay" />
           <div className="home-guide-copy">
             <p className="eyebrow">04 / 關於我們</p>
-            <h2>一群人一起做的事，<br />慢慢成了社區的力量。</h2>
+            <h2>一群人一起做的事，慢慢成了社區的力量。</h2>
             <p>{HOME_COPY.associationDescription}</p>
             <div className="button-row">
               <a className="button button-primary" href={sitePath("/about")}>認識過港社區發展協會</a>
@@ -97,7 +97,7 @@ export default function Home() {
         <section className="home-more" aria-labelledby="home-more-title">
           <div className="home-more-copy">
             <p className="eyebrow">MORE GUOGANG / 更多過港</p>
-            <h2 id="home-more-title">如果喜歡過港，<br />也歡迎把這份味道帶回家。</h2>
+            <h2 id="home-more-title">如果喜歡過港，也歡迎把這份味道帶回家。</h2>
             <p>過港好味以社區小量製作為主，商品會依實際產量不定期開團。如果想知道最近有哪些商品，可以加入 LINE 社群查看最新開團資訊；也可以從 Facebook 看見更多過港的日常與活動。</p>
             <div className="button-row">
               <LineAction label="加入 LINE 看本期好味" />

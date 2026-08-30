@@ -17,7 +17,7 @@ export default function PeoplePage() {
       <section className="people-overview" aria-labelledby="people-overview-title">
         <header className="people-overview-heading">
           <p className="eyebrow">PEOPLE OF GUOGANG / 人與過港</p>
-          <h2 id="people-overview-title">過港的樣子，<br />藏在每個人的日常裡。</h2>
+          <h2 id="people-overview-title">過港的樣子，藏在每個人的日常裡。</h2>
           <p>從不同人的故事出發，看見六種與過港相遇的方式，也看見這個地方不同的模樣。人物姓名與完整訪談仍在確認，現階段先呈現每段故事的方向。</p>
         </header>
 
@@ -39,7 +39,7 @@ export default function PeoplePage() {
 
       <section className="people-ending">
         <p className="eyebrow">SIX WAYS OF MEETING A PLACE</p>
-        <h2>六種相遇，<br />看見六種過港。</h2>
+        <h2>六種相遇，看見六種過港。</h2>
         <p>每個人和一個地方建立關係的方式都不一樣。有人從小生活在這裡，有人因為工作來到這裡，也有人在一次次參與之中，慢慢成為過港生活的一部分。而這些不同的日常，一起拼出了今天的過港。</p>
         <div className="button-row">
           <a className="button button-primary" href={sitePath("/guogang")}>認識過港</a>
