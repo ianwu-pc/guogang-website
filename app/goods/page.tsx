@@ -19,7 +19,7 @@ export default function GoodsPage() {
       <section className="goods-story-intro">
         <div>
           <p className="eyebrow">FROM EVERYDAY LIFE</p>
-          <h2>過港的好味，<br />從日常開始。</h2>
+          <h2>過港的好味，從日常開始。</h2>
         </div>
         <div>
           <p>過港的產品，來自居民熟悉的料理方式與生活經驗。有人負責備料，有人製作，也有人一起把一份份成品整理完成。</p>
@@ -31,7 +31,7 @@ export default function GoodsPage() {
       <header className="goods-catalog-intro">
         <div>
           <p className="eyebrow">GUOGANG GOODS</p>
-          <h2>今天，<br />想帶哪一份過港回家？</h2>
+          <h2>今天，想帶哪一份過港回家？</h2>
         </div>
         <p>商品名稱依新資料整理；詳細介紹、價格與正式照片仍待社區確認。</p>
       </header>
@@ -55,7 +55,7 @@ export default function GoodsPage() {
       <section className="goods-makers">
         <div>
           <p className="eyebrow">THE HANDS BEHIND THE TASTE</p>
-          <h2>味道的背後，<br />是一雙雙熟悉的手。</h2>
+          <h2>味道的背後，是一雙雙熟悉的手。</h2>
           <p>每一份過港好味的背後，都有居民投入其中。從準備食材、製作到包裝，這些產品不只是地方的味道，也記錄著人們一起工作的日常。</p>
         </div>
         <ImagePlaceholder label="人物工作、製作過程與產品合照｜待提供" ratio="landscape" tone="paper" />
@@ -63,7 +63,7 @@ export default function GoodsPage() {
 
       <section className="goods-small-batch">
         <p className="eyebrow light">SMALL BATCH / 慢慢做</p>
-        <h2>慢慢做，<br />把每一份好味做好。</h2>
+        <h2>慢慢做，把每一份好味做好。</h2>
         <p>過港好味目前以社區小量製作為主，會依照實際產量與製作情況不定期開團。因此網站不提供固定庫存與線上結帳，最新商品與開團資訊會於 LINE 社群中公告。</p>
       </section>
 
@@ -81,7 +81,7 @@ export default function GoodsPage() {
       </section>
 
       <section className="goods-ending">
-        <h2>一份味道，<br />也可以是認識地方的開始。</h2>
+        <h2>一份味道，也可以是認識地方的開始。</h2>
         <p>如果想知道這些好味從什麼樣的地方而來，也歡迎再走進過港，認識生活在這裡的人與故事。</p>
         <div className="button-row">
           <a className="button button-primary" href={sitePath("/guogang")}>認識過港</a>

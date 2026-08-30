@@ -126,6 +126,30 @@ test("desktop serif stays unchanged while mobile uses the bundled serif font", a
   );
 });
 
+test("editorial headings balance naturally and matching levels share one size", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  const headingPages = [
+    "../app/page.tsx",
+    "../app/guogang/page.tsx",
+    "../app/goods/page.tsx",
+    "../app/people/page.tsx",
+    "../app/about/page.tsx",
+    "../app/components/SiteFooter.tsx",
+  ];
+
+  for (const page of headingPages) {
+    const source = await readFile(new URL(page, import.meta.url), "utf8");
+    assert.doesNotMatch(source, /<br\s*\/>/, `${page} should not force editorial heading breaks`);
+  }
+
+  assert.match(css, /h1,\s*h2,\s*h3\s*\{[\s\S]*?text-wrap:\s*balance/);
+  assert.match(css, /\.about-people-power h2\s*\{\s*font-size:\s*var\(--type-section\)/);
+  assert.match(
+    css,
+    /\.home-guide-copy h2,[\s\S]*?\.contact-section h2,[\s\S]*?font-size:\s*var\(--type-section\)/,
+  );
+});
+
 test("header color follows the visual section instead of a small scroll threshold", async () => {
   const header = await readFile(
     new URL("../app/components/SiteHeader.tsx", import.meta.url),
