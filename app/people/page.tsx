@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ImagePlaceholder } from "../components/ImagePlaceholder";
+import { HeadingLines } from "../components/HeadingLines";
 import { PageIntro } from "../components/PageIntro";
 import { PEOPLE } from "../data/site";
 import { sitePath } from "../utils/sitePath";
@@ -17,7 +18,7 @@ export default function PeoplePage() {
       <section className="people-overview" aria-labelledby="people-overview-title">
         <header className="people-overview-heading">
           <p className="eyebrow">PEOPLE OF GUOGANG / 人與過港</p>
-          <h2 id="people-overview-title"><span className="heading-line">過港的樣子，</span><span className="heading-line">藏在每個人的</span><span className="heading-line">日常裡。</span></h2>
+          <h2 id="people-overview-title"><HeadingLines lines={["過港的樣子，", "藏在每個人的日常裡。"]} /></h2>
           <p>從不同人的故事出發，看見六種與過港相遇的方式，也看見這個地方不同的模樣。人物姓名與完整訪談仍在確認，現階段先呈現每段故事的方向。</p>
         </header>
 

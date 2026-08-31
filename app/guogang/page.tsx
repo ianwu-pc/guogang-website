@@ -22,7 +22,10 @@ export default function GuogangPage() {
 
       <section className="timeline-opening">
         <p className="eyebrow">THE STORY OF GUOGANG</p>
-        <h2><span className="heading-line">過港不是一個</span><span className="heading-line">突然出現的名字，</span><span className="heading-line">而是被河流、移居</span><span className="heading-line">與日常慢慢寫下</span><span className="heading-line">的地方。</span></h2>
+        <h2 className="history-intro-heading">
+          <span className="heading-line history-intro-lead">過港不是一個突然出現的名字，</span>
+          <span className="heading-line history-intro-support">而是被河流、移居與日常慢慢寫下的地方。</span>
+        </h2>
       </section>
 
       <section className="timeline-section">
