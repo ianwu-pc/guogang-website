@@ -3,10 +3,11 @@
 import type { CSSProperties } from "react";
 import { useEffect, useRef, useState } from "react";
 import { sitePath } from "../utils/sitePath";
+import { HeadingLines } from "./HeadingLines";
 
 type StoryStage = {
   number: string;
-  title: string;
+  titleLines: readonly string[];
   description: string;
   imageLabel: string;
   tone: "paper" | "ink" | "ochre" | "green";
@@ -18,7 +19,7 @@ type StoryStage = {
 const STAGES: StoryStage[] = [
   {
     number: "01",
-    title: "這裡是過港。",
+    titleLines: ["這裡是過港。"],
     description: "一個沿著基隆河生活的地方。",
     imageLabel: "過港河岸、岩石與周邊環境",
     image: "/images/home/home-scroll-01.webp",
@@ -28,7 +29,7 @@ const STAGES: StoryStage[] = [
   },
   {
     number: "02",
-    title: "過港的樣子，藏在每個人的日常裡。",
+    titleLines: ["過港的樣子，", "藏在每個人的日常裡。"],
     description: "居民相聚、活動的日常，也慢慢留下過港的樣子。",
     imageLabel: "過港居民在社區空間進行團體活動",
     image: "/images/home/home-scroll-02.webp",
@@ -38,7 +39,7 @@ const STAGES: StoryStage[] = [
   },
   {
     number: "03",
-    title: "而這些日常，也被一雙雙手做成了味道。",
+    titleLines: ["而這些日常，", "也被一雙雙手做成了味道。"],
     description: "從備料到料理，一雙雙手把熟悉的味道慢慢做出來。",
     imageLabel: "居民在大鍋中製作滷蛋",
     image: "/images/home/home-scroll-03.webp",
@@ -48,7 +49,7 @@ const STAGES: StoryStage[] = [
   },
   {
     number: "04",
-    title: "把過港的故事，帶到更遠的地方。",
+    titleLines: ["把過港的故事，", "帶到更遠的地方。"],
     description: "完成的商品，也把過港的生活與故事帶向更遠的地方。",
     imageLabel: "過港雞片鐵蛋包裝商品",
     image: "/images/home/home-scroll-04.webp",
@@ -120,7 +121,7 @@ export function HomeScrollStory() {
                 {stage.imageLabel}
               </div>
             )}
-            <h1>{stage.title}</h1>
+            <h1><HeadingLines lines={stage.titleLines} /></h1>
             <p>{stage.description}</p>
             {index === 0 ? (
               <div className="scroll-story-cue scroll-story-cue-static" aria-hidden="true">
@@ -166,7 +167,7 @@ export function HomeScrollStory() {
         )}
 
         <div className="scroll-story-copy" key={stage.number} aria-live="polite">
-          <h1>{stage.title}</h1>
+          <h1><HeadingLines lines={stage.titleLines} /></h1>
           <p>{stage.description}</p>
           {activeIndex === STAGES.length - 1 ? (
             <div className="button-row">

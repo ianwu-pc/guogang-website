@@ -2,6 +2,7 @@
 
 import type { CSSProperties } from "react";
 import { useState } from "react";
+import { HeadingLines } from "./HeadingLines";
 
 const PLACES = [
   {
@@ -57,7 +58,7 @@ export function GuogangInteractiveMap() {
       <header className="guogang-map-heading">
         <div>
           <p className="eyebrow">EXPLORE THE PLACE</p>
-          <h2 id="guogang-map-title">沿著河岸，看看過港的生活地景。</h2>
+          <h2 id="guogang-map-title"><HeadingLines lines={["沿著河岸，", "看看過港的生活地景。"]} /></h2>
         </div>
         <p>將游標移到標記上，或使用點擊、觸控與鍵盤選取地點。這是一張依地方故事整理的非比例示意地圖。</p>
       </header>

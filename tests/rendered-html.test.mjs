@@ -126,7 +126,7 @@ test("desktop serif stays unchanged while mobile uses the bundled serif font", a
   );
 });
 
-test("editorial headings balance naturally and matching levels share one size", async () => {
+test("semantic headings preserve author lines and matching levels share one size", async () => {
   const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
   const headingPages = [
     "../app/page.tsx",
@@ -143,12 +143,81 @@ test("editorial headings balance naturally and matching levels share one size", 
   }
 
   assert.match(css, /h1,\s*h2,\s*h3\s*\{[\s\S]*?text-wrap:\s*balance/);
-  assert.match(css, /\.heading-line\s*\{[\s\S]*?display:\s*block;[\s\S]*?white-space:\s*nowrap/);
+  assert.match(css, /:is\(h1, h2, h3\):has\(> \.heading-line\)\s*\{[\s\S]*?text-wrap:\s*wrap/);
+  assert.match(css, /\.heading-line\s*\{[\s\S]*?display:\s*block;[\s\S]*?white-space:\s*nowrap;[\s\S]*?text-wrap:\s*nowrap/);
+  assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.heading-line\s*\{[\s\S]*?white-space:\s*normal;[\s\S]*?text-wrap:\s*balance/);
   assert.match(css, /\.about-people-power h2\s*\{\s*font-size:\s*var\(--type-section\)/);
   assert.match(
     css,
     /\.home-guide-copy h2,[\s\S]*?\.contact-section h2,[\s\S]*?font-size:\s*var\(--type-section\)/,
   );
+});
+
+test("revision 3 headings use the Word-authored semantic line data", async () => {
+  const home = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
+  const story = await readFile(new URL("../app/components/HomeScrollStory.tsx", import.meta.url), "utf8");
+  const footer = await readFile(new URL("../app/components/SiteFooter.tsx", import.meta.url), "utf8");
+  const guogang = await readFile(new URL("../app/guogang/page.tsx", import.meta.url), "utf8");
+  const map = await readFile(new URL("../app/components/GuogangInteractiveMap.tsx", import.meta.url), "utf8");
+  const data = await readFile(new URL("../app/data/site.ts", import.meta.url), "utf8");
+
+  for (const lines of [
+    '["過港的樣子，", "藏在每個人的日常裡。"]',
+    '["而這些日常，", "也被一雙雙手做成了味道。"]',
+    '["把過港的故事，", "帶到更遠的地方。"]',
+  ]) {
+    assert.ok(story.includes(lines), `scroll story should include ${lines}`);
+  }
+  assert.match(story, /titleLines:\s*readonly string\[\]/);
+  assert.equal((story.match(/<HeadingLines lines=\{stage\.titleLines\}/g) ?? []).length, 2);
+
+  for (const lines of [
+    '["一個名字，", "從河的另一岸開始。"]',
+    '["把熟悉的日常，", "做成可以分享的味道。"]',
+    '["過港的樣子，", "藏在這裡的人身上。"]',
+    '["一群人一起做的事，", "慢慢成了社區的力量。"]',
+    '["如果喜歡過港，", "也歡迎把這份味道帶回家。"]',
+  ]) {
+    assert.ok(home.includes(lines), `homepage should include ${lines}`);
+  }
+
+  assert.ok(footer.includes('["從一個地方的名字開始，", "慢慢認識過港。"]'));
+  assert.match(guogang, /history-intro-lead[^>]*>過港不是一個突然出現的名字，</);
+  assert.match(guogang, /history-intro-support[^>]*>而是被河流、移居與日常慢慢寫下的地方。</);
+  assert.ok(map.includes('["沿著河岸，", "看看過港的生活地景。"]'));
+
+  for (const lines of [
+    '["生活機能，", "一點一點完整起來"]',
+    '["新的家庭，", "帶來新的生活樣貌"]',
+    '["從一起生活，", "到一起做社區"]',
+    '["過港的故事，", "還在繼續"]',
+  ]) {
+    assert.ok(data.includes(lines), `timeline should include ${lines}`);
+  }
+});
+
+test("product and person names share the smaller non-wrapping name scale", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+
+  assert.match(css, /--type-name:\s*clamp\(/);
+  assert.match(
+    css,
+    /\.home-feature-card h3,\s*\.people-story-copy h3,\s*\.catalog-copy h2\s*\{[\s\S]*?font-size:\s*var\(--type-name\);[\s\S]*?white-space:\s*nowrap;[\s\S]*?word-break:\s*keep-all;/,
+  );
+  assert.doesNotMatch(
+    css,
+    /\.home-feature-card h3\s*\{[^}]*font-size:\s*var\(--type-card\)/,
+  );
+  assert.doesNotMatch(css, /text-overflow:\s*ellipsis/);
+});
+
+test("history introduction keeps its explicit two-level exception", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+
+  assert.match(css, /--type-history-lead:\s*clamp\(/);
+  assert.match(css, /--type-history-support:\s*clamp\(/);
+  assert.match(css, /\.history-intro-heading \.history-intro-lead\s*\{[\s\S]*?var\(--type-history-lead\)/);
+  assert.match(css, /\.history-intro-heading \.history-intro-support\s*\{[\s\S]*?var\(--type-history-support\)/);
 });
 
 test("header color follows the visual section instead of a small scroll threshold", async () => {
