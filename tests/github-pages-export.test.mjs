@@ -72,7 +72,8 @@ test("exported pages preserve revision content and interactions", async () => {
   assert.match(home, /⌄/);
   assert.doesNotMatch(home, /往下看看/);
   assert.match(home, /02-2458-8802/);
-  assert.match(goods, /product-gallery-arrow-next/);
+  assert.match(goods, /guogang-goods-collection\.jpg/);
+  assert.match(goods, /double-bamboo-shoot-dumplings\.jpg/);
   assert.match(goods, /過港好味\.jpg/);
   assert.match(guogang, /認識過港\.jpg/);
   assert.match(guogang, /過港互動示意地圖/);
