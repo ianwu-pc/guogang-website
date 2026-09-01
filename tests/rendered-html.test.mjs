@@ -92,7 +92,7 @@ test("homepage and goods controls keep the organic treatment and the header LINE
   assert.match(css, /\.product-gallery-arrow\s*\{[\s\S]*?border:\s*0;[\s\S]*?background:\s*transparent;/);
   assert.match(css, /\.product-gallery \.image-placeholder\s*\{\s*border:\s*0;/);
   assert.match(css, /--beige-deep:\s*#7b6b52;/);
-  assert.match(css, /\.header-line-button\s*\{[\s\S]*?border:\s*0;[\s\S]*?background:\s*linear-gradient\(135deg,\s*var\(--beige-deep\)[\s\S]*?color:\s*#fff;[\s\S]*?box-shadow:/);
+  assert.match(css, /\.header-line-button\s*\{[\s\S]*?border:\s*0;[\s\S]*?background:\s*linear-gradient\(135deg,\s*rgba\(123,\s*107,\s*82,\s*0\.5\)[\s\S]*?rgba\(109,\s*94,\s*70,\s*0\.5\)[\s\S]*?color:\s*#fff;[\s\S]*?box-shadow:/);
   assert.match(css, /\.header-line-button::before,\s*\.header-line-button::after\s*\{\s*content:\s*none;/);
   assert.doesNotMatch(css, /\.header-line-button::before\s*\{[\s\S]*?content:\s*"↗"/);
 });

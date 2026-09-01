@@ -295,7 +295,7 @@ body:has(.scroll-story-sticky.has-photo) .site-header::before {
   min-height: 44px;
   padding: 0.6rem 1.15rem 0.55rem;
   border: 0;
-  background: linear-gradient(135deg, var(--beige-deep) 0%, #6d5e46 100%);
+  background: linear-gradient(135deg, rgba(123, 107, 82, 0.5) 0%, rgba(109, 94, 70, 0.5) 100%);
   color: #fff;
   box-shadow: 0 8px 22px rgba(23, 36, 29, 0.18);
   font-size: 0.82rem;
@@ -306,7 +306,7 @@ body:has(.scroll-story-sticky.has-photo) .site-header::before {
 .header-line-button::after { content: none; }
 .header-line-button:hover,
 .header-line-button:focus-visible {
-  background: linear-gradient(135deg, var(--beige-deep-hover) 0%, #594b37 100%);
+  background: linear-gradient(135deg, rgba(102, 88, 65, 0.68) 0%, rgba(89, 75, 55, 0.68) 100%);
   color: #fff;
   box-shadow: 0 11px 26px rgba(23, 36, 29, 0.24);
 }
