@@ -25,7 +25,7 @@ export default function GoodsPage() {
           <p>過港的產品，來自居民熟悉的料理方式與生活經驗。有人負責備料，有人製作，也有人一起把一份份成品整理完成。</p>
           <p>這些看似平常的工作，把社區裡原本熟悉的味道，慢慢變成可以和更多人分享的過港好味。</p>
         </div>
-        <ImagePlaceholder label="媽媽們一起備料、製作與包裝的生活照片｜待提供" ratio="wide" tone="green" />
+        <ImagePlaceholder label="/images/goods/guogang-goods-collection.jpg" alt="過港好味五款商品合照" ratio="wide" tone="green" />
       </section>
 
       <header className="goods-catalog-intro">
@@ -33,12 +33,12 @@ export default function GoodsPage() {
           <p className="eyebrow">GUOGANG GOODS</p>
           <h2><span className="heading-line">今天，</span><span className="heading-line">想帶哪一份過港</span><span className="heading-line">回家？</span></h2>
         </div>
-        <p>商品名稱依新資料整理；詳細介紹、價格與正式照片仍待社區確認。</p>
+        <p>商品名稱與正式商品照片已更新；詳細介紹與價格仍待社區確認。</p>
       </header>
       <section className="goods-catalog">
         {GOODS.map((good, index) => (
           <article className="catalog-item" key={good.id}>
-            <ProductGallery images={[good.coverImage, ...good.galleryImages]} name={good.name} ratio={index === 1 ? "landscape" : "portrait"} tone={index % 2 ? "ochre" : "clay"} />
+            <ProductGallery images={[good.coverImage, ...good.galleryImages]} name={good.name} ratio="landscape" tone={index % 2 ? "ochre" : "clay"} />
             <div className="catalog-copy">
               <p className="eyebrow">GUOGANG GOODS / {String(index + 1).padStart(2, "0")}</p>
               <h2>{good.name}</h2>

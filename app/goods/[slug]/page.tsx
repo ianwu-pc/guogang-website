@@ -29,7 +29,7 @@ export default async function GoodDetailPage({ params }: GoodPageProps) {
           <p>{good.summary}</p>
           <LineAction label="詢問購買" />
         </div>
-        <ProductGallery images={[good.coverImage, ...good.galleryImages]} name={good.name} ratio="portrait" tone="clay" />
+        <ProductGallery images={[good.coverImage, ...good.galleryImages]} name={good.name} ratio="landscape" tone="clay" />
       </header>
       <section className="article-body good-story-body">
         <aside><span>STORY</span><strong>好物與地方的關係</strong></aside>

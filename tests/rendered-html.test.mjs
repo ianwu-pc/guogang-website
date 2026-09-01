@@ -47,7 +47,7 @@ test("homepage contains the complete editorial structure", async () => {
   assert.doesNotMatch(html, /scroll-story-progress/);
   assert.match(html, /一個名字，/);
   assert.match(html, /把熟悉的日常/);
-  assert.match(html, /goods-01-cutout\.png/);
+  assert.match(html, /double-bamboo-shoot-dumplings\.jpg/);
   assert.match(html, /港式蘿蔔糕/);
   assert.match(html, /鴉片鐵蛋/);
   assert.match(html, /林秀英/);
@@ -266,21 +266,16 @@ test("header color follows the visual section instead of a small scroll threshol
   );
 });
 
-test("chapter order, photo intros, compact goods gallery and interactive map match the current site", async () => {
+test("chapter order, supplied goods photos and interactive map match the current site", async () => {
   const goodsResponse = await render("/goods");
   const goodsHtml = await goodsResponse.text();
   assert.match(goodsHtml, /page-intro-index[^>]*>03</);
   assert.match(goodsHtml, /過港好味\.jpg/);
   assert.doesNotMatch(goodsHtml, /catalog-index|product-gallery-count|product-gallery-dots|product-gallery-controls/);
-  assert.match(goodsHtml, /product-gallery-arrow-prev/);
-  assert.match(goodsHtml, /product-gallery-arrow-next/);
-  assert.match(goodsHtml, /goods-01-cutout\.png/);
-  assert.match(goodsHtml, /goods-01-photo\.jpg/);
-  assert.match(goodsHtml, /product-image-cutout/);
-  assert.ok(
-    goodsHtml.indexOf("goods-01-cutout.png") < goodsHtml.indexOf("goods-01-photo.jpg"),
-    "the cutout product image should be first",
-  );
+  assert.doesNotMatch(goodsHtml, /商品完整照｜待提供|商品製作過程照｜待提供|商品料理或食用情境照｜待提供/);
+  for (const image of ["double-bamboo-shoot-dumplings", "radish-cake", "iron-eggs", "white-fungus-drink", "stone-flower-jelly", "guogang-goods-collection"]) {
+    assert.match(goodsHtml, new RegExp(`${image}\\.jpg`));
+  }
 
   const guogangResponse = await render("/guogang");
   const guogangHtml = await guogangResponse.text();

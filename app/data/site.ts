@@ -176,28 +176,68 @@ export const ASSOCIATION_TIMELINE = [
   },
 ];
 
-// 日後替換圖片：把 coverImage / galleryImages 改成 /images/...，元件會自動顯示真實圖片。
-// 日後更新好物：維持欄位結構，新增項目即可自動出現在列表中。
-const GOOD_NAMES = ["雙匯水餃", "港式蘿蔔糕", "鴉片鐵蛋", "清潤銀耳露", "石花凍"];
-
-export const GOODS: Good[] = GOOD_NAMES.map((name, index) => {
-  const number = String(index + 1).padStart(2, "0");
-  const isRadishCake = index === 1;
-  return {
-    id: `good-${number}`,
-    slug: `goods-${number}`,
-    name,
+export const GOODS: Good[] = [
+  {
+    id: "good-01",
+    slug: "goods-01",
+    name: "雙匯水餃",
     summary: "商品故事與特色待社區確認後補上。",
     flavor: "味道或特色｜待確認",
     maker: "製作者｜待確認",
     story: "產品與過港的關係及製作故事，待商品資料確認後整理。",
     purchaseMethod: "採社區小量製作，最新商品與開團資訊將於 LINE 社群公告。",
-    coverImage: isRadishCake ? "/images/goods/goods-01-cutout.png" : `${name}完整照｜待提供`,
-    galleryImages: isRadishCake
-      ? ["/images/goods/goods-01-photo.jpg"]
-      : [`${name}製作過程照｜待提供`, `${name}料理或食用情境照｜待提供`],
-  };
-});
+    coverImage: "/images/goods/double-bamboo-shoot-dumplings.jpg",
+    galleryImages: [],
+  },
+  {
+    id: "good-02",
+    slug: "goods-02",
+    name: "港式蘿蔔糕",
+    summary: "商品故事與特色待社區確認後補上。",
+    flavor: "味道或特色｜待確認",
+    maker: "製作者｜待確認",
+    story: "產品與過港的關係及製作故事，待商品資料確認後整理。",
+    purchaseMethod: "採社區小量製作，最新商品與開團資訊將於 LINE 社群公告。",
+    coverImage: "/images/goods/radish-cake.jpg",
+    galleryImages: [],
+  },
+  {
+    id: "good-03",
+    slug: "goods-03",
+    name: "鴉片鐵蛋",
+    summary: "商品故事與特色待社區確認後補上。",
+    flavor: "味道或特色｜待確認",
+    maker: "製作者｜待確認",
+    story: "產品與過港的關係及製作故事，待商品資料確認後整理。",
+    purchaseMethod: "採社區小量製作，最新商品與開團資訊將於 LINE 社群公告。",
+    coverImage: "/images/goods/iron-eggs.jpg",
+    galleryImages: [],
+  },
+  {
+    id: "good-04",
+    slug: "goods-04",
+    name: "清潤銀耳露",
+    summary: "商品故事與特色待社區確認後補上。",
+    flavor: "味道或特色｜待確認",
+    maker: "製作者｜待確認",
+    story: "產品與過港的關係及製作故事，待商品資料確認後整理。",
+    purchaseMethod: "採社區小量製作，最新商品與開團資訊將於 LINE 社群公告。",
+    coverImage: "/images/goods/white-fungus-drink.jpg",
+    galleryImages: [],
+  },
+  {
+    id: "good-05",
+    slug: "goods-05",
+    name: "石花凍",
+    summary: "商品故事與特色待社區確認後補上。",
+    flavor: "味道或特色｜待確認",
+    maker: "製作者｜待確認",
+    story: "產品與過港的關係及製作故事，待商品資料確認後整理。",
+    purchaseMethod: "採社區小量製作，最新商品與開團資訊將於 LINE 社群公告。",
+    coverImage: "/images/goods/stone-flower-jelly.jpg",
+    galleryImages: [],
+  },
+];
 
 export const PEOPLE: Person[] = [
   {
