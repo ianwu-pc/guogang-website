@@ -25,7 +25,7 @@ export default function PeoplePage() {
         <div className="people-story-list">
           {PEOPLE.map((person, index) => (
             <article className="people-story-card" key={person.id}>
-              {["bottle-cap-grandma", "breakfast-shop-owner"].includes(person.slug) ? (
+              {["bottle-cap-grandma", "breakfast-shop-owner", "couple-story-two"].includes(person.slug) ? (
                 <div
                   className="image-placeholder ratio-portrait tone-paper people-story-editorial-cover"
                   role="img"

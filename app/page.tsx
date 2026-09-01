@@ -12,6 +12,8 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+  const getEditorialCardTheme = (slug: string) => (slug === "bottle-cap-grandma" ? "TIME" : "MORNING");
+
   return (
     <main>
       <HomeScrollStory />
@@ -65,14 +67,16 @@ export default function Home() {
           <div className="home-feature-grid home-people-grid">
             {PEOPLE.slice(0, 3).map((person, index) => (
               <article className="home-feature-card" key={person.id}>
-                {person.slug === "bottle-cap-grandma" ? (
+                {["bottle-cap-grandma", "breakfast-shop-owner", "couple-story-two"].includes(person.slug) ? (
                   <div
                     className="image-placeholder ratio-portrait tone-paper people-story-editorial-cover"
                     role="img"
-                    aria-label="林秀英人物故事文字封面"
+                    aria-label={`${person.name}人物故事文字封面`}
                   >
                     <div>
-                      <span className="eyebrow">STORY 01 / TIME</span>
+                      <span className="eyebrow">
+                        STORY {String(index + 1).padStart(2, "0")} / {getEditorialCardTheme(person.slug)}
+                      </span>
                       <strong>{person.quoteLines ? <HeadingLines lines={person.quoteLines} /> : person.quote}</strong>
                       <small>{person.name} · {person.role}</small>
                     </div>

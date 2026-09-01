@@ -260,13 +260,14 @@ export const PEOPLE: Person[] = [
   {
     id: "person-06",
     slug: "couple-story-two",
-    name: "夫妻故事二",
-    role: "人物姓名待確認",
-    summary: "人物介紹待訪談內容整理後決定。之後將依實際訪談內容，找出兩人看待過港最不一樣的地方。",
-    quote: "故事角度待訪談內容整理後決定。",
-    coverImage: "夫妻自然合照｜待提供",
-    galleryImages: ["夫妻生活畫面｜待提供", "與故事相關的地方照片｜待提供"],
-    interviewContent: ["這組人物故事將依實際訪談內容整理，並避免與上一組夫妻使用相同角度。"],
+    name: "丁梅花",
+    role: "美髮義剪與長輩訪視",
+    summary: "固定的日子裡，她在協會替長輩義剪，也會親自上門探望行動不便的人。每一次來去，讓她在日常裡看見更多長輩與社區的需要。",
+    quote: "有些門打開以後",
+    quoteLines: ["有些門打開以後", "會看見更多事情"],
+    coverImage: "",
+    galleryImages: [],
+    interviewContent: [],
   },
 ];
 
