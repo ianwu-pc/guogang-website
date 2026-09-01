@@ -82,7 +82,7 @@ test("exported pages preserve revision content and interactions", async () => {
   assert.match(people, /李水錦阿姨/);
   assert.match(people, /清爽阿公 × 阿笑阿嬤/);
   assert.match(people, /丁梅花/);
-  assert.match(people, /再去看看/);
+  assert.match(people, /有些門打開以後/);
 
   const bottleCapStory = await read("people/bottle-cap-grandma/index.html");
   const breakfastStory = await read("people/breakfast-shop-owner/index.html");
@@ -98,6 +98,7 @@ test("exported pages preserve revision content and interactions", async () => {
   assert.match(kitchenStory, /li-shui-jin-kitchen\.jpg/);
   assert.match(coupleStory, /qingshuang-axiao-portrait\.jpg/);
   assert.match(meiHuaStory, /丁梅花/);
+  assert.match(meiHuaStory, /再去看看/);
   assert.match(about, /關於我們\.jpg/);
   assert.doesNotMatch(`${home}${about}`, /association-structure\.png|組織架構圖|會員大會/);
 });
