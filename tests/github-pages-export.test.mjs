@@ -18,6 +18,7 @@ const requiredFiles = [
   "people/breakfast-shop-owner/index.html",
   "people/community-kitchen-mother/index.html",
   "people/couple-story-one/index.html",
+  "people/couple-story-two/index.html",
   "about/index.html",
   "fonts/guogang-serif-mobile.woff2",
   "fonts/OFL-NotoSerifTC.txt",
@@ -80,12 +81,14 @@ test("exported pages preserve revision content and interactions", async () => {
   assert.match(people, /黃淑惠/);
   assert.match(people, /李水錦阿姨/);
   assert.match(people, /清爽阿公 × 阿笑阿嬤/);
-  assert.match(people, /夫妻故事二/);
+  assert.match(people, /丁梅花/);
+  assert.match(people, /再去看看/);
 
   const bottleCapStory = await read("people/bottle-cap-grandma/index.html");
   const breakfastStory = await read("people/breakfast-shop-owner/index.html");
   const kitchenStory = await read("people/community-kitchen-mother/index.html");
   const coupleStory = await read("people/couple-story-one/index.html");
+  const meiHuaStory = await read("people/couple-story-two/index.html");
   const bottleCapArticle = bottleCapStory.match(/<main class="article-page people-article-page">[\s\S]*?<\/main>/)?.[0];
   assert.ok(bottleCapArticle, "exported Lin Xiu-ying page should contain the shared editorial article");
   assert.match(bottleCapStory, /把時間/);
@@ -94,6 +97,7 @@ test("exported pages preserve revision content and interactions", async () => {
   assert.match(breakfastStory, /煎台上的晨之味/);
   assert.match(kitchenStory, /li-shui-jin-kitchen\.jpg/);
   assert.match(coupleStory, /qingshuang-axiao-portrait\.jpg/);
+  assert.match(meiHuaStory, /丁梅花/);
   assert.match(about, /關於我們\.jpg/);
   assert.doesNotMatch(`${home}${about}`, /association-structure\.png|組織架構圖|會員大會/);
 });

@@ -308,7 +308,7 @@ test("interactive map supports pointer, touch and keyboard selection", async () 
   assert.match(map, /id="guogang-map"/);
 });
 
-test("people page preserves six stories and integrates the four finalized identities", async () => {
+test("people page preserves six stories and integrates the five finalized identities", async () => {
   const response = await render("/people");
   const html = await response.text();
   assert.match(html, /page-intro-index[^>]*>02</);
@@ -333,7 +333,9 @@ test("people page preserves six stories and integrates the four finalized identi
   const breakfastCard = editorialCards[1];
   assert.ok(breakfastCard, "breakfast story should render the editorial text-only cover");
   assert.doesNotMatch(breakfastCard, /來源未提供|IMAGE|待提供/);
-  assert.match(html, /夫妻故事二/);
+  assert.match(html, /丁梅花/);
+  assert.match(html, /有些門打開以後[\s\S]*?會看見更多事情/);
+  assert.match(html, /href="\/people\/couple-story-two"/);
   assert.doesNotMatch(html, /人物姓名與完整訪談仍在確認/);
   assert.doesNotMatch(html, /people-empty-index|01—/);
 });
@@ -355,6 +357,10 @@ test("finalized people stories render complete editorial pages from shared data"
     [
       "/people/couple-story-one",
       ["清爽阿公 × 阿笑阿嬤", "四十年相伴，", "二十年過港", "笑了就爽 爽了就笑", "在協會裡學新知、交朋友", "鐵道歲月的奔波與守護", "水患之後的安居", "笑了就爽，爽了就笑"],
+    ],
+    [
+      "/people/couple-story-two",
+      ["丁梅花", "再去看看", "一個人。", "固定的日子，協會裡多了張剪髮椅子", "更多時候，她去的不只是剪髮"],
     ],
   ];
 
