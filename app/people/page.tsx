@@ -19,17 +19,34 @@ export default function PeoplePage() {
         <header className="people-overview-heading">
           <p className="eyebrow">PEOPLE OF GUOGANG / 人與過港</p>
           <h2 id="people-overview-title"><HeadingLines lines={["過港的樣子，", "藏在每個人的日常裡。"]} /></h2>
-          <p>從不同人的故事出發，看見六種與過港相遇的方式，也看見這個地方不同的模樣。人物姓名與完整訪談仍在確認，現階段先呈現每段故事的方向。</p>
+          <p>從不同人的故事出發，看見人與過港相遇的方式，也看見這個地方不同的模樣。</p>
         </header>
 
         <div className="people-story-list">
           {PEOPLE.map((person, index) => (
             <article className="people-story-card" key={person.id}>
-              <ImagePlaceholder label={person.coverImage} alt={`${person.name}人物照片`} ratio="portrait" tone={index % 2 ? "paper" : "green"} />
+              {person.slug === "breakfast-shop-owner" ? (
+                <div
+                  className="image-placeholder ratio-portrait tone-paper people-story-editorial-cover"
+                  role="img"
+                  aria-label="黃淑惠與美食坊早餐故事文字封面"
+                >
+                  <div>
+                    <span className="eyebrow">STORY 02 / MORNING</span>
+                    <strong>{person.quote}</strong>
+                    <small>{person.name} · {person.role}</small>
+                  </div>
+                </div>
+              ) : (
+                <ImagePlaceholder label={person.coverImage} alt={`${person.name}人物紀錄照片`} ratio="portrait" tone={index % 2 ? "paper" : "green"} />
+              )}
               <div className="people-story-copy">
                 <p className="eyebrow">STORY {String(index + 1).padStart(2, "0")}</p>
                 <h3>{person.name}</h3>
-                <p className="people-story-quote">{person.quote}</p>
+                <p className="people-story-role">{person.role}</p>
+                <p className="people-story-quote">
+                  {person.quoteLines ? <HeadingLines lines={person.quoteLines} /> : person.quote}
+                </p>
                 <p>{person.summary}</p>
                 <a className="text-link" href={sitePath(`/people/${person.slug}`)}>閱讀故事 <span aria-hidden="true">→</span></a>
               </div>

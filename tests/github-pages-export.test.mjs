@@ -14,6 +14,9 @@ const requiredFiles = [
   "goods/goods-05/index.html",
   "guogang/index.html",
   "people/index.html",
+  "people/breakfast-shop-owner/index.html",
+  "people/community-kitchen-mother/index.html",
+  "people/couple-story-one/index.html",
   "about/index.html",
   "fonts/guogang-serif-mobile.woff2",
   "fonts/OFL-NotoSerifTC.txt",
@@ -33,6 +36,11 @@ const requiredFiles = [
   "images/關於我們.jpg",
   "images/goods/goods-01-cutout.png",
   "images/goods/goods-01-photo.jpg",
+  "images/people/community-kitchen-mother/li-shui-jin-kitchen.jpg",
+  "images/people/community-kitchen-mother/li-shui-jin-community.jpg",
+  "images/people/community-kitchen-mother/li-shui-jin-learning.jpg",
+  "images/people/couple-story-one/qingshuang-axiao-portrait.jpg",
+  "images/people/couple-story-one/qingshuang-axiao-community.jpg",
   "og-revision.png",
   ".nojekyll",
   "404.html",
@@ -67,7 +75,17 @@ test("exported pages preserve revision content and interactions", async () => {
   assert.doesNotMatch(guogang, /地點名單待確認/);
   assert.match(people, /過港人物\.jpg/);
   assert.match(people, /瓶蓋牆奶奶/);
+  assert.match(people, /黃淑惠/);
+  assert.match(people, /李水錦阿姨/);
+  assert.match(people, /清爽阿公 × 阿笑阿嬤/);
   assert.match(people, /夫妻故事二/);
+
+  const breakfastStory = await read("people/breakfast-shop-owner/index.html");
+  const kitchenStory = await read("people/community-kitchen-mother/index.html");
+  const coupleStory = await read("people/couple-story-one/index.html");
+  assert.match(breakfastStory, /煎台上的晨之味/);
+  assert.match(kitchenStory, /li-shui-jin-kitchen\.jpg/);
+  assert.match(coupleStory, /qingshuang-axiao-portrait\.jpg/);
   assert.match(about, /關於我們\.jpg/);
   assert.doesNotMatch(`${home}${about}`, /association-structure\.png|組織架構圖|會員大會/);
 });

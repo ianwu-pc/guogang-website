@@ -5,6 +5,7 @@ export type Person = {
   role: string;
   summary: string;
   quote: string;
+  quoteLines?: string[];
   coverImage: string;
   galleryImages: string[];
   interviewContent: string[];
@@ -213,24 +214,24 @@ export const PEOPLE: Person[] = [
   {
     id: "person-02",
     slug: "breakfast-shop-owner",
-    name: "早餐店老闆娘",
-    role: "人物姓名待確認",
-    summary: "一間早餐店，也是街坊每天相遇的地方。從一份份早餐到一句句熟悉的招呼，她在店裡度過的日常，也陪著過港一天一天往前走。",
-    quote: "每天清晨，她比許多人更早看見過港醒來。",
-    coverImage: "早餐店老闆娘與店內工作畫面｜待提供",
-    galleryImages: ["早餐店店面與街坊｜待提供", "與熟客互動的自然照片｜待提供"],
-    interviewContent: ["完整人物訪談正在整理中。正式內容完成後，將從早餐店的清晨與街坊相遇的日常開始說起。"],
+    name: "黃淑惠",
+    role: "美食坊老闆娘",
+    summary: "她守著同一方早餐店煎台二十五年，也在每天清晨的問候裡，看著街坊的孩子一路長大。",
+    quote: "煎台上的晨之味",
+    coverImage: "黃淑惠與美食坊工作畫面｜來源未提供",
+    galleryImages: [],
+    interviewContent: [],
   },
   {
     id: "person-03",
     slug: "community-kitchen-mother",
-    name: "煮飯媽媽",
-    role: "人物姓名待確認",
-    summary: "從廚房裡的一道道料理，到現在一起製作社區的好味，她用一雙手，參與著過港每天最平常卻重要的生活。",
-    quote: "把熟悉的手路，做成一份可以分享的味道。",
-    coverImage: "煮飯媽媽自然肖像｜待提供",
-    galleryImages: ["煮飯與備料畫面｜待提供", "製作社區產品與手部細節｜待提供"],
-    interviewContent: ["完整人物訪談正在整理中。正式內容完成後，將從她熟悉的料理方式與社區好味的製作日常展開。"],
+    name: "李水錦阿姨",
+    role: "過港社區灶腳夥伴",
+    summary: "十年來，她從洗菜、切菜、送便當開始，慢慢學會新的食物與手藝，也成了過港灶腳裡熟悉的一份子。",
+    quote: "十年灶腳，一味歡喜",
+    coverImage: "/images/people/community-kitchen-mother/li-shui-jin-kitchen.jpg",
+    galleryImages: ["/images/people/community-kitchen-mother/li-shui-jin-community.jpg", "/images/people/community-kitchen-mother/li-shui-jin-learning.jpg"],
+    interviewContent: [],
   },
   {
     id: "person-04",
@@ -246,13 +247,14 @@ export const PEOPLE: Person[] = [
   {
     id: "person-05",
     slug: "couple-story-one",
-    name: "夫妻故事一",
-    role: "人物姓名待確認",
-    summary: "人物介紹待訪談內容整理後決定。之後會從兩人和過港之間最特別的關係出發，找出屬於他們自己的故事。",
-    quote: "故事角度待訪談內容整理後決定。",
-    coverImage: "夫妻自然合照｜待提供",
-    galleryImages: ["在過港生活的畫面｜待提供", "與故事有關的地點或物件｜待提供"],
-    interviewContent: ["這組人物故事將依實際訪談內容整理，目前不先套用固定模板。"],
+    name: "清爽阿公 × 阿笑阿嬤",
+    role: "相伴四十年的過港夫妻",
+    summary: "相伴四十年、在過港生活二十年，兩人一起參與社區、學習新事物，也把退休後的日子過得清爽開懷。",
+    quote: "四十年相伴，二十年過港",
+    quoteLines: ["四十年相伴，", "二十年過港"],
+    coverImage: "/images/people/couple-story-one/qingshuang-axiao-portrait.jpg",
+    galleryImages: ["/images/people/couple-story-one/qingshuang-axiao-community.jpg"],
+    interviewContent: [],
   },
   {
     id: "person-06",

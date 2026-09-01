@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ImagePlaceholder } from "../../components/ImagePlaceholder";
+import { PeopleStoryArticle } from "../../components/PeopleStoryArticle";
+import { getPeopleStory } from "../../data/peopleStories";
 import { PEOPLE } from "../../data/site";
 import { sitePath } from "../../utils/sitePath";
 
@@ -9,10 +11,11 @@ type PersonPageProps = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: PersonPageProps): Promise<Metadata> {
   const { slug } = await params;
   const person = PEOPLE.find((item) => item.slug === slug);
+  const story = getPeopleStory(slug);
   const number = PEOPLE.findIndex((item) => item.slug === slug) + 1;
   return {
-    title: person ? `人物故事 ${String(number).padStart(2, "0")}` : "人與過港",
-    description: person?.summary ?? "過港人物專訪",
+    title: story ? `${story.name.replace("阿姨", "")}｜${story.titleLines.join("")}｜人與過港` : person ? `人物故事 ${String(number).padStart(2, "0")}` : "人與過港",
+    description: story?.description ?? person?.summary ?? "過港人物專訪",
   };
 }
 
@@ -23,6 +26,9 @@ export default async function PersonDetailPage({ params }: PersonPageProps) {
   const index = PEOPLE.findIndex((item) => item.slug === slug);
   const previous = PEOPLE[(index - 1 + PEOPLE.length) % PEOPLE.length];
   const next = PEOPLE[(index + 1) % PEOPLE.length];
+  const story = getPeopleStory(slug);
+
+  if (story) return <PeopleStoryArticle story={story} previous={previous} next={next} />;
 
   return (
     <main className="article-page person-detail-page">

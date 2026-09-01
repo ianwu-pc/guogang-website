@@ -24,6 +24,8 @@ export function SiteHeader() {
 
       const visualSection = pagePhoto ?? story;
       const headerHeight = window.innerWidth <= 760 ? 70 : 82;
+      const mobileScrollStarted =
+        window.innerWidth <= 760 && window.scrollY > 16;
 
       const photoIsBehindHeader =
         pagePhoto !== null &&
@@ -32,9 +34,10 @@ export function SiteHeader() {
       setOverPagePhoto(photoIsBehindHeader);
 
       setScrolled(
-        visualSection
-          ? visualSection.getBoundingClientRect().bottom <= headerHeight
-          : window.scrollY > 32,
+        mobileScrollStarted ||
+          (visualSection
+            ? visualSection.getBoundingClientRect().bottom <= headerHeight
+            : window.scrollY > 32),
       );
     };
 
@@ -69,7 +72,7 @@ export function SiteHeader() {
           menuOpen ? "menu-open" : ""
         }`}
         style={
-          overPagePhoto && !menuOpen
+          overPagePhoto && !menuOpen && !scrolled
             ? { color: "var(--paper)" }
             : undefined
         }
