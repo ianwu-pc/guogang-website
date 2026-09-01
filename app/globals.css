@@ -16,6 +16,8 @@
   --clay: #9b4936;
   --clay-dark: #713528;
   --ochre: #c3974d;
+  --beige-deep: #7b6b52;
+  --beige-deep-hover: #665841;
   --line: rgba(23, 36, 29, 0.25);
   --line-light: rgba(241, 238, 227, 0.35);
   --line-green: #06c755;
@@ -291,10 +293,10 @@ body:has(.scroll-story-sticky.has-photo) .site-header::before {
 .button-line:hover { background: #10b84f; }
 .header-line-button {
   min-height: 44px;
-  padding: 0.55rem 0.18rem 0.48rem;
+  padding: 0.55rem 1rem 0.48rem;
   border: 0;
-  background: transparent;
-  color: inherit;
+  background: var(--beige-deep);
+  color: #fff;
   font-size: 0.82rem;
   letter-spacing: 0.1em;
 }
@@ -321,7 +323,7 @@ body:has(.scroll-story-sticky.has-photo) .site-header::before {
   transition: opacity 180ms ease, transform 180ms ease;
 }
 .header-line-button:hover,
-.header-line-button:focus-visible { background: transparent; color: inherit; }
+.header-line-button:focus-visible { background: var(--beige-deep-hover); color: #fff; }
 .header-line-button:hover::after,
 .header-line-button:focus-visible::after { opacity: 0.48; transform: rotate(-1.2deg) skewX(-12deg) scaleX(1.05); }
 .button-outline { border-color: var(--ink); background: transparent; }
@@ -1609,6 +1611,7 @@ body { font-size: var(--type-body); }
 
 /* Expanded content from the August site manuscript */
 .people-overview,
+.people-ending,
 .goods-story-intro,
 .goods-makers,
 .goods-order,
