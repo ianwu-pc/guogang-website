@@ -80,7 +80,7 @@ test("homepage scroll story maps all four supplied photos in order", async () =>
   );
 });
 
-test("homepage and goods controls use the organic, borderless treatment", async () => {
+test("homepage and goods controls keep the organic treatment and the header LINE action uses deep beige", async () => {
   const home = await readFile(new URL("../app/components/HomeScrollStory.tsx", import.meta.url), "utf8");
   const gallery = await readFile(new URL("../app/components/ProductGallery.tsx", import.meta.url), "utf8");
   const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
@@ -91,7 +91,17 @@ test("homepage and goods controls use the organic, borderless treatment", async 
   assert.match(gallery, /&gt;/);
   assert.match(css, /\.product-gallery-arrow\s*\{[\s\S]*?border:\s*0;[\s\S]*?background:\s*transparent;/);
   assert.match(css, /\.product-gallery \.image-placeholder\s*\{\s*border:\s*0;/);
-  assert.match(css, /\.header-line-button\s*\{[\s\S]*?border:\s*0;[\s\S]*?background:\s*transparent;/);
+  assert.match(css, /--beige-deep:\s*#7b6b52;/);
+  assert.match(css, /\.header-line-button\s*\{[\s\S]*?border:\s*0;[\s\S]*?background:\s*var\(--beige-deep\);[\s\S]*?color:\s*#fff;/);
+});
+
+test("people ending aligns to the shared inner-page content column", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+
+  assert.match(
+    css,
+    /\.people-overview,\s*\.people-ending,\s*\.goods-story-intro,[\s\S]*?width:\s*min\(calc\(100% - var\(--page-x\) \* 2\),\s*calc\(var\(--max\) - var\(--page-x\) \* 2\)\);[\s\S]*?margin-inline:\s*auto;/,
+  );
 });
 
 test("homepage photo story shows the header fade before scrolling", async () => {
