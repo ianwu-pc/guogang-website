@@ -293,39 +293,23 @@ body:has(.scroll-story-sticky.has-photo) .site-header::before {
 .button-line:hover { background: #10b84f; }
 .header-line-button {
   min-height: 44px;
-  padding: 0.55rem 1rem 0.48rem;
+  padding: 0.6rem 1.15rem 0.55rem;
   border: 0;
-  background: var(--beige-deep);
+  background: linear-gradient(135deg, var(--beige-deep) 0%, #6d5e46 100%);
   color: #fff;
+  box-shadow: 0 8px 22px rgba(23, 36, 29, 0.18);
   font-size: 0.82rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.13em;
+  transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
 }
-.header-line-button::before {
-  order: 2;
-  margin-left: 0.35rem;
-  content: "↗";
-  font-size: 1rem;
-  font-weight: 400;
-  opacity: 0.62;
-  transform: rotate(-3deg);
-}
-.header-line-button::after {
-  position: absolute;
-  right: -0.15rem;
-  bottom: 0.28rem;
-  left: -0.15rem;
-  height: 0.26rem;
-  border-radius: 52% 48% 63% 37%;
-  background: currentColor;
-  content: "";
-  opacity: 0.16;
-  transform: rotate(-1.2deg) skewX(-12deg);
-  transition: opacity 180ms ease, transform 180ms ease;
-}
+.header-line-button::before,
+.header-line-button::after { content: none; }
 .header-line-button:hover,
-.header-line-button:focus-visible { background: var(--beige-deep-hover); color: #fff; }
-.header-line-button:hover::after,
-.header-line-button:focus-visible::after { opacity: 0.48; transform: rotate(-1.2deg) skewX(-12deg) scaleX(1.05); }
+.header-line-button:focus-visible {
+  background: linear-gradient(135deg, var(--beige-deep-hover) 0%, #594b37 100%);
+  color: #fff;
+  box-shadow: 0 11px 26px rgba(23, 36, 29, 0.24);
+}
 .button-outline { border-color: var(--ink); background: transparent; }
 .button-outline:hover { background: var(--ink); color: var(--paper); }
 .button-outline-light { border-color: var(--paper); color: var(--paper); }
