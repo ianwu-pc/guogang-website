@@ -1653,7 +1653,7 @@ body { font-size: var(--type-body); }
 .people-story-editorial-cover { padding: clamp(2rem, 5vw, 4rem); align-items: flex-end; justify-content: flex-start; }
 .people-story-editorial-cover > div { width: 100%; position: relative; z-index: 1; }
 .people-story-editorial-cover .eyebrow { display: block; margin-bottom: clamp(1.5rem, 4vw, 3rem); }
-.people-story-editorial-cover strong { display: block; max-width: 8ch; color: var(--ink); font-family: var(--serif); font-size: var(--type-card); font-weight: 600; line-height: 1.35; }
+.people-story-editorial-cover strong { display: block; max-width: 100%; color: var(--ink); font-family: var(--serif); font-size: var(--type-card); font-weight: 600; line-height: 1.35; }
 .people-story-editorial-cover small { display: block; padding-top: 1.25rem; margin-top: 1.5rem; border-top: 1px solid var(--line); color: var(--green-soft); font-size: 0.72rem; letter-spacing: 0.08em; }
 .people-ending,
 .goods-ending,

@@ -25,15 +25,15 @@ export default function PeoplePage() {
         <div className="people-story-list">
           {PEOPLE.map((person, index) => (
             <article className="people-story-card" key={person.id}>
-              {person.slug === "breakfast-shop-owner" ? (
+              {["bottle-cap-grandma", "breakfast-shop-owner"].includes(person.slug) ? (
                 <div
                   className="image-placeholder ratio-portrait tone-paper people-story-editorial-cover"
                   role="img"
-                  aria-label="黃淑惠與美食坊早餐故事文字封面"
+                  aria-label={`${person.name}人物故事文字封面`}
                 >
                   <div>
-                    <span className="eyebrow">STORY 02 / MORNING</span>
-                    <strong>{person.quote}</strong>
+                    <span className="eyebrow">STORY {String(index + 1).padStart(2, "0")} / {person.slug === "bottle-cap-grandma" ? "TIME" : "MORNING"}</span>
+                    <strong>{person.quoteLines ? <HeadingLines lines={person.quoteLines} /> : person.quote}</strong>
                     <small>{person.name} · {person.role}</small>
                   </div>
                 </div>

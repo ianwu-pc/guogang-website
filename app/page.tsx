@@ -65,7 +65,21 @@ export default function Home() {
           <div className="home-feature-grid home-people-grid">
             {PEOPLE.slice(0, 3).map((person, index) => (
               <article className="home-feature-card" key={person.id}>
-                <ImagePlaceholder label={person.coverImage} alt={`${person.name}人物紀錄照片`} ratio="portrait" tone={index % 2 ? "paper" : "green"} />
+                {person.slug === "bottle-cap-grandma" ? (
+                  <div
+                    className="image-placeholder ratio-portrait tone-paper people-story-editorial-cover"
+                    role="img"
+                    aria-label="林秀英人物故事文字封面"
+                  >
+                    <div>
+                      <span className="eyebrow">STORY 01 / TIME</span>
+                      <strong>{person.quoteLines ? <HeadingLines lines={person.quoteLines} /> : person.quote}</strong>
+                      <small>{person.name} · {person.role}</small>
+                    </div>
+                  </div>
+                ) : (
+                  <ImagePlaceholder label={person.coverImage} alt={`${person.name}人物紀錄照片`} ratio="portrait" tone={index % 2 ? "paper" : "green"} />
+                )}
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <h3>{person.name}</h3>
                 {person.role !== "人物姓名待確認" ? <small className="home-feature-role">{person.role}</small> : null}

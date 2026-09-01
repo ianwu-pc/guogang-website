@@ -20,6 +20,7 @@ const routes = [
   "/goods/goods-01",
   "/guogang",
   "/people",
+  "/people/bottle-cap-grandma",
   "/people/breakfast-shop-owner",
   "/people/community-kitchen-mother",
   "/people/couple-story-one",
@@ -49,7 +50,8 @@ test("homepage contains the complete editorial structure", async () => {
   assert.match(html, /goods-01-cutout\.png/);
   assert.match(html, /港式蘿蔔糕/);
   assert.match(html, /鴉片鐵蛋/);
-  assert.match(html, /瓶蓋牆奶奶/);
+  assert.match(html, /林秀英/);
+  assert.match(html, /瓶蓋牆創作者/);
   assert.match(html, /黃淑惠/);
   assert.match(html, /美食坊老闆娘/);
   assert.match(html, /李水錦阿姨/);
@@ -306,12 +308,14 @@ test("interactive map supports pointer, touch and keyboard selection", async () 
   assert.match(map, /id="guogang-map"/);
 });
 
-test("people page preserves six stories and integrates the three finalized identities", async () => {
+test("people page preserves six stories and integrates the four finalized identities", async () => {
   const response = await render("/people");
   const html = await response.text();
   assert.match(html, /page-intro-index[^>]*>02</);
   assert.match(html, /過港人物\.jpg/);
-  assert.match(html, /瓶蓋牆奶奶/);
+  assert.match(html, /林秀英/);
+  assert.match(html, /瓶蓋牆創作者/);
+  assert.match(html, /把時間[\s\S]*?一個瓶蓋一個瓶蓋[\s\S]*?留在過港。/);
   assert.match(html, /黃淑惠/);
   assert.match(html, /煎台上的晨之味/);
   assert.match(html, /李水錦阿姨/);
@@ -320,8 +324,13 @@ test("people page preserves six stories and integrates the three finalized ident
   assert.match(html, /四十年相伴，[\s\S]*?二十年過港/);
   assert.match(html, /people-story-quote[^>]*><span class="heading-line">四十年相伴，<\/span><span class="heading-line">二十年過港<\/span>/);
   assert.match(html, /people-story-editorial-cover/);
+  const editorialCards = [...html.matchAll(/<article class="people-story-card"><div class="image-placeholder ratio-portrait tone-paper people-story-editorial-cover"[\s\S]*?<\/article>/g)].map((match) => match[0]);
+  const bottleCapCard = editorialCards[0];
+  assert.ok(bottleCapCard, "Lin Xiu-ying story should render the editorial text-only cover");
+  assert.match(bottleCapCard, /林秀英/);
+  assert.doesNotMatch(bottleCapCard, /來源未提供|IMAGE|待提供/);
   assert.doesNotMatch(html, /黃淑惠與美食坊工作畫面｜來源未提供/);
-  const breakfastCard = html.match(/<article class="people-story-card"><div class="image-placeholder ratio-portrait tone-paper people-story-editorial-cover"[\s\S]*?<\/article>/)?.[0];
+  const breakfastCard = editorialCards[1];
   assert.ok(breakfastCard, "breakfast story should render the editorial text-only cover");
   assert.doesNotMatch(breakfastCard, /來源未提供|IMAGE|待提供/);
   assert.match(html, /夫妻故事二/);
@@ -331,6 +340,10 @@ test("people page preserves six stories and integrates the three finalized ident
 
 test("finalized people stories render complete editorial pages from shared data", async () => {
   const checks = [
+    [
+      "/people/bottle-cap-grandma",
+      ["林秀英", "把時間", "一個瓶蓋一個瓶蓋留在過港。", "她做過的事情，好像很難一次數完", "一面牆，是很多雙手一起長出來的", "這雙手，一直沒有真正停過", "時間不能留白", "原本在家裡做的事，慢慢走到了外面", "住久了，就有感情了", "有些時間，最後會變成一個地方的樣子", "而過港，也收下了她這六十多年的時間"],
+    ],
     [
       "/people/breakfast-shop-owner",
       ["黃淑惠", "煎台上的晨之味", "煎台上的清晨", "落腳過港時", "一間早餐店，一條街的人情", "晨光裡的餘韻", "二十五年來，美食坊就這樣靜靜佇立在過港的晨光裡"],
@@ -366,8 +379,10 @@ test("finalized story pages share one responsive typography scale and semantic t
   }
   assert.match(css, /\.people-article-heading h1\s*\{[^}]*font-size:\s*var\(--type-article-title\)/);
   assert.match(css, /\.people-article-section-copy h2\s*\{[^}]*font-size:\s*var\(--type-article-section\)/);
+  assert.match(css, /\.people-story-editorial-cover strong\s*\{[^}]*max-width:\s*100%/);
   assert.ok(data.includes('titleLines: ["四十年相伴，", "二十年過港"]'));
   assert.ok(data.includes('titleLines: ["煎台上的", "晨之味"]'));
+  assert.ok(data.includes('titleLines: ["把時間", "一個瓶蓋一個瓶蓋留在過港。"]'));
   assert.ok(data.includes('subtitleLines: ["——守著一方煎台，", "也守著一條街的成長與人情"]'));
 });
 
