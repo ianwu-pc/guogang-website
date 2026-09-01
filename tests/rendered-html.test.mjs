@@ -20,6 +20,9 @@ const routes = [
   "/goods/goods-01",
   "/guogang",
   "/people",
+  "/people/breakfast-shop-owner",
+  "/people/community-kitchen-mother",
+  "/people/couple-story-one",
   "/about",
 ];
 
@@ -47,8 +50,9 @@ test("homepage contains the complete editorial structure", async () => {
   assert.match(html, /港式蘿蔔糕/);
   assert.match(html, /鴉片鐵蛋/);
   assert.match(html, /瓶蓋牆奶奶/);
-  assert.match(html, /早餐店老闆娘/);
-  assert.match(html, /煮飯媽媽/);
+  assert.match(html, /黃淑惠/);
+  assert.match(html, /美食坊老闆娘/);
+  assert.match(html, /李水錦阿姨/);
   assert.match(html, /一群人一起做的[\s\S]*?事/);
   assert.match(html, /如果喜歡過港/);
   assert.match(html, /205 基隆市暖暖區過港里過港路 54 號/);
@@ -250,7 +254,10 @@ test("header color follows the visual section instead of a small scroll threshol
 
   assert.match(header, /const visualSection = pagePhoto \?\? story/);
   assert.match(header, /visualSection\.getBoundingClientRect\(\)\.bottom <= headerHeight/);
-  assert.match(header, /overPagePhoto && !menuOpen/);
+  assert.match(header, /const mobileScrollStarted =/);
+  assert.match(header, /window\.innerWidth <= 760 && window\.scrollY > 16/);
+  assert.match(header, /overPagePhoto && !menuOpen && !scrolled/);
+  assert.match(css, /@media \(max-width: 760px\)[\s\S]*?\.site-header\.is-scrolled::before\s*\{[\s\S]*?rgba\(241, 238, 227, 0\.84\)/);
   assert.match(
     css,
     /body:has\(\.scroll-story-sticky\.has-photo\) \.site-header:not\(\.is-scrolled\)/,
@@ -299,17 +306,69 @@ test("interactive map supports pointer, touch and keyboard selection", async () 
   assert.match(map, /id="guogang-map"/);
 });
 
-test("people page presents the six manuscript story directions without invented names", async () => {
+test("people page preserves six stories and integrates the three finalized identities", async () => {
   const response = await render("/people");
   const html = await response.text();
   assert.match(html, /page-intro-index[^>]*>02</);
   assert.match(html, /過港人物\.jpg/);
   assert.match(html, /瓶蓋牆奶奶/);
-  assert.match(html, /早餐店老闆娘/);
-  assert.match(html, /夫妻故事一/);
+  assert.match(html, /黃淑惠/);
+  assert.match(html, /煎台上的晨之味/);
+  assert.match(html, /李水錦阿姨/);
+  assert.match(html, /十年灶腳，一味歡喜/);
+  assert.match(html, /清爽阿公 × 阿笑阿嬤/);
+  assert.match(html, /四十年相伴，[\s\S]*?二十年過港/);
+  assert.match(html, /people-story-quote[^>]*><span class="heading-line">四十年相伴，<\/span><span class="heading-line">二十年過港<\/span>/);
+  assert.match(html, /people-story-editorial-cover/);
+  assert.doesNotMatch(html, /黃淑惠與美食坊工作畫面｜來源未提供/);
+  const breakfastCard = html.match(/<article class="people-story-card"><div class="image-placeholder ratio-portrait tone-paper people-story-editorial-cover"[\s\S]*?<\/article>/)?.[0];
+  assert.ok(breakfastCard, "breakfast story should render the editorial text-only cover");
+  assert.doesNotMatch(breakfastCard, /來源未提供|IMAGE|待提供/);
   assert.match(html, /夫妻故事二/);
-  assert.match(html, /人物姓名與完整訪談仍在確認/);
+  assert.doesNotMatch(html, /人物姓名與完整訪談仍在確認/);
   assert.doesNotMatch(html, /people-empty-index|01—/);
+});
+
+test("finalized people stories render complete editorial pages from shared data", async () => {
+  const checks = [
+    [
+      "/people/breakfast-shop-owner",
+      ["黃淑惠", "煎台上的晨之味", "煎台上的清晨", "落腳過港時", "一間早餐店，一條街的人情", "晨光裡的餘韻", "二十五年來，美食坊就這樣靜靜佇立在過港的晨光裡"],
+    ],
+    [
+      "/people/community-kitchen-mother",
+      ["李水錦阿姨", "十年灶腳，一味歡喜", "灶腳裡的笑聲，煮著她的人生", "從內湖的風雨，到過港的安頓", "灶腳裡的熱心，也藏著人情味", "六十歲，再當一次學生", "人生就是要健康、要快樂", "阿姨帶著滿滿的笑聲"],
+    ],
+    [
+      "/people/couple-story-one",
+      ["清爽阿公 × 阿笑阿嬤", "四十年相伴，", "二十年過港", "笑了就爽 爽了就笑", "在協會裡學新知、交朋友", "鐵道歲月的奔波與守護", "水患之後的安居", "笑了就爽，爽了就笑"],
+    ],
+  ];
+
+  for (const [route, phrases] of checks) {
+    const response = await render(route);
+    assert.equal(response.status, 200, `${route} should return 200`);
+    const html = await response.text();
+    for (const phrase of phrases) assert.match(html, new RegExp(phrase), `${route} should include ${phrase}`);
+    assert.match(html, /people-article-page/);
+    assert.match(html, /← 上一篇人物/);
+    assert.match(html, /返回全部人物/);
+    assert.match(html, /下一篇人物 →/);
+  }
+});
+
+test("finalized story pages share one responsive typography scale and semantic title lines", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  const data = await readFile(new URL("../app/data/peopleStories.ts", import.meta.url), "utf8");
+
+  for (const token of ["--type-article-title", "--type-article-subtitle", "--type-article-section", "--type-article-body"]) {
+    assert.match(css, new RegExp(`${token}:\\s*clamp\\(`));
+  }
+  assert.match(css, /\.people-article-heading h1\s*\{[^}]*font-size:\s*var\(--type-article-title\)/);
+  assert.match(css, /\.people-article-section-copy h2\s*\{[^}]*font-size:\s*var\(--type-article-section\)/);
+  assert.ok(data.includes('titleLines: ["四十年相伴，", "二十年過港"]'));
+  assert.ok(data.includes('titleLines: ["煎台上的", "晨之味"]'));
+  assert.ok(data.includes('subtitleLines: ["——守著一方煎台，", "也守著一條街的成長與人情"]'));
 });
 
 test("about page does not publish the supplied organization chart", async () => {
