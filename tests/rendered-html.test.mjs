@@ -211,6 +211,15 @@ test("product and person names share the smaller non-wrapping name scale", async
   assert.doesNotMatch(css, /text-overflow:\s*ellipsis/);
 });
 
+test("timeline years preserve their shared type scale without wrapping", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  const timelineYearRule = css.match(/\.timeline-year strong\s*\{([^}]*)\}/)?.[1] ?? "";
+
+  assert.match(timelineYearRule, /white-space:\s*nowrap/);
+  assert.match(timelineYearRule, /word-break:\s*keep-all/);
+  assert.match(timelineYearRule, /font-size:\s*clamp\(1\.15rem,\s*2vw,\s*1\.8rem\)/);
+});
+
 test("history introduction keeps its explicit two-level exception", async () => {
   const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
 
