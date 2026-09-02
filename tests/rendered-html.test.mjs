@@ -286,25 +286,43 @@ test("chapter order, supplied goods photos and interactive map match the current
   assert.match(guogangHtml, /page-intro-index[^>]*>01</);
   assert.match(guogangHtml, /認識過港\.jpg/);
   assert.match(guogangHtml, /新的居民，在過港落腳/);
-  assert.match(guogangHtml, /過港互動示意地圖/);
-  assert.match(guogangHtml, /暖暖溪河岸/);
-  assert.match(guogangHtml, /社區發展協會/);
+  assert.match(guogangHtml, /可探索的過港手繪生活地圖/);
+  assert.match(guogangHtml, /guogang-handdrawn-map-background\.png/);
+  assert.match(guogangHtml, /guogang-map-landmarks\/inoue\.png/);
+  assert.match(guogangHtml, /guogang-map-landmarks\/nuannuan-station\.png/);
+  assert.match(guogangHtml, /美食坊早餐店/);
+  assert.match(guogangHtml, /過港社區發展協會/);
+  for (const locationName of ["井上園日本料理", "滿越緣私房料理", "過港聖光堂", "過港86義大利麵", "警察宿舍", "美食坊早餐店", "過港社區發展協會", "黃蠟石博物館", "中漁新村", "過港福德宮", "暖暖火車站"]) {
+    assert.match(guogangHtml, new RegExp(locationName));
+  }
   assert.doesNotMatch(guogangHtml, /地點名單待確認/);
   assert.match(guogangHtml, /故事走到今天/);
   assert.doesNotMatch(guogangHtml, /ABOUT THE SOURCE/);
 });
 
-test("interactive map supports pointer, touch and keyboard selection", async () => {
+test("interactive map supports hover, keyboard, touch selection and direct dragging", async () => {
   const map = await readFile(
     new URL("../app/components/GuogangInteractiveMap.tsx", import.meta.url),
     "utf8",
   );
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
   assert.match(map, /useState/);
   assert.match(map, /onMouseEnter=/);
   assert.match(map, /onFocus=/);
+  assert.match(map, /onBlur=/);
+  assert.match(map, /onMouseLeave=/);
   assert.match(map, /onClick=/);
-  assert.match(map, /aria-pressed=/);
+  assert.match(map, /onPointerDown=/);
+  assert.match(map, /onPointerMove=/);
+  assert.match(map, /scrollLeft/);
+  assert.match(map, /suppressActivationRef/);
+  assert.match(map, /aria-expanded=/);
+  assert.match(map, /GUOGANG_MAP_LOCATIONS/);
+  assert.match(map, /guogang-handdrawn-map-background\.png/);
+  assert.match(map, /guogang-map-landmarks\/\$\{location\.id\}\.png/);
+  assert.match(map, /onMouseLeave/);
   assert.match(map, /id="guogang-map"/);
+  assert.match(css, /\.guogang-map-scroll::-webkit-scrollbar \{ display: none; \}/);
 });
 
 test("people page preserves six stories and the new editorial index structure", async () => {

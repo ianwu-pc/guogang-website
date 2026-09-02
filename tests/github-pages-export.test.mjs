@@ -24,6 +24,19 @@ const requiredFiles = [
   "fonts/OFL-NotoSerifTC.txt",
   "_next/static/fonts/guogang-serif-mobile.woff2",
   "images/guogang-history-1949.png",
+  "images/guogang-handdrawn-map.jpg",
+  "images/guogang-handdrawn-map-background.png",
+  "images/guogang-map-landmarks/inoue.png",
+  "images/guogang-map-landmarks/manyueyuan.png",
+  "images/guogang-map-landmarks/shengguang.png",
+  "images/guogang-map-landmarks/pasta-86.png",
+  "images/guogang-map-landmarks/police-dormitory.png",
+  "images/guogang-map-landmarks/breakfast-shop.png",
+  "images/guogang-map-landmarks/association.png",
+  "images/guogang-map-landmarks/wax-museum.png",
+  "images/guogang-map-landmarks/zhongyu.png",
+  "images/guogang-map-landmarks/fude-temple.png",
+  "images/guogang-map-landmarks/nuannuan-station.png",
   "images/home/home-scroll-01.webp",
   "images/home/home-scroll-01-1280.webp",
   "images/home/home-scroll-02.webp",
@@ -76,9 +89,15 @@ test("exported pages preserve revision content and interactions", async () => {
   assert.match(goods, /double-bamboo-shoot-dumplings\.jpg/);
   assert.match(goods, /過港好味\.jpg/);
   assert.match(guogang, /認識過港\.jpg/);
-  assert.match(guogang, /過港互動示意地圖/);
-  assert.match(guogang, /暖暖溪河岸/);
-  assert.match(guogang, /社區發展協會/);
+  assert.match(guogang, /可探索的過港手繪生活地圖/);
+  assert.match(guogang, /guogang-handdrawn-map-background\.png/);
+  assert.match(guogang, /guogang-map-landmarks\/inoue\.png/);
+  assert.match(guogang, /guogang-map-landmarks\/nuannuan-station\.png/);
+  assert.match(guogang, /美食坊早餐店/);
+  assert.match(guogang, /過港社區發展協會/);
+  for (const locationName of ["井上園日本料理", "滿越緣私房料理", "過港聖光堂", "過港86義大利麵", "警察宿舍", "美食坊早餐店", "過港社區發展協會", "黃蠟石博物館", "中漁新村", "過港福德宮", "暖暖火車站"]) {
+    assert.match(guogang, new RegExp(locationName));
+  }
   assert.doesNotMatch(guogang, /地點名單待確認/);
   assert.match(people, /過港人物\.jpg/);
   assert.match(people, /PEOPLE OF GUOGANG \/ 人與過港/);
