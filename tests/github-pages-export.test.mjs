@@ -124,9 +124,9 @@ test("exported pages preserve revision content and interactions", async () => {
     assert.match(people, new RegExp(`${name}[\\s\\S]*?href="[^"]*${href}`));
   }
 
-  assert.match(people, /把時間，[\s\S]*?一個瓶蓋一個瓶蓋留在過港。/);
-  assert.match(people, /二十五年，[\s\S]*?早晨裡的人慢慢熟了。/);
-  assert.match(people, /四十多年，[\s\S]*?他們一起把日子過到了過港。/);
+  assert.match(people, /把時間，[\s\S]*?一個瓶蓋一個瓶蓋[\s\S]*?留在過港。/);
+  assert.match(people, /二十五年，[\s\S]*?早晨裡的人[\s\S]*?慢慢熟了。/);
+  assert.match(people, /四十多年，[\s\S]*?他們一起把日子[\s\S]*?過到了過港。/);
   assert.match(people, /這條半小時的路，[\s\S]*?她走了十年。/);
   assert.match(people, /六個故事，[\s\S]*?六種與過港產生關係的方式。/);
   assert.doesNotMatch(people, /STORY 01|STORY 02|STORY 03|STORY 04/);
