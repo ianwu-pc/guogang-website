@@ -220,6 +220,10 @@ test("product and person names share the smaller non-wrapping name scale", async
   assert.match(css, /--type-name:\s*clamp\(/);
   assert.match(
     css,
+    /\.people-story-name\s*\{[\s\S]*?font-size:\s*var\(--type-name\);[\s\S]*?white-space:\s*nowrap;[\s\S]*?word-break:\s*keep-all;/,
+  );
+  assert.match(
+    css,
     /\.home-feature-card h3,\s*\.people-story-copy h3,\s*\.catalog-copy h2\s*\{[\s\S]*?font-size:\s*var\(--type-name\);[\s\S]*?white-space:\s*nowrap;[\s\S]*?word-break:\s*keep-all;/,
   );
   assert.doesNotMatch(
@@ -303,38 +307,58 @@ test("interactive map supports pointer, touch and keyboard selection", async () 
   assert.match(map, /id="guogang-map"/);
 });
 
-test("people page preserves six stories and integrates the five finalized identities", async () => {
+test("people page preserves six stories and the new editorial index structure", async () => {
   const response = await render("/people");
   const html = await response.text();
-  assert.match(html, /page-intro-index[^>]*>02</);
+  assert.doesNotMatch(html, /page-intro-index[^>]*>\d{2}/);
   assert.match(html, /過港人物\.jpg/);
+  assert.match(html, /PEOPLE OF GUOGANG \/ 人與過港/);
+  assert.match(html, /過港的樣子，[\s\S]*?藏在不同人的日常裡。/);
+
   assert.match(html, /林秀英/);
-  assert.match(html, /瓶蓋牆創作者/);
-  assert.match(html, /把時間[\s\S]*?一個瓶蓋一個瓶蓋[\s\S]*?留在過港。/);
+  assert.match(html, /把時間，[\s\S]*?一個瓶蓋一個瓶蓋留在過港。/);
   assert.match(html, /黃淑惠/);
-  assert.match(html, /煎台上的晨之味/);
+  assert.match(html, /二十五年，[\s\S]*?早餐店裡的客人慢慢成了朋友。/);
   assert.match(html, /李水錦阿姨/);
-  assert.match(html, /十年灶腳，一味歡喜/);
-  assert.match(html, /清爽阿公 × 阿笑阿嬤/);
-  assert.match(html, /四十年相伴，[\s\S]*?二十年過港/);
-  assert.match(html, /people-story-quote[^>]*><span class="heading-line">四十年相伴，<\/span><span class="heading-line">二十年過港<\/span>/);
-  assert.match(html, /people-story-editorial-cover/);
-  const editorialCards = [...html.matchAll(/<article class="people-story-card"><div class="image-placeholder ratio-portrait tone-paper people-story-editorial-cover"[\s\S]*?<\/article>/g)].map((match) => match[0]);
-  const bottleCapCard = editorialCards[0];
-  assert.ok(bottleCapCard, "Lin Xiu-ying story should render the editorial text-only cover");
-  assert.match(bottleCapCard, /林秀英/);
-  assert.doesNotMatch(bottleCapCard, /來源未提供|IMAGE|待提供/);
-  assert.doesNotMatch(html, /黃淑惠與美食坊工作畫面｜來源未提供/);
-  const breakfastCard = editorialCards[1];
-  assert.ok(breakfastCard, "breakfast story should render the editorial text-only cover");
-  assert.doesNotMatch(breakfastCard, /來源未提供|IMAGE|待提供/);
+  assert.match(html, /每天半個小時，[\s\S]*?她來過港過另一種生活。/);
+  assert.match(html, /清爽 × 阿笑/);
+  assert.match(html, /一起四十多年，[\s\S]*?生活這件事一直在變。/);
   assert.match(html, /丁梅花/);
-  assert.match(html, /有些門打開以後[\s\S]*?會看見更多事情/);
+  assert.match(html, /再去看看一個人。/);
+  assert.match(html, /親家阿公阿嬤/);
+  assert.match(html, /一天過一天，[\s\S]*?他們把生活一起過了下來。/);
+  assert.match(html, /六段不同的人生/);
+  assert.match(html, /六個故事，[\s\S]*?六種與過港產生關係的方式。/);
+  assert.match(html, /people-story-editorial-cover/);
+  assert.match(html, /慢慢和過港有了關係。/);
+  assert.match(html, /閱讀清爽與阿笑的故事/);
+
+  const peopleCards = [...html.matchAll(/<article class="people-story-card[\s\S]*?<\/article>/g)].map((match) => match[0]);
+  const peopleOrder = ["林秀英", "黃淑惠", "丁梅花", "清爽 × 阿笑", "李水錦阿姨", "親家阿公阿嬤"];
+  assert.equal(peopleCards.length, peopleOrder.length, "six people should render as six story items");
+  assert.deepEqual(
+    peopleCards.map((card) => peopleOrder.find((name) => card.includes(`>${name}<`))),
+    peopleOrder,
+    "people cards should preserve the intended DOM reading order",
+  );
+
+  const breakfastCard = peopleCards.find((card) => card.includes(">黃淑惠<"));
+  assert.ok(breakfastCard, "Huang Shu-hui story should render as its own item");
+  assert.match(breakfastCard, /href="\/people\/breakfast-shop-owner\/?"/);
+  assert.match(breakfastCard, /people-story-editorial-cover/);
+  assert.doesNotMatch(breakfastCard, /<img\b/i);
+  assert.doesNotMatch(breakfastCard, /來源未提供|IMAGE|待提供|照片待補/);
+
+  assert.match(html, /href="\/people\/bottle-cap-grandma"/);
+  assert.match(html, /href="\/people\/breakfast-shop-owner"/);
+  assert.match(html, /href="\/people\/community-kitchen-mother"/);
+  assert.match(html, /href="\/people\/couple-story-one"/);
   assert.match(html, /href="\/people\/couple-story-two"/);
-  assert.doesNotMatch(html, /人物姓名與完整訪談仍在確認/);
+  assert.match(html, /href="\/people\/community-volunteer"/);
+
+  assert.doesNotMatch(html, /STORY 01|STORY 02|STORY 03|STORY 04|人物編號|人名待確認|姓名待確認/);
   assert.doesNotMatch(html, /people-empty-index|01—/);
 });
-
 test("finalized people stories render complete editorial pages from shared data", async () => {
   const checks = [
     [

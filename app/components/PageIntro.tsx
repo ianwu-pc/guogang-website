@@ -5,6 +5,7 @@ type PageIntroProps = {
   title: string;
   description: string;
   vertical?: string;
+  hideIndex?: boolean;
 };
 
 const PAGE_INTRO_VISUALS: Record<
@@ -42,6 +43,7 @@ export function PageIntro({
   title,
   description,
   vertical = "LOCAL ARCHIVE",
+  hideIndex = false,
 }: PageIntroProps) {
   const visual = PAGE_INTRO_VISUALS[title];
 
@@ -96,12 +98,14 @@ export function PageIntro({
         </div>
       ) : null}
 
-      <div
-        className="page-intro-index"
-        style={visual ? { color: "rgba(248, 243, 231, 0.88)" } : undefined}
-      >
-        {visual?.index ?? index}
-      </div>
+      {!hideIndex ? (
+        <div
+          className="page-intro-index"
+          style={visual ? { color: "rgba(248, 243, 231, 0.88)" } : undefined}
+        >
+          {visual?.index ?? index}
+        </div>
+      ) : null}
 
       <div className="page-intro-copy">
         <p className="eyebrow">GUOGANG / 過港</p>
