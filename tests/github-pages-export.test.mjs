@@ -81,13 +81,42 @@ test("exported pages preserve revision content and interactions", async () => {
   assert.match(guogang, /社區發展協會/);
   assert.doesNotMatch(guogang, /地點名單待確認/);
   assert.match(people, /過港人物\.jpg/);
-  assert.match(people, /林秀英/);
-  assert.match(people, /瓶蓋牆創作者/);
-  assert.match(people, /黃淑惠/);
-  assert.match(people, /李水錦阿姨/);
-  assert.match(people, /清爽阿公 × 阿笑阿嬤/);
-  assert.match(people, /丁梅花/);
-  assert.match(people, /有些門打開以後/);
+  assert.match(people, /PEOPLE OF GUOGANG \/ 人與過港/);
+  assert.match(people, /過港的樣子，[\s\S]*?藏在不同人的日常裡。/);
+
+  const peopleCards = [...people.matchAll(/<article class="people-story-card[\s\S]*?<\/article>/g)].map((match) => match[0]);
+  const peopleOrder = ["林秀英", "黃淑惠", "丁梅花", "清爽 × 阿笑", "李水錦阿姨", "親家阿公阿嬤"];
+  assert.equal(peopleCards.length, peopleOrder.length, "exported People page should contain six editorial entries");
+  assert.deepEqual(
+    peopleCards.map((card) => peopleOrder.find((name) => card.includes(`>${name}<`))),
+    peopleOrder,
+    "exported People page should preserve the editorial reading order",
+  );
+
+  for (const [name, href] of [
+    ["林秀英", "/people/bottle-cap-grandma"],
+    ["黃淑惠", "/people/breakfast-shop-owner"],
+    ["丁梅花", "/people/couple-story-two"],
+    ["清爽 × 阿笑", "/people/couple-story-one"],
+    ["李水錦阿姨", "/people/community-kitchen-mother"],
+    ["親家阿公阿嬤", "/people/community-volunteer"],
+  ]) {
+    assert.match(people, new RegExp(`${name}[\\s\\S]*?href="[^"]*${href}`));
+  }
+
+  assert.match(people, /把時間，[\s\S]*?一個瓶蓋一個瓶蓋留在過港。/);
+  assert.match(people, /二十五年，[\s\S]*?早餐店裡的客人慢慢成了朋友。/);
+  assert.match(people, /一起四十多年，[\s\S]*?生活這件事一直在變。/);
+  assert.match(people, /每天半個小時，[\s\S]*?她來過港過另一種生活。/);
+  assert.match(people, /六個故事，[\s\S]*?六種與過港產生關係的方式。/);
+  assert.doesNotMatch(people, /STORY 01|STORY 02|STORY 03|STORY 04/);
+  assert.doesNotMatch(people, /page-intro-index[^>]*>\d{2}/);
+
+  const breakfastCard = peopleCards.find((card) => card.includes(">黃淑惠<"));
+  assert.ok(breakfastCard, "exported Huang Shu-hui entry should exist");
+  assert.match(breakfastCard, /href="[^"]*\/people\/breakfast-shop-owner/);
+  assert.match(breakfastCard, /people-story-editorial-cover/);
+  assert.doesNotMatch(breakfastCard, /<img\b/i);
 
   const bottleCapStory = await read("people/bottle-cap-grandma/index.html");
   const breakfastStory = await read("people/breakfast-shop-owner/index.html");
