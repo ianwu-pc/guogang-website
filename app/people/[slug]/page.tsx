@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: PersonPageProps): Promise<Met
   const story = getPeopleStory(slug);
   const number = PEOPLE.findIndex((item) => item.slug === slug) + 1;
   return {
-    title: story ? `${story.name.replace("阿姨", "")}｜${story.titleLines.join("")}｜人與過港` : person ? `人物故事 ${String(number).padStart(2, "0")}` : "人與過港",
+    title: story ? `${story.name}｜${story.titleLines.join("")}｜人與過港` : person ? `人物故事 ${String(number).padStart(2, "0")}` : "人與過港",
     description: story?.description ?? person?.summary ?? "過港人物專訪",
   };
 }

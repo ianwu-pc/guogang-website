@@ -1,0 +1,44 @@
+[
+  {
+    "slug": "community-volunteer",
+    "source": "人與過港｜親家阿公阿嬤.docx",
+    "sourceSha256": "95db4386951279f5060f08a43a8678b5a7ab906ce67819537fb4f0ff9e7a1c11",
+    "textSha256": "3f05dda1f160ef7f37aaac674516fed75d5dfb7e62459eb7f658028cc8c2ddf5",
+    "characters": 1405
+  },
+  {
+    "slug": "couple-story-one",
+    "source": "人與過港｜清爽 × 阿笑.docx",
+    "sourceSha256": "0cc5c38cb80c9c6f6aa9b858fd692ffbb6eda867c90c8cfe1e456b7791e46335",
+    "textSha256": "8d4e839543fb719b63c001fe4bf3a258960f743999874117811b290f0a0f91be",
+    "characters": 2062
+  },
+  {
+    "slug": "community-kitchen-mother",
+    "source": "人與過港｜煮飯阿姨.docx",
+    "sourceSha256": "23282c54f1f5d811ad062f8bae515f497ec1af28b232907b3f0d8b03b1e2ca8a",
+    "textSha256": "2031f46a16905aea0a1d14f04214469756e5e902cc8fe85bd0a79c873282c901",
+    "characters": 2045
+  },
+  {
+    "slug": "breakfast-shop-owner",
+    "source": "人與過港｜早餐店老闆娘.docx",
+    "sourceSha256": "16c3f51691ec10325db0eaaca150c25c6948987d26dcf619fb039f264273856b",
+    "textSha256": "cced42e875d98a97c2e4d8512fa4cfc7a104d71e1f7fe72b904274de30205a1c",
+    "characters": 2379
+  },
+  {
+    "slug": "couple-story-two",
+    "source": "人與過港｜丁梅花.docx",
+    "sourceSha256": "e4ef1deee7abfd6902a4ed5b6c750e83b84fdfc50ed3638bbf9385f9c49f017d",
+    "textSha256": "70d49687f4d5979ed34ceb68abf43e2593a2a6d27f70be786dba019f47a64417",
+    "characters": 2110
+  },
+  {
+    "slug": "bottle-cap-grandma",
+    "source": "人與過港｜林秀英.docx",
+    "sourceSha256": "74cc9065501458202b0ccd825a4f0097a9db13591883dae9550d337c6033733c",
+    "textSha256": "d4d981624abf056f9bf3a5c871730e16ced40fd03c7c3058f4c31111a31d4b1b",
+    "characters": 2464
+  }
+]

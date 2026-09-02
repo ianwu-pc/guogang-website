@@ -23,436 +23,2671 @@ export type PeopleStory = {
   subtitleLines: string[];
   description: string;
   heroImage?: StoryImage;
+  introBlocks: StoryBlock[];
   sections: PeopleStorySection[];
+  ending: { largeLines: string[]; smallLines: string[] };
 };
 
+// Transcribed from the six supplied 人與過港 Word documents. Keep source wording and order.
 export const PEOPLE_STORIES: PeopleStory[] = [
   {
-    slug: "bottle-cap-grandma",
-    storyNumber: "01",
-    name: "林秀英",
-    role: "瓶蓋牆創作者",
-    titleLines: ["把時間", "一個瓶蓋一個瓶蓋留在過港。"],
-    subtitleLines: ["這雙閒不下來的手，", "也走到了過港的牆上。"],
-    description: "林秀英把畫畫、寫字、刻印與手作帶進社區，也和大家用一個個瓶蓋，在過港的牆上留下共同完成的地方風景。",
-    sections: [
-      {
-        heading: "她做過的事情，好像很難一次數完",
-        blocks: [
-          { type: "paragraph", text: "林秀英總覺得，時間不該空著。" },
-          { type: "paragraph", text: "畫畫、寫字、刻印、做手工，一片葉子、一只用完的罐子，到了她手裡，總還能再變成一些什麼。" },
-          { type: "paragraph", text: "後來，這雙閒不下來的手，也走到了過港的牆上。" },
-          { type: "paragraph", text: "一個瓶蓋、一個瓶蓋，貼成了今天仍留在社區裡的風景。" },
-          { type: "paragraph", text: "聊到自己做過哪些東西，秀英奶奶沒有認真坐下來數。" },
-          { type: "paragraph", text: "反而開始一張一張翻起照片。" },
-          { type: "quote", text: "「這個也是我做的。」 「你看，這是我的。」 「這個是我自己刻的。」" },
-          { type: "paragraph", text: "畫、字、印章、花、合唱團，一張接著一張。" },
-          { type: "paragraph", text: "我們還來不及把上一張看完，她已經準備說下一件作品的故事。" },
-          { type: "paragraph", text: "要問林秀英到底做過多少東西，答案好像沒有那麼重要。" },
-          { type: "paragraph", text: "因為對她來說，做完一件事情之後，很快又會有下一件。" },
-          { type: "paragraph", text: "看見葉子，便想著怎麼把它拼起來；用完的優酪乳罐，捨不得直接丟掉，剪一剪，又能變成一朵花。" },
-          { type: "paragraph", text: "畫得不滿意的紙也不一定作廢，把還能用的地方剪下來，下一次再畫。" },
-          { type: "paragraph", text: "很多東西到了秀英奶奶手裡，好像都很少被輕易判定成「沒用了」。" },
-          { type: "paragraph", text: "對材料是這樣，對時間也是。" },
-        ],
-      },
-      {
-        heading: "一面牆，是很多雙手一起長出來的",
-        blocks: [
-          { type: "paragraph", text: "現在站在瓶蓋牆前，眼睛先看到的是一整面的顏色。" },
-          { type: "paragraph", text: "但最開始，那些顏色只是居民手裡一袋一袋不起眼的瓶蓋。" },
-          { type: "paragraph", text: "知道社區要收瓶蓋，有人今天拿一包來，隔天又有人提著另一包出現。" },
-          { type: "paragraph", text: "幾乎每天都有人送。" },
-          { type: "paragraph", text: "瓶蓋收回來，還得先洗乾淨、曬乾，再把紅的、綠的、藍的、深的、淺的，一桶一桶分開。" },
-          { type: "paragraph", text: "真正開始貼牆，又是另外一件事。" },
-          { type: "paragraph", text: "牆面太滑，水泥會往下流，就先拿榔頭，一下一下把牆敲粗。" },
-          { type: "paragraph", text: "有人幫忙敲牆，有人處理水泥，有空的志工就過來搭一把手。" },
-          { type: "paragraph", text: "林秀英站上鷹架，盯著圖，也盯著顏色。" },
-          { type: "paragraph", text: "原先有人協助把圖構好，她看了卻總覺得不太對。" },
-          { type: "quote", text: "「跟我手畫的感覺完全不一樣。」" },
-          { type: "paragraph", text: "於是做到一半，秀英奶奶又偷偷把一些地方改成自己想要的樣子。" },
-          { type: "paragraph", text: "就這樣，從早上到下午，一天一天貼。" },
-          { type: "paragraph", text: "一貼，就是兩個多月。" },
-          { type: "paragraph", text: "所以問起瓶蓋牆，她很少只說「這是我做的」。" },
-          { type: "paragraph", text: "因為記得的，還有那些每天拿瓶蓋來的人，以及施工時，站在旁邊一起動手的每一雙手。" },
-          { type: "paragraph", text: "一個人的想法，最後放進了很多人的時間，才真正留在牆上。" },
-        ],
-      },
-      {
-        heading: "這雙手，一直沒有真正停過",
-        blocks: [
-          { type: "paragraph", text: "秀英奶奶笑自己的手，是「勞碌命的手」。" },
-          { type: "paragraph", text: "在過港生活的這些年，這雙手做過很多事情。" },
-          { type: "paragraph", text: "照顧家裡，也工作。" },
-          { type: "paragraph", text: "她曾經在社區開了幾十年的美髮店，洗頭、剪髮、燙髮，一雙手每天反覆做著。" },
-          { type: "paragraph", text: "時間久了，肩膀會痛，連手指也留下工作的痕跡。" },
-          { type: "paragraph", text: "可是後來不再做美髮，這雙手也沒有因此安靜下來。" },
-          { type: "paragraph", text: "只是做的事情變多了。" },
-          { type: "paragraph", text: "畫畫、寫字、刻印、做花、做手工，社區有事情，也常常看得到林秀英的身影。" },
-          { type: "paragraph", text: "說起自己的手，她笑著說：" },
-          { type: "quote", text: "「你看，兩隻手都沒有停止下來，就是勞碌命的手。」" },
-          { type: "paragraph", text: "語氣像是在笑自己，但下一句，又說得很認真：" },
-          { type: "quote", text: "「我們的手這麼大支，什麼也不做，實在很可惜。」" },
-          { type: "paragraph", text: "好像只要還能動，這雙手就應該再替日子留下些什麼。" },
-        ],
-      },
-      {
-        heading: "時間不能留白",
-        blocks: [
-          { type: "paragraph", text: "六十歲那年，林秀英開始學國畫。" },
-          { type: "paragraph", text: "小時候其實就喜歡畫，只是結婚之後，家裡有孩子、有長輩，日子自然先被許多事情填滿。" },
-          { type: "paragraph", text: "等到孫子開始上學，手上多出了一點時間。" },
-          { type: "paragraph", text: "於是去學畫。" },
-          { type: "paragraph", text: "畫著畫著，又想學書法。" },
-          { type: "paragraph", text: "希望自己的畫可以自己落款，也希望上面的章是自己刻的，便再往前走一步，去碰篆字、刻印。" },
-          { type: "paragraph", text: "一樣接著一樣。" },
-          { type: "paragraph", text: "秀英奶奶沒有把「六十歲」說得多特別。" },
-          { type: "paragraph", text: "不是終於迎來另一段人生，也不是突然決定成為誰。" },
-          { type: "paragraph", text: "只是有時間了，而剛好還有很多東西想學。" },
-          { type: "quote", text: "「活到老，學到老。」" },
-          { type: "paragraph", text: "直到現在，睡覺以前，她還會先想一遍：" },
-          { type: "paragraph", text: "明天起來要先做什麼？接下來還有什麼事情？" },
-          { type: "paragraph", text: "然後說出一句，幾乎可以解釋這些年做過的所有事情：" },
-          { type: "quote", text: "「時間不能留白。」" },
-          { type: "paragraph", text: "人的時間沒有想像中那麼多。" },
-          { type: "paragraph", text: "如果明明還能學、還能做，卻讓它就這樣過去了，林秀英會覺得可惜。" },
-        ],
-      },
-      {
-        heading: "原本在家裡做的事，慢慢走到了外面",
-        blocks: [
-          { type: "paragraph", text: "以前，很多喜歡的事情，只是在家裡自己畫、自己做。" },
-          { type: "paragraph", text: "後來有了社區，事情開始不太一樣。" },
-          { type: "paragraph", text: "有人提出一個想法，大家坐下來討論，秀英奶奶就把自己會的東西拿出來。" },
-          { type: "paragraph", text: "瓶蓋牆是這樣，其他作品也是。" },
-          { type: "paragraph", text: "她帶過學生一起做，也教居民畫畫。" },
-          { type: "paragraph", text: "社區裡有些角落，一眼看過去或許不知道是誰留下的，但仔細問，總有一些經過林秀英的手。" },
-          { type: "paragraph", text: "家人曾經笑她：" },
-          { type: "quote", text: "「妳在活動中心的時間，好像比在家裡還多。」" },
-          { type: "paragraph", text: "聽起來，她倒也不覺得奇怪。" },
-          { type: "paragraph", text: "因為去久了，大家有事情就往這裡跑；有什麼東西覺得社區用得到，也會順手帶過來。" },
-          { type: "paragraph", text: "在秀英奶奶口中，大家早就把活動中心當成自己家裡的一部分。" },
-          { type: "paragraph", text: "而一個地方，大概也是這樣才慢慢變成「自己的」。" },
-          { type: "paragraph", text: "不是因為說了一句「這是我的社區」，而是有一天，看到一件事情時，很自然地開始想：" },
-          { type: "paragraph", text: "這裡是不是用得到？" },
-          { type: "paragraph", text: "自己是不是也能做一點什麼？" },
-        ],
-      },
-      {
-        heading: "住久了，就有感情了",
-        blocks: [
-          { type: "paragraph", text: "林秀英嫁來過港，已經是六十多年前的事。" },
-          { type: "paragraph", text: "那時候的過港，還不是現在的樣子。" },
-          { type: "paragraph", text: "她記得以前的房子，記得道路還沒有這麼寬，也記得這個地方一點一點有人住進來，慢慢變得熱鬧。" },
-          { type: "paragraph", text: "時間走過過港，也走過秀英奶奶的人生。" },
-          { type: "paragraph", text: "在這裡成家，在這裡工作，在這裡照顧家人；後來畫畫、寫字、做作品，也在這裡當志工。" },
-          { type: "paragraph", text: "外地有人來參訪，她曾經帶著大家沿著社區走，介紹基隆河，也介紹這些年居民一起做的事情。" },
-          { type: "paragraph", text: "說起有人特地來看過港，林秀英只用了很輕的一句話：" },
-          { type: "quote", text: "「有一點驕傲，真的。」" },
-          { type: "paragraph", text: "到了訪談快結束，問起過港對她到底是什麼，秀英奶奶沒有說什麼很大的話。" },
-          { type: "quote", text: "「你在一個地方待久了，你就會有感情在這裡。」" },
-          { type: "paragraph", text: "說著，又補了一句。" },
-          { type: "quote", text: "「我在這裡住這麼久了，有感情，我也離不開這裡。」" },
-        ],
-      },
-      {
-        heading: "有些時間，最後會變成一個地方的樣子",
-        blocks: [
-          { type: "paragraph", text: "瓶蓋放久了，顏色也許會慢慢褪。" },
-          { type: "paragraph", text: "牆面有一天，也會留下風吹雨打的痕跡。" },
-          { type: "paragraph", text: "但對林秀英來說，那面牆真正留下來的，好像從來不只有瓶蓋。" },
-          { type: "paragraph", text: "還有某一天，有人提著一包洗乾淨的瓶蓋走進社區；有人坐下來分類顏色，有人敲牆、拌水泥，有人站上鷹架，把自己一天裡的一點時間，留在同一面牆上。" },
-          { type: "paragraph", text: "而秀英奶奶留在過港的時間，早已比那兩個多月更長。" },
-          { type: "paragraph", text: "六十多年，一間店、一個家、一間活動中心，一張畫、一顆印章、一面牆。" },
-          { type: "paragraph", text: "很多事情做的時候都很小，小到不一定會特別記得日期。" },
-          { type: "paragraph", text: "可是當時間一件一件疊起來，回頭再看，那些生活過的痕跡，已經成了地方的一部分。" },
-          { type: "paragraph", text: "林秀英說，時間不能留白。" },
-          { type: "paragraph", text: "於是這些年，她把可以用的材料留下來，把可以學的事情學起來，也把自己能做的一點一點，留在了過港。" },
-          { type: "paragraph", text: "而過港，也收下了她這六十多年的時間。" },
-          { type: "quote", text: "「時間不能留白。」" },
-          { type: "paragraph", text: "她把日子一點一點填滿，也讓其中一些，留成了過港今天的樣子。" },
-        ],
-      },
+    "slug": "bottle-cap-grandma",
+    "storyNumber": "01",
+    "name": "林秀英",
+    "role": "",
+    "titleLines": [
+      "把時間，",
+      "一個瓶蓋一個瓶蓋",
+      "留在過港。"
     ],
+    "subtitleLines": [],
+    "description": "她把日子一點一點填滿，而其中一些，也留成了今天的過港。",
+    "introBlocks": [
+      {
+        "type": "quote",
+        "text": "「這個也是我做的。」"
+      },
+      {
+        "type": "paragraph",
+        "text": "訪談那天，林秀英一張一張翻著手機裡的照片。畫、字、印章、手工，還有參加活動時留下的影像。"
+      },
+      {
+        "type": "paragraph",
+        "text": "上一張還沒看完，她已經準備說起下一件作品。我們問她做過多少東西，好像很難真的數清楚。因為一件事情做完，很快又會有下一件。"
+      },
+      {
+        "type": "paragraph",
+        "text": "她看見一片葉子，會想著還能怎麼拼；一張畫如果沒有畫成想要的樣子，也捨不得整張丟掉，\n把還能用的部分剪下來，下一次再畫。"
+      },
+      {
+        "type": "paragraph",
+        "text": "很多東西到了她手裡，好像都不會太快變成「沒用了」。"
+      },
+      {
+        "type": "quote",
+        "text": "「你看，兩隻手都沒有停止下來，就是勞碌命的手。」"
+      },
+      {
+        "type": "paragraph",
+        "text": "這雙手，確實很少真正停過。"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "一雙閒不下來的手",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "六十多年前，林秀英嫁來過港。家裡有孩子、有長輩，生活裡總有事情等著做。她原本就學過美髮，等孩子大一些後，便在過港開了一間小小的美髮店。洗頭、剪髮、燙髮，從頭到尾幾乎都是自己來。"
+          },
+          {
+            "type": "paragraph",
+            "text": "一做，就是幾十年。"
+          },
+          {
+            "type": "paragraph",
+            "text": "長時間重複使用雙手，肩膀也累了，連手指也慢慢留下工作的痕跡。說起那些年，秀英奶奶沒有把它講成什麼特別的故事。只是伸出自己的手給我們看，那些長年工作留下來的痕跡，現在還在。"
+          },
+          {
+            "type": "paragraph",
+            "text": "後來不再做美髮，這雙手也沒有因此安靜下來。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她本來就喜歡做東西。"
+          },
+          {
+            "type": "paragraph",
+            "text": "畫畫、寫字、刻印，做花、做手工，看到什麼可以再利用的材料，總會多想一下："
+          },
+          {
+            "type": "paragraph",
+            "text": "是不是還能變成別的東西？"
+          },
+          {
+            "type": "quote",
+            "text": "「我們的手這麼大支，什麼也不做，實在很可惜。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "對她來說，能做的時候，好像就應該再多做一點。"
+          }
+        ]
+      },
+      {
+        "heading": "時間不能留白",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "六十歲那年，林秀英開始學國畫。"
+          },
+          {
+            "type": "paragraph",
+            "text": "其實小時候就喜歡畫畫，只是成家之後，家庭、孩子與工作，自然先把日子填滿了。等手上終於多出一些時間，她就去學畫。"
+          },
+          {
+            "type": "paragraph",
+            "text": "畫著畫著，又想學書法。希望自己的畫能自己落款，上面的章也想自己來，於是又去學篆字、刻印。"
+          },
+          {
+            "type": "paragraph",
+            "text": "一樣接著一樣。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她沒有特別把「六十歲」說成一個人生的分界。比較像是時間來了，那就把以前喜歡、卻沒空做的事情，再慢慢撿回來。"
+          },
+          {
+            "type": "quote",
+            "text": "「活到老，學到老。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "直到現在，她睡覺以前，還會先想明天起來要先做什麼？接下來還有什麼事情？她說，人的時間沒有想像中那麼多。明明還能學、還能做，卻讓一天就這樣過去，她會覺得可惜。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她把這件事說得很直接："
+          },
+          {
+            "type": "quote",
+            "text": "「時間不能留白。」"
+          }
+        ]
+      },
+      {
+        "heading": "牆上的顏色",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "有些原本只在家裡做的事，慢慢也跟著林秀英走進社區。"
+          },
+          {
+            "type": "paragraph",
+            "text": "有人提出想法，大家一起討論，她就把自己會的東西拿出來。而其中最顯眼的一件，大概就是現在仍留在過港的瓶蓋牆。站在今天的牆前，第一眼看到的是一整片顏色。但最開始，那些顏色都只是散落的瓶蓋。"
+          },
+          {
+            "type": "paragraph",
+            "text": "知道社區要收集材料後，居民陸續把瓶蓋拿來。有人今天提一包，隔天又有人送來另一包。瓶蓋得先清洗、曬乾，再按照不同的顏色與深淺，一桶一桶分開。真正開始施工以後，又碰到新的問題。牆面太滑，水泥黏不住，只好拿著榔頭，先把牆面一下一下敲粗。"
+          },
+          {
+            "type": "paragraph",
+            "text": "有人敲牆，有人幫忙處理水泥，有空的志工就過來搭一把手。林秀英則站上鷹架，盯著圖案，也盯著每一個顏色應該落下的位置。"
+          },
+          {
+            "type": "paragraph",
+            "text": "牆太大，原本請了美術老師協助用電腦構圖。可是她看著看著，總覺得不太對。"
+          },
+          {
+            "type": "quote",
+            "text": "「電腦畫的、有點Q版，跟我手畫的感覺完全不一樣。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "於是做到一半，又偷偷把圖改成自己覺得對的樣子。接著，一個瓶蓋、一個瓶蓋往上貼。"
+          },
+          {
+            "type": "paragraph",
+            "text": "一天又一天。一做，就是兩個多月。"
+          }
+        ]
+      },
+      {
+        "heading": "很多人的一點時間",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "如果瓶蓋牆只寫成「林秀英做了一面牆」，反而少了一些她真正記得的事情。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她記得的是居民把材料送來，是有人清洗、分類，是施工的時候，總有人過來幫忙。就像社區裡其他經過她手的東西一樣，很多事情一開始只是一個想法，後來有人出力、有人幫忙，慢慢就成了大家一起做的事。"
+          },
+          {
+            "type": "paragraph",
+            "text": "秀英奶奶教過居民畫畫，也曾把自己會的東西帶出去分享。家人甚至曾經笑她："
+          },
+          {
+            "type": "quote",
+            "text": "「媽，妳在活動中心的時間，好像比在家裡的時間多。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "她自豪地說，很多社區裡的東西都經過她的手，但也總會補上一句："
+          },
+          {
+            "type": "quote",
+            "text": "「還好有大家來幫忙。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "對她來說，活動中心待久了，也早就不只是「來參加活動」的地方。有事情就往這裡跑，有好東西覺得用得到，也會往這裡送。大家慢慢把這裡，當成自己家裡的一部分。 而一面瓶蓋牆，大概也是這樣長出來的。不是一個人突然做出一件作品，而是很多人，各自把一點點時間放進來，最後，才留成現在看得見的樣子。"
+          }
+        ]
+      },
+      {
+        "heading": "六十多年，留在過港的日子",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "林秀英嫁來過港時，這裡還沒有現在這麼多房子。六十多年過去，她看著房子一棟棟多起來，過港路也慢慢變得熱鬧。"
+          },
+          {
+            "type": "paragraph",
+            "text": "而她自己的日子，也一直在這裡往前走。"
+          },
+          {
+            "type": "paragraph",
+            "text": "成家、工作，後來參與社區、做作品、當志工。很多事情做久了，好像也很難再分清楚，哪些只是自己的生活，哪些已經成了過港的一部分。"
+          },
+          {
+            "type": "paragraph",
+            "text": "外地有人來參訪時，林秀英曾帶著大家在社區裡走，說起基隆河，也說起這些年居民一起做過的事情。"
+          },
+          {
+            "type": "paragraph",
+            "text": "談到有人特地來看過港，\n她笑著說："
+          },
+          {
+            "type": "quote",
+            "text": "「我為我們過港感覺到一點驕傲，真的。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "她說的是「我們過港」。不是只說自己做了什麼，而是想到大家一起把這個地方維持到今天。"
+          },
+          {
+            "type": "paragraph",
+            "text": "訪談最後，我們問她，住了這麼多年，過港對她來說是什麼。"
+          },
+          {
+            "type": "paragraph",
+            "text": "這一次，她沒有再說作品，也沒有再數自己做過多少事情。"
+          },
+          {
+            "type": "paragraph",
+            "text": "只說："
+          },
+          {
+            "type": "quote",
+            "text": "「你在一個地方待久了，你就會有感情在這裡。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "然後又補了一句："
+          },
+          {
+            "type": "quote",
+            "text": "「我在這裡住這麼久了，有感情，我也離不開這裡。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "好像也不需要再多解釋什麼。住久了，做久了，生活裡很多重要的事情都發生在這裡。到最後，過港不只是她住了六十多年的地方，也早已成了她生活裡分不開的一部分。"
+          }
+        ]
+      },
+      {
+        "heading": "時間留下來的形狀",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "瓶蓋放久了，顏色也許會慢慢褪。牆面再過很多年，也會留下風吹雨打的痕跡。"
+          },
+          {
+            "type": "paragraph",
+            "text": "但那面牆真正留下來的，從來不只有瓶蓋。還有曾經有人提著一袋材料走進社區，有人坐下來分類顏色，有人敲牆、拌水泥，有人站上鷹架，把自己一天裡的一點時間，留在同一個地方。"
+          },
+          {
+            "type": "paragraph",
+            "text": "而林秀英留在過港的時間，早已比那兩個多月更長。六十多年。一個家、一間美髮店、一間活動中心，一張畫、一顆印章、一面牆。很多事情發生的時候都很小。小到不一定會特別記得是哪一天完成的。可是當日子一件一件疊起來，再回頭看，那些生活過的痕跡，已經慢慢成了地方的一部分。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她把可以用的東西留下來，把還想學的事情學起來，也把自己做得到的一點一點，留在過港。"
+          },
+          {
+            "type": "paragraph",
+            "text": "一個瓶蓋很小，一天也很短。"
+          },
+          {
+            "type": "paragraph",
+            "text": "可是六十多年過去，\n那些一點一點留下來的時間，早已在過港有了形狀。"
+          }
+        ]
+      }
+    ],
+    "ending": {
+      "largeLines": [
+        "「時間不能留白。」"
+      ],
+      "smallLines": [
+        "她把日子一點一點填滿，",
+        "而其中一些，",
+        "也留成了今天的過港。"
+      ]
+    }
   },
   {
-    slug: "breakfast-shop-owner",
-    storyNumber: "02",
-    name: "黃淑惠",
-    role: "美食坊老闆娘",
-    titleLines: ["煎台上的", "晨之味"],
-    subtitleLines: ["——守著一方煎台，", "也守著一條街的成長與人情"],
-    description: "黃淑惠守著美食坊的煎台二十五年，在每天清晨的早餐與問候裡，看著過港的孩子長大，也陪著一條街走過歲月。",
-    sections: [
-      {
-        heading: "煎台上的清晨",
-        blocks: [
-          { type: "paragraph", text: "清晨四點多的過港，天色總是一片寂靜。當多數人還在被窩裡貪戀夢鄉時，「美食坊」的鐵捲門已伴隨著一聲清脆的摩擦聲響滑開。老闆娘俐落地綁好圍裙，煎鏟在熱鐵板上滋滋作響，翻面、打蛋，熟練地製作著一份又一份溫熱的三明治。空氣裡很快漫開奶油與肉排的香氣，爐上那大桶紅茶也正緩緩滾著。這樣的光景，她日復一日地重複了二十五年。" },
-          { type: "paragraph", text: "梳著一頭乾淨馬尾，手裡總握著那把熟悉的煎鏟，二十五年來，她始終站在同一方煎台前。對過港的人來說，這道身影早已成為清晨最熟悉的風景。她，就是大家口中的美食坊老闆娘——黃淑惠。" },
-        ],
-      },
-      {
-        heading: "落腳過港時",
-        blocks: [
-          { type: "paragraph", text: "說起當初怎麼會來到過港落腳，老闆娘只是笑笑地說：「有緣分啊。」" },
-          { type: "paragraph", text: "回想起開業的初衷，其實沒有什麼驚天動地的創業夢想。年輕時的老闆娘曾在電腦前埋首於密密麻麻的文書輸入，日子安靜，卻也顯得單調。直到後來去舅媽經營的早餐店幫忙，在鍋碗瓢盆與蒸騰的熱氣裡漸漸熟稔了這門手藝。幾年過去，她看中了過港這處屋況小巧、價錢合宜的店面，索性在這裡開了屬於自己的小店。" },
-          { type: "paragraph", text: "早餐店一開，就是二十五年。從那時起，她的生活也跟著早餐店的作息轉動，天還沒亮便起床準備，日復一日站上煎台。" },
-          { type: "quote", text: "這份天還沒亮就得起床的日子，對她而言早已成了生活的一部分，她淡淡笑著：「賺錢都嘛累，總是要生活啊。」語氣中滿是與生活達成默契的坦然。" },
-        ],
-      },
-      {
-        heading: "一間早餐店，一條街的人情",
-        blocks: [
-          { type: "paragraph", text: "這是一間再樸實不過的早餐店，沒有翻新求變的花樣，賣的就是蔥抓餅、鐵板麵與簡單溫暖的早點。她的原則樸素得可愛：「我們自己敢吃的，才能給客人吃。」" },
-          { type: "paragraph", text: "而讓小店一直留在過港人記憶裡的，是街坊之間深厚的人情。這裡的客人多半成了熟面孔，甚至是幾十年的老友。「我們這種小社區，其實客人就是差不多那樣，都是熟客。」" },
-          { type: "paragraph", text: "對黃淑惠來說，最有感觸的，莫過於看著社區裡的孩子一個個長大。從當年牽著大人衣角的小不點，到如今出社會、成家生子，她也一路看在眼裡。" },
-          { type: "quote", text: "「對別人家的小孩子也是跟自己的小孩子一樣啊。上學要注意、走旁邊一點，你都要交代一聲。」" },
-          { type: "paragraph", text: "說起這些孩子，她笑著說，當年那些小小朋友如今都長大了，見面還是一聲聲「阿姨、阿姨」地叫著，而自己也從阿姨一路被叫成了姨媽，甚至阿嬤。" },
-          { type: "paragraph", text: "如今支撐她捨不得退休的原因，早已不只是為了營生，或是擔心身體提早退化。對她而言，每天早上來這裡和老鄰居「打屁聊天」，聽著此起彼落的問候，才是日子裡最踏實的甜。" },
-        ],
-      },
-      {
-        heading: "晨光裡的餘韻",
-        blocks: [
-          { type: "paragraph", text: "這份樸實的情感，正如店裡最受歡迎的椰香吐司——簡簡單單、香香甜甜，沒有複雜的滋味與過度張揚的裝飾，卻在烤得微酥後散發出淡淡椰香，入口溫潤，留下綿長的餘韻。" },
-          { type: "paragraph", text: "二十五年來，美食坊就這樣靜靜佇立在過港的晨光裡，用爐火與真情，烹煮出這座小社區最溫暖的人情記憶。" },
-        ],
-      },
+    "slug": "breakfast-shop-owner",
+    "storyNumber": "02",
+    "name": "早餐店老闆娘",
+    "role": "",
+    "titleLines": [
+      "二十五年，",
+      "早晨裡的人",
+      "慢慢熟了。"
     ],
+    "subtitleLines": [],
+    "description": "有些關係，一開始只是每天來買一份早餐。來久了，就熟了。",
+    "introBlocks": [
+      {
+        "type": "quote",
+        "text": "「喜歡喔？\n好累喔，不喜歡。」"
+      },
+      {
+        "type": "paragraph",
+        "text": "問她做了二十五年的早餐店，\n到現在還喜不喜歡，\n她回答得很快。"
+      },
+      {
+        "type": "paragraph",
+        "text": "接著又補了一句："
+      },
+      {
+        "type": "quote",
+        "text": "「可是還是得做啊，\n要賺錢耶，很現實的問題耶。」"
+      },
+      {
+        "type": "paragraph",
+        "text": "她沒有把每天四點多起床、\n五點以前到店裡，\n說成一件多了不起的事情。"
+      },
+      {
+        "type": "paragraph",
+        "text": "以前要工作，\n要養孩子，\n所以該起床就起床，\n該做的事情就做。"
+      },
+      {
+        "type": "paragraph",
+        "text": "只是這樣的早晨，\n一天一天過下來，\n原本來買早餐的人，\n漸漸有了名字；\n原本只是站在櫃檯前的客人，\n後來也成了朋友。"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "天還沒亮",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "每天早上四點多，\n她就得起床。"
+          },
+          {
+            "type": "paragraph",
+            "text": "五點以前到店裡，\n先煎肉、煎蛋，\n再把三明治一份一份做好。"
+          },
+          {
+            "type": "paragraph",
+            "text": "有些客人趕著上班、上課，\n東西先準備好，\n來了拿著就能走。"
+          },
+          {
+            "type": "paragraph",
+            "text": "二十五年來，\n早餐店的早晨大多是這樣開始的。"
+          },
+          {
+            "type": "paragraph",
+            "text": "但她一開始，\n做的並不是早餐。"
+          },
+          {
+            "type": "paragraph",
+            "text": "年輕的時候，\n她做電腦輸入的工作。"
+          },
+          {
+            "type": "paragraph",
+            "text": "後來因為常去幫舅媽的早餐店，\n幫著幫著，\n該做的事情也慢慢學會了。"
+          },
+          {
+            "type": "paragraph",
+            "text": "舅媽就問她："
+          },
+          {
+            "type": "quote",
+            "text": "「不然你也出來做，\n反正你都會了。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "她的回答也很簡單。"
+          },
+          {
+            "type": "paragraph",
+            "text": "好吧。"
+          },
+          {
+            "type": "paragraph",
+            "text": "後來原本工作的地方租約到了，\n她請人幫忙找店面。"
+          },
+          {
+            "type": "paragraph",
+            "text": "找了一陣子，\n舅媽剛好看到過港這間小店，\n叫她過來看看。"
+          },
+          {
+            "type": "paragraph",
+            "text": "店不大，\n價格還負擔得起，\n她乾脆把它買了下來。"
+          },
+          {
+            "type": "paragraph",
+            "text": "問她為什麼會選過港，\n她只說："
+          },
+          {
+            "type": "quote",
+            "text": "「因緣際會。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "沒有特別計畫要來這裡。"
+          },
+          {
+            "type": "paragraph",
+            "text": "但這一來，\n就是二十五年。"
+          }
+        ]
+      },
+      {
+        "heading": "就是生活",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "做早餐有沒有什麼祕訣？"
+          },
+          {
+            "type": "paragraph",
+            "text": "她想了一下，\n好像不覺得這是一個很難回答的問題。"
+          },
+          {
+            "type": "paragraph",
+            "text": "照程序做，\n該清的地方清乾淨，\n做給客人吃的東西，\n自己也得敢吃。"
+          },
+          {
+            "type": "quote",
+            "text": "「我們自己做、我們敢吃的，\n你就敢給客人吃。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "再問她有沒有什麼\n特別厲害的手藝，\n她反而笑了。"
+          },
+          {
+            "type": "quote",
+            "text": "「我不是什麼達人啦，\n就是生活而已。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "對她來說，\n早餐店並沒有什麼神祕的地方。"
+          },
+          {
+            "type": "paragraph",
+            "text": "做了一輩子的工作，\n知道今天有哪些事情要做，\n一件一件做好，\n一天也就過去了。"
+          },
+          {
+            "type": "paragraph",
+            "text": "以前是為了生活，\n為了養孩子。"
+          },
+          {
+            "type": "quote",
+            "text": "「該扛的責任、該做的，\n我們就乖乖的，\n該做的就乖乖的。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "她講得很平常。"
+          },
+          {
+            "type": "paragraph",
+            "text": "可是二十五年，\n其實就是由很多這樣"
+          },
+          {
+            "type": "paragraph",
+            "text": "「沒什麼特別」的日子組成的。"
+          }
+        ]
+      },
+      {
+        "heading": "每天都會來的人",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "早餐店不大。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她反而覺得，\n小店有小店的好處。"
+          },
+          {
+            "type": "paragraph",
+            "text": "客人差不多就是那些人，\n來久了，\n大家都認識。"
+          },
+          {
+            "type": "paragraph",
+            "text": "點完早餐，\n有時候就站著多說幾句。"
+          },
+          {
+            "type": "paragraph",
+            "text": "今天誰怎麼了，\n昨天發生什麼事，\n聊完，\n再各自去忙。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她說："
+          },
+          {
+            "type": "quote",
+            "text": "「跟客人聊天，\n這個就是這種小店的好處。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "有人買了東西，\n會順便拿一點給她吃；\n她手邊有什麼，\n也會和大家分享。"
+          },
+          {
+            "type": "paragraph",
+            "text": "你給我一點，\n我再拿一點給你。"
+          },
+          {
+            "type": "paragraph",
+            "text": "時間久了，\n原本只是做生意的關係，\n慢慢沒有分得那麼清楚。"
+          },
+          {
+            "type": "quote",
+            "text": "「我們這裡的客人、左右鄰居，\n其實很多很多很多，\n都是很熟、很要好的客人。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "最後她自己把這件事\n說得很簡單："
+          },
+          {
+            "type": "quote",
+            "text": "「客人變成好朋友。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "二十五年前，\n她來這裡是開早餐店。"
+          },
+          {
+            "type": "paragraph",
+            "text": "大概沒有想過，\n有一天最大的收穫之一，\n會是一群朋友。"
+          }
+        ]
+      },
+      {
+        "heading": "從阿姨到阿嬤",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "二十五年，\n也足夠讓一個小孩長大。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她記得以前有不少孩子，\n小小的就會來店裡。"
+          },
+          {
+            "type": "paragraph",
+            "text": "看到他們要去上學，\n她有時會順口喊一句："
+          },
+          {
+            "type": "paragraph",
+            "text": "走旁邊一點，\n注意車子。"
+          },
+          {
+            "type": "paragraph",
+            "text": "不是誰交代她要管。"
+          },
+          {
+            "type": "paragraph",
+            "text": "只是小社區裡，\n孩子看久了，\n好像自然就會多顧一下。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她說："
+          },
+          {
+            "type": "quote",
+            "text": "「對別人家的小孩子，\n也是跟自己的小孩子一樣啊。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "有些孩子很皮，\n該提醒的，\n她還是會提醒。"
+          },
+          {
+            "type": "quote",
+            "text": "「上學要注意、\n走旁邊一點，\n你都要交代一聲。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "後來，\n那些孩子真的一個一個長大了。"
+          },
+          {
+            "type": "paragraph",
+            "text": "讀書，\n工作，\n成家，\n有人甚至帶著自己的孩子\n再回到店裡。"
+          },
+          {
+            "type": "paragraph",
+            "text": "問她這種情形多不多，\n她馬上回答："
+          },
+          {
+            "type": "quote",
+            "text": "「很多，很多。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "以前那些孩子見到她，\n一聲一聲喊「阿姨」。"
+          },
+          {
+            "type": "paragraph",
+            "text": "喊著喊著，\n有人開始叫她姨媽，\n又有人直接叫她阿嬤。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她笑說："
+          },
+          {
+            "type": "quote",
+            "text": "「我當阿嬤了耶。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "自己的女兒還沒有讓她當阿嬤，\n倒是早餐店裡，\n先出現了一群別人家的孫子。"
+          },
+          {
+            "type": "paragraph",
+            "text": "我們原本問她，\n看著這些孩子長大，\n會不會很感動。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她沒有順著說。"
+          },
+          {
+            "type": "paragraph",
+            "text": "只是笑著回答："
+          },
+          {
+            "type": "quote",
+            "text": "「也是我看大的孩子。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "二十五年的時間，\n好像就藏在這句話裡。"
+          },
+          {
+            "type": "paragraph",
+            "text": "不用真的去算過了幾年。"
+          },
+          {
+            "type": "paragraph",
+            "text": "看看以前的小孩\n現在牽著誰回來，\n就知道了。"
+          }
+        ]
+      },
+      {
+        "heading": "十五分鐘的路",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "其實，\n她一直都不住在過港。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她住在安樂區，\n靠近長庚醫院那一帶。"
+          },
+          {
+            "type": "paragraph",
+            "text": "每天騎車來，\n大約十五分鐘。"
+          },
+          {
+            "type": "paragraph",
+            "text": "工作結束以後，\n她還是會沿著同一條路回家。"
+          },
+          {
+            "type": "paragraph",
+            "text": "可是說起朋友，\n她卻說："
+          },
+          {
+            "type": "quote",
+            "text": "「這邊的朋友\n比我住的那裡的朋友還多。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "住家的大樓，\n大家回去以後各自把門關起來。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她說："
+          },
+          {
+            "type": "quote",
+            "text": "「一回去根本沒有鄰居。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "早餐店正好相反。"
+          },
+          {
+            "type": "paragraph",
+            "text": "每天鐵門一開，\n人就開始進進出出。"
+          },
+          {
+            "type": "paragraph",
+            "text": "有人來買早餐，\n有人經過，\n順便打聲招呼；\n熟一點的，\n乾脆站下來聊幾句。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她沒有住在過港，\n卻在二十五年的早晨裡，\n認識了一個又一個過港的人。"
+          },
+          {
+            "type": "paragraph",
+            "text": "問她，\n這個地方對自己來說是什麼，\n她說："
+          },
+          {
+            "type": "quote",
+            "text": "「很有人情味的地方。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "再問早餐店和過港\n到底是什麼關係，\n她想了一會兒："
+          },
+          {
+            "type": "quote",
+            "text": "「我來這邊是跟他們有緣。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "接著，\n又回到她一直說的那句話："
+          },
+          {
+            "type": "quote",
+            "text": "「從客人變成朋友。」"
+          }
+        ]
+      },
+      {
+        "heading": "還是每天來",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "以前，\n每天來店裡的理由很明確。"
+          },
+          {
+            "type": "paragraph",
+            "text": "賺錢，\n養孩子。"
+          },
+          {
+            "type": "paragraph",
+            "text": "現在女兒已經長大，\n有些以前壓在生活裡的事情，\n也不需要再那麼操心。"
+          },
+          {
+            "type": "paragraph",
+            "text": "那為什麼還繼續開？"
+          },
+          {
+            "type": "paragraph",
+            "text": "她說，\n如果現在什麼都不做，\n怕自己反而退化得更快。"
+          },
+          {
+            "type": "paragraph",
+            "text": "而且來到店裡，\n還有人可以說話。"
+          },
+          {
+            "type": "quote",
+            "text": "「以前為了賺錢，\n要養小孩子；\n現在小孩子大了，\n不用我養。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "停了一下，\n她說："
+          },
+          {
+            "type": "quote",
+            "text": "「現在是來這邊\n跟這些人打屁。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "說穿了，\n煎台還是同一個煎台。"
+          },
+          {
+            "type": "paragraph",
+            "text": "每天一樣要早起，\n一樣有做不完的早餐。"
+          },
+          {
+            "type": "paragraph",
+            "text": "可是站在煎台另一邊的人，\n已經和以前不太一樣了。"
+          },
+          {
+            "type": "paragraph",
+            "text": "以前是客人。"
+          },
+          {
+            "type": "paragraph",
+            "text": "後來是熟客。"
+          },
+          {
+            "type": "paragraph",
+            "text": "再後來，\n是今天沒有看到，\n可能還會問一句："
+          },
+          {
+            "type": "paragraph",
+            "text": "怎麼沒來的人。"
+          }
+        ]
+      },
+      {
+        "heading": "從客人變成朋友",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "訪談快結束時，\n我們問她，\n如果要用一種味道\n形容這些年在過港的感覺，\n她一開始其實沒有答案。"
+          },
+          {
+            "type": "quote",
+            "text": "「比較沒有想到那麼多。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "我們又問了幾次。"
+          },
+          {
+            "type": "paragraph",
+            "text": "甜的？"
+          },
+          {
+            "type": "paragraph",
+            "text": "鹹的？"
+          },
+          {
+            "type": "paragraph",
+            "text": "還是其他味道？"
+          },
+          {
+            "type": "paragraph",
+            "text": "最後，\n她忽然說："
+          },
+          {
+            "type": "quote",
+            "text": "「人都很甜，\n東西是賣鹹的比較多。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "大家都笑了。"
+          },
+          {
+            "type": "paragraph",
+            "text": "這句話不是她事先準備好的。"
+          },
+          {
+            "type": "paragraph",
+            "text": "卻很像前面二十五年的答案。"
+          },
+          {
+            "type": "paragraph",
+            "text": "早餐每天做，\n每天也會被吃完。"
+          },
+          {
+            "type": "paragraph",
+            "text": "可是同一群人\n一來再來，\n原本陌生的名字記住了，\n以前的小孩長大了，\n站在櫃檯前的客人，\n也慢慢成了朋友。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她每天從安樂區\n騎十五分鐘到過港，\n把店門打開，\n把早餐做好，\n再和一群認識很多年的人\n說幾句話。"
+          },
+          {
+            "type": "paragraph",
+            "text": "二十五年前，\n她因緣際會來到這裡。"
+          },
+          {
+            "type": "paragraph",
+            "text": "二十五年後，\n過港仍然不是她住的地方。"
+          },
+          {
+            "type": "paragraph",
+            "text": "卻成了她朋友很多的地方。"
+          }
+        ]
+      }
+    ],
+    "ending": {
+      "largeLines": [
+        "「從客人變成朋友。」"
+      ],
+      "smallLines": [
+        "有些關係，",
+        "一開始只是每天來買一份早餐。",
+        "來久了，",
+        "就熟了。"
+      ]
+    }
   },
   {
-    slug: "community-kitchen-mother",
-    storyNumber: "03",
-    name: "李水錦阿姨",
-    role: "過港社區灶腳夥伴",
-    titleLines: ["十年灶腳，", "一味歡喜"],
-    subtitleLines: ["——在炊煙與笑聲裡，", "重新找到生活的滋味"],
-    description: "李水錦阿姨十年來往返過港，在社區灶腳備餐、送便當、學做新食物，也在六十歲時重新走進教室。",
-    heroImage: {
-      src: "/images/people/community-kitchen-mother/li-shui-jin-kitchen.jpg",
-      alt: "李水錦阿姨在過港社區灶腳烹煮食物",
-      caption: "水錦阿姨在灶腳裡準備餐食。",
+    "slug": "community-kitchen-mother",
+    "storyNumber": "03",
+    "name": "煮飯阿姨",
+    "role": "",
+    "titleLines": [
+      "這條半小時的路，",
+      "她走了十年。"
+    ],
+    "subtitleLines": [],
+    "description": "她沒有住在過港。只是十年來，每天都願意走這條半小時的路。",
+    "introBlocks": [
+      {
+        "type": "quote",
+        "text": "「沒有搬來啦，\n是來這裡上班而已。」"
+      },
+      {
+        "type": "paragraph",
+        "text": "問起當初怎麼來到過港，\n她馬上糾正。"
+      },
+      {
+        "type": "paragraph",
+        "text": "她住在大武崙，\n並不住在過港。"
+      },
+      {
+        "type": "paragraph",
+        "text": "每天從家裡過來，\n差不多要半個小時。"
+      },
+      {
+        "type": "quote",
+        "text": "「對啊，每天來這裡。」"
+      },
+      {
+        "type": "paragraph",
+        "text": "剛來的時候，\n她在廚房幫忙切菜，\n後來又送了一、兩年的便當。"
+      },
+      {
+        "type": "paragraph",
+        "text": "再後來，\n煮飯、做產品、整理協會，\n能做的事情慢慢多了。"
+      },
+      {
+        "type": "paragraph",
+        "text": "算一算，\n這條半小時的路，\n她已經走了十年。"
+      },
+      {
+        "type": "paragraph",
+        "text": "過港不是她住的地方。"
+      },
+      {
+        "type": "paragraph",
+        "text": "可是每天時間到了，\n她還是會來。"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "先從切菜開始",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "當初會來過港，\n沒有什麼特別的計畫。"
+          },
+          {
+            "type": "paragraph",
+            "text": "那時候孫子開始上幼稚園，\n不用再一直帶在身邊。"
+          },
+          {
+            "type": "paragraph",
+            "text": "剛好認識的人問她："
+          },
+          {
+            "type": "paragraph",
+            "text": "既然現在有時間，\n要不要來這裡工作？"
+          },
+          {
+            "type": "paragraph",
+            "text": "她就這樣來了。"
+          },
+          {
+            "type": "paragraph",
+            "text": "最開始，\n是在廚房幫忙切菜。"
+          },
+          {
+            "type": "paragraph",
+            "text": "做了一陣子，\n又開始送便當，\n一送就是一、兩年。"
+          },
+          {
+            "type": "paragraph",
+            "text": "後來煮飯、\n做產品、\n收東西，\n有空也幫忙整理協會。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她說："
+          },
+          {
+            "type": "quote",
+            "text": "「該做什麼，\n我們就要做。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "沒有把工作分得很細。"
+          },
+          {
+            "type": "paragraph",
+            "text": "每天來到這裡，\n看看今天有什麼事情，\n接著做下去，\n一天也就忙了起來。"
+          }
+        ]
+      },
+      {
+        "heading": "以前要為家庭拚",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "來過港以前，\n她的日子也很少真正閒下來。"
+          },
+          {
+            "type": "paragraph",
+            "text": "在內湖，\n她自己做過十多年的生意。"
+          },
+          {
+            "type": "paragraph",
+            "text": "家裡有孩子要顧，\n公公、婆婆需要照顧的時候，\n生活裡又多了另一份事情。"
+          },
+          {
+            "type": "paragraph",
+            "text": "後來離開內湖，\n搬到大武崙。"
+          },
+          {
+            "type": "paragraph",
+            "text": "說起以前，\n她用了一個很簡單的字："
+          },
+          {
+            "type": "quote",
+            "text": "「拚。」"
+          },
+          {
+            "type": "quote",
+            "text": "「以前的生活\n是比較要為了家庭拚。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "孩子還小，\n很多事情都得顧。"
+          },
+          {
+            "type": "paragraph",
+            "text": "該工作的時候工作，\n該照顧人的時候照顧人。"
+          },
+          {
+            "type": "paragraph",
+            "text": "現在孩子都長大了。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她還是一樣每天有事情做，\n只是忙的地方，\n慢慢從自己的生活裡，\n多了一個過港。"
+          }
+        ]
+      },
+      {
+        "heading": "這些以前都不會",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "問起來到過港以後的收穫，\n她先從吃的開始數："
+          },
+          {
+            "type": "quote",
+            "text": "「我會做蘿蔔糕，\n會滷鐵蛋，\n還有做碗粿，\n還有做白木耳露。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "說完，\n她補了一句："
+          },
+          {
+            "type": "quote",
+            "text": "「做這個以前都不會。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "剛來的時候，\n還只是在廚房幫忙切菜、送便當。"
+          },
+          {
+            "type": "paragraph",
+            "text": "十年後，\n這些原本陌生的東西，\n有些已經成了她平常會做的工作。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她說得像在報菜名。"
+          },
+          {
+            "type": "paragraph",
+            "text": "可是蘿蔔糕、鐵蛋、\n碗粿、白木耳露，\n也剛好把這十年裡\n多學會的事情，\n一樣一樣數了出來。"
+          }
+        ]
+      },
+      {
+        "heading": "六十歲去讀書",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "從「不會」開始的事情，\n不只發生在廚房。"
+          },
+          {
+            "type": "paragraph",
+            "text": "六十歲左右，\n女兒一直叫她去讀書。"
+          },
+          {
+            "type": "paragraph",
+            "text": "以前沒有什麼讀書的機會，\n很多字不認得，\n連自己的名字，\n也不太會寫。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她第一個反應是："
+          },
+          {
+            "type": "quote",
+            "text": "「我都不會，\n要怎麼讀書？\n也讀不來啦。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "女兒卻一直跟她說："
+          },
+          {
+            "type": "quote",
+            "text": "「活到老，學到老啦。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "她嘴上答應："
+          },
+          {
+            "type": "quote",
+            "text": "「好啦、好啦。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "但一年過一年，\n始終沒有真的去。"
+          },
+          {
+            "type": "paragraph",
+            "text": "最後，\n女婿乾脆打電話到學校，\n替她把名報好了。"
+          },
+          {
+            "type": "paragraph",
+            "text": "再回來告訴她："
+          },
+          {
+            "type": "quote",
+            "text": "「我已經報名了，\n報好了喔。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "這下真的得去了。"
+          },
+          {
+            "type": "paragraph",
+            "text": "隔天要去報到，\n她還是怕。"
+          },
+          {
+            "type": "quote",
+            "text": "「我也不敢去，\n因為我害羞。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "走進教室，\n同學不熟，\n老師講的內容也常常聽不懂。"
+          },
+          {
+            "type": "paragraph",
+            "text": "老師問："
+          },
+          {
+            "type": "quote",
+            "text": "「你聽懂了嗎？」"
+          },
+          {
+            "type": "paragraph",
+            "text": "她回答："
+          },
+          {
+            "type": "quote",
+            "text": "「有啦、有啦。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "其實根本不知道\n老師剛才說了什麼。"
+          }
+        ],
+        "image": {
+          "src": "/images/people/community-kitchen-mother/li-shui-jin-learning.jpg",
+          "alt": "煮飯阿姨",
+          "caption": ""
+        }
+      },
+      {
+        "heading": "這個字是什麼",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "剛開始上課，\n有不懂的地方，\n她也不太敢開口。"
+          },
+          {
+            "type": "paragraph",
+            "text": "字不會寫，\n老師講的聽不懂，\n還是先坐著。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她說，\n那時候就是沒有膽去問。"
+          },
+          {
+            "type": "paragraph",
+            "text": "可是課一堂一堂上，\n老師熟了，\n同學也熟了。"
+          },
+          {
+            "type": "paragraph",
+            "text": "到了後來，\n她開始敢問："
+          },
+          {
+            "type": "quote",
+            "text": "「老師，\n這個字是什麼？」"
+          },
+          {
+            "type": "paragraph",
+            "text": "前後讀了大約三年。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她沒有因此\n突然什麼字都認得了。"
+          },
+          {
+            "type": "paragraph",
+            "text": "比較複雜的字，\n現在還是會看不懂。"
+          },
+          {
+            "type": "paragraph",
+            "text": "到店裡買東西，\n如果不知道怎麼看，\n就直接告訴店員自己要買什麼。"
+          },
+          {
+            "type": "paragraph",
+            "text": "別人叫她寫下來，\n她也很直接："
+          },
+          {
+            "type": "quote",
+            "text": "「我就不會寫啊。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "但一些簡單的字，\n現在已經認得了。"
+          },
+          {
+            "type": "paragraph",
+            "text": "第一次真的看懂一個字時，\n她說："
+          },
+          {
+            "type": "quote",
+            "text": "「很開心，\n很開心。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "以前看過去，\n只知道自己不懂。"
+          },
+          {
+            "type": "paragraph",
+            "text": "後來慢慢知道，\n這個字是什麼，\n又是怎麼寫。"
+          },
+          {
+            "type": "paragraph",
+            "text": "對她來說，\n多認得一個字，\n就已經是一件\n值得開心的事情。"
+          }
+        ]
+      },
+      {
+        "heading": "忙忙地過一天",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "以前的日子很忙。"
+          },
+          {
+            "type": "paragraph",
+            "text": "現在來到過港，\n她其實還是忙。"
+          },
+          {
+            "type": "paragraph",
+            "text": "一下煮飯，\n一下做產品，\n一下又要整理東西。"
+          },
+          {
+            "type": "paragraph",
+            "text": "沒有產品要做的時候，\n碰上協會的活動，\n也會跟著一起參加。"
+          },
+          {
+            "type": "paragraph",
+            "text": "事情一件接著一件，\n一天很快就過去了。"
+          },
+          {
+            "type": "paragraph",
+            "text": "但她反而喜歡現在這種忙。"
+          },
+          {
+            "type": "paragraph",
+            "text": "待在家裡，\n有時候會一直看手機、追劇，\n人閒下來，\n腦袋也容易想東想西。"
+          },
+          {
+            "type": "paragraph",
+            "text": "到了過港，\n手邊總有事情。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她說："
+          },
+          {
+            "type": "quote",
+            "text": "「來這裡不會一直看手機，\n忙忙地過一天，\n比較充實，\n很快樂這樣。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "以前為了家庭拚，\n現在也還是在做事。"
+          },
+          {
+            "type": "paragraph",
+            "text": "只是對她來說，\n現在這樣過一天，\n心情已經不太一樣。"
+          }
+        ]
+      },
+      {
+        "heading": "看到人就會笑",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "說起過港的人，\n她一下子講了好幾次："
+          },
+          {
+            "type": "quote",
+            "text": "「在這裡人家對我很好，\n太好了，太好了，太好。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "好像一句「太好」，\n還不夠。"
+          },
+          {
+            "type": "paragraph",
+            "text": "接著，\n她又說："
+          },
+          {
+            "type": "quote",
+            "text": "「我在這裡做，\n看到人都會笑，\n我也不知道我在笑。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "十年的時間裡，\n每天一起做事情，\n一起煮飯，\n一起說話，\n原本只是工作時會碰到的人，\n漸漸也熟了。"
+          },
+          {
+            "type": "paragraph",
+            "text": "有時候，\n一個地方是不是真的熟悉，\n好像不用想得太複雜。"
+          },
+          {
+            "type": "paragraph",
+            "text": "看到那些人，\n自己已經會先笑了。"
+          }
+        ],
+        "image": {
+          "src": "/images/people/community-kitchen-mother/li-shui-jin-community.jpg",
+          "alt": "煮飯阿姨",
+          "caption": ""
+        }
+      },
+      {
+        "heading": "明天還要上班",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "如果有一天沒去，\n她還是會想到第二天。"
+          },
+          {
+            "type": "paragraph",
+            "text": "明天幾點要起床，\n衣服要穿什麼，\n是不是該早一點準備。"
+          },
+          {
+            "type": "paragraph",
+            "text": "因為明天還要上班。"
+          },
+          {
+            "type": "paragraph",
+            "text": "放假她也喜歡。"
+          },
+          {
+            "type": "paragraph",
+            "text": "來過港，\n她也喜歡。"
+          },
+          {
+            "type": "paragraph",
+            "text": "問起這裡對自己來說\n是一個什麼樣的地方，\n她說："
+          },
+          {
+            "type": "quote",
+            "text": "「很快樂，很開心。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "還說："
+          },
+          {
+            "type": "quote",
+            "text": "「我想在這裡工作很久。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "每天半個小時，\n從大武崙到過港。"
+          },
+          {
+            "type": "paragraph",
+            "text": "十年過去，\n這條路早就熟了。"
+          },
+          {
+            "type": "paragraph",
+            "text": "晚上工作結束，\n她還是會回到自己的家。"
+          },
+          {
+            "type": "paragraph",
+            "text": "可是第二天早上，\n時間到了，\n她還是會準備出門。"
+          },
+          {
+            "type": "paragraph",
+            "text": "因為過港已經有\n她每天會做的事情，\n有以前不會、\n後來慢慢學會的東西，\n也有一群\n只要看見，\n自己就會笑的人。"
+          }
+        ]
+      }
+    ],
+    "ending": {
+      "largeLines": [
+        "「來這裡不會一直看手機，",
+        "忙忙地過一天，",
+        "比較充實，很快樂這樣。」"
+      ],
+      "smallLines": [
+        "她沒有住在過港。",
+        "只是十年來，",
+        "每天都願意走這條半小時的路。"
+      ]
     },
-    sections: [
-      {
-        heading: "灶腳裡的笑聲，煮著她的人生",
-        blocks: [
-          { type: "paragraph", text: "早晨九點，鍋鏟聲在灶腳裡來回響著，伴著升起的炊煙，也喚醒了一天的忙碌。" },
-          { type: "paragraph", text: "從大武崙騎車而來的李水錦阿姨，早已熟門熟路地走進廚房。約莫半小時的車程，從十年前開始，她便這樣一路騎來。晴天如此，雨天也是如此。" },
-          { type: "paragraph", text: "在過港協會的灶腳裡，她和一群媽媽們穿梭在炊煙與鍋鏟之間，洗菜、切菜、備料，再將一餐餐熱騰騰的飯菜送到長輩手中。對水錦阿姨來說，這些工作早已熟悉得不能再熟悉。" },
-          { type: "quote", text: "「剛來的時候都在廚房幫忙切菜，做一做就去送便當。」阿姨總是笑笑著說。" },
-          { type: "paragraph", text: "十年的時間，在過港社區的灶腳裡慢慢流轉，從洗菜、切菜開始，到後來學著做各種商品美食。廚房裡的一鍋一湯、一餐一飯，也漸漸的成了她生活的一部分。" },
-        ],
-      },
-      {
-        heading: "從內湖的風雨，到過港的安頓",
-        blocks: [
-          { type: "paragraph", text: "在來到過港之前，水錦阿姨一邊擺著檳榔攤，一邊照顧相繼臥病八年與四年的公婆，還要扶養孩子。生活裡總有做不完的事情，也總有放不下的責任。" },
-          { type: "quote", text: "「孩子如果小，就要比較拚、比較勤。不像現在，想買什麼就來買，因為現在小孩都長大了。」說起那些日子，阿姨也只是淡淡地笑著。" },
-          { type: "paragraph", text: "那些曾經壓在肩上的重量，如今都已經成了回憶。" },
-          { type: "paragraph", text: "十年前，因為一段因緣，她來到過港社區。起初，理事長介紹她來這裡工作，沒想到一待就是十年。原本只是生活裡的一份工作，後來卻慢慢成了她每天最期待去的地方。" },
-        ],
-      },
-      {
-        heading: "灶腳裡的熱心，也藏著人情味",
-        blocks: [
-          { type: "paragraph", text: "走進過港社區的廚房，總能看見阿姨忙碌的身影。" },
-          { type: "paragraph", text: "備料、切菜、烹煮、送便當，一件件看似平凡的事情，她總是做得認真。鍋裡冒著熱氣，她就在一旁忙進忙出，把一餐餐熱騰騰的飯菜端上桌。" },
-          { type: "paragraph", text: "而這十年，她在這裡學到很多。" },
-          { type: "quote", text: "「來到這邊，我會做蘿蔔糕，會滷鐵蛋，還有做碗粿，還有做銀耳露，以前都不會做這個。」" },
-          { type: "paragraph", text: "從原本不會，到慢慢學會，阿姨的手藝是在一天天的日子裡累積起來的。但比起多會做幾道菜，她更珍惜的，或許是這裡的人情。" },
-          { type: "quote", text: "「在這裡人家對我很好，太好了。大家都喜歡我，他們都喜歡我在這裡工作。」" },
-          { type: "paragraph", text: "說這些話時，她笑得特別開心。那份被需要、被喜歡的感覺，或許也是她願意十年如一日騎著車來到過港的原因。" },
-          { type: "paragraph", text: "對她來說，這裡早已不只是一個工作的地方。灶腳裡升起的不只是飯菜的香氣，也有熟悉的人聲、笑聲，以及一群了解自己的老朋友。" },
-        ],
-        image: {
-          src: "/images/people/community-kitchen-mother/li-shui-jin-community.jpg",
-          alt: "李水錦阿姨在社區灶腳和夥伴互動",
-          caption: "灶腳裡的合作與笑聲，成了她珍惜的日常。",
-        },
-      },
-      {
-        heading: "六十歲，再當一次學生",
-        blocks: [
-          { type: "paragraph", text: "阿姨的人生裡，也曾有過一次截然不同的經歷。" },
-          { type: "paragraph", text: "六十歲那年，在理事長和女兒的鼓勵下，她決定重返校園，走進夜校的大門。" },
-          { type: "paragraph", text: "那時候的她，連自己的名字都寫得歪歪扭扭，許多字也看不懂。對一個已經六十歲的人來說，重新坐進教室，本身就是一件需要勇氣的事。" },
-          { type: "paragraph", text: "剛開始，老師問她：「聽懂了嗎？」" },
-          { type: "paragraph", text: "她總是有些不好意思地回答：「有啦。」" },
-          { type: "paragraph", text: "後來勇氣多了一些，遇到不懂的地方，也敢舉手發問老師：「這個音要怎麼讀？」" },
-          { type: "quote", text: "「但是我現在還是看不太懂字」" },
-          { type: "paragraph", text: "說完，水錦阿姨也忍不住害羞地笑了起來。" },
-          { type: "paragraph", text: "雖然最後，她並沒有真的學會認字，但那段重新坐在課桌前的日子，對她而言，仍是一段很特別的回憶。" },
-        ],
-        image: {
-          src: "/images/people/community-kitchen-mother/li-shui-jin-learning.jpg",
-          alt: "李水錦阿姨坐在桌前閱讀資料",
-          caption: "六十歲重回教室，成為她人生裡一段特別的回憶。",
-        },
-      },
-      {
-        heading: "「人生就是要健康、要快樂」",
-        blocks: [
-          { type: "paragraph", text: "從年輕時早早成家、一路撫養八個孩子，到內湖擺攤討生活，再到照顧長輩多年，阿姨的人生走過許多忙碌的日子。" },
-          { type: "paragraph", text: "如今，孩子都已經長大，她也來到了過港。" },
-          { type: "paragraph", text: "問起現在最想要的是什麼，她說：" },
-          { type: "quote", text: "「人生就要健康、要快樂，還要天天開心。」" },
-          { type: "paragraph", text: "一句簡單的話，卻像是她走過大半人生後，留下最樸實的答案。" },
-          { type: "paragraph", text: "每天騎著車來到過港，在灶腳裡忙上一整天，有人來、有飯煮、有事情做，也有一群熟悉的人陪著說說笑笑。比起獨處，她更喜歡將日子填得充實。" },
-          { type: "quote", text: "「十年灶腳，一味歡喜。」" },
-          { type: "paragraph", text: "十年的時間，讓她把自己的生活，一點一點留在這座灶腳裡，也讓過港記住了水錦阿姨的笑聲。" },
-          { type: "paragraph", text: "炊煙升起時，她總還在鍋邊忙著；飯菜起鍋時，她也總帶著熟悉的笑容。" },
-          { type: "paragraph", text: "而那些看似平凡的每一天，早已成了她人生裡最溫熱的一段光景。" },
-          { type: "paragraph", text: "阿姨帶著滿滿的笑聲，也帶著一雙做過無數頓飯的手，在過港社區的灶腳裡，繼續過著她的歡喜日子。" },
-        ],
-      },
-    ],
+    "heroImage": {
+      "src": "/images/people/community-kitchen-mother/li-shui-jin-kitchen.jpg",
+      "alt": "煮飯阿姨",
+      "caption": ""
+    }
   },
   {
-    slug: "couple-story-one",
-    storyNumber: "05",
-    name: "清爽阿公 × 阿笑阿嬤",
-    role: "相伴四十年的過港夫妻",
-    titleLines: ["四十年相伴，", "二十年過港"],
-    subtitleLines: ["——笑聲裡的夫妻日常"],
-    description: "清爽阿公與阿笑阿嬤相伴四十年，在過港生活二十年，一起參與社區、學習新事物，也在笑聲裡過著退休後的夫妻日常。",
-    heroImage: {
-      src: "/images/people/couple-story-one/qingshuang-axiao-portrait.jpg",
-      alt: "清爽阿公與阿笑阿嬤坐在過港社區協會裡合影",
-      caption: "清爽阿公與阿笑阿嬤，相伴四十年的夫妻日常。",
+    "slug": "community-volunteer",
+    "storyNumber": "04",
+    "name": "親家阿公阿嬤",
+    "role": "",
+    "titleLines": [
+      "從騎腳踏車，",
+      "到一起慢慢走。"
+    ],
+    "subtitleLines": [],
+    "description": "年輕時，他們各自騎著車送養樂多，那時候還不認識彼此。很多年後，阿公牽著阿嬤，一起來過港上課。路走得慢了一點，兩個人還是一起走。",
+    "introBlocks": [
+      {
+        "type": "paragraph",
+        "text": "過港有活動的日子，\n常能看見阿公和阿嬤\n一起慢慢走進來。"
+      },
+      {
+        "type": "paragraph",
+        "text": "阿嬤現在走得比較慢，\n阿公就在旁邊牽著她，\n配合著她的腳步往前。"
+      },
+      {
+        "type": "paragraph",
+        "text": "他們其實不是過港人。"
+      },
+      {
+        "type": "paragraph",
+        "text": "來這裡，\n還得走上一段路、搭上一段車。"
+      },
+      {
+        "type": "paragraph",
+        "text": "但有課、有活動的時候，\n兩個人還是常常一起出現。"
+      },
+      {
+        "type": "paragraph",
+        "text": "年輕的時候，\n阿公阿嬤都在養樂多公司工作。"
+      },
+      {
+        "type": "paragraph",
+        "text": "每天很早出門，\n騎著腳踏車\n到各自負責的地方送貨。"
+      },
+      {
+        "type": "paragraph",
+        "text": "那時候，\n兩個人其實還不認識彼此。"
+      },
+      {
+        "type": "paragraph",
+        "text": "後來因為工作有了交集，\n才慢慢熟了起來。"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "那時候還不認識",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "年輕的時候，\n阿公阿嬤都在\n養樂多公司工作。"
+          },
+          {
+            "type": "paragraph",
+            "text": "每天很早出門，\n騎著腳踏車\n到各自負責的地方送貨，\n也要沿路拜訪新的客人。"
+          },
+          {
+            "type": "paragraph",
+            "text": "阿公被分到的區域比較遠。"
+          },
+          {
+            "type": "paragraph",
+            "text": "阿嬤回想起來，\n只記得："
+          },
+          {
+            "type": "quote",
+            "text": "「他騎腳踏車騎很久，很久。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "自己的工作範圍\n則比較近一些。"
+          },
+          {
+            "type": "paragraph",
+            "text": "不過那個時候，\n兩個人其實還不認識。"
+          },
+          {
+            "type": "paragraph",
+            "text": "阿嬤說："
+          },
+          {
+            "type": "quote",
+            "text": "「那時候也不知道他，\n也不認識他。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "雖然做著相似的工作，\n每天也都騎著腳踏車送貨，\n彼此的生活\n還沒有真正碰在一起。"
+          }
+        ]
+      },
+      {
+        "heading": "慢慢熟起來",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "後來因為工作，\n兩個人才慢慢有了交集。"
+          },
+          {
+            "type": "paragraph",
+            "text": "說起年輕時的彼此，\n阿嬤記得，\n阿公對她很好，\n也很會說話、\n會講笑話。"
+          },
+          {
+            "type": "paragraph",
+            "text": "問阿公\n那時候為什麼喜歡阿嬤，\n他的回答很簡單："
+          },
+          {
+            "type": "quote",
+            "text": "「漂亮。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "兩個人說起以前，\n總是一句一句慢慢接著。"
+          },
+          {
+            "type": "paragraph",
+            "text": "一個人說到哪裡，\n另一個人再補一點。"
+          },
+          {
+            "type": "paragraph",
+            "text": "有些事情記得很清楚，\n有些已經要想一想\n才說得出來。"
+          },
+          {
+            "type": "paragraph",
+            "text": "從原本彼此不認識，\n到後來熟起來，\n再一起走進\n婚後的生活。"
+          }
+        ]
+      },
+      {
+        "heading": "一天過一天",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "結婚以後，\n生活很快被\n家庭和工作填滿。"
+          },
+          {
+            "type": "paragraph",
+            "text": "六個孩子要照顧，\n一家人的日子要過，\n後來也有一起做生意的年月。"
+          },
+          {
+            "type": "paragraph",
+            "text": "回頭說起這麼長的一段時間，\n他們沒有講得很複雜。"
+          },
+          {
+            "type": "paragraph",
+            "text": "只說："
+          },
+          {
+            "type": "quote",
+            "text": "「我們的生活就是結婚，\n就是要奮鬥生活，\n一天過一天，\n一天過一天。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "工作換過，\n孩子也慢慢長大。"
+          },
+          {
+            "type": "paragraph",
+            "text": "很多年的生活，\n就這樣一天接著一天\n走了過來。"
+          }
+        ]
+      },
+      {
+        "heading": "從家人走進過港",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "到了現在，\n他們和過港有了\n另外一段關係。"
+          },
+          {
+            "type": "paragraph",
+            "text": "阿公阿嬤並不住在這裡。"
+          },
+          {
+            "type": "paragraph",
+            "text": "最早會來，\n是因為大女兒在這裡服務，\n親家也在這裡。"
+          },
+          {
+            "type": "paragraph",
+            "text": "所以一開始，\n是順著家人的關係，\n走進了過港。"
+          },
+          {
+            "type": "paragraph",
+            "text": "但來著來著，\n要做的事情\n也不只剩下找家人。"
+          },
+          {
+            "type": "paragraph",
+            "text": "這裡開始有\n他們自己會參加的課，\n也有一次次\n熟悉起來的活動。"
+          },
+          {
+            "type": "paragraph",
+            "text": "原本不是自己居住的社區，\n後來也成了一個\n會特地一起來的地方。"
+          }
+        ]
+      },
+      {
+        "heading": "一起來上課",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "書法，\n是阿嬤特別記得的課。"
+          },
+          {
+            "type": "paragraph",
+            "text": "但他們來過港參加的，\n不只有寫字。"
+          },
+          {
+            "type": "paragraph",
+            "text": "有時候跟著老師運動，\n有時候做健康操，\n也會參加不同的\n健康課程和社區活動。"
+          },
+          {
+            "type": "paragraph",
+            "text": "問起喜不喜歡\n來過港上課，\n他們回答："
+          },
+          {
+            "type": "quote",
+            "text": "「對啊，對啊。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "最初是因為家人的關係\n來到這裡，\n後來慢慢有了\n自己會參加的課程，\n也認識了更多\n常常碰面的人。"
+          },
+          {
+            "type": "paragraph",
+            "text": "所以現在，\n過港對他們來說，\n不只是女兒和親家\n所在的地方，\n也是兩個人\n會一起來上課、\n一起參加活動的地方。"
+          }
+        ]
+      },
+      {
+        "heading": "一百六十九歲",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "訪談那天，\n阿公八十五歲，\n阿嬤八十四歲。"
+          },
+          {
+            "type": "paragraph",
+            "text": "說起年紀，\n阿公把兩個人的歲數\n放在一起說："
+          },
+          {
+            "type": "quote",
+            "text": "「我們一百六十九歲。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "說完也沒有\n特別多解釋什麼。"
+          },
+          {
+            "type": "paragraph",
+            "text": "就只是兩個人\n坐在一起，\n慢慢聊以前，\n也聊現在。"
+          },
+          {
+            "type": "paragraph",
+            "text": "他們說話不急，\n很多事情\n要想一下才慢慢接著說。"
+          },
+          {
+            "type": "paragraph",
+            "text": "那些已經過去很久的日子，\n就這樣一句一句，\n重新被想起來。"
+          }
+        ]
+      },
+      {
+        "heading": "慢慢走",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "阿嬤現在走得慢一些，\n阿公就在旁邊\n牽著她走。"
+          },
+          {
+            "type": "paragraph",
+            "text": "有課的時候，\n兩個人再一起來過港。"
+          },
+          {
+            "type": "paragraph",
+            "text": "他們並不是這裡的居民。"
+          },
+          {
+            "type": "paragraph",
+            "text": "只是因為家人，\n先有了一條\n來到過港的路；\n後來因為上課、\n活動和一次次見面，\n這條路也慢慢\n成了自己的。"
+          },
+          {
+            "type": "paragraph",
+            "text": "現在，\n路走得慢了一點，\n阿公就在身邊\n陪著阿嬤一起走。"
+          },
+          {
+            "type": "paragraph",
+            "text": "而兩個人常常一起去的地方裡，\n也多了一個過港。"
+          }
+        ]
+      }
+    ],
+    "ending": {
+      "largeLines": [
+        "從騎腳踏車，",
+        "到一起慢慢走。"
+      ],
+      "smallLines": [
+        "年輕時，",
+        "他們各自騎著車送養樂多，",
+        "那時候還不認識彼此。",
+        "很多年後，",
+        "阿公牽著阿嬤，",
+        "一起來過港上課。",
+        "路走得慢了一點，",
+        "兩個人還是一起走。"
+      ]
+    }
+  },
+  {
+    "slug": "couple-story-one",
+    "storyNumber": "05",
+    "name": "清爽 × 阿笑",
+    "role": "",
+    "titleLines": [
+      "四十多年，",
+      "他們一起把日子",
+      "過到了過港。"
+    ],
+    "subtitleLines": [],
+    "description": "四十多年，他們還是一人一句。從一起過日子，到一起走進過港的社區，「爽爽、笑笑」，也就這樣一路叫到了現在。",
+    "introBlocks": [
+      {
+        "type": "quote",
+        "text": "「我以前是喜歡他寫的字。」"
+      },
+      {
+        "type": "paragraph",
+        "text": "阿笑說起年輕時的清爽，\n第一個想到的，\n是他的字。"
+      },
+      {
+        "type": "paragraph",
+        "text": "那時候寫得很工整。"
+      },
+      {
+        "type": "paragraph",
+        "text": "話才剛說完，\n她又補了一句："
+      },
+      {
+        "type": "quote",
+        "text": "「現在很醜，\n變了，變醜了。」"
+      },
+      {
+        "type": "paragraph",
+        "text": "四十多年前，\n兩個人在工作時認識。"
+      },
+      {
+        "type": "paragraph",
+        "text": "現在再說起以前，\n還是常常一個人講，\n另一個人在旁邊接話。"
+      },
+      {
+        "type": "paragraph",
+        "text": "有時候補充，\n有時候糾正，\n有些事情，\n兩個人甚至記得不太一樣。"
+      },
+      {
+        "type": "paragraph",
+        "text": "喜歡他的字是真的。"
+      },
+      {
+        "type": "paragraph",
+        "text": "現在嫌他的字醜，\n也是真的。"
+      },
+      {
+        "type": "paragraph",
+        "text": "一起生活久了，\n很多話好像已經不用\n特別說得漂亮。"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "爽爽、笑笑",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "「清爽」和「阿笑」，\n是大家熟悉的稱呼。"
+          },
+          {
+            "type": "paragraph",
+            "text": "以前的同事發現，\n一個「爽」，\n一個「笑」，\n叫著叫著，\n就成了："
+          },
+          {
+            "type": "quote",
+            "text": "「爽爽、笑笑。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "阿笑說："
+          },
+          {
+            "type": "quote",
+            "text": "「叫我們的名字，\n大家都笑了。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "兩個人年輕時在工廠認識。"
+          },
+          {
+            "type": "paragraph",
+            "text": "清爽說，\n一開始其實也是："
+          },
+          {
+            "type": "quote",
+            "text": "「陰錯陽差。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "那段故事說起來有點繞，\n連兩個人自己，\n都有各自記得的版本。"
+          },
+          {
+            "type": "paragraph",
+            "text": "比較確定的是，\n他們交往了大約七年，\n民國六十八年結婚。"
+          },
+          {
+            "type": "paragraph",
+            "text": "當年被同事湊在一起叫的\n兩個名字，\n後來真的就這樣，\n一起叫了四十多年。"
+          }
+        ]
+      },
+      {
+        "heading": "各自忙著",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "結婚以後，\n真正把日子填滿的，\n很快變成工作和家庭。"
+          },
+          {
+            "type": "paragraph",
+            "text": "清爽的工作需要輪班。"
+          },
+          {
+            "type": "paragraph",
+            "text": "有時候他去上班，\n家裡的人正在休息；\n等大家白天醒著，\n他的時間又不一定在家。"
+          },
+          {
+            "type": "paragraph",
+            "text": "阿笑則忙著孩子和家裡。"
+          },
+          {
+            "type": "paragraph",
+            "text": "三個孩子要照顧，\n長輩也需要有人張羅，\n煮飯、洗衣，\n孩子上下課，\n一天裡總有事情\n一件接著一件。"
+          },
+          {
+            "type": "paragraph",
+            "text": "阿笑說："
+          },
+          {
+            "type": "quote",
+            "text": "「我們是很平凡的生活。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "很少旅行，\n生活大多就是\n工作、家庭、孩子，\n一天一天往前過。"
+          },
+          {
+            "type": "paragraph",
+            "text": "兩個人明明住在一起，\n卻常常跟著\n不同的時間生活。"
+          },
+          {
+            "type": "paragraph",
+            "text": "一個追著班表，\n一個追著一家人的日常。"
+          }
+        ]
+      },
+      {
+        "heading": "搬來過港",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "他們原本住在八堵。"
+          },
+          {
+            "type": "paragraph",
+            "text": "後來遇上水災，\n才搬到了過港。"
+          },
+          {
+            "type": "paragraph",
+            "text": "一住，\n就是二十多年。"
+          },
+          {
+            "type": "paragraph",
+            "text": "阿笑回頭說起搬來之後的生活，\n只說："
+          },
+          {
+            "type": "quote",
+            "text": "「都差不多。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "那時候，\n孩子還要照顧，\n家裡也還有很多事情。"
+          },
+          {
+            "type": "paragraph",
+            "text": "地方換了，\n日子沒有因此\n突然變成另一種樣子。"
+          },
+          {
+            "type": "paragraph",
+            "text": "清爽還是跟著\n工作的班表走，\n阿笑也還是忙著\n一家人的生活。"
+          },
+          {
+            "type": "paragraph",
+            "text": "過港最開始，\n就是他們每天回來的地方。"
+          },
+          {
+            "type": "paragraph",
+            "text": "沒有特別把它說成\n多大的改變，\n卻也這樣住著住著，\n住過了二十多年。"
+          }
+        ]
+      },
+      {
+        "heading": "退休以後",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "後來孩子漸漸大了，\n工作的日子\n也慢慢走到另一個階段。"
+          },
+          {
+            "type": "paragraph",
+            "text": "原本總是錯開的時間，\n開始多了一點。"
+          },
+          {
+            "type": "paragraph",
+            "text": "阿笑說："
+          },
+          {
+            "type": "quote",
+            "text": "「到了我退休以後，\n才知道他的作息，\n才有接觸、才有接觸。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "以前清爽什麼時候工作，\n什麼時候休息，\n總得跟著班表走。"
+          },
+          {
+            "type": "paragraph",
+            "text": "阿笑則忙著孩子、\n長輩和家裡。"
+          },
+          {
+            "type": "paragraph",
+            "text": "等到不用再一直\n追著工作時間跑，\n兩個人才有更多機會\n待在同一個地方。"
+          },
+          {
+            "type": "paragraph",
+            "text": "一起吃飯，\n一起待在家裡，\n也開始更清楚\n對方一天到底怎麼過。"
+          },
+          {
+            "type": "paragraph",
+            "text": "年輕時，\n兩個人忙著把生活顧好。"
+          },
+          {
+            "type": "paragraph",
+            "text": "退休以後，\n才多了一些時間，\n重新熟悉現在的彼此。"
+          }
+        ]
+      },
+      {
+        "heading": "照顧這個家",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "很多年裡，\n阿笑把很大一部分心力\n放在家裡。"
+          },
+          {
+            "type": "paragraph",
+            "text": "孩子要顧，\n家裡的長輩，\n她也一直放在心上。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她照顧清爽的爸爸時，\n吃的東西太硬，\n就想辦法弄軟；\n高麗菜、香菇不好入口，\n就切得小一點，\n再煮得軟一些。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她說："
+          },
+          {
+            "type": "quote",
+            "text": "「像我照顧我公公，\n我也是盡心盡力。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "對阿笑來說，\n照顧一個人，\n不是有東西吃就好了。"
+          },
+          {
+            "type": "paragraph",
+            "text": "還要知道\n他吃不吃得下，\n需要的是什麼。"
+          },
+          {
+            "type": "paragraph",
+            "text": "到了現在，\n兩個人的位置\n也慢慢有了改變。"
+          },
+          {
+            "type": "paragraph",
+            "text": "阿笑說："
+          },
+          {
+            "type": "quote",
+            "text": "「現在退休了以後，\n因為我老了，\n他會幫忙我做家事。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "以前她多做一點，\n現在，\n清爽也開始多接一些。"
+          },
+          {
+            "type": "paragraph",
+            "text": "四十多年的生活，\n沒有一直照著\n同一種方式過。"
+          },
+          {
+            "type": "paragraph",
+            "text": "年紀變了，\n家裡需要做的事情變了，\n兩個人也跟著\n重新分了一次工。"
+          }
+        ]
+      },
+      {
+        "heading": "一起走進社區",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "住在過港二十多年後，\n他們又用另一種方式\n走進這個地方。"
+          },
+          {
+            "type": "paragraph",
+            "text": "以前就有人邀請他們\n到社區參與志工。"
+          },
+          {
+            "type": "paragraph",
+            "text": "那時候沒有馬上加入，\n後來退休以後，\n兩個人才正式走進協會。"
+          },
+          {
+            "type": "paragraph",
+            "text": "訪談當時，\n他們做志工\n其實還不到兩年。"
+          },
+          {
+            "type": "paragraph",
+            "text": "和二十多年的居住時間相比，\n這段時間很短。"
+          },
+          {
+            "type": "paragraph",
+            "text": "但過港也因此\n多了一點不同。"
+          },
+          {
+            "type": "paragraph",
+            "text": "以前，\n這裡是每天生活、\n回家的地方。"
+          },
+          {
+            "type": "paragraph",
+            "text": "現在，\n又多了一些\n會一起碰到的人，\n一起參與的事情，\n還有兩個人\n可以一起去的地方。"
+          },
+          {
+            "type": "paragraph",
+            "text": "年輕時，\n他們常常各自忙著\n自己的時間。"
+          },
+          {
+            "type": "paragraph",
+            "text": "到了退休以後，\n反而一起走進了\n生活二十多年的社區。"
+          }
+        ],
+        "image": {
+          "src": "/images/people/couple-story-one/qingshuang-axiao-community.jpg",
+          "alt": "清爽 × 阿笑",
+          "caption": ""
+        }
+      },
+      {
+        "heading": "一半蘋果",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "相處的時間多了，\n彼此的習慣，\n也看得更清楚。"
+          },
+          {
+            "type": "paragraph",
+            "text": "阿笑習慣照顧人。"
+          },
+          {
+            "type": "paragraph",
+            "text": "自己在吃蘋果，\n就會想："
+          },
+          {
+            "type": "paragraph",
+            "text": "要不要分清爽一半？"
+          },
+          {
+            "type": "paragraph",
+            "text": "到了吃飯時間，\n也會叫他來吃。"
+          },
+          {
+            "type": "paragraph",
+            "text": "對她來說，\n有東西，\n自然就會想到旁邊那個人。"
+          },
+          {
+            "type": "paragraph",
+            "text": "清爽卻有自己的想法。"
+          },
+          {
+            "type": "paragraph",
+            "text": "有時候不想吃，\n就真的不想吃。"
+          },
+          {
+            "type": "paragraph",
+            "text": "他說："
+          },
+          {
+            "type": "quote",
+            "text": "「過度關心是一種壓力。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "阿笑也接著說："
+          },
+          {
+            "type": "quote",
+            "text": "「我的關心\n變成他的負擔。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "一個覺得："
+          },
+          {
+            "type": "paragraph",
+            "text": "有東西當然會想到你。"
+          },
+          {
+            "type": "paragraph",
+            "text": "另一個覺得："
+          },
+          {
+            "type": "paragraph",
+            "text": "我知道，\n但真的不用一直叫我吃。"
+          },
+          {
+            "type": "paragraph",
+            "text": "四十多年了，\n一半蘋果，\n兩個人還是\n各有自己的道理。"
+          }
+        ]
+      },
+      {
+        "heading": "一人一句",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "說起夫妻相處，\n清爽說："
+          },
+          {
+            "type": "quote",
+            "text": "「大家互相忍耐、\n互相體諒。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "沒有什麼\n特別浪漫的答案。"
+          },
+          {
+            "type": "paragraph",
+            "text": "但四十多年裡，\n兩個人的生活\n的確已經換過很多種樣子。"
+          },
+          {
+            "type": "paragraph",
+            "text": "年輕時在工作裡認識，\n後來結婚、養孩子，\n從八堵搬到過港，\n又從各自忙著生活，\n走到退休以後\n一起參與社區。"
+          },
+          {
+            "type": "paragraph",
+            "text": "阿笑以前喜歡\n清爽工整的字，\n現在會直接在旁邊說："
+          },
+          {
+            "type": "quote",
+            "text": "「變醜了。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "清爽覺得她\n有時候關心得太多，\n她吃蘋果的時候，\n還是會先想到\n要不要分他一半。"
+          },
+          {
+            "type": "paragraph",
+            "text": "兩個人沒有因為\n一起生活很久，\n就變成完全一樣的人。"
+          },
+          {
+            "type": "paragraph",
+            "text": "還是一人一句，\n一個有一個的想法。"
+          },
+          {
+            "type": "paragraph",
+            "text": "只是四十多年過去，\n他們一起生活的地方，\n慢慢成了過港；\n而住了二十多年以後，\n兩個人又一起\n走進了這個社區的日常裡。"
+          }
+        ]
+      }
+    ],
+    "ending": {
+      "largeLines": [
+        "「叫我們的名字，",
+        "大家都笑了。」"
+      ],
+      "smallLines": [
+        "四十多年，",
+        "他們還是一人一句。",
+        "從一起過日子，",
+        "到一起走進過港的社區，",
+        "「爽爽、笑笑」，",
+        "也就這樣一路叫到了現在。"
+      ]
     },
-    sections: [
-      {
-        heading: "笑了就爽 爽了就笑",
-        blocks: [
-          { type: "paragraph", text: "走進過港社區協會，總能聽見笑聲從屋裡屋外傳來。這裡有一對讓人感到歡樂的逗趣夫妻——阿公名字叫清爽，阿嬤名字叫阿笑。" },
-          { type: "paragraph", text: "身邊的朋友們都笑稱這是「笑了就爽，爽了就笑」" },
-          { type: "quote", text: "阿公也笑著說：「我們的名字真的是絕配。」" },
-          { type: "paragraph", text: "兩人的名字連在一起，彷彿就註定了這輩子要把歡笑帶到每一個角落。只要他們一出現，現場的氣氛總會輕鬆愉快起來。" },
-          { type: "paragraph", text: "加入協會兩年來，清爽阿公和阿笑阿嬤早已成了大家熟悉的身影。他們走到哪裡，笑聲就跟到哪裡，彷彿是讓協會充滿歡樂的般的存在。" },
-        ],
-      },
-      {
-        heading: "在協會裡學新知、交朋友",
-        blocks: [
-          { type: "paragraph", text: "對清爽阿公和阿笑嬤來說，退休後的日子並沒有因此慢下來。兩人常常一起到過港社區協會上課、參加活動，久而久之，協會也成了生活裡熟悉的一個地方。在這裡，他們認識了不少聊得來的朋友，也接觸到許多過去沒有機會嘗試的新事物。" },
-          { type: "paragraph", text: "清爽阿公尤其喜歡研究新東西。來到協會後，他學會用 AI 製作圖片，回家也常自己摸索、研究，做出作品後，再分享給親朋好友和鄰居。退休之後，多了時間，也多了以前工作時沒空嘗試的興趣。" },
-          { type: "quote", text: "「以前上班沒什麼時間放鬆，現在退休了來協會這邊活動，跟朋友聊聊天，蠻不錯的。」" },
-          { type: "paragraph", text: "除了上課、研究 AI，阿公也是協會裡的環保志工。平時只要有社區環境整理的活動，他便跟著大家一起忙，掃掃地、整理環境，為熟悉的街坊盡一份心力。" },
-          { type: "paragraph", text: "學習新事物、參與社區活動，也和一群老朋友說說笑笑，" },
-          { type: "quote", text: "正如阿公說的：「退休後的生活，比想像中熱鬧了些。」" },
-        ],
-        image: {
-          src: "/images/people/couple-story-one/qingshuang-axiao-community.jpg",
-          alt: "清爽阿公與阿笑阿嬤在過港社區協會展示作品",
-          caption: "兩人在協會裡學習新事物，也結交熟悉的朋友。",
-        },
-      },
-      {
-        heading: "鐵道歲月的奔波與守護",
-        blocks: [
-          { type: "paragraph", text: "回顧這段走過四十多年的婚姻，兩人的緣分帶著幾分奇妙。當年誤打誤撞經由同事牽線，個性活潑的阿公遇上了較為保守的阿嬤，兩個性格截然不同的人，共同組織起一個家庭，互相扶持，一路走過四十年歲月。" },
-          { type: "paragraph", text: "年輕時，阿公擔任鐵道列車長，為了扛起一家人的生計，總得配合輪班，長時間在外奔波。早出晚歸成了生活常態，也因此少有時間陪伴家人。" },
-          { type: "paragraph", text: "而在阿公忙於列車勤務的那些日子裡，阿笑嬤則留在家中，默默扛起照顧年邁公公與三名子女的責任。從孩子的生活起居，到家裡大大小小的事，她總是一一打理妥當。" },
-          { type: "paragraph", text: "夫妻倆一個忙於工作、一個守著家庭，雖然作息不一、聚少離多，生活中也免不了為了瑣事鬥嘴，但這些日常拌嘴在旁人眼裡，反倒像是一種老夫老妻之間特有的、幼稚又可愛的互動。" },
-          { type: "paragraph", text: "回頭看這一路走來的歲月，阿公心裡始終有著一份深深的感念。最讓他感謝的，便是阿笑嬤始終把家裡照顧得妥妥當當，讓他能夠放心地在外工作，也讓這個家有一個安穩的依靠。" },
-        ],
-      },
-      {
-        heading: "水患之後的安居",
-        blocks: [
-          { type: "paragraph", text: "原本住在八堵一帶的兩人，幾年前因一場突如其來的嚴重水災，家園遭受淹水，也因此決定搬遷到過港。沒想到一住，就是二十年。" },
-          { type: "paragraph", text: "對他們而言，過港早已不只是安身立命的住所。他們在這裡認識鄰居、結交朋友，也在社區協會裡留下許多共同的回憶。二十年來，兩人的生活早已一點一滴與過港交織在一起。" },
-          { type: "paragraph", text: "如今，在協會裡總能看見兩人的身影。偶爾拌拌嘴，偶爾一起參與活動，也和身邊的鄰居說說笑笑。四十多年的婚姻、二十年的過港歲月，他們就像是過港社區裡最耀眼的陽光，把每一天都過得清爽、開懷，也讓所有人都感染了那份「笑了就爽，爽了就笑」的豁達。" },
-        ],
-      },
-    ],
+    "heroImage": {
+      "src": "/images/people/couple-story-one/qingshuang-axiao-portrait.jpg",
+      "alt": "清爽 × 阿笑",
+      "caption": ""
+    }
   },
   {
-    slug: "couple-story-two",
-    storyNumber: "06",
-    name: "丁梅花",
-    role: "美髮義剪與長輩訪視",
-    titleLines: ["再去看看", "一個人。"],
-    subtitleLines: ["丁梅花與過港長輩之間", "一次又一次的日常往來。"],
-    description: "丁梅花在過港社區服務，每週到協會做美髮義剪，也常親自上門探望行動不便的長輩，陪伴與觀察讓她在地方裡走出一條穩定的人情鏈。",
-    sections: [
-      {
-        heading: "固定的日子，協會裡多了張剪髮椅子",
-        blocks: [
-          { type: "paragraph", text: "固定的日子，梅花會到協會替長輩剪頭髮。把位置整理好，工具拿出來，爺爺奶奶來了，便一個接著一個坐下。頭髮剪短，人看起來清爽許多。對年紀大的長輩來說，這不只是好不好看。頭髮短一點，洗起來比較方便，整理的時候也少一點負擔。" },
-          { type: "paragraph", text: "梅花一邊剪，一邊和大家聊天。有的人說最近的生活，有的人說家裡的事情，有時候一顆頭剪完了，話還沒說完。美髮原本就是她熟悉的事，只是在社區裡，這項做了很多年的手藝，慢慢走進了另一群人的日常。" },
-        ],
-      },
-      {
-        heading: "有人走不出來，就換她走過去",
-        blocks: [
-          { type: "paragraph", text: "梅花以前常看見住在坡上的長輩買完菜，走到一半累了，就在路旁坐下來休息。看久了，心裡多出一個問題。" },
-          { type: "paragraph", text: "現在還走得動，還能自己出門。" },
-          { type: "quote", text: "「有一天如果他們走不動，要出來剪頭髮要怎麼辦？」" },
-          { type: "paragraph", text: "所以平常，長輩會到協會找她剪髮；遇到真的不方便外出的長輩，她也會把工具帶著，走進對方家裡。不是重新學會了什麼，而是把自己本來就會的事，再往需要它的人那裡送近一點。" },
-        ],
-      },
-      {
-        heading: "更多時候，她去的不只是剪髮",
-        blocks: [
-          { type: "paragraph", text: "如果只說丁梅花是替長輩義剪的人，其實還少了一大半。她是過港社區訪視組的組長，固定一段時間，就要再去看看社區裡的長輩。出發以前，先打電話，告訴對方大概什麼時候會到；到了以後，問問最近的身體，看看生活有沒有和和平常不一樣。有些人需要的是協助，有些人只是需要有人坐下來說說話。" },
-          { type: "paragraph", text: "我們曾經跟著梅花走過一次訪視。那天才發現，「去看看」這三個字，真正做起來，其實需要不少時間。坐下來以後，長輩開始說話。一件事情接著另一件事情。後來梅花笑著說：" },
-          { type: "quote", text: "「你像今天去你就知道，他就會一直講啊講。你跟他講一個小時，他還講。」" },
-          { type: "paragraph", text: "有時候，訪視不一定要替一個人解決什麼。只是很久沒有人來了，那就坐久一點，把話聽完。" },
-        ],
-      },
-      {
-        heading: "「我要過去了喔。」",
-        blocks: [
-          { type: "paragraph", text: "梅花記得一位長輩。每次要去以前，她一樣先打電話，「我要過去了喔。」" },
-          { type: "paragraph", text: "有一次，對方一聽見她要來，就趕快去把家裡的門打開，等著她過去。梅花還在電話裡說：「不用開沒關係。」" },
-          { type: "paragraph", text: "但門已經開了。到了以後，她陪著聊天，常常一坐，就是一個小時。等時間差不多，梅花起身說：「好了，我改天會來。」" },
-          { type: "quote", text: "「什麼時候要來？」" },
-          { type: "paragraph", text: "另一位大哥更直接，一段時間沒看見她，等梅花終於再出現，他開口問：「萬一你失蹤了呢？」梅花說起這句話時笑了。其實誰都知道，他不是擔心她真的失蹤。只是算著時間，覺得這個人，差不多也該再來看看自己了。" },
-        ],
-      },
-      {
-        heading: "有些門打開以後",
-        blocks: [
-            { type: "paragraph", text: "訪視也不總是聊天。梅花曾經去看一位行動不方便的長輩，人跌在床邊，她想把對方拉起來，卻怎麼樣都拉不動。" },
-          { type: "paragraph", text: "最後只能趕快打電話求助，再聯絡里長、請救護人員過來，把人送去醫院。說起那一天，梅花還記得自己被嚇到了。也一直記得：還好那一天，門有辦法打開。否則裡面發生了什麼，外面的人可能根本不知道。" },
-          { type: "paragraph", text: "做訪視久了，也會看著一些熟悉的人一年一年老去。原本還能自己走，後來漸漸需要更多幫忙；有些以前常見的人，後來也不在了。問她有沒有什麼「最感動」的故事，梅花沒有挑出一個漂亮的答案。她只是說：" },
-          { type: "quote", text: "「我會心會捨不得。」" },
-          { type: "paragraph", text: "「捨不得」，大概比感動更接近她真正的感覺。" },
-        ],
-      },
-      {
-        heading: "能動、能做，就盡量做",
-        blocks: [
-          { type: "paragraph", text: "問梅花，為什麼願意一直做這麼多事，她反而不太想替自己找一個很偉大的理由。" },
-          { type: "quote", text: "「我從頭到尾沒有動機，我就是想要做。」" },
-          { type: "paragraph", text: "看見桌子搬不動，自己可以幫，就過去搭一把手；時間到了，就去訪視；有人需要剪頭髮，自己剛好會，就剪。除了訪視和義剪，社區裡其他需要人手的事情，也常常看得到她。" },
-          { type: "paragraph", text: "家人很清楚這個個性。先生曾經對孩子說：「你媽媽就是喜歡這樣，她這樣才會快樂。」" },
-          { type: "quote", text: "「我的想法是，我能動、能做，我就盡量做。」" },
-        ],
-      },
-      {
-        heading: "看著別人老去，也想著自己以後怎麼生活",
-        blocks: [
-          { type: "paragraph", text: "訪視長輩的同時，梅花也會想到自己。協會裡比她年長的姐姐們，她說，就像自己的「鏡子」：" },
-          { type: "quote", text: "「我會學她們的優點，缺點看一看就好了。」" },
-          { type: "paragraph", text: "看著不同的人怎麼變老，有人依然願意出門，有人身體保持得很好，也有人漸漸需要別人的照顧。看著看著，便會開始想：那自己以後呢？" },
-          { type: "paragraph", text: "她希望身體還能走的時候，就多動一點；還能出門的時候，就不要一直關在家裡。因為如果沒有出來做志工，梅花說，自己也可能晚睡晚起，坐在家裡追劇，一天一天就這樣過去。現在很忙，有時候也很累。可是聽見大家說話、笑，看到長輩臉上跟著有了笑容，自己也會開心。" },
-        ],
-      },
-      {
-        heading: "走出來，外面也有快樂",
-        blocks: [
-          { type: "paragraph", text: "訪談最後，我們問梅花，如果要留一句話給大家，會想說什麼？她幾乎沒有想很久：「走出來，不要關在家裡。」接著又補了一句：「外面也有快樂。」" },
-          { type: "paragraph", text: "這句話聽起來像是對長輩說；但一路聽下來，也像是她自己的生活。固定的日子，有人走進協會找她；訪視的日子，則換她從協會走出去。能走出門的人，就在外面見面。走不出門的人，就由另一個人走進去。來來回回之間，原本只是住在同一個社區裡的人，慢慢記住了彼此。" },
-          { type: "paragraph", text: "一則又一則很小、很平常的往來，久了，也成了她和過港之間的感情。" },
-          { type: "quote", text: "「我會心會捨不得。」" },
-          { type: "paragraph", text: "有些事情沒有多大理由，見過、見熟，只要自己還能做得到，便會慢慢把地方變成可回去的地方。" },
-        ],
-      },
+    "slug": "couple-story-two",
+    "storyNumber": "06",
+    "name": "丁梅花",
+    "role": "過港社區訪視組的組長",
+    "titleLines": [
+      "去看看，",
+      "最近好不好。"
     ],
-  },
+    "subtitleLines": [],
+    "description": "有些事情沒有多大的理由。只是看見了，而自己剛好還做得到。",
+    "introBlocks": [
+      {
+        "type": "quote",
+        "text": "「你像今天去你就知道，\n他就會一直講啊講。」"
+      },
+      {
+        "type": "paragraph",
+        "text": "那天，我們跟著丁梅花去訪視。"
+      },
+      {
+        "type": "paragraph",
+        "text": "坐下來之後，\n長輩開始說最近的生活，\n一件接著一件。"
+      },
+      {
+        "type": "paragraph",
+        "text": "梅花沒有急著把話題帶走，\n只是坐在旁邊聽。"
+      },
+      {
+        "type": "paragraph",
+        "text": "後來她笑著說："
+      },
+      {
+        "type": "quote",
+        "text": "「你跟他講一個小時，\n他還講。」"
+      },
+      {
+        "type": "paragraph",
+        "text": "做訪視久了，\n她早就知道，\n有時候走進一戶人家，\n真正需要做的事情並不複雜。"
+      },
+      {
+        "type": "paragraph",
+        "text": "不一定要解決什麼。"
+      },
+      {
+        "type": "paragraph",
+        "text": "只是隔一段時間，\n再去看看一個人。"
+      }
+    ],
+    "sections": [
+      {
+        "heading": "最近好不好",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "丁梅花是過港社區訪視組的組長。"
+          },
+          {
+            "type": "paragraph",
+            "text": "訪視前，\n她會先打電話和長輩聯絡，\n說一聲自己等等會過去。"
+          },
+          {
+            "type": "paragraph",
+            "text": "每次去，\n做的事情不一定相同。"
+          },
+          {
+            "type": "paragraph",
+            "text": "有時問問最近身體怎麼樣，\n有時看看生活上有沒有需要幫忙的地方；\n碰上想說話的人，\n就坐下來多聊一會兒。"
+          },
+          {
+            "type": "paragraph",
+            "text": "梅花笑著說，\n有些長輩一聊起來，\n一個小時都還說不完。"
+          },
+          {
+            "type": "paragraph",
+            "text": "訪視久了，\n彼此也慢慢熟了。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她記得有一位長輩，\n知道她要過去，\n便先把家裡的門打開等她。"
+          },
+          {
+            "type": "paragraph",
+            "text": "聊完準備離開時，\n還會問："
+          },
+          {
+            "type": "quote",
+            "text": "「什麼時候要來？」"
+          },
+          {
+            "type": "paragraph",
+            "text": "另一位長輩，\n有陣子比較久沒見到梅花，\n再見面時便笑著問她："
+          },
+          {
+            "type": "quote",
+            "text": "「萬一你失蹤了呢？」"
+          },
+          {
+            "type": "paragraph",
+            "text": "說起這些事情，\n梅花自己也跟著笑。"
+          },
+          {
+            "type": "paragraph",
+            "text": "原本只是固定去一趟的訪視，\n做久了以後，\n開始會記得誰最近比較少出門，\n誰身體不太一樣了，\n誰只要一坐下來，\n就有好多話想說。"
+          },
+          {
+            "type": "paragraph",
+            "text": "而那些被她一次次探望的人，\n也漸漸記住了她。"
+          }
+        ]
+      },
+      {
+        "heading": "剪短一點",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "固定的日子，\n梅花會在協會裡替長輩剪頭髮。"
+          },
+          {
+            "type": "paragraph",
+            "text": "把位置張羅好，\n工具拿出來，\n爺爺奶奶一個接著一個坐下。"
+          },
+          {
+            "type": "paragraph",
+            "text": "頭髮剪短一點，\n人看起來清爽，\n自己洗頭、整理也方便一些。"
+          },
+          {
+            "type": "paragraph",
+            "text": "而剪頭髮的時間，\n自然也成了說話的時間。"
+          },
+          {
+            "type": "paragraph",
+            "text": "有人說家裡的事，\n有人聊最近的生活，\n有時候頭髮剪完了，\n話還沒有說完。"
+          },
+          {
+            "type": "paragraph",
+            "text": "美髮原本就是梅花熟悉的事。"
+          },
+          {
+            "type": "paragraph",
+            "text": "做了很多年，\n這項手藝也一直留在身上。"
+          },
+          {
+            "type": "paragraph",
+            "text": "只是後來，\n她開始注意到另一件事。"
+          },
+          {
+            "type": "paragraph",
+            "text": "過港有不少坡道。"
+          },
+          {
+            "type": "paragraph",
+            "text": "以前站在外頭，\n她常看見長輩買完菜，\n走到一半累了，\n就在路旁坐下來休息。"
+          },
+          {
+            "type": "paragraph",
+            "text": "看久了，\n心裡冒出一個問題："
+          },
+          {
+            "type": "quote",
+            "text": "「有一天如果他們走不動，\n要出來剪頭髮要怎麼辦？」"
+          },
+          {
+            "type": "paragraph",
+            "text": "所以能自己出門的人，\n就在協會裡剪；\n真的不方便外出的，\n她就把工具帶著，\n自己走過去。"
+          },
+          {
+            "type": "paragraph",
+            "text": "不是突然多了一份新的工作。"
+          },
+          {
+            "type": "paragraph",
+            "text": "只是自己原本就會做的事情，\n剛好能在別人需要的時候，\n再多派上一點用場。"
+          }
+        ]
+      },
+      {
+        "heading": "走進門裡，也會看見更多事情",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "訪視，\n並不總是坐下來聊天。"
+          },
+          {
+            "type": "paragraph",
+            "text": "有一次，\n梅花去看一位行動不方便的長輩。"
+          },
+          {
+            "type": "paragraph",
+            "text": "人跌在床邊，\n她想把對方扶起來，\n卻怎麼樣都拉不動。"
+          },
+          {
+            "type": "paragraph",
+            "text": "最後只能趕快找人幫忙，\n聯絡里長、請救護人員過來，\n才把長輩送去醫院。"
+          },
+          {
+            "type": "paragraph",
+            "text": "回頭說起那一天，\n她還記得自己被嚇到了。"
+          },
+          {
+            "type": "paragraph",
+            "text": "也記得一件事："
+          },
+          {
+            "type": "paragraph",
+            "text": "還好那一天，\n門有辦法打開。"
+          },
+          {
+            "type": "paragraph",
+            "text": "不然裡面發生了什麼，\n外面的人可能根本不知道。"
+          },
+          {
+            "type": "paragraph",
+            "text": "做訪視久了，\n梅花也看著一些熟悉的人\n一年一年變老。"
+          },
+          {
+            "type": "paragraph",
+            "text": "原本還能自己走，\n後來漸漸需要更多幫忙；\n有些以前常見的人，\n後來也不在了。"
+          },
+          {
+            "type": "paragraph",
+            "text": "問起訪視這些年，\n有沒有哪一件事情特別讓她感動，\n梅花沒有挑出一個漂亮的故事。"
+          },
+          {
+            "type": "paragraph",
+            "text": "只是說："
+          },
+          {
+            "type": "quote",
+            "text": "「我會心會捨不得。」"
+          }
+        ]
+      },
+      {
+        "heading": "能動、能做，就盡量做",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "問梅花，\n為什麼願意一直做這些事情，\n她沒有講什麼大道理。"
+          },
+          {
+            "type": "paragraph",
+            "text": "只說："
+          },
+          {
+            "type": "quote",
+            "text": "「我從頭到尾沒有動機，\n我就是想要做。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "看到桌子搬不動，\n自己有辦法，\n就過去幫；\n時間到了，\n就去訪視；\n有人需要剪頭髮，\n自己剛好會，\n那就剪。"
+          },
+          {
+            "type": "paragraph",
+            "text": "除了訪視與義剪，\n社區裡其他需要人手的事情，\n也常常看得到梅花。"
+          },
+          {
+            "type": "paragraph",
+            "text": "家人很清楚她的個性。"
+          },
+          {
+            "type": "paragraph",
+            "text": "先生曾經對孩子說："
+          },
+          {
+            "type": "quote",
+            "text": "「你媽媽就是喜歡這樣，\n她這樣才會快樂。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "梅花自己也笑著認了。"
+          },
+          {
+            "type": "paragraph",
+            "text": "最後，\n她把理由說得更簡單："
+          },
+          {
+            "type": "quote",
+            "text": "「我的想法是，\n我能動、能做，\n我就盡量做。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "很多事情沒有多大的理由。"
+          },
+          {
+            "type": "paragraph",
+            "text": "只是看見了，\n而自己剛好還做得到。"
+          }
+        ]
+      },
+      {
+        "heading": "姐姐們像一面鏡子",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "訪視，\n不只是梅花走進別人的生活。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她也會從那些人身上，\n想到自己。"
+          },
+          {
+            "type": "paragraph",
+            "text": "協會裡比她年長的姐姐們，\n她說，\n就像自己的「鏡子」。"
+          },
+          {
+            "type": "quote",
+            "text": "「我會學她們的優點，\n缺點看一看就好了。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "看著有人依然願意出門，\n有人身體保持得很好，\n也有人慢慢需要更多照顧，\n她會開始想："
+          },
+          {
+            "type": "paragraph",
+            "text": "以後，\n自己想怎麼生活？"
+          },
+          {
+            "type": "paragraph",
+            "text": "所以還走得動，\n就多走一點；\n能出門，\n就不要一直關在家裡。"
+          },
+          {
+            "type": "paragraph",
+            "text": "梅花說，\n如果沒有出來做志工，\n自己搞不好也會晚睡晚起，\n在家裡追劇，\n一天坐著坐著就過去了。"
+          },
+          {
+            "type": "paragraph",
+            "text": "現在雖然忙，\n有時候也真的會累，\n可是看到長輩坐在一起說話、笑，\n看到原本沒有太多表情的臉\n跟著有了笑容，\n自己的心情也會好起來。"
+          }
+        ]
+      },
+      {
+        "heading": "走出來，外面也有快樂",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "訪談快結束時，\n梅花說起自己最想告訴大家的一件事："
+          },
+          {
+            "type": "quote",
+            "text": "「走出來，不要關在家裡。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "接著又補了一句："
+          },
+          {
+            "type": "quote",
+            "text": "「外面也有快樂的。」"
+          },
+          {
+            "type": "paragraph",
+            "text": "這句話，\n聽起來像是在說給長輩聽。"
+          },
+          {
+            "type": "paragraph",
+            "text": "但一路聽下來，\n好像也很像她自己的生活。"
+          },
+          {
+            "type": "paragraph",
+            "text": "固定的日子，\n有人走進協會找她；\n訪視的日子，\n換她從協會走出去。"
+          },
+          {
+            "type": "paragraph",
+            "text": "有人還能自己出門，\n就在外面見面。"
+          },
+          {
+            "type": "paragraph",
+            "text": "有人已經不方便走出來，\n那就走進去看看。"
+          },
+          {
+            "type": "paragraph",
+            "text": "一次又一次的往來裡，\n原本只是住在同一個社區的人，\n慢慢知道了彼此的名字，\n也開始知道，\n最近過得好不好。"
+          }
+        ]
+      },
+      {
+        "heading": "慢慢熟起來的人",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "做訪視久了，\n梅花認識的，\n不再只是名單上的名字。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她知道誰最近比較少出門，\n誰的腳步變慢了，\n誰只要坐下來，\n就有很多話想說。"
+          },
+          {
+            "type": "paragraph",
+            "text": "有些人看到她，\n會問怎麼這麼久沒來；\n有些人知道她要過去，\n就先把門打開等著。"
+          },
+          {
+            "type": "paragraph",
+            "text": "這些事情沒有很大的聲音。"
+          },
+          {
+            "type": "paragraph",
+            "text": "只是一次次見面，\n一次次說話，\n慢慢把彼此變成熟悉的人。"
+          },
+          {
+            "type": "paragraph",
+            "text": "對丁梅花來說，\n過港也因此不只是工作的地方，\n或一個需要她來幫忙的社區。"
+          },
+          {
+            "type": "paragraph",
+            "text": "這裡有她會記掛的人，\n也有人會記得她。"
+          },
+          {
+            "type": "paragraph",
+            "text": "她在一次次走進別人的生活裡，\n也慢慢把自己留在了過港的日常裡。"
+          }
+        ]
+      }
+    ],
+    "ending": {
+      "largeLines": [
+        "「我的想法是，",
+        "我能動、能做，",
+        "我就盡量做。」"
+      ],
+      "smallLines": [
+        "有些事情沒有多大的理由。",
+        "只是看見了，",
+        "而自己剛好還做得到。"
+      ]
+    }
+  }
 ];
 
 export function getPeopleStory(slug: string) {

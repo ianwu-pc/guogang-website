@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { access, readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
+import { peopleSources, assertPeopleSourceIntegrity } from "./people-source-integrity.mjs";
 
 const projectRoot = path.resolve(import.meta.dirname, "..");
 const outputRoot = path.join(projectRoot, "github-pages-dist");
@@ -104,7 +105,7 @@ test("exported pages preserve revision content and interactions", async () => {
   assert.match(people, /過港的樣子，[\s\S]*?藏在不同人的日常裡。/);
 
   const peopleCards = [...people.matchAll(/<article class="people-story-card[\s\S]*?<\/article>/g)].map((match) => match[0]);
-  const peopleOrder = ["林秀英", "黃淑惠", "丁梅花", "清爽 × 阿笑", "李水錦阿姨", "親家阿公阿嬤"];
+  const peopleOrder = ["林秀英", "早餐店老闆娘", "丁梅花", "清爽 × 阿笑", "煮飯阿姨", "親家阿公阿嬤"];
   assert.equal(peopleCards.length, peopleOrder.length, "exported People page should contain six editorial entries");
   assert.deepEqual(
     peopleCards.map((card) => peopleOrder.find((name) => card.includes(`>${name}<`))),
@@ -114,24 +115,24 @@ test("exported pages preserve revision content and interactions", async () => {
 
   for (const [name, href] of [
     ["林秀英", "/people/bottle-cap-grandma"],
-    ["黃淑惠", "/people/breakfast-shop-owner"],
+    ["早餐店老闆娘", "/people/breakfast-shop-owner"],
     ["丁梅花", "/people/couple-story-two"],
     ["清爽 × 阿笑", "/people/couple-story-one"],
-    ["李水錦阿姨", "/people/community-kitchen-mother"],
+    ["煮飯阿姨", "/people/community-kitchen-mother"],
     ["親家阿公阿嬤", "/people/community-volunteer"],
   ]) {
     assert.match(people, new RegExp(`${name}[\\s\\S]*?href="[^"]*${href}`));
   }
 
   assert.match(people, /把時間，[\s\S]*?一個瓶蓋一個瓶蓋留在過港。/);
-  assert.match(people, /二十五年，[\s\S]*?早餐店裡的客人慢慢成了朋友。/);
-  assert.match(people, /一起四十多年，[\s\S]*?生活這件事一直在變。/);
-  assert.match(people, /每天半個小時，[\s\S]*?她來過港過另一種生活。/);
+  assert.match(people, /二十五年，[\s\S]*?早晨裡的人慢慢熟了。/);
+  assert.match(people, /四十多年，[\s\S]*?他們一起把日子過到了過港。/);
+  assert.match(people, /這條半小時的路，[\s\S]*?她走了十年。/);
   assert.match(people, /六個故事，[\s\S]*?六種與過港產生關係的方式。/);
   assert.doesNotMatch(people, /STORY 01|STORY 02|STORY 03|STORY 04/);
   assert.doesNotMatch(people, /page-intro-index[^>]*>\d{2}/);
 
-  const breakfastCard = peopleCards.find((card) => card.includes(">黃淑惠<"));
+  const breakfastCard = peopleCards.find((card) => card.includes(">早餐店老闆娘<"));
   assert.ok(breakfastCard, "exported Huang Shu-hui entry should exist");
   assert.match(breakfastCard, /href="[^"]*\/people\/breakfast-shop-owner/);
   assert.match(breakfastCard, /people-story-editorial-cover/);
@@ -145,13 +146,16 @@ test("exported pages preserve revision content and interactions", async () => {
   const bottleCapArticle = bottleCapStory.match(/<main class="article-page people-article-page">[\s\S]*?<\/main>/)?.[0];
   assert.ok(bottleCapArticle, "exported Lin Xiu-ying page should contain the shared editorial article");
   assert.match(bottleCapStory, /把時間/);
-  assert.match(bottleCapStory, /有些時間，最後會變成一個地方的樣子/);
+  assert.match(bottleCapStory, /時間留下來的形狀/);
   assert.doesNotMatch(bottleCapArticle, /來源未提供|IMAGE|待提供/);
-  assert.match(breakfastStory, /煎台上的晨之味/);
+  assert.match(breakfastStory, /早晨裡的人慢慢熟了。/);
   assert.match(kitchenStory, /li-shui-jin-kitchen\.jpg/);
   assert.match(coupleStory, /qingshuang-axiao-portrait\.jpg/);
   assert.match(meiHuaStory, /丁梅花/);
-  assert.match(meiHuaStory, /再去看看/);
+  assert.match(meiHuaStory, /去看看，最近好不好。/);
+  for (const source of peopleSources) {
+    assertPeopleSourceIntegrity(await read(`people/${source.slug}/index.html`), source);
+  }
   assert.match(about, /關於我們\.jpg/);
   assert.doesNotMatch(`${home}${about}`, /association-structure\.png|組織架構圖|會員大會/);
 });

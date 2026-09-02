@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { peopleSources, assertPeopleSourceIntegrity } from "./people-source-integrity.mjs";
 
 const workerUrl = new URL("../dist/server/index.js", import.meta.url);
 workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
@@ -51,10 +52,8 @@ test("homepage contains the complete editorial structure", async () => {
   assert.match(html, /港式蘿蔔糕/);
   assert.match(html, /鴉片鐵蛋/);
   assert.match(html, /林秀英/);
-  assert.match(html, /瓶蓋牆創作者/);
-  assert.match(html, /黃淑惠/);
-  assert.match(html, /美食坊老闆娘/);
-  assert.match(html, /李水錦阿姨/);
+  assert.match(html, /早餐店老闆娘/);
+  assert.match(html, /煮飯阿姨/);
   assert.match(html, /一群人一起做的[\s\S]*?事/);
   assert.match(html, /如果喜歡過港/);
   assert.match(html, /205 基隆市暖暖區過港里過港路 54 號/);
@@ -163,7 +162,8 @@ test("semantic headings preserve author lines and matching levels share one size
   assert.match(css, /h1,\s*h2,\s*h3\s*\{[\s\S]*?text-wrap:\s*balance/);
   assert.match(css, /:is\(h1, h2, h3\):has\(> \.heading-line\)\s*\{[\s\S]*?text-wrap:\s*wrap/);
   assert.match(css, /\.heading-line\s*\{[\s\S]*?display:\s*block;[\s\S]*?white-space:\s*nowrap;[\s\S]*?text-wrap:\s*nowrap/);
-  assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.heading-line\s*\{[\s\S]*?white-space:\s*normal;[\s\S]*?text-wrap:\s*balance/);
+  assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.heading-line\s*\{[\s\S]*?white-space:\s*normal;[\s\S]*?text-wrap:\s*wrap/);
+  assert.doesNotMatch(css, /@media \(max-width: 620px\)[\s\S]*?\.heading-line\s*\{[\s\S]*?text-wrap:\s*balance/);
   assert.match(css, /\.about-people-power h2\s*\{\s*font-size:\s*var\(--type-section\)/);
   assert.match(
     css,
@@ -325,6 +325,20 @@ test("interactive map supports hover, keyboard, touch selection and direct dragg
   assert.match(css, /\.guogang-map-scroll::-webkit-scrollbar \{ display: none; \}/);
 });
 
+test("People article titles use explicit natural-language lines instead of browser balancing", async () => {
+  const peopleStories = await readFile(new URL("../app/data/peopleStories.ts", import.meta.url), "utf8");
+  const stories = JSON.parse(peopleStories.split("export const PEOPLE_STORIES: PeopleStory[] = ")[1].split(";\n")[0]);
+
+  for (const [slug, lines] of Object.entries({
+    "bottle-cap-grandma": ["把時間，", "一個瓶蓋一個瓶蓋", "留在過港。"],
+    "breakfast-shop-owner": ["二十五年，", "早晨裡的人", "慢慢熟了。"],
+    "couple-story-one": ["四十多年，", "他們一起把日子", "過到了過港。"],
+    "couple-story-two": ["去看看，", "最近好不好。"],
+  })) {
+    assert.deepEqual(stories.find((story) => story.slug === slug).titleLines, lines);
+  }
+});
+
 test("people page preserves six stories and the new editorial index structure", async () => {
   const response = await render("/people");
   const html = await response.text();
@@ -334,25 +348,25 @@ test("people page preserves six stories and the new editorial index structure", 
   assert.match(html, /過港的樣子，[\s\S]*?藏在不同人的日常裡。/);
 
   assert.match(html, /林秀英/);
-  assert.match(html, /把時間，[\s\S]*?一個瓶蓋一個瓶蓋留在過港。/);
-  assert.match(html, /黃淑惠/);
-  assert.match(html, /二十五年，[\s\S]*?早餐店裡的客人慢慢成了朋友。/);
-  assert.match(html, /李水錦阿姨/);
-  assert.match(html, /每天半個小時，[\s\S]*?她來過港過另一種生活。/);
+  assert.match(html, /把時間，[\s\S]*?一個瓶蓋一個瓶蓋[\s\S]*?留在過港。/);
+  assert.match(html, /早餐店老闆娘/);
+  assert.match(html, /二十五年，[\s\S]*?早晨裡的人[\s\S]*?慢慢熟了。/);
+  assert.match(html, /煮飯阿姨/);
+  assert.match(html, /這條半小時的路，[\s\S]*?她走了十年。/);
   assert.match(html, /清爽 × 阿笑/);
-  assert.match(html, /一起四十多年，[\s\S]*?生活這件事一直在變。/);
+  assert.match(html, /四十多年，[\s\S]*?他們一起把日子[\s\S]*?過到了過港。/);
   assert.match(html, /丁梅花/);
-  assert.match(html, /再去看看一個人。/);
+  assert.match(html, /去看看，[\s\S]*?最近好不好。/);
   assert.match(html, /親家阿公阿嬤/);
-  assert.match(html, /一天過一天，[\s\S]*?他們把生活一起過了下來。/);
+  assert.match(html, /從騎腳踏車，[\s\S]*?到一起慢慢走。/);
   assert.match(html, /六段不同的人生/);
   assert.match(html, /六個故事，[\s\S]*?六種與過港產生關係的方式。/);
   assert.match(html, /people-story-editorial-cover/);
   assert.match(html, /慢慢和過港有了關係。/);
-  assert.match(html, /閱讀清爽與阿笑的故事/);
+  assert.match(html, /閱讀清爽 × 阿笑的故事/);
 
   const peopleCards = [...html.matchAll(/<article class="people-story-card[\s\S]*?<\/article>/g)].map((match) => match[0]);
-  const peopleOrder = ["林秀英", "黃淑惠", "丁梅花", "清爽 × 阿笑", "李水錦阿姨", "親家阿公阿嬤"];
+  const peopleOrder = ["林秀英", "早餐店老闆娘", "丁梅花", "清爽 × 阿笑", "煮飯阿姨", "親家阿公阿嬤"];
   assert.equal(peopleCards.length, peopleOrder.length, "six people should render as six story items");
   assert.deepEqual(
     peopleCards.map((card) => peopleOrder.find((name) => card.includes(`>${name}<`))),
@@ -360,7 +374,7 @@ test("people page preserves six stories and the new editorial index structure", 
     "people cards should preserve the intended DOM reading order",
   );
 
-  const breakfastCard = peopleCards.find((card) => card.includes(">黃淑惠<"));
+  const breakfastCard = peopleCards.find((card) => card.includes(">早餐店老闆娘<"));
   assert.ok(breakfastCard, "Huang Shu-hui story should render as its own item");
   assert.match(breakfastCard, /href="\/people\/breakfast-shop-owner\/?"/);
   assert.match(breakfastCard, /people-story-editorial-cover/);
@@ -378,34 +392,12 @@ test("people page preserves six stories and the new editorial index structure", 
   assert.doesNotMatch(html, /people-empty-index|01—/);
 });
 test("finalized people stories render complete editorial pages from shared data", async () => {
-  const checks = [
-    [
-      "/people/bottle-cap-grandma",
-      ["林秀英", "把時間", "一個瓶蓋一個瓶蓋留在過港。", "她做過的事情，好像很難一次數完", "一面牆，是很多雙手一起長出來的", "這雙手，一直沒有真正停過", "時間不能留白", "原本在家裡做的事，慢慢走到了外面", "住久了，就有感情了", "有些時間，最後會變成一個地方的樣子", "而過港，也收下了她這六十多年的時間"],
-    ],
-    [
-      "/people/breakfast-shop-owner",
-      ["黃淑惠", "煎台上的晨之味", "煎台上的清晨", "落腳過港時", "一間早餐店，一條街的人情", "晨光裡的餘韻", "二十五年來，美食坊就這樣靜靜佇立在過港的晨光裡"],
-    ],
-    [
-      "/people/community-kitchen-mother",
-      ["李水錦阿姨", "十年灶腳，一味歡喜", "灶腳裡的笑聲，煮著她的人生", "從內湖的風雨，到過港的安頓", "灶腳裡的熱心，也藏著人情味", "六十歲，再當一次學生", "人生就是要健康、要快樂", "阿姨帶著滿滿的笑聲"],
-    ],
-    [
-      "/people/couple-story-one",
-      ["清爽阿公 × 阿笑阿嬤", "四十年相伴，", "二十年過港", "笑了就爽 爽了就笑", "在協會裡學新知、交朋友", "鐵道歲月的奔波與守護", "水患之後的安居", "笑了就爽，爽了就笑"],
-    ],
-    [
-      "/people/couple-story-two",
-      ["丁梅花", "再去看看", "一個人。", "固定的日子，協會裡多了張剪髮椅子", "更多時候，她去的不只是剪髮"],
-    ],
-  ];
-
-  for (const [route, phrases] of checks) {
+  for (const source of peopleSources) {
+    const route = `/people/${source.slug}`;
     const response = await render(route);
     assert.equal(response.status, 200, `${route} should return 200`);
     const html = await response.text();
-    for (const phrase of phrases) assert.match(html, new RegExp(phrase), `${route} should include ${phrase}`);
+    assertPeopleSourceIntegrity(html, source);
     assert.match(html, /people-article-page/);
     assert.match(html, /← 上一篇人物/);
     assert.match(html, /返回全部人物/);
@@ -423,10 +415,11 @@ test("finalized story pages share one responsive typography scale and semantic t
   assert.match(css, /\.people-article-heading h1\s*\{[^}]*font-size:\s*var\(--type-article-title\)/);
   assert.match(css, /\.people-article-section-copy h2\s*\{[^}]*font-size:\s*var\(--type-article-section\)/);
   assert.match(css, /\.people-story-editorial-cover strong\s*\{[^}]*max-width:\s*100%/);
-  assert.ok(data.includes('titleLines: ["四十年相伴，", "二十年過港"]'));
-  assert.ok(data.includes('titleLines: ["煎台上的", "晨之味"]'));
-  assert.ok(data.includes('titleLines: ["把時間", "一個瓶蓋一個瓶蓋留在過港。"]'));
-  assert.ok(data.includes('subtitleLines: ["——守著一方煎台，", "也守著一條街的成長與人情"]'));
+  const stories = JSON.parse(data.split("export const PEOPLE_STORIES: PeopleStory[] = ")[1].split(";\n")[0]);
+  assert.deepEqual(stories.find((story) => story.slug === "couple-story-one").titleLines,
+    ["四十多年，", "他們一起把日子", "過到了過港。"]);
+  assert.deepEqual(stories.find((story) => story.slug === "bottle-cap-grandma").titleLines,
+    ["把時間，", "一個瓶蓋一個瓶蓋", "留在過港。"]);
 });
 
 test("about page does not publish the supplied organization chart", async () => {

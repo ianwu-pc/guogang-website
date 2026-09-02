@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { HeadingLines } from "../components/HeadingLines";
 import { PageIntro } from "../components/PageIntro";
 import { PEOPLE } from "../data/site";
+import { getPeopleStory } from "../data/peopleStories";
 import { sitePath } from "../utils/sitePath";
 
 export const metadata: Metadata = {
@@ -13,10 +14,7 @@ type IndexEntry = {
   slug: string;
   name: string;
   role?: string;
-  headlineLines: Array<{
-    text: string;
-    mobileLines?: string[];
-  }>;
+  headlineLines: Array<{ text: string }>;
   summaryLines: string[];
   cta: string;
   visual: {
@@ -35,165 +33,84 @@ type IndexEntry = {
 
 const PEOPLE_INDEX_ORDER: IndexEntry[] = [
   {
-    slug: "bottle-cap-grandma",
-    name: "林秀英",
-    headlineLines: [
-      { text: "把時間，" },
-      { text: "一個瓶蓋一個瓶蓋留在過港。", mobileLines: ["一個瓶蓋一個瓶蓋", "留在過港。"] },
-    ],
-    summaryLines: [
-      "畫畫、寫字、刻印、做手工，",
-      "她總覺得時間不該空著。",
-      "",
-      "六十多年過去，",
-      "這雙停不下來的手，",
-      "也在過港留下了一些形狀。",
-    ],
-    cta: "閱讀林秀英的故事 →",
-    visual: {
-      type: "editorial",
-      ratio: "portrait",
-      eyebrow: "一個人的日常實驗室",
-      frameLine: ["每天一張新紙，", "時間就在手裡留下痕跡。"],
-      annotation: ["瓶蓋牆", "生活的慢工筆記"],
+    "slug": "bottle-cap-grandma",
+    "visual": {
+      "type": "editorial",
+      "ratio": "portrait"
     },
-    side: "left",
-    offset: 0,
+    "side": "left",
+    "offset": 0
   },
   {
-    slug: "breakfast-shop-owner",
-    name: "黃淑惠",
-    role: "美食坊老闆娘",
-    headlineLines: [
-      { text: "二十五年，" },
-      { text: "早餐店裡的客人慢慢成了朋友。", mobileLines: ["早餐店裡的客人", "慢慢成了朋友。"] },
-    ],
-    summaryLines: [
-      "每天清晨來開店，",
-      "有人從學生吃到成家，",
-      "也有人從客人變成朋友。",
-      "",
-      "一間小小的早餐店，",
-      "慢慢記住了很多人的生活。",
-    ],
-    cta: "閱讀她的故事 →",
-    visual: {
-      type: "editorial",
-      ratio: "landscape",
-      eyebrow: "清晨與煎台間的生活",
-      frameLine: ["守著一方煎台，", "也守著一條街的成長與人情。"],
-      annotation: ["清晨，", "煎台上的日常"],
-      treatment: "text-led",
+    "slug": "breakfast-shop-owner",
+    "visual": {
+      "type": "editorial",
+      "ratio": "landscape",
+      "treatment": "text-led"
     },
-    side: "right",
-    offset: 3,
+    "side": "right",
+    "offset": 3
   },
   {
-    slug: "couple-story-two",
-    name: "丁梅花",
-    headlineLines: [{ text: "再去看看一個人。" }],
-    summaryLines: [
-      "固定的日子替長輩剪頭髮，",
-      "訪視的日子，",
-      "再走進一戶戶熟悉的人家。",
-      "",
-      "對她來說，",
-      "很多事情沒有多大的理由。",
-      "",
-      "只是看見了，",
-      "而自己剛好還做得到。",
-    ],
-    cta: "閱讀丁梅花的故事 →",
-    visual: {
-      type: "editorial",
-      ratio: "landscape",
-      eyebrow: "走進每一次訪視",
-      annotation: ["不只剪髮", "更守住了日常"],
+    "slug": "couple-story-two",
+    "visual": {
+      "type": "editorial",
+      "ratio": "landscape"
     },
-    side: "left",
-    offset: 0,
+    "side": "left",
+    "offset": 0
   },
   {
-    slug: "couple-story-one",
-    name: "清爽 × 阿笑",
-    headlineLines: [
-      { text: "一起四十多年，" },
-      { text: "生活這件事一直在變。", mobileLines: ["生活這件事", "一直在變。"] },
-    ],
-    summaryLines: [
-      "年輕時忙工作、忙孩子、忙家庭，",
-      "現在生活慢了一些，",
-      "兩個人也有了另一種相處的時間。",
-      "",
-      "有關心，",
-      "有嫌棄，",
-      "也有一起生活四十多年的默契。",
-    ],
-    cta: "閱讀清爽與阿笑的故事 →",
-    visual: {
-      type: "image",
-      ratio: "portrait",
-      src: "/images/people/couple-story-one/qingshuang-axiao-portrait.jpg",
-      alt: "清爽阿公與阿笑阿嬤自然相對的生活場景",
-      eyebrow: "在地生活中互相扶持",
+    "slug": "couple-story-one",
+    "visual": {
+      "type": "image",
+      "ratio": "portrait",
+      "src": "/images/people/couple-story-one/qingshuang-axiao-portrait.jpg",
+      "alt": "清爽 × 阿笑"
     },
-    side: "right",
-    offset: 2,
+    "side": "right",
+    "offset": 2
   },
   {
-    slug: "community-kitchen-mother",
-    name: "李水錦阿姨",
-    headlineLines: [
-      { text: "每天半個小時，" },
-      { text: "她來過港過另一種生活。", mobileLines: ["她來過港過", "另一種生活。"] },
-    ],
-    summaryLines: [
-      "從切菜、送餐，",
-      "到學會蘿蔔糕、鐵蛋、碗粿，",
-      "來到過港之後，",
-      "她總還有新的事情可以做。",
-      "",
-      "過港不是她住的地方，",
-      "卻是她願意一次又一次回來的地方。",
-    ],
-    cta: "閱讀她的故事 →",
-    visual: {
-      type: "image",
-      ratio: "portrait",
-      src: "/images/people/community-kitchen-mother/li-shui-jin-kitchen.jpg",
-      alt: "李水錦阿姨在廚房備料準備料理",
-      eyebrow: "來自生活裡的手與味道",
+    "slug": "community-kitchen-mother",
+    "visual": {
+      "type": "image",
+      "ratio": "portrait",
+      "src": "/images/people/community-kitchen-mother/li-shui-jin-kitchen.jpg",
+      "alt": "煮飯阿姨"
     },
-    side: "left",
-    offset: 1,
+    "side": "left",
+    "offset": 1
   },
   {
-    slug: "community-volunteer",
-    name: "親家阿公阿嬤",
-    headlineLines: [
-      { text: "一天過一天，" },
-      { text: "他們把生活一起過了下來。", mobileLines: ["他們把生活", "一起過了下來。"] },
-    ],
-    summaryLines: [
-      "做生意、養孩子，",
-      "下雨送貨，",
-      "颱風也不能休息。",
-      "",
-      "沒有什麼特別的婚姻秘訣，",
-      "只是日子來了，",
-      "兩個人就一起過。",
-    ],
-    cta: "閱讀他們的故事 →",
-    visual: {
-      type: "editorial",
-      ratio: "landscape",
-      eyebrow: "平常日子的長期相伴",
-      annotation: ["一起出門", "一起回來"],
+    "slug": "community-volunteer",
+    "visual": {
+      "type": "editorial",
+      "ratio": "landscape"
     },
-    side: "right",
-    offset: 4,
-  },
-];
+    "side": "right",
+    "offset": 4
+  }
+].map((entry) => {
+  const story = getPeopleStory(entry.slug)!;
+  return {
+    ...entry,
+    side: entry.side as IndexEntry["side"],
+    name: story.name,
+    role: story.role,
+    headlineLines: story.titleLines.map((text) => ({ text })),
+    summaryLines: story.ending.smallLines,
+    cta: `閱讀${story.name}的故事 →`,
+    visual: {
+      ...entry.visual,
+      type: entry.visual.type as IndexEntry["visual"]["type"],
+      ratio: entry.visual.ratio as IndexEntry["visual"]["ratio"],
+      treatment: entry.visual.treatment as IndexEntry["visual"]["treatment"],
+      eyebrow: story.name,
+      frameLine: story.ending.largeLines,
+    },
+  };
+});
 
 function renderSummaryLines(lines: string[]) {
   return lines
@@ -202,16 +119,7 @@ function renderSummaryLines(lines: string[]) {
 }
 
 function renderHeadlineLines(lines: IndexEntry["headlineLines"]) {
-  return lines.map((line) => (
-    <span className="heading-line" key={line.text}>
-      <span className="people-headline-desktop">{line.text}</span>
-      {line.mobileLines ? (
-        <span className="people-headline-mobile">
-          {line.mobileLines.map((mobileLine) => <span key={mobileLine}>{mobileLine}</span>)}
-        </span>
-      ) : null}
-    </span>
-  ));
+  return <HeadingLines lines={lines.map((line) => line.text)} />;
 }
 
 export default function PeoplePage() {

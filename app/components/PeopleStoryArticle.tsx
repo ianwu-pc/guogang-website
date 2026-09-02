@@ -1,5 +1,5 @@
 import { HeadingLines } from "./HeadingLines";
-import type { PeopleStory, StoryImage } from "../data/peopleStories";
+import type { PeopleStory, StoryBlock, StoryImage } from "../data/peopleStories";
 import type { Person } from "../data/site";
 import { sitePath } from "../utils/sitePath";
 
@@ -13,9 +13,17 @@ function StoryFigure({ image, className = "" }: { image: StoryImage; className?:
   return (
     <figure className={`people-article-figure ${className}`.trim()}>
       <img src={sitePath(image.src)} alt={image.alt} />
-      <figcaption>{image.caption}</figcaption>
+      {image.caption ? <figcaption>{image.caption}</figcaption> : null}
     </figure>
   );
+}
+
+function StoryBlocks({ blocks }: { blocks: StoryBlock[] }) {
+  return blocks.map((block, index) => block.type === "quote" ? (
+    <blockquote key={index}>{block.text}</blockquote>
+  ) : (
+    <p key={index}>{block.text}</p>
+  ));
 }
 
 export function PeopleStoryArticle({ story, previous, next }: PeopleStoryArticleProps) {
@@ -34,15 +42,20 @@ export function PeopleStoryArticle({ story, previous, next }: PeopleStoryArticle
           <p className="eyebrow">INTERVIEW / {story.storyNumber}</p>
           <div className="people-article-identity">
             <strong>{story.name}</strong>
-            <span>{story.role}</span>
+            {story.role ? <span>{story.role}</span> : null}
           </div>
           <h1><HeadingLines lines={story.titleLines} /></h1>
-          <p className="people-article-subtitle"><HeadingLines lines={story.subtitleLines} /></p>
+          {story.subtitleLines.length ? <p className="people-article-subtitle"><HeadingLines lines={story.subtitleLines} /></p> : null}
         </div>
         {story.heroImage ? <StoryFigure image={story.heroImage} className="people-article-hero-image" /> : null}
       </header>
 
       <article className="people-article-content">
+        <div className="people-article-section people-article-opening">
+          <div className="people-article-section-copy">
+            <StoryBlocks blocks={story.introBlocks} />
+          </div>
+        </div>
         {story.sections.map((section, sectionIndex) => (
           <section className="people-article-section" key={section.heading}>
             <div className="people-article-section-marker" aria-hidden="true">
@@ -50,15 +63,15 @@ export function PeopleStoryArticle({ story, previous, next }: PeopleStoryArticle
             </div>
             <div className="people-article-section-copy">
               <h2>{section.heading}</h2>
-              {section.blocks.map((block, blockIndex) => block.type === "quote" ? (
-                <blockquote key={`${section.heading}-${blockIndex}`}>{block.text}</blockquote>
-              ) : (
-                <p key={`${section.heading}-${blockIndex}`}>{block.text}</p>
-              ))}
+              <StoryBlocks blocks={section.blocks} />
             </div>
             {section.image ? <StoryFigure image={section.image} className="people-article-inline-image" /> : null}
           </section>
         ))}
+        <footer className="people-article-ending">
+          <p className="people-article-ending-large"><HeadingLines lines={story.ending.largeLines} /></p>
+          <p className="people-article-ending-small"><HeadingLines lines={story.ending.smallLines} /></p>
+        </footer>
       </article>
 
       <nav className="article-navigation" aria-label="人物專訪導覽">

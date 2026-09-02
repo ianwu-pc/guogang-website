@@ -78,7 +78,7 @@ export default function Home() {
                         STORY {String(index + 1).padStart(2, "0")} / {getEditorialCardTheme(person.slug)}
                       </span>
                       <strong>{person.quoteLines ? <HeadingLines lines={person.quoteLines} /> : person.quote}</strong>
-                      <small>{person.name} · {person.role}</small>
+                      <small>{person.name}{person.role ? ` · ${person.role}` : ""}</small>
                     </div>
                   </div>
                 ) : (
@@ -86,7 +86,7 @@ export default function Home() {
                 )}
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <h3>{person.name}</h3>
-                {person.role !== "人物姓名待確認" ? <small className="home-feature-role">{person.role}</small> : null}
+                {person.role && person.role !== "人物姓名待確認" ? <small className="home-feature-role">{person.role}</small> : null}
                 <p>{person.quote}</p>
                 <a className="text-link" href={sitePath(`/people/${person.slug}`)}>閱讀故事 <span aria-hidden="true">→</span></a>
               </article>

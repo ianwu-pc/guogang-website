@@ -1,3 +1,5 @@
+import { getPeopleStory } from "./peopleStories";
+
 export type Person = {
   id: string;
   slug: string;
@@ -241,75 +243,66 @@ export const GOODS: Good[] = [
 
 export const PEOPLE: Person[] = [
   {
-    id: "person-01",
-    slug: "bottle-cap-grandma",
-    name: "林秀英",
-    role: "瓶蓋牆創作者",
-    summary: "她把畫畫、寫字、刻印與手作帶進社區，也和大家用一個個瓶蓋，在過港的牆上留下共同完成的地方風景。",
-    quote: "把時間一個瓶蓋一個瓶蓋留在過港。",
-    quoteLines: ["把時間", "一個瓶蓋一個瓶蓋", "留在過港。"],
-    coverImage: "",
-    galleryImages: [],
-    interviewContent: [],
+    "id": "person-01",
+    "slug": "bottle-cap-grandma",
+    "coverImage": "",
+    "galleryImages": [],
+    "interviewContent": []
   },
   {
-    id: "person-02",
-    slug: "breakfast-shop-owner",
-    name: "黃淑惠",
-    role: "美食坊老闆娘",
-    summary: "她守著同一方早餐店煎台二十五年，也在每天清晨的問候裡，看著街坊的孩子一路長大。",
-    quote: "煎台上的晨之味",
-    coverImage: "黃淑惠與美食坊工作畫面｜來源未提供",
-    galleryImages: [],
-    interviewContent: [],
+    "id": "person-02",
+    "slug": "breakfast-shop-owner",
+    "coverImage": "",
+    "galleryImages": [],
+    "interviewContent": []
   },
   {
-    id: "person-03",
-    slug: "community-kitchen-mother",
-    name: "李水錦阿姨",
-    role: "過港社區灶腳夥伴",
-    summary: "十年來，她從洗菜、切菜、送便當開始，慢慢學會新的食物與手藝，也成了過港灶腳裡熟悉的一份子。",
-    quote: "十年灶腳，一味歡喜",
-    coverImage: "/images/people/community-kitchen-mother/li-shui-jin-kitchen.jpg",
-    galleryImages: ["/images/people/community-kitchen-mother/li-shui-jin-community.jpg", "/images/people/community-kitchen-mother/li-shui-jin-learning.jpg"],
-    interviewContent: [],
+    "id": "person-03",
+    "slug": "community-kitchen-mother",
+    "coverImage": "/images/people/community-kitchen-mother/li-shui-jin-kitchen.jpg",
+    "galleryImages": [
+      "/images/people/community-kitchen-mother/li-shui-jin-community.jpg",
+      "/images/people/community-kitchen-mother/li-shui-jin-learning.jpg"
+    ],
+    "interviewContent": []
   },
   {
-    id: "person-04",
-    slug: "community-volunteer",
-    name: "協會志工",
-    role: "人物姓名待確認",
-    summary: "社區裡的一場活動、一次陪伴，或一件看似平常的小事，背後總有人默默準備。一點一點累積起來，也成為過港日常裡重要的力量。",
-    quote: "有些事情很小，但總要有人願意一直做。",
-    coverImage: "協會志工本人與服務畫面｜待提供",
-    galleryImages: ["志工與居民互動｜待提供", "社區工作或活動準備｜待提供"],
-    interviewContent: ["完整人物訪談正在整理中。正式內容完成後，將從一次次服務、陪伴與活動準備，記錄志工與過港的連結。"],
+    "id": "person-04",
+    "slug": "community-volunteer",
+    "coverImage": "",
+    "galleryImages": [
+      "志工與居民互動｜待提供",
+      "社區工作或活動準備｜待提供"
+    ],
+    "interviewContent": []
   },
   {
-    id: "person-05",
-    slug: "couple-story-one",
-    name: "清爽阿公 × 阿笑阿嬤",
-    role: "相伴四十年的過港夫妻",
-    summary: "相伴四十年、在過港生活二十年，兩人一起參與社區、學習新事物，也把退休後的日子過得清爽開懷。",
-    quote: "四十年相伴，二十年過港",
-    quoteLines: ["四十年相伴，", "二十年過港"],
-    coverImage: "/images/people/couple-story-one/qingshuang-axiao-portrait.jpg",
-    galleryImages: ["/images/people/couple-story-one/qingshuang-axiao-community.jpg"],
-    interviewContent: [],
+    "id": "person-05",
+    "slug": "couple-story-one",
+    "coverImage": "/images/people/couple-story-one/qingshuang-axiao-portrait.jpg",
+    "galleryImages": [
+      "/images/people/couple-story-one/qingshuang-axiao-community.jpg"
+    ],
+    "interviewContent": []
   },
   {
-    id: "person-06",
-    slug: "couple-story-two",
-    name: "丁梅花",
-    role: "美髮義剪與長輩訪視",
-    summary: "固定的日子裡，她在協會替長輩義剪，也會親自上門探望行動不便的人。每一次來去，讓她在日常裡看見更多長輩與社區的需要。",
-    quote: "有些門打開以後",
-    quoteLines: ["有些門打開以後", "會看見更多事情"],
-    coverImage: "",
-    galleryImages: [],
-    interviewContent: [],
-  },
-];
+    "id": "person-06",
+    "slug": "couple-story-two",
+    "coverImage": "",
+    "galleryImages": [],
+    "interviewContent": []
+  }
+].map((person) => {
+  const story = getPeopleStory(person.slug)!;
+  return {
+    ...person,
+    name: story.name,
+    role: story.role,
+    summary: story.description,
+    quote: story.titleLines.join(""),
+    quoteLines: story.titleLines,
+  };
+});
 
 // 日後新增故事：複製一筆資料並更新 slug、分類與內容即可。
 export const STORIES: Story[] = Array.from({ length: 8 }, (_, index) => {
