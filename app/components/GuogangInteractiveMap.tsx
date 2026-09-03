@@ -12,49 +12,46 @@ type MapLocation = {
   description?: string;
   href?: string;
   linkLabel?: string;
-  hotspot: { x: number; y: number; width: number; height: number };
+  stamp: string;
+  position: { x: number; y: number; width: number };
+  label?: "above" | "below" | "on";
   panel: { x: number; y: number; side: "left" | "right" };
 };
 
-// Coordinates are normalized against the 1706 × 960 source map, so the targets
-// retain their position when the rendered image changes size.
+// Coordinates are normalized against the supplied 1672 × 941 hand-drawn map.
+// The stamps sit in the nearby paper space, leaving the map's own names, roads
+// and river visible while keeping each illustration as the interactive target.
 const GUOGANG_MAP_LOCATIONS: MapLocation[] = [
-  { id: "inoue", name: "井上園日本料理", kind: "餐飲空間", hotspot: { x: 3, y: 27, width: 12, height: 22 }, panel: { x: 16, y: 36, side: "right" } },
-  { id: "manyueyuan", name: "滿越緣私房料理", kind: "餐飲空間", hotspot: { x: 18, y: 35, width: 12, height: 15 }, panel: { x: 31, y: 39, side: "right" } },
-  { id: "shengguang", name: "過港聖光堂", kind: "宗教空間", hotspot: { x: 29, y: 25, width: 10, height: 24 }, panel: { x: 41, y: 28, side: "right" } },
-  { id: "pasta-86", name: "過港86義大利麵", kind: "餐飲空間", hotspot: { x: 40, y: 34, width: 12, height: 16 }, panel: { x: 54, y: 36, side: "right" } },
+  { id: "shengguang-church", name: "過港聖光堂", kind: "宗教空間", description: "過港路邊的教堂建築。", stamp: "shengguang-church", position: { x: 7, y: 30, width: 12.6 }, label: "above", panel: { x: 14, y: 26, side: "right" } },
+  { id: "guogang-pasta", name: "過港義大利麵", kind: "餐飲空間", description: "過港路上的餐飲地點。", stamp: "guogang-pasta", position: { x: 20.5, y: 30, width: 12.6 }, label: "above", panel: { x: 27, y: 27, side: "right" } },
   {
-    id: "police-dormitory",
-    name: "警察宿舍",
-    kind: "宿舍建築",
-    description: "警察與其他公家單位宿舍，曾是過港聚落生活的一部分。",
-    hotspot: { x: 62, y: 11, width: 8, height: 20 },
-    panel: { x: 60, y: 20, side: "left" },
+    id: "little-couple-store",
+    name: "小倆口柑仔店",
+    kind: "在地商店",
+    description: "位在寧靜街上的在地商店。",
+    stamp: "little-couple-store",
+    position: { x: 92, y: 29, width: 12.6 },
+    label: "above",
+    panel: { x: 89, y: 20, side: "left" },
   },
+  { id: "guogang-post-office", name: "基隆過港路郵局", kind: "郵政服務", description: "服務過港居民的郵政據點。", stamp: "guogang-post-office", position: { x: 45, y: 38, width: 12.6 }, label: "above", panel: { x: 53, y: 37, side: "right" } },
   {
-    id: "breakfast-shop",
-    name: "美食坊早餐店",
-    kind: "早餐店",
-    description: "黃淑惠守著美食坊的煎台二十五年，在清晨的早餐與問候裡，看著過港的孩子長大。",
-    href: "/people/breakfast-shop-owner",
-    linkLabel: "閱讀她的故事 →",
-    hotspot: { x: 88, y: 11, width: 11, height: 15 },
-    panel: { x: 87, y: 17, side: "left" },
-  },
-  {
-    id: "association",
+    id: "community-association",
     name: "過港社區發展協會",
     kind: "社區組織",
     description: "居民參與地方事務與互相連結的重要平台。",
     href: "/about",
     linkLabel: "認識協會 →",
-    hotspot: { x: 68, y: 46, width: 11, height: 14 },
-    panel: { x: 65, y: 52, side: "left" },
+    stamp: "community-association",
+    position: { x: 60, y: 44, width: 12.6 },
+    label: "above",
+    panel: { x: 64, y: 43, side: "right" },
   },
-  { id: "wax-museum", name: "黃蠟石博物館", kind: "博物館", hotspot: { x: 84, y: 45, width: 10, height: 15 }, panel: { x: 82, y: 48, side: "left" } },
-  { id: "zhongyu", name: "中漁新村", kind: "住宅聚落", hotspot: { x: 30, y: 59, width: 12, height: 14 }, panel: { x: 44, y: 64, side: "right" } },
-  { id: "fude-temple", name: "過港福德宮", kind: "廟宇", hotspot: { x: 44, y: 57, width: 10, height: 17 }, panel: { x: 56, y: 67, side: "right" } },
-  { id: "nuannuan-station", name: "暖暖火車站", kind: "鐵道車站", hotspot: { x: 82, y: 77, width: 17, height: 21 }, panel: { x: 80, y: 82, side: "left" } },
+  { id: "wax-culture-hall", name: "黃蠟石文化館", kind: "文化空間", description: "收藏與展示黃蠟石文化的地方。", stamp: "wax-culture-hall", position: { x: 74, y: 44, width: 12.6 }, label: "above", panel: { x: 70, y: 45, side: "left" } },
+  { id: "fude-temple", name: "暖暖過港福德宮", kind: "信仰空間", description: "過港的信仰空間。", stamp: "fude-temple", position: { x: 13, y: 54, width: 12.6 }, label: "below", panel: { x: 19, y: 55, side: "right" } },
+  { id: "nuan-new-immigrant-hall", name: "暖新住民會館", kind: "交流空間", description: "提供新住民交流與服務的空間。", stamp: "nuan-new-immigrant-hall", position: { x: 31, y: 56, width: 12.6 }, label: "below", panel: { x: 38, y: 48, side: "right" } },
+  { id: "nuanjiang-bridge", name: "暖江橋", kind: "河岸地標", description: "跨越基隆河、連接兩岸的橋梁。", stamp: "nuanjiang-bridge", position: { x: 71, y: 76, width: 14.5 }, label: "below", panel: { x: 67, y: 72, side: "left" } },
+  { id: "nuannuan-station", name: "暖暖車站", kind: "鐵道車站", description: "過港一帶往返外地的鐵道車站。", stamp: "nuannuan-station", position: { x: 87, y: 90, width: 13.65 }, label: "below", panel: { x: 83, y: 80, side: "left" } },
 ];
 
 export function GuogangInteractiveMap() {
@@ -138,56 +135,40 @@ export function GuogangInteractiveMap() {
             }}
             onMouseLeave={() => setHoveredId(null)}
           >
-            <img src={sitePath("/images/guogang-handdrawn-map-background.png")} alt="手繪過港生活地圖，標示餐飲、宗教空間、社區發展協會、住宅聚落與暖暖火車站等地點" />
-            <div className="guogang-map-landmarks" aria-hidden="true">
+            <img src={sitePath("/images/guogang-landscape-map-landmarks-cleared.png")} alt="手繪過港生活地圖，標示過港路、寧靜街、基隆河與源遠路" />
+            <div className="guogang-map-landmarks">
               {GUOGANG_MAP_LOCATIONS.map((location) => (
-                <span
-                  className={location.id === activeId ? "guogang-map-landmark is-active" : "guogang-map-landmark"}
+                <button
+                  className={`guogang-map-landmark guogang-map-landmark--${location.id}${location.id === activeId ? " is-active" : ""}${location.label ? ` has-label-${location.label}` : ""}`}
                   key={location.id}
                   style={{
-                    "--object-x": `${location.hotspot.x}%`,
-                    "--object-y": `${location.hotspot.y}%`,
-                    "--object-width": `${location.hotspot.width}%`,
-                    "--object-height": `${location.hotspot.height}%`,
+                    "--object-x": `${location.position.x}%`,
+                    "--object-y": `${location.position.y}%`,
+                    "--object-width": `${location.position.width}%`,
                   } as CSSProperties}
-                >
-                  <img src={sitePath(`/images/guogang-map-landmarks/${location.id}.png`)} alt="" />
-                </span>
-              ))}
-            </div>
-            <div className="guogang-map-hotspots">
-              {GUOGANG_MAP_LOCATIONS.map((location) => {
-                const isActive = location.id === activeId;
-                return (
-                  <button
-                    className={isActive ? "map-hotspot is-active" : "map-hotspot"}
-                    style={{
-                      "--hotspot-x": `${location.hotspot.x}%`,
-                      "--hotspot-y": `${location.hotspot.y}%`,
-                      "--hotspot-width": `${location.hotspot.width}%`,
-                      "--hotspot-height": `${location.hotspot.height}%`,
-                    } as CSSProperties}
-                    type="button"
-                    key={location.id}
-                    onMouseEnter={() => setHoveredId(location.id)}
-                    onFocus={() => setHoveredId(location.id)}
-                    onBlur={() => setHoveredId(null)}
-                    onClick={(event) => {
-                      if (suppressActivationRef.current) {
-                        suppressActivationRef.current = false;
-                        event.preventDefault();
-                        event.stopPropagation();
-                        return;
-                      }
+                  type="button"
+                  onMouseEnter={() => setHoveredId(location.id)}
+                  onMouseLeave={() => setHoveredId(null)}
+                  onFocus={() => setHoveredId(location.id)}
+                  onBlur={() => setHoveredId(null)}
+                  onClick={(event) => {
+                    if (suppressActivationRef.current) {
+                      suppressActivationRef.current = false;
+                      event.preventDefault();
                       event.stopPropagation();
-                      if (isTouchInteraction()) setTouchSelectedId(location.id);
-                    }}
-                    aria-controls="guogang-map-info"
-                    aria-expanded={isActive}
-                    aria-label={`查看${location.name}介紹`}
-                  />
-                );
-              })}
+                      return;
+                    }
+                    event.stopPropagation();
+                    if (isTouchInteraction()) setTouchSelectedId(location.id);
+                  }}
+                  aria-controls="guogang-map-info"
+                  aria-expanded={location.id === activeId}
+                  aria-label={`查看${location.name}介紹`}
+                >
+                  <img src={sitePath(`/images/guogang-map-stamps/${location.stamp}.png`)} alt="" />
+                  {location.label ? <span className="guogang-map-landmark-label" aria-hidden="true">{location.name}</span> : null}
+                </button>
+              ))}
             </div>
           </div>
         </div>

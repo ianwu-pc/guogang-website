@@ -287,12 +287,12 @@ test("chapter order, supplied goods photos and interactive map match the current
   assert.match(guogangHtml, /認識過港\.jpg/);
   assert.match(guogangHtml, /新的居民，在過港落腳/);
   assert.match(guogangHtml, /可探索的過港手繪生活地圖/);
-  assert.match(guogangHtml, /guogang-handdrawn-map-background\.png/);
-  assert.match(guogangHtml, /guogang-map-landmarks\/inoue\.png/);
-  assert.match(guogangHtml, /guogang-map-landmarks\/nuannuan-station\.png/);
-  assert.match(guogangHtml, /美食坊早餐店/);
+  assert.match(guogangHtml, /guogang-landscape-map-landmarks-cleared\.png/);
+  assert.match(guogangHtml, /guogang-map-stamps\/shengguang-church\.png/);
+  assert.match(guogangHtml, /guogang-map-stamps\/nuannuan-station\.png/);
+  assert.match(guogangHtml, /小倆口柑仔店/);
   assert.match(guogangHtml, /過港社區發展協會/);
-  for (const locationName of ["井上園日本料理", "滿越緣私房料理", "過港聖光堂", "過港86義大利麵", "警察宿舍", "美食坊早餐店", "過港社區發展協會", "黃蠟石博物館", "中漁新村", "過港福德宮", "暖暖火車站"]) {
+  for (const locationName of ["過港聖光堂", "過港義大利麵", "小倆口柑仔店", "基隆過港路郵局", "過港社區發展協會", "黃蠟石文化館", "暖暖過港福德宮", "暖新住民會館", "暖江橋", "暖暖車站"]) {
     assert.match(guogangHtml, new RegExp(locationName));
   }
   assert.doesNotMatch(guogangHtml, /地點名單待確認/);
@@ -318,8 +318,9 @@ test("interactive map supports hover, keyboard, touch selection and direct dragg
   assert.match(map, /suppressActivationRef/);
   assert.match(map, /aria-expanded=/);
   assert.match(map, /GUOGANG_MAP_LOCATIONS/);
-  assert.match(map, /guogang-handdrawn-map-background\.png/);
-  assert.match(map, /guogang-map-landmarks\/\$\{location\.id\}\.png/);
+  assert.match(map, /guogang-landscape-map-landmarks-cleared\.png/);
+  assert.match(map, /guogang-map-stamps\/\$\{location\.stamp\}\.png/);
+  assert.doesNotMatch(map, /guogang-map-hotspots|map-hotspot/);
   assert.match(map, /onMouseLeave/);
   assert.match(map, /id="guogang-map"/);
   assert.match(css, /\.guogang-map-scroll::-webkit-scrollbar \{ display: none; \}/);
