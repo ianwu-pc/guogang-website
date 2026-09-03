@@ -1147,7 +1147,7 @@ body:has(.scroll-story-sticky.has-photo) .site-header:not(.is-scrolled) { color:
 .timeline-dot { position: absolute; top: 0.65rem; left: calc(21% + 2px); z-index: 1; width: 15px; height: 11px; border: 0; border-radius: 43% 57% 36% 64% / 58% 39% 61% 42%; background: var(--clay); box-shadow: none; transform: rotate(-9deg); }
 .timeline-year { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
 .timeline-year > span { color: var(--clay); font-family: var(--serif); font-size: 2rem; }
-.timeline-year strong { max-width: 14rem; margin-top: 1rem; font-family: var(--serif); font-size: clamp(1.15rem, 2vw, 1.8rem); font-weight: 600; line-height: 1.4; white-space: nowrap; word-break: keep-all; }
+.timeline-year strong { max-width: 14rem; margin-top: 1rem; font-family: var(--serif); font-size: clamp(1.1rem, 1.75vw, 1.55rem); font-weight: 600; line-height: 1.4; white-space: nowrap; word-break: keep-all; }
 .timeline-year small { margin-top: 0.7rem; padding: 0.2rem 0.55rem; border: 1px solid var(--clay); color: var(--clay); font-size: 0.64rem; letter-spacing: 0.12em; }
 .timeline-card { padding-top: 0.3rem; display: grid; grid-template-columns: minmax(260px, 0.8fr) minmax(320px, 1.2fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
 .timeline-card:has(.image-placeholder) > div { padding-top: 2rem; }

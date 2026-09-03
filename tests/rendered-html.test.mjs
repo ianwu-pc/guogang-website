@@ -239,7 +239,7 @@ test("timeline years preserve their shared type scale without wrapping", async (
 
   assert.match(timelineYearRule, /white-space:\s*nowrap/);
   assert.match(timelineYearRule, /word-break:\s*keep-all/);
-  assert.match(timelineYearRule, /font-size:\s*clamp\(1\.15rem,\s*2vw,\s*1\.8rem\)/);
+  assert.match(timelineYearRule, /font-size:\s*clamp\(1\.1rem,\s*1\.75vw,\s*1\.55rem\)/);
 });
 
 test("history introduction keeps its explicit two-level exception", async () => {
