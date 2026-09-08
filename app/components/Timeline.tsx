@@ -20,13 +20,13 @@ export function Timeline({ entries, label }: TimelineProps) {
     <ol className="history-timeline" aria-label={label}>
       {entries.map((entry, index) => {
         const title = entry.titleLines.join("");
+        const [period, equivalentYear] = entry.year.split(/(?=（)/);
 
         return (
           <li key={`${entry.year}-${title}`}>
-            <span className="timeline-dot" aria-hidden="true" />
+            <span className="timeline-dot" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
             <div className="timeline-year">
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <strong>{entry.year}</strong>
+              <strong><span>{period}</span>{equivalentYear ? <span className="timeline-year-equivalent">{equivalentYear}</span> : null}</strong>
               {entry.status ? <small>{entry.status}</small> : null}
             </div>
             <article className="timeline-card">
