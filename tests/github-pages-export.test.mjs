@@ -138,7 +138,8 @@ test("exported pages preserve revision content and interactions", async () => {
   const breakfastCard = peopleCards.find((card) => card.includes(">早餐店老闆娘<"));
   assert.ok(breakfastCard, "exported Huang Shu-hui entry should exist");
   assert.match(breakfastCard, /href="[^"]*\/people\/breakfast-shop-owner/);
-  assert.match(breakfastCard, /breakfast-dscf5920\.webp/);
+  assert.match(breakfastCard, /people-story-editorial-cover/);
+  assert.doesNotMatch(breakfastCard, /<img\b/i);
 
   const bottleCapStory = await read("people/bottle-cap-grandma/index.html");
   const breakfastStory = await read("people/breakfast-shop-owner/index.html");
