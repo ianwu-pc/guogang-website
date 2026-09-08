@@ -1,6 +1,4 @@
 "use client";
-
-import type { CSSProperties } from "react";
 import { useEffect, useRef, useState } from "react";
 import { sitePath } from "../utils/sitePath";
 import { HeadingLines } from "./HeadingLines";
@@ -60,130 +58,39 @@ const STAGES: StoryStage[] = [
 ];
 
 export function HomeScrollStory() {
-  const sectionRef = useRef<HTMLElement>(null);
+  const storyRef = useRef<HTMLElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [reducedMotion, setReducedMotion] = useState(false);
-
   useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const updatePreference = () => setReducedMotion(media.matches);
-    updatePreference();
-    media.addEventListener?.("change", updatePreference);
-    return () => media.removeEventListener?.("change", updatePreference);
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) if (entry.isIntersecting) setActiveIndex(Number((entry.target as HTMLElement).dataset.scene));
+    }, { rootMargin: "-15% 0px -35% 0px", threshold: 0.1 });
+    storyRef.current?.querySelectorAll("[data-scene]").forEach((scene) => observer.observe(scene));
+    return () => observer.disconnect();
   }, []);
-
-  useEffect(() => {
-    if (reducedMotion) return;
-    let ticking = false;
-
-    const update = () => {
-      ticking = false;
-      const section = sectionRef.current;
-      if (!section) return;
-      const rect = section.getBoundingClientRect();
-      const scrollable = Math.max(1, section.offsetHeight - window.innerHeight);
-      const progress = Math.max(0, Math.min(0.9999, -rect.top / scrollable));
-      setActiveIndex(Math.min(STAGES.length - 1, Math.floor(progress * STAGES.length)));
-    };
-
-    const requestUpdate = () => {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener("scroll", requestUpdate, { passive: true });
-    window.addEventListener("resize", requestUpdate);
-    return () => {
-      window.removeEventListener("scroll", requestUpdate);
-      window.removeEventListener("resize", requestUpdate);
-    };
-  }, [reducedMotion]);
-
-  if (reducedMotion) {
-    return (
-      <section className="scroll-story-static" aria-label="過港地方故事">
-        {STAGES.map((stage, index) => (
-          <article className={`scroll-story-static-card tone-${stage.tone}`} key={stage.number}>
-            {stage.image ? (
-              <img
-                src={sitePath(stage.image)}
-                srcSet={stage.imageMobile ? `${sitePath(stage.imageMobile)} 1280w, ${sitePath(stage.image)} 2560w` : undefined}
-                sizes="100vw"
-                alt={stage.imageLabel}
-                loading={index === 0 ? "eager" : "lazy"}
-                fetchPriority={index === 0 ? "high" : "auto"}
-                style={{ objectPosition: stage.objectPosition }}
-              />
-            ) : (
-              <div className="scroll-story-static-placeholder" role="img" aria-label={stage.imageLabel}>
-                {stage.imageLabel}
-              </div>
-            )}
-            <h1><HeadingLines lines={stage.titleLines} /></h1>
-            <p>{stage.description}</p>
-            {index === 0 ? (
-              <div className="scroll-story-cue scroll-story-cue-static" aria-hidden="true">
-                <span>⌄</span>
-              </div>
-            ) : null}
-          </article>
-        ))}
-      </section>
-    );
-  }
-
-  const stage = STAGES[activeIndex];
-
   return (
-    <section
-      className="scroll-story"
-      ref={sectionRef}
-      style={{ "--stage-count": STAGES.length } as CSSProperties}
-      aria-label="捲動閱讀過港地方故事"
-    >
-      <div className={`scroll-story-sticky tone-${stage.tone}${stage.image ? " has-photo" : ""}`}>
-        {stage.image ? (
-          <div className="scroll-story-photo" key={stage.image}>
-            <img
-              src={sitePath(stage.image)}
-              srcSet={stage.imageMobile ? `${sitePath(stage.imageMobile)} 1280w, ${sitePath(stage.image)} 2560w` : undefined}
-              sizes="100vw"
-              alt={stage.imageLabel}
-              loading={activeIndex === 0 ? "eager" : "lazy"}
-              fetchPriority={activeIndex === 0 ? "high" : "auto"}
-              style={{ objectPosition: stage.objectPosition }}
-            />
-            <span aria-hidden="true" />
+    <section className="home-narrative" ref={storyRef} aria-label="捲動閱讀過港地方故事">
+      {STAGES.map((stage, index) => (
+        <article className={`narrative-scene narrative-scene-${index + 1}`} id={`scene-${stage.number}`} data-scene={index} key={stage.number}>
+          <figure className="narrative-image">
+            <img src={sitePath(stage.image!)} srcSet={`${sitePath(stage.imageMobile!)} 1280w, ${sitePath(stage.image!)} 2560w`}
+              sizes={index === 0 ? "(max-width: 700px) 100vw, 52vw" : "(max-width: 700px) 90vw, 60vw"}
+              alt={stage.imageLabel} loading={index === 0 ? "eager" : "lazy"} fetchPriority={index === 0 ? "high" : "auto"} />
+            <figcaption><span>{stage.number} / GUOGANG</span><span>{stage.imageLabel}</span></figcaption>
+          </figure>
+          <div className="narrative-copy">
+            {index === 0 ? <h1><HeadingLines lines={stage.titleLines} /></h1> : <h2><HeadingLines lines={stage.titleLines} /></h2>}
+            <p>{stage.description}</p>
+            {index === 0 && <a className="scroll-story-cue" href="#scene-02" aria-label="繼續閱讀過港地方故事"><span aria-hidden="true">⌄</span></a>}
+            {index === STAGES.length - 1 && <div className="button-row">
+              <a className="text-link" href={sitePath("/guogang")}>閱讀過港的故事 <span aria-hidden="true">→</span></a>
+              <a className="text-link" href="#home-guides">繼續往下</a>
+            </div>}
           </div>
-        ) : (
-          <div className="scroll-story-art" role="img" aria-label={stage.imageLabel} key={stage.number}>
-            <span />
-            <span />
-            <span />
-            <small>{stage.imageLabel}</small>
-          </div>
-        )}
-
-        <div className="scroll-story-copy" key={stage.number} aria-live="polite">
-          <h1><HeadingLines lines={stage.titleLines} /></h1>
-          <p>{stage.description}</p>
-          {activeIndex === STAGES.length - 1 ? (
-            <div className="button-row">
-              <a className="button button-paper" href={sitePath("/guogang")}>閱讀過港的故事</a>
-              <a className="text-link story-light-link" href="#home-guides">繼續往下</a>
-            </div>
-          ) : null}
-        </div>
-
-        {activeIndex === 0 ? (
-          <div className="scroll-story-cue" aria-hidden="true">
-            <span>⌄</span>
-          </div>
-        ) : null}
-
-      </div>
+        </article>
+      ))}
+      <nav className="narrative-index" aria-label="首頁敘事章節">
+        {STAGES.map((stage, index) => <a key={stage.number} href={`#scene-${stage.number}`} aria-label={stage.titleLines.join("")} aria-current={activeIndex === index ? "step" : undefined}>{stage.number}</a>)}
+      </nav>
     </section>
   );
 }

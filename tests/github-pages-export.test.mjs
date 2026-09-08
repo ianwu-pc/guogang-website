@@ -25,17 +25,21 @@ const requiredFiles = [
   "fonts/OFL-NotoSerifTC.txt",
   "_next/static/fonts/guogang-serif-mobile.woff2",
   "images/guogang-history-1949.png",
-  "images/guogang-landscape-map-landmarks-cleared.png",
-  "images/guogang-map-stamps/shengguang-church.png",
-  "images/guogang-map-stamps/guogang-pasta.png",
-  "images/guogang-map-stamps/little-couple-store.png",
-  "images/guogang-map-stamps/guogang-post-office.png",
-  "images/guogang-map-stamps/community-association.png",
-  "images/guogang-map-stamps/wax-culture-hall.png",
-  "images/guogang-map-stamps/fude-temple.png",
-  "images/guogang-map-stamps/nuan-new-immigrant-hall.png",
-  "images/guogang-map-stamps/nuanjiang-bridge.png",
-  "images/guogang-map-stamps/nuannuan-station.png",
+  "images/guogang-map-2026/background.webp",
+  "images/guogang-map-2026/little-couple-store.png",
+  "images/guogang-map-2026/breakfast-shop.png",
+  "images/guogang-map-2026/old-police-dormitory.png",
+  "images/guogang-map-2026/nuanjiang-elementary-school.png",
+  "images/guogang-map-2026/shengguang-church.png",
+  "images/guogang-map-2026/wax-culture-hall.png",
+  "images/guogang-map-2026/community-association.png",
+  "images/guogang-map-2026/guogang-kindergarten.png",
+  "images/guogang-map-2026/guogang-post-office.png",
+  "images/guogang-map-2026/nuanjiang-walkway.png",
+  "images/guogang-map-2026/children-park.png",
+  "images/guogang-map-2026/northern-pastry.png",
+  "images/guogang-map-2026/nuan-new-immigrant-hall.png",
+  "images/guogang-map-2026/guogang-fude-temple.png",
   "images/home/home-scroll-01.webp",
   "images/home/home-scroll-01-1280.webp",
   "images/home/home-scroll-02.webp",
@@ -94,12 +98,12 @@ test("exported pages preserve revision content and interactions", async () => {
   assert.match(goods, /過港好味\.jpg/);
   assert.match(guogang, /認識過港\.jpg/);
   assert.match(guogang, /可探索的過港手繪生活地圖/);
-  assert.match(guogang, /guogang-landscape-map-landmarks-cleared\.png/);
-  assert.match(guogang, /guogang-map-stamps\/shengguang-church\.png/);
-  assert.match(guogang, /guogang-map-stamps\/nuannuan-station\.png/);
-  assert.match(guogang, /小倆口柑仔店/);
+  assert.match(guogang, /guogang-map-2026\/background\.webp/);
+  assert.match(guogang, /guogang-map-2026\/shengguang-church\.png/);
+  assert.match(guogang, /guogang-map-2026\/nuanjiang-walkway\.png/);
+  assert.match(guogang, /小倆口福利社/);
   assert.match(guogang, /過港社區發展協會/);
-  for (const locationName of ["過港聖光堂", "過港義大利麵", "小倆口柑仔店", "基隆過港路郵局", "過港社區發展協會", "黃蠟石文化館", "暖暖過港福德宮", "暖新住民會館", "暖江橋", "暖暖車站"]) {
+  for (const locationName of ["小倆口福利社", "美食坊早餐店", "舊警察宿舍", "暖江國小", "聖光堂", "黃蠟石文化館", "過港社區發展協會", "過港幼兒園", "過港郵局", "暖江步道", "暖江兒童公園", "北方大陸餅", "暖新住民會館", "過港福德宮"]) {
     assert.match(guogang, new RegExp(locationName));
   }
   assert.doesNotMatch(guogang, /地點名單待確認/);
@@ -139,7 +143,7 @@ test("exported pages preserve revision content and interactions", async () => {
   assert.ok(breakfastCard, "exported Huang Shu-hui entry should exist");
   assert.match(breakfastCard, /href="[^"]*\/people\/breakfast-shop-owner/);
   assert.match(breakfastCard, /people-story-editorial-cover/);
-  assert.doesNotMatch(breakfastCard, /<img\b/i);
+  assert.match(breakfastCard, /breakfast-dscf5920\.webp/);
 
   const bottleCapStory = await read("people/bottle-cap-grandma/index.html");
   const breakfastStory = await read("people/breakfast-shop-owner/index.html");

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { SITE_CONFIG } from "../data/site";
 
 type LineActionProps = {
@@ -12,6 +12,7 @@ export function LineAction({
   label = "加入 LINE",
   className = "button button-line",
 }: LineActionProps) {
+  const noticeId = useId();
   const [noticeVisible, setNoticeVisible] = useState(false);
 
   useEffect(() => {
@@ -34,12 +35,12 @@ export function LineAction({
         className={className}
         type="button"
         onClick={() => setNoticeVisible(true)}
-        aria-describedby={noticeVisible ? "line-link-notice" : undefined}
+        aria-describedby={noticeVisible ? noticeId : undefined}
       >
         {label}
       </button>
       <span
-        id="line-link-notice"
+        id={noticeId}
         className={`line-notice ${noticeVisible ? "is-visible" : ""}`}
         role="status"
         aria-live="polite"

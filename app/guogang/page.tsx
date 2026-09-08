@@ -1,3 +1,4 @@
+import { HeadingLines } from "../components/HeadingLines";
 import type { Metadata } from "next";
 import { GuogangInteractiveMap } from "../components/GuogangInteractiveMap";
 import { PageIntro } from "../components/PageIntro";
@@ -20,11 +21,10 @@ export default function GuogangPage() {
         vertical="PLACE / MEMORY / NOW"
       />
 
-      <section className="timeline-opening">
+      <section id="page-story" className="timeline-opening">
         <p className="eyebrow">THE STORY OF GUOGANG</p>
         <h2 className="history-intro-heading">
-          <span className="heading-line history-intro-lead">過港不是一個突然出現的名字，</span>
-          <span className="heading-line history-intro-support">而是被河流、移居與日常慢慢寫下的地方。</span>
+          <HeadingLines lines={["過港不是一個突然出現的名字，", "而是被河流、移居與日常慢慢寫下的地方。"]} />
         </h2>
       </section>
 

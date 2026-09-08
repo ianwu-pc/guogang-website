@@ -25,6 +25,12 @@ const routes = [
   "/people/breakfast-shop-owner",
   "/people/community-kitchen-mother",
   "/people/couple-story-one",
+  "/people/couple-story-two",
+  "/people/community-volunteer",
+  "/goods/goods-02",
+  "/goods/goods-03",
+  "/goods/goods-04",
+  "/goods/goods-05",
   "/about",
 ];
 
@@ -34,32 +40,6 @@ test("all required public routes render", async () => {
     assert.equal(response.status, 200, `${route} should return 200`);
     assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
   }
-});
-
-test("homepage contains the complete editorial structure", async () => {
-  const response = await render("/");
-  const html = await response.text();
-  assert.match(html, /這裡是過港/);
-  assert.match(html, /home-scroll-01\.webp/);
-  assert.match(html, /home-scroll-01-1280\.webp/);
-  assert.match(html, /scroll-story-sticky tone-paper has-photo/);
-  assert.doesNotMatch(html, /River notes · place|scroll-story-number|scroll-story-note/);
-  assert.doesNotMatch(html, /guogang-river-sketch\.png/);
-  assert.doesNotMatch(html, /scroll-story-progress/);
-  assert.match(html, /一個名字，/);
-  assert.match(html, /把熟悉的日常/);
-  assert.match(html, /radish-cake\.jpg/);
-  assert.match(html, /港式／原味蘿蔔糕/);
-  assert.match(html, /原味吃得到米香和蘿蔔味/);
-  assert.match(html, /林秀英/);
-  assert.match(html, /一群人一起做的[\s\S]*?事/);
-  assert.match(html, /如果喜歡過港/);
-  assert.match(html, /205 基隆市暖暖區過港里過港路 54 號/);
-  assert.match(html, /02-2458-8802/);
-  assert.match(html, /前往 Facebook/);
-  assert.doesNotMatch(html, /association-structure\.png|組織架構圖/);
-  assert.doesNotMatch(html, /社區故事 01/);
-  assert.doesNotMatch(html, /codex-preview|Starter Project|Building your site|react-loading-skeleton/i);
 });
 
 test("homepage scroll story maps all four supplied photos in order", async () => {
@@ -83,191 +63,6 @@ test("homepage scroll story maps all four supplied photos in order", async () =>
   );
 });
 
-test("homepage and goods controls keep the organic treatment and the header LINE action uses deep beige", async () => {
-  const home = await readFile(new URL("../app/components/HomeScrollStory.tsx", import.meta.url), "utf8");
-  const gallery = await readFile(new URL("../app/components/ProductGallery.tsx", import.meta.url), "utf8");
-  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
-
-  assert.doesNotMatch(home, /scroll-story-progress/);
-  assert.doesNotMatch(home, /scroll-story-number|scroll-story-note|eyebrow:/);
-  assert.match(gallery, /&lt;/);
-  assert.match(gallery, /&gt;/);
-  assert.match(css, /\.product-gallery-arrow\s*\{[\s\S]*?border:\s*0;[\s\S]*?background:\s*transparent;/);
-  assert.match(css, /\.product-gallery \.image-placeholder\s*\{\s*border:\s*0;/);
-  assert.match(css, /--beige-deep:\s*#7b6b52;/);
-  assert.match(css, /\.header-line-button\s*\{[\s\S]*?border:\s*0;[\s\S]*?background:\s*linear-gradient\(135deg,\s*rgba\(123,\s*107,\s*82,\s*0\.5\)[\s\S]*?rgba\(109,\s*94,\s*70,\s*0\.5\)[\s\S]*?color:\s*#fff;[\s\S]*?box-shadow:/);
-  assert.match(css, /\.header-line-button::before,\s*\.header-line-button::after\s*\{\s*content:\s*none;/);
-  assert.doesNotMatch(css, /\.header-line-button::before\s*\{[\s\S]*?content:\s*"↗"/);
-});
-
-test("people ending aligns to the shared inner-page content column", async () => {
-  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
-
-  assert.match(
-    css,
-    /\.people-overview,\s*\.people-ending,\s*\.goods-story-intro,[\s\S]*?width:\s*min\(calc\(100% - var\(--page-x\) \* 2\),\s*calc\(var\(--max\) - var\(--page-x\) \* 2\)\);[\s\S]*?margin-inline:\s*auto;/,
-  );
-});
-
-test("homepage photo story shows the header fade before scrolling", async () => {
-  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
-  assert.match(
-    css,
-    /body:has\(\.scroll-story-sticky\.has-photo\) \.site-header::before/,
-  );
-});
-
-test("homepage uses one small text-free scroll cue instead of the retired four-line progress", async () => {
-  const response = await render("/");
-  const html = await response.text();
-  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
-  assert.match(html, /⌄/);
-  assert.match(html, /scroll-story-cue/);
-  assert.doesNotMatch(html, /往下看看/);
-  assert.match(css, /@keyframes scroll-cue-float/);
-  assert.doesNotMatch(html, /scroll-story-progress/);
-});
-
-test("desktop serif stays unchanged while mobile uses the bundled serif font", async () => {
-  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
-  assert.match(
-    css,
-    /:root\s*\{[\s\S]*?--serif:\s*"Noto Serif TC",\s*"Source Han Serif TC",\s*"Songti TC",\s*"PMingLiU",\s*serif/,
-  );
-  assert.match(css, /@font-face\s*\{[\s\S]*?font-family:\s*"Guogang Mobile Serif"[\s\S]*?guogang-serif-mobile\.woff2/);
-  assert.match(
-    css,
-    /@media \(max-width: 760px\)\s*\{[\s\S]*?:root\s*\{[\s\S]*?--serif:\s*"Guogang Mobile Serif"/,
-  );
-});
-
-test("semantic headings preserve author lines and matching levels share one size", async () => {
-  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
-  const headingPages = [
-    "../app/page.tsx",
-    "../app/guogang/page.tsx",
-    "../app/goods/page.tsx",
-    "../app/people/page.tsx",
-    "../app/about/page.tsx",
-    "../app/components/SiteFooter.tsx",
-  ];
-
-  for (const page of headingPages) {
-    const source = await readFile(new URL(page, import.meta.url), "utf8");
-    assert.doesNotMatch(source, /<br\s*\/>/, `${page} should not force editorial heading breaks`);
-  }
-
-  assert.match(css, /h1,\s*h2,\s*h3\s*\{[\s\S]*?text-wrap:\s*balance/);
-  assert.match(css, /:is\(h1, h2, h3\):has\(> \.heading-line\)\s*\{[\s\S]*?text-wrap:\s*wrap/);
-  assert.match(css, /\.heading-line\s*\{[\s\S]*?display:\s*block;[\s\S]*?white-space:\s*nowrap;[\s\S]*?text-wrap:\s*nowrap/);
-  assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.heading-line\s*\{[\s\S]*?white-space:\s*normal;[\s\S]*?text-wrap:\s*wrap/);
-  assert.doesNotMatch(css, /@media \(max-width: 620px\)[\s\S]*?\.heading-line\s*\{[\s\S]*?text-wrap:\s*balance/);
-  assert.match(css, /\.about-people-power h2\s*\{\s*font-size:\s*var\(--type-section\)/);
-  assert.match(
-    css,
-    /\.home-guide-copy h2,[\s\S]*?\.contact-section h2,[\s\S]*?font-size:\s*var\(--type-section\)/,
-  );
-});
-
-test("revision 3 headings use the Word-authored semantic line data", async () => {
-  const home = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
-  const story = await readFile(new URL("../app/components/HomeScrollStory.tsx", import.meta.url), "utf8");
-  const footer = await readFile(new URL("../app/components/SiteFooter.tsx", import.meta.url), "utf8");
-  const guogang = await readFile(new URL("../app/guogang/page.tsx", import.meta.url), "utf8");
-  const map = await readFile(new URL("../app/components/GuogangInteractiveMap.tsx", import.meta.url), "utf8");
-  const data = await readFile(new URL("../app/data/site.ts", import.meta.url), "utf8");
-
-  for (const lines of [
-    '["過港的樣子，", "藏在每個人的日常裡。"]',
-    '["而這些日常，", "也被一雙雙手做成了味道。"]',
-    '["把過港的故事，", "帶到更遠的地方。"]',
-  ]) {
-    assert.ok(story.includes(lines), `scroll story should include ${lines}`);
-  }
-  assert.match(story, /titleLines:\s*readonly string\[\]/);
-  assert.equal((story.match(/<HeadingLines lines=\{stage\.titleLines\}/g) ?? []).length, 2);
-
-  for (const lines of [
-    '["一個名字，", "從河的另一岸開始。"]',
-    '["把熟悉的日常，", "做成可以分享的味道。"]',
-    '["過港的樣子，", "藏在生活於這裡的人身上。"]',
-    '["一群人一起做的事，", "慢慢成了社區的力量。"]',
-    '["如果喜歡過港，", "也歡迎把這份味道帶回家。"]',
-  ]) {
-    assert.ok(home.includes(lines), `homepage should include ${lines}`);
-  }
-
-  assert.ok(footer.includes('["從一個地方的名字開始，", "慢慢認識過港。"]'));
-  assert.match(guogang, /history-intro-lead[^>]*>過港不是一個突然出現的名字，</);
-  assert.match(guogang, /history-intro-support[^>]*>而是被河流、移居與日常慢慢寫下的地方。</);
-  assert.ok(map.includes('["沿著河岸，", "看看過港的生活地景。"]'));
-
-  for (const lines of [
-    '["生活機能，", "一點一點完整起來"]',
-    '["新的家庭，", "帶來新的生活樣貌"]',
-    '["從一起生活，", "到一起做社區"]',
-    '["過港的故事，", "還在繼續"]',
-  ]) {
-    assert.ok(data.includes(lines), `timeline should include ${lines}`);
-  }
-});
-
-test("product and person names share the smaller non-wrapping name scale", async () => {
-  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
-
-  assert.match(css, /--type-name:\s*clamp\(/);
-  assert.match(
-    css,
-    /\.people-story-name\s*\{[\s\S]*?font-size:\s*var\(--type-name\);[\s\S]*?white-space:\s*nowrap;[\s\S]*?word-break:\s*keep-all;/,
-  );
-  assert.match(
-    css,
-    /\.home-feature-card h3,\s*\.people-story-copy h3,\s*\.catalog-copy h2\s*\{[\s\S]*?font-size:\s*var\(--type-name\);[\s\S]*?white-space:\s*nowrap;[\s\S]*?word-break:\s*keep-all;/,
-  );
-  assert.doesNotMatch(
-    css,
-    /\.home-feature-card h3\s*\{[^}]*font-size:\s*var\(--type-card\)/,
-  );
-  assert.doesNotMatch(css, /text-overflow:\s*ellipsis/);
-});
-
-test("timeline years preserve their shared type scale without wrapping", async () => {
-  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
-  const timelineYearRule = css.match(/\.timeline-year strong\s*\{([^}]*)\}/)?.[1] ?? "";
-
-  assert.match(timelineYearRule, /white-space:\s*nowrap/);
-  assert.match(timelineYearRule, /word-break:\s*keep-all/);
-  assert.match(timelineYearRule, /font-size:\s*clamp\(1\.1rem,\s*1\.75vw,\s*1\.55rem\)/);
-});
-
-test("history introduction keeps its explicit two-level exception", async () => {
-  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
-
-  assert.match(css, /--type-history-lead:\s*clamp\(/);
-  assert.match(css, /--type-history-support:\s*clamp\(/);
-  assert.match(css, /\.history-intro-heading \.history-intro-lead\s*\{[\s\S]*?var\(--type-history-lead\)/);
-  assert.match(css, /\.history-intro-heading \.history-intro-support\s*\{[\s\S]*?var\(--type-history-support\)/);
-});
-
-test("header color follows the visual section instead of a small scroll threshold", async () => {
-  const header = await readFile(
-    new URL("../app/components/SiteHeader.tsx", import.meta.url),
-    "utf8",
-  );
-  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
-
-  assert.match(header, /const visualSection = pagePhoto \?\? story/);
-  assert.match(header, /visualSection\.getBoundingClientRect\(\)\.bottom <= headerHeight/);
-  assert.match(header, /const mobileScrollStarted =/);
-  assert.match(header, /window\.innerWidth <= 760 && window\.scrollY > 16/);
-  assert.match(header, /overPagePhoto && !menuOpen && !scrolled/);
-  assert.match(css, /@media \(max-width: 760px\)[\s\S]*?\.site-header\.is-scrolled::before\s*\{[\s\S]*?rgba\(241, 238, 227, 0\.84\)/);
-  assert.match(
-    css,
-    /body:has\(\.scroll-story-sticky\.has-photo\) \.site-header:not\(\.is-scrolled\)/,
-  );
-});
-
 test("chapter order, supplied goods photos and interactive map match the current site", async () => {
   const goodsResponse = await render("/goods");
   const goodsHtml = await goodsResponse.text();
@@ -285,12 +80,12 @@ test("chapter order, supplied goods photos and interactive map match the current
   assert.match(guogangHtml, /認識過港\.jpg/);
   assert.match(guogangHtml, /新的居民，在過港落腳/);
   assert.match(guogangHtml, /可探索的過港手繪生活地圖/);
-  assert.match(guogangHtml, /guogang-landscape-map-landmarks-cleared\.png/);
-  assert.match(guogangHtml, /guogang-map-stamps\/shengguang-church\.png/);
-  assert.match(guogangHtml, /guogang-map-stamps\/nuannuan-station\.png/);
-  assert.match(guogangHtml, /小倆口柑仔店/);
+  assert.match(guogangHtml, /guogang-map-2026\/background\.webp/);
+  assert.match(guogangHtml, /guogang-map-2026\/shengguang-church\.png/);
+  assert.match(guogangHtml, /guogang-map-2026\/nuanjiang-walkway\.png/);
+  assert.match(guogangHtml, /小倆口福利社/);
   assert.match(guogangHtml, /過港社區發展協會/);
-  for (const locationName of ["過港聖光堂", "過港義大利麵", "小倆口柑仔店", "基隆過港路郵局", "過港社區發展協會", "黃蠟石文化館", "暖暖過港福德宮", "暖新住民會館", "暖江橋", "暖暖車站"]) {
+  for (const locationName of ["小倆口福利社", "美食坊早餐店", "舊警察宿舍", "暖江國小", "聖光堂", "黃蠟石文化館", "過港社區發展協會", "過港幼兒園", "過港郵局", "暖江步道", "暖江兒童公園", "北方大陸餅", "暖新住民會館", "過港福德宮"]) {
     assert.match(guogangHtml, new RegExp(locationName));
   }
   for (const name of ["港式／原味蘿蔔糕", "鴉片鐵蛋", "雙匯水餃", "清潤銀耳露", "海涼石花凍｜黑糖／百香果"]) {
@@ -300,32 +95,6 @@ test("chapter order, supplied goods photos and interactive map match the current
   assert.doesNotMatch(guogangHtml, /地點名單待確認/);
   assert.match(guogangHtml, /故事走到今天/);
   assert.doesNotMatch(guogangHtml, /ABOUT THE SOURCE/);
-});
-
-test("interactive map supports hover, keyboard, touch selection and direct dragging", async () => {
-  const map = await readFile(
-    new URL("../app/components/GuogangInteractiveMap.tsx", import.meta.url),
-    "utf8",
-  );
-  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
-  assert.match(map, /useState/);
-  assert.match(map, /onMouseEnter=/);
-  assert.match(map, /onFocus=/);
-  assert.match(map, /onBlur=/);
-  assert.match(map, /onMouseLeave=/);
-  assert.match(map, /onClick=/);
-  assert.match(map, /onPointerDown=/);
-  assert.match(map, /onPointerMove=/);
-  assert.match(map, /scrollLeft/);
-  assert.match(map, /suppressActivationRef/);
-  assert.match(map, /aria-expanded=/);
-  assert.match(map, /GUOGANG_MAP_LOCATIONS/);
-  assert.match(map, /guogang-landscape-map-landmarks-cleared\.png/);
-  assert.match(map, /guogang-map-stamps\/\$\{location\.stamp\}\.png/);
-  assert.doesNotMatch(map, /guogang-map-hotspots|map-hotspot/);
-  assert.match(map, /onMouseLeave/);
-  assert.match(map, /id="guogang-map"/);
-  assert.match(css, /\.guogang-map-scroll::-webkit-scrollbar \{ display: none; \}/);
 });
 
 test("People article titles use explicit natural-language lines instead of browser balancing", async () => {
@@ -342,58 +111,6 @@ test("People article titles use explicit natural-language lines instead of brows
   }
 });
 
-test("people page preserves six stories and the new editorial index structure", async () => {
-  const response = await render("/people");
-  const html = await response.text();
-  assert.doesNotMatch(html, /page-intro-index[^>]*>\d{2}/);
-  assert.match(html, /過港人物\.jpg/);
-  assert.match(html, /PEOPLE OF GUOGANG \/ 人與過港/);
-  assert.match(html, /過港的樣子，[\s\S]*?藏在不同人的日常裡。/);
-
-  assert.match(html, /林秀英/);
-  assert.match(html, /把時間，[\s\S]*?一個瓶蓋一個瓶蓋[\s\S]*?留在過港。/);
-  assert.match(html, /早餐店老闆娘/);
-  assert.match(html, /二十五年，[\s\S]*?早晨裡的人[\s\S]*?慢慢熟了。/);
-  assert.match(html, /煮飯阿姨/);
-  assert.match(html, /這條半小時的路，[\s\S]*?她走了十年。/);
-  assert.match(html, /清爽 × 阿笑/);
-  assert.match(html, /四十多年，[\s\S]*?他們一起把日子[\s\S]*?過到了過港。/);
-  assert.match(html, /丁梅花/);
-  assert.match(html, /去看看，[\s\S]*?最近好不好。/);
-  assert.match(html, /親家阿公阿嬤/);
-  assert.match(html, /從騎腳踏車，[\s\S]*?到一起慢慢走。/);
-  assert.match(html, /六段不同的人生/);
-  assert.match(html, /六個故事，[\s\S]*?六種與過港產生關係的方式。/);
-  assert.match(html, /people-story-editorial-cover/);
-  assert.match(html, /慢慢和過港有了關係。/);
-  assert.match(html, /閱讀清爽 × 阿笑的故事/);
-
-  const peopleCards = [...html.matchAll(/<article class="people-story-card[\s\S]*?<\/article>/g)].map((match) => match[0]);
-  const peopleOrder = ["林秀英", "早餐店老闆娘", "丁梅花", "清爽 × 阿笑", "煮飯阿姨", "親家阿公阿嬤"];
-  assert.equal(peopleCards.length, peopleOrder.length, "six people should render as six story items");
-  assert.deepEqual(
-    peopleCards.map((card) => peopleOrder.find((name) => card.includes(`>${name}<`))),
-    peopleOrder,
-    "people cards should preserve the intended DOM reading order",
-  );
-
-  const breakfastCard = peopleCards.find((card) => card.includes(">早餐店老闆娘<"));
-  assert.ok(breakfastCard, "Huang Shu-hui story should render as its own item");
-  assert.match(breakfastCard, /href="\/people\/breakfast-shop-owner\/?"/);
-  assert.match(breakfastCard, /people-story-editorial-cover/);
-  assert.doesNotMatch(breakfastCard, /<img\b/i);
-  assert.doesNotMatch(breakfastCard, /來源未提供|IMAGE|待提供|照片待補/);
-
-  assert.match(html, /href="\/people\/bottle-cap-grandma"/);
-  assert.match(html, /href="\/people\/breakfast-shop-owner"/);
-  assert.match(html, /href="\/people\/community-kitchen-mother"/);
-  assert.match(html, /href="\/people\/couple-story-one"/);
-  assert.match(html, /href="\/people\/couple-story-two"/);
-  assert.match(html, /href="\/people\/community-volunteer"/);
-
-  assert.doesNotMatch(html, /STORY 01|STORY 02|STORY 03|STORY 04|人物編號|人名待確認|姓名待確認/);
-  assert.doesNotMatch(html, /people-empty-index|01—/);
-});
 test("finalized people stories render complete editorial pages from shared data", async () => {
   for (const source of peopleSources) {
     const route = `/people/${source.slug}`;
@@ -417,23 +134,6 @@ test("shared Drive people photos are connected to all six finalized articles", a
   assert.match(photos, /people-drive\/breakfast\/breakfast-dscf5920\.webp/);
   assert.match(photos, /people-drive\/li\/li-48\.webp/);
   assert.match(photos, /people-drive\/meihua\/meihua-29\.webp/);
-});
-
-test("finalized story pages share one responsive typography scale and semantic title lines", async () => {
-  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
-  const data = await readFile(new URL("../app/data/peopleStories.ts", import.meta.url), "utf8");
-
-  for (const token of ["--type-article-title", "--type-article-subtitle", "--type-article-section", "--type-article-body"]) {
-    assert.match(css, new RegExp(`${token}:\\s*clamp\\(`));
-  }
-  assert.match(css, /\.people-article-heading h1\s*\{[^}]*font-size:\s*var\(--type-article-title\)/);
-  assert.match(css, /\.people-article-section-copy h2\s*\{[^}]*font-size:\s*var\(--type-article-section\)/);
-  assert.match(css, /\.people-story-editorial-cover strong\s*\{[^}]*max-width:\s*100%/);
-  const stories = JSON.parse(data.split("export const PEOPLE_STORIES: PeopleStory[] = ")[1].split(";\n")[0]);
-  assert.deepEqual(stories.find((story) => story.slug === "couple-story-one").titleLines,
-    ["四十多年，", "他們一起把日子", "過到了過港。"]);
-  assert.deepEqual(stories.find((story) => story.slug === "bottle-cap-grandma").titleLines,
-    ["把時間，", "一個瓶蓋一個瓶蓋", "留在過港。"]);
 });
 
 test("about page does not publish the supplied organization chart", async () => {
@@ -463,4 +163,85 @@ test("unset LINE links render safe buttons without fake URLs", async () => {
   assert.match(html, /LINE 連結即將提供/);
   assert.match(html, /加入 LINE 看本期好味/);
   assert.doesNotMatch(html, /line\.me|lin\.ee/i);
+});
+
+test("redesign preserves every original published paragraph and heading", async () => {
+  const { createHash } = await import("node:crypto");
+  const baseline = JSON.parse(await readFile(new URL("./fixtures/editorial-content-integrity.json", import.meta.url), "utf8"));
+  const clean = (text) => text.replace(/<[^>]*>/g, "").replaceAll("&quot;", '"').replaceAll("&#x27;", "'").replaceAll("&amp;", "&").replaceAll("&lt;", "<").replaceAll("&gt;", ">").replace(/\s/g, "");
+  for (const [route, expected] of Object.entries(baseline)) {
+    const html = await (await render(route)).text();
+    const actual = new Set([...html.matchAll(/<(p|h[123]|figcaption)\b[^>]*>([\s\S]*?)<\/\1>/g)].map((match) => createHash("sha256").update(clean(match[2])).digest("hex")));
+    for (const record of expected) assert.ok(actual.has(record.sha256), `${route}: original ${record.tag} (${record.characters} characters) must be preserved: ${record.sha256}`);
+  }
+});
+
+test("homepage exposes all four photo chapters and their unchanged text without scroll trapping", async () => {
+  const html = await (await render("/")).text();
+  assert.match(html, /home-narrative/);
+  for (const number of ["01", "02", "03", "04"]) {
+    assert.match(html, new RegExp(`id="scene-${number}"`));
+    assert.match(html, new RegExp(`home-scroll-${number}\\.webp`));
+  }
+  assert.match(html, /一個沿著基隆河生活的地方。/);
+  assert.match(html, /從備料到料理，一雙雙手把熟悉的味道慢慢做出來。/);
+  assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
+  assert.doesNotMatch(html, /scroll-story-sticky|linear-gradient/);
+});
+
+test("the editorial system shares typography roles and removes dark photo overlays", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  const intro = await readFile(new URL("../app/components/PageIntro.tsx", import.meta.url), "utf8");
+  for (const role of ["hero", "page", "section", "card", "name", "article-title", "article-section", "body", "label"]) assert.ok(css.includes(`--type-${role}:`));
+  assert.match(css, /--paper:\s*#fff;/);
+  assert.match(css, /h2\s*\{\s*font-size:\s*var\(--type-section\)/);
+  assert.match(css, /\.people-article-heading h1\s*\{\s*font-size:\s*var\(--type-article-title\)/);
+  assert.match(css, /\.heading-unit\s*\{[^}]*white-space:\s*nowrap/);
+  assert.doesNotMatch(intro, /minHeight|position:\s*"absolute"|linear-gradient/);
+  assert.doesNotMatch(css, /overflow-x:\s*hidden|text-overflow:\s*ellipsis|--type-history-lead/);
+});
+
+test("all six People entries include photographs while preserving the original editorial order", async () => {
+  const html = await (await render("/people")).text();
+  const cards = [...html.matchAll(/<article class="people-story-card[\s\S]*?<\/article>/g)].map((match) => match[0]);
+  const order = ["林秀英", "早餐店老闆娘", "丁梅花", "清爽 × 阿笑", "煮飯阿姨", "親家阿公阿嬤"];
+  assert.equal(cards.length, 6);
+  cards.forEach((card, index) => { assert.ok(card.includes(`>${order[index]}<`)); assert.match(card, /<img\b/); assert.match(card, /people-story-summary/); });
+});
+
+test("new map configuration is complete, source-specific and independently positioned", async () => {
+  const source = await readFile(new URL("../app/data/guogangMap.ts", import.meta.url), "utf8");
+  const locations = JSON.parse(source.split("export const GUOGANG_MAP_LOCATIONS: MapLandmark[] = ")[1].trim().replace(/;$/, ""));
+  const names = ["小倆口福利社", "美食坊早餐店", "舊警察宿舍", "暖江國小", "聖光堂", "黃蠟石文化館", "過港社區發展協會", "過港幼兒園", "過港郵局", "暖江步道", "暖江兒童公園", "北方大陸餅", "暖新住民會館", "過港福德宮"];
+  assert.deepEqual(locations.map((location) => location.name), names);
+  assert.equal(new Set(locations.map((location) => location.id)).size, 14);
+  assert.ok(locations[3].x < locations[2].x, "the school is to the left of the blue police dormitory, as confirmed by the user");
+  const rows = [locations.slice(0, 5), locations.slice(5, 9), locations.slice(9)];
+  rows.forEach((row, rowIndex) => {
+    assert.ok(row.every((location) => location.row === ["upper", "middle", "lower"][rowIndex]));
+    for (let index = 1; index < row.length; index++) {
+      assert.ok(row[index - 1].x > row[index].x, `${row[index].name}: names read right to left within each row`);
+    }
+    if (rowIndex > 0) assert.ok(Math.max(...rows[rowIndex - 1].map((location) => location.y)) < Math.min(...row.map((location) => location.y)), "rows read top to bottom");
+  });
+  const html = await (await render("/guogang")).text();
+  const groups = [...html.matchAll(/<optgroup label="([^"]+)">([\s\S]*?)<\/optgroup>/g)];
+  assert.deepEqual(groups.map((group) => group[1]), ["上排（由右至左）", "中排（由右至左）", "下排（由右至左）"]);
+  groups.forEach((group, index) => assert.deepEqual([...group[2].matchAll(/<option[^>]*>([^<]+)<\/option>/g)].map((option) => option[1]), rows[index].map((location) => location.name)));
+  for (const location of locations) {
+    for (const field of ["x", "y", "width", "height", "labelX", "labelY"]) assert.ok(location[field] >= 0 && location[field] <= 100);
+    assert.ok(location.x + location.width <= 100.001 && location.y + location.height <= 100.001);
+    const png = await readFile(new URL(`../public/images/guogang-map-2026/${location.id}.png`, import.meta.url));
+    assert.equal(png[25], 6, `${location.name}: RGBA cutout required`);
+  }
+});
+
+test("map has real labels, stable hit areas and equivalent pointer, touch and keyboard controls", async () => {
+  const source = await readFile(new URL("../app/components/GuogangInteractiveMap.tsx", import.meta.url), "utf8");
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  for (const contract of ["onPointerEnter", "onFocus", "onBlur", "onClick", "onKeyDown", "onPointerDown", "onPointerMove", "scrollLeft", "suppressActivationRef", "aria-expanded", "guogang-map-labels", "map-place-picker"]) assert.ok(source.includes(contract), contract);
+  assert.match(css, /\.guogang-map-landmark\.is-active img\s*\{[^}]*translateY\(-8px\)/);
+  assert.match(css, /\.guogang-handdrawn-map-canvas\s*\{[^}]*aspect-ratio:\s*16 \/ 9/);
+  assert.match(css, /\.guogang-map-scroll\s*\{[^}]*overflow-x:\s*auto/);
+  assert.doesNotMatch(source, /guogang-map-stamps|guogang-map-landmarks\/|guogang-handdrawn-map\.jpg/);
 });

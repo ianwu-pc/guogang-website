@@ -16,7 +16,7 @@ export default function GoodsPage() {
     <main className="inner-page goods-page">
       <PageIntro index="03" title="過港好味" description="有些味道，原本就在過港的日常裡。做著、吃著，慢慢也成了大家熟悉的滋味。" vertical="TASTE OF GUOGANG" />
 
-      <section className="goods-story-intro">
+      <section id="page-story" className="goods-story-intro">
         <div>
           <p className="eyebrow">FROM EVERYDAY LIFE</p>
           <h2><span className="heading-line">過港的好味，</span><span className="heading-line">從日常開始。</span></h2>
@@ -77,7 +77,7 @@ export default function GoodsPage() {
       </section>
 
       <section className="goods-ending">
-        <h2><span className="heading-line">一份味道，</span><span className="heading-line">也可以是認識地方</span><span className="heading-line">的開始。</span></h2>
+        <h2><span className="heading-line">一份味道，</span><span className="heading-line">也可以是</span><span className="heading-line">認識地方的開始。</span></h2>
         <p>如果想知道這些好味從什麼樣的地方而來，也歡迎再走進過港，認識生活在這裡的人與故事。</p>
         <div className="button-row">
           <a className="button button-primary" href={sitePath("/guogang")}>認識過港</a>

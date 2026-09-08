@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { HeadingLines } from "../components/HeadingLines";
 import { PageIntro } from "../components/PageIntro";
+import { PEOPLE_STORY_PHOTOS } from "../data/peopleStoryPhotos";
 import { PEOPLE } from "../data/site";
 import { getPeopleStory } from "../data/peopleStories";
 import { sitePath } from "../utils/sitePath";
@@ -141,7 +142,7 @@ export default function PeoplePage() {
         hideIndex
       />
 
-      <section className="people-overview" aria-labelledby="people-overview-title">
+      <section id="page-story" className="people-overview" aria-labelledby="people-overview-title">
         <header className="people-overview-heading">
           <p className="eyebrow">PEOPLE OF GUOGANG / 人與過港</p>
           <h2 id="people-overview-title">
@@ -191,6 +192,8 @@ export default function PeoplePage() {
                     <img src={sitePath(entry.visual.src || "")} alt={entry.visual.alt || `${entry.name}相關人物照片`} />
                   </figure>
                 ) : (
+                  <div className="people-story-editorial-portrait">
+                  <img src={sitePath(PEOPLE_STORY_PHOTOS[entry.slug].hero.src)} alt={PEOPLE_STORY_PHOTOS[entry.slug].hero.alt} loading="lazy" />
                   <div className="people-story-editorial-cover" aria-label={`為 ${entry.name} 的手工編輯式封面`}>
                     <p className="eyebrow">{entry.visual.eyebrow}</p>
                     {entry.visual.frameLine
@@ -205,6 +208,7 @@ export default function PeoplePage() {
                         {entry.visual.annotation.join(" · ")}
                       </p>
                     ) : null}
+                  </div>
                   </div>
                 )}
               </div>
