@@ -59,6 +59,11 @@ const requiredFiles = [
   "images/people/community-kitchen-mother/li-shui-jin-learning.jpg",
   "images/people/couple-story-one/qingshuang-axiao-portrait.jpg",
   "images/people/couple-story-one/qingshuang-axiao-community.jpg",
+  "images/people-drive/lin/lin-dscf5586.webp",
+  "images/people-drive/breakfast/breakfast-dscf5920.webp",
+  "images/people-drive/li/li-48.webp",
+  "images/people-drive/qing/qing-dscf5762.webp",
+  "images/people-drive/meihua/meihua-29.webp",
   "og-revision.png",
   ".nojekyll",
   "404.html",
@@ -133,8 +138,7 @@ test("exported pages preserve revision content and interactions", async () => {
   const breakfastCard = peopleCards.find((card) => card.includes(">早餐店老闆娘<"));
   assert.ok(breakfastCard, "exported Huang Shu-hui entry should exist");
   assert.match(breakfastCard, /href="[^"]*\/people\/breakfast-shop-owner/);
-  assert.match(breakfastCard, /people-story-editorial-cover/);
-  assert.doesNotMatch(breakfastCard, /<img\b/i);
+  assert.match(breakfastCard, /breakfast-dscf5920\.webp/);
 
   const bottleCapStory = await read("people/bottle-cap-grandma/index.html");
   const breakfastStory = await read("people/breakfast-shop-owner/index.html");
@@ -147,8 +151,8 @@ test("exported pages preserve revision content and interactions", async () => {
   assert.match(bottleCapStory, /時間留下來的形狀/);
   assert.doesNotMatch(bottleCapArticle, /來源未提供|IMAGE|待提供/);
   assert.match(breakfastStory, /早晨裡的人慢慢熟了。/);
-  assert.match(kitchenStory, /li-shui-jin-kitchen\.jpg/);
-  assert.match(coupleStory, /qingshuang-axiao-portrait\.jpg/);
+  assert.match(kitchenStory, /people-drive\/li\/li-48\.webp/);
+  assert.match(coupleStory, /people-drive\/qing\/qing-dscf5762\.webp/);
   assert.match(meiHuaStory, /丁梅花/);
   assert.match(meiHuaStory, /去看看，最近好不好。/);
   for (const source of peopleSources) {
