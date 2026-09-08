@@ -6,7 +6,7 @@ const require = createRequire(import.meta.url);
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const origin = process.env.QA_ORIGIN || 'http://localhost:4173';
 const output = path.resolve(process.env.QA_OUTPUT || 'work/home-story-qa');
-const widths = process.env.QA_WIDTHS ? process.env.QA_WIDTHS.split(',').map(Number) : [1440, 1281, 1280, 1024, 768, 430, 390, 360];
+const widths = process.env.QA_WIDTHS ? process.env.QA_WIDTHS.split(',').map(Number) : [1440, 1281, 1280, 1024, 1007, 768, 430, 390, 360];
 const report = { origin, scenes: [], backgrounds: [], interactions: [], errors: [] };
 await fs.mkdir(output, { recursive: true });
 const browser = await chromium.launch();
@@ -22,23 +22,39 @@ async function settled(index) {
 async function ready() {
   await page.evaluate(async () => { await document.fonts.ready; document.querySelectorAll('img[loading="lazy"]').forEach(image => image.loading = 'eager'); await Promise.all([...document.images].map(image => image.decode().catch(() => {}))); });
 }
+async function checkTurnPages(from, to, direction) {
+  const matches = await page.evaluate(({ from, to, direction }) => {
+    const fingerprint = el => ({ text: el.textContent, image: el.querySelector('img')?.getAttribute('src') });
+    const side = direction === 'forward' ? 'right' : 'left', opposite = side === 'right' ? 'left' : 'right';
+    const original = (index, position) => fingerprint(document.querySelector(`[data-scene="${index}"] > .narrative-page-${position}`));
+    return [
+      [fingerprint(document.querySelector('.book-face-front .book-desktop-page')), original(from, side)],
+      [fingerprint(document.querySelector('.book-face-back .book-desktop-page')), original(to, opposite)],
+      [fingerprint(document.querySelector('.book-still-page')), original(from, opposite)],
+    ];
+  }, { from, to, direction });
+  matches.forEach(([replica, original]) => assert.deepEqual(replica, original, 'Turning faces preserve the content on their actual book side'));
+}
 try {
   for (const width of widths) {
-    await page.setViewportSize({ width, height: width === 1281 ? 552 : 1000 });
+    const height = [1281, 1007].includes(width) ? 552 : 1000;
+    await page.setViewportSize({ width, height });
     await page.goto(origin + '/', { waitUntil: 'networkidle' });
     await ready();
-    await page.mouse.move(width / 2, Math.min(300, (width === 1281 ? 552 : 1000) / 2));
+    await page.mouse.move(width / 2, Math.min(300, height / 2));
+    assert.equal(await page.locator('.scroll-story-cue').count(), 0);
     const originalScroll = await page.evaluate(() => scrollY);
     for (let index = 0; index < 4; index++) {
       if (index) {
         await page.mouse.wheel(0, 40);
         await page.waitForFunction(index => document.querySelector('.home-narrative').dataset.activeScene === String(index), index);
+        await checkTurnPages(index - 1, index, 'forward');
         // A trackpad's trailing events must not skip the next chapter or exit the story.
         for (const delta of [30, 20, 10]) await page.mouse.wheel(0, delta);
-        if (index === 1) {
+        {
           await page.locator('.book-turn-leaf').evaluate((el, width) => { const animation = el.getAnimations()[0]; animation.pause(); animation.currentTime = width <= 700 ? 220 : 360; }, width);
           assert.match(await page.locator('.book-turn-leaf').evaluate(el => getComputedStyle(el).transform), /^matrix3d\(/, 'A physical 3D page turn is visible');
-          await page.screenshot({ path: path.join(output, `book-turn-${width}.png`) });
+          await page.screenshot({ path: path.join(output, `book-turn-${width}-${index}.png`) });
           await page.locator('.book-turn-leaf').evaluate(el => el.getAnimations()[0].play());
         }
       }
@@ -55,11 +71,13 @@ try {
         const photo = current.querySelector('img').getBoundingClientRect(), copy = current.querySelector('.narrative-copy').getBoundingClientRect();
         return { index: current.dataset.scene, title: current.querySelector('h1,h2').textContent, titleSize: getComputedStyle(current.querySelector('h1,h2')).fontSize,
           visible: document.querySelectorAll('.narrative-scene:not([inert])').length, clipped,
+          photoSide: photo.bottom <= copy.top ? 'above' : photo.right <= copy.left ? 'left' : copy.right <= photo.left ? 'right' : 'overlap',
           collision: photo.left < copy.right && photo.right > copy.left && photo.top < copy.bottom && photo.bottom > copy.top,
           overflow: document.documentElement.scrollWidth > innerWidth, background: getComputedStyle(document.body).backgroundColor };
       });
       assert.equal(state.visible, 1); assert.deepEqual(state.clipped, []); assert.equal(state.collision, false); assert.equal(state.overflow, false);
       assert.equal(state.background, 'rgb(245, 244, 242)');
+      assert.equal(state.photoSide, width <= 700 ? 'above' : index % 2 === 0 ? 'left' : 'right', 'Desktop photos alternate sides; mobile photos remain above the copy');
       report.scenes.push({ width, ...state });
       await page.screenshot({ path: path.join(output, `home-${width}-${index + 1}.png`) });
     }
@@ -67,7 +85,10 @@ try {
     await page.mouse.wheel(0, 450);
     await page.waitForFunction(() => scrollY > 100);
     await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
-    await page.mouse.wheel(0, -40); await settled(2);
+    await page.mouse.wheel(0, -40);
+    await page.waitForFunction(() => document.querySelector('.home-narrative').dataset.activeScene === '2');
+    await checkTurnPages(3, 2, 'backward');
+    await settled(2);
     await page.locator('.narrative-index a[aria-current]').focus();
     await page.keyboard.press('ArrowUp'); await settled(1);
     await page.keyboard.press('PageDown'); await settled(2);

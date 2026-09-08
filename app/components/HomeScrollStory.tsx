@@ -59,7 +59,7 @@ const STAGES: StoryStage[] = [
 
 function StoryPhoto({ index, decorative = false }: { index: number; decorative?: boolean }) {
   const stage = STAGES[index];
-  return <figure className="narrative-image">
+  return <figure className={`narrative-image narrative-page-${index % 2 === 0 ? 'left' : 'right'}`}>
     <img src={sitePath(stage.image!)} srcSet={`${sitePath(stage.imageMobile!)} 1280w, ${sitePath(stage.image!)} 2560w`}
       sizes="(max-width: 700px) 90vw, 52vw" style={{ objectPosition: stage.objectPosition }}
       alt={decorative ? "" : stage.imageLabel} loading="eager" fetchPriority={index === 0 && !decorative ? "high" : "low"} />
@@ -67,17 +67,21 @@ function StoryPhoto({ index, decorative = false }: { index: number; decorative?:
   </figure>;
 }
 
-function StoryCopy({ index, onNext, decorative = false }: { index: number; onNext?: () => void; decorative?: boolean }) {
+function StoryCopy({ index, decorative = false }: { index: number; decorative?: boolean }) {
   const stage = STAGES[index], title = <HeadingLines lines={stage.titleLines} />;
-  return <div className="narrative-copy">
+  return <div className={`narrative-copy narrative-page-${index % 2 === 0 ? 'right' : 'left'}`}>
     {decorative ? <p className="story-heading">{title}</p> : index === 0 ? <h1>{title}</h1> : <h2>{title}</h2>}
     <p>{stage.description}</p>
-    {index === 0 && <a className="scroll-story-cue" href="#scene-02" onClick={(event) => { event.preventDefault(); onNext?.(); }} aria-label="繼續閱讀過港地方故事"><span aria-hidden="true">⌄</span></a>}
     {index === STAGES.length - 1 && <div className="button-row">
       <a className="text-link" href={sitePath("/guogang")}>閱讀過港的故事 <span aria-hidden="true">→</span></a>
       <a className="text-link" href="#home-guides">繼續往下</a>
     </div>}
   </div>;
+}
+
+function BookPage({ index, side }: { index: number; side: 'left' | 'right' }) {
+  const photoSide = index % 2 === 0 ? 'left' : 'right';
+  return side === photoSide ? <StoryPhoto index={index} decorative /> : <StoryCopy index={index} decorative />;
 }
 
 export function HomeScrollStory() {
@@ -164,20 +168,20 @@ export function HomeScrollStory() {
       {STAGES.map((stage, index) => (
         <article className={`narrative-scene narrative-scene-${index + 1} ${index === activeIndex ? 'is-current' : index < activeIndex ? 'is-before' : 'is-after'}`} id={`scene-${stage.number}`} data-scene={index} key={stage.number} aria-hidden={index !== activeIndex} inert={index !== activeIndex}>
           <StoryPhoto index={index} />
-          <StoryCopy index={index} onNext={() => goTo(1)} />
+          <StoryCopy index={index} />
         </article>
       ))}
       {turn && <div className="book-turn" aria-hidden="true" inert>
         <div className={`book-still-page is-${turn.direction}`}>
-          {turn.direction === 'forward' ? <StoryPhoto index={turn.from} decorative /> : <StoryCopy index={turn.from} decorative />}
+          <BookPage index={turn.from} side={turn.direction === 'forward' ? 'left' : 'right'} />
         </div>
         <div className={`book-turn-leaf is-${turn.direction}`} onAnimationEnd={(event) => { if (event.target === event.currentTarget) { setTurn(null); transitionUntil.current = 0; } }}>
           <div className="book-face book-face-front">
-            <div className="book-desktop-page">{turn.direction === 'forward' ? <StoryCopy index={turn.from} decorative /> : <StoryPhoto index={turn.from} decorative />}</div>
+            <div className="book-desktop-page"><BookPage index={turn.from} side={turn.direction === 'forward' ? 'right' : 'left'} /></div>
             <div className="book-mobile-page"><StoryPhoto index={turn.from} decorative /><StoryCopy index={turn.from} decorative /></div>
           </div>
           <div className="book-face book-face-back"><div className="book-desktop-page">
-            {turn.direction === 'forward' ? <StoryPhoto index={turn.to} decorative /> : <StoryCopy index={turn.to} decorative />}
+            <BookPage index={turn.to} side={turn.direction === 'forward' ? 'left' : 'right'} />
           </div></div>
         </div>
       </div>}

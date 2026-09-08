@@ -90,7 +90,8 @@ test("exported pages preserve revision content and interactions", async () => {
   assert.match(home, /home-scroll-01\.webp/);
   assert.match(home, /home-scroll-01-1280\.webp/);
   assert.match(home, /如果喜歡過港/);
-  assert.match(home, /⌄/);
+  assert.doesNotMatch(home, /scroll-story-cue|⌄/);
+  assert.match(home, /首頁敘事章節/);
   assert.doesNotMatch(home, /往下看看/);
   assert.match(home, /02-2458-8802/);
   assert.match(goods, /guogang-goods-collection\.jpg/);
