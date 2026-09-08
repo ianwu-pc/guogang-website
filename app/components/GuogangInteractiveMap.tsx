@@ -13,15 +13,13 @@ export function GuogangInteractiveMap() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef<{ id: number; x: number; y: number; left: number; moved: boolean } | null>(null);
   const suppressActivationRef = useRef(false);
-  const activeId = hoveredId ?? selectedId;
-  // Keep the last viewed introduction visible while the pointer moves to its map link.
-  const activeLocation = GUOGANG_MAP_LOCATIONS.find((item) => item.id === selectedId) ?? GUOGANG_MAP_LOCATIONS[0];
-  const details = GUOGANG_MAP_DETAILS[activeLocation.id];
-  const placeCopy = mapCopy.places.find((place) => place.id === activeLocation.id)!;
-  const googleMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(details.mapQuery)}`;
-  const selectLocation = (id: string, pan = false) => {
-    setSelectedId(id || null);
-    if (!pan || !id || !scrollRef.current) return;
+  // Hover controls elevation only; an explicit activation owns the persistent details.
+  const activeLocation = GUOGANG_MAP_LOCATIONS.find((item) => item.id === selectedId);
+  const details = activeLocation ? GUOGANG_MAP_DETAILS[activeLocation.id] : undefined;
+  const placeCopy = mapCopy.places.find((place) => place.id === selectedId);
+  const googleMapUrl = details ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(details.mapQuery)}` : "";
+  const panToLocation = (id: string) => {
+    if (!scrollRef.current) return;
     const viewport = scrollRef.current;
     const object = viewport.querySelector<HTMLElement>(`[data-landmark="${id}"]`);
     const label = viewport.querySelector<HTMLElement>(`[data-label="${id}"]`);
@@ -29,6 +27,11 @@ export function GuogangInteractiveMap() {
     const objectBounds = object.getBoundingClientRect(), labelBounds = label.getBoundingClientRect();
     const left = Math.min(objectBounds.left, labelBounds.left), right = Math.max(objectBounds.right, labelBounds.right);
     viewport.scrollTo({ left: viewport.scrollLeft + (left + right) / 2 - viewport.getBoundingClientRect().left - viewport.clientWidth / 2, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
+  };
+  const selectLocation = (id: string) => {
+    if (!id) return;
+    setSelectedId(id);
+    panToLocation(id);
   };
   const startDrag = (event: PointerEvent<HTMLDivElement>) => {
     if (event.button !== 0 || !scrollRef.current) return;
@@ -61,8 +64,8 @@ export function GuogangInteractiveMap() {
       </header>
       <div className="guogang-map-toolbar">
         <label htmlFor="map-place-picker">地點索引</label>
-        <select id="map-place-picker" value={selectedId ?? ""} onChange={(event) => selectLocation(event.target.value, true)}>
-          <option value="">選擇地點</option>
+        <select id="map-place-picker" value={selectedId ?? ""} onChange={(event) => selectLocation(event.target.value)}>
+          <option value="" disabled>選擇地點</option>
           {MAP_READING_ROWS.map((row) => <optgroup key={row.id} label={row.label}>
             {GUOGANG_MAP_LOCATIONS.filter((location) => location.row === row.id).map((location) => <option key={location.id} value={location.id}>{location.name}</option>)}
           </optgroup>)}
@@ -76,26 +79,25 @@ export function GuogangInteractiveMap() {
           <img className="guogang-map-base" src={sitePath("/images/guogang-map-2026/background.webp")} alt="手繪過港生活地圖，標示寧靜街、過港路與基隆河" draggable={false} width={2048} height={1152} />
           <div className="guogang-map-landmarks">
             {GUOGANG_MAP_LOCATIONS.map((location) => <button key={location.id} type="button" data-landmark={location.id}
-              className={`guogang-map-landmark${location.id === activeId ? " is-active" : ""}`}
+              className={`guogang-map-landmark${location.id === hoveredId ? " is-active" : ""}`}
               style={{ left: `${location.x}%`, top: `${location.y}%`, width: `${location.width}%`, height: `${location.height}%` }}
-              onPointerEnter={(event) => { if (event.pointerType !== "touch" && !isDragging) { setHoveredId(location.id); selectLocation(location.id); } }}
-              onPointerLeave={() => setHoveredId(null)} onFocus={() => { setHoveredId(location.id); selectLocation(location.id, true); }} onBlur={() => setHoveredId(null)}
-              onKeyDown={(event) => { if (event.key === "Escape") { setHoveredId(null); setSelectedId(null); } }}
-              onClick={() => selectLocation(location.id, true)} aria-label={`查看${location.name}介紹`} aria-describedby={`map-label-${location.id}`} aria-controls="guogang-map-info" aria-expanded={location.id === activeId}>
+              onPointerEnter={(event) => { if (event.pointerType !== "touch" && !isDragging) setHoveredId(location.id); }}
+              onPointerLeave={() => setHoveredId(null)} onFocus={(event) => { if (event.currentTarget.matches(":focus-visible")) panToLocation(location.id); }}
+              onClick={() => selectLocation(location.id)} aria-label={`查看${location.name}介紹`} aria-describedby={`map-label-${location.id}`} aria-controls="guogang-map-info" aria-expanded={location.id === selectedId}>
               <img src={sitePath(`/images/guogang-map-2026/${location.id}.png`)} alt="" draggable={false} />
             </button>)}
           </div>
           <div className="guogang-map-labels">
             {GUOGANG_MAP_LOCATIONS.map((location) => <span key={location.id} id={`map-label-${location.id}`} data-label={location.id}
               data-placement={location.row === "lower" && location.id !== "nuanjiang-walkway" ? "below" : "above"}
-              className={`guogang-map-landmark-label${location.id === activeId ? " is-active" : ""}`}
+              className={`guogang-map-landmark-label${location.id === (hoveredId ?? selectedId) ? " is-active" : ""}`}
               style={{ "--label-x": `${location.labelX}%`, "--label-y": `${location.labelY}%` } as CSSProperties}>{location.name}</span>)}
           </div>
         </div>
       </div>
       <p className="guogang-map-hint"><span>移動滑鼠，看看過港的生活地景。</span><span>在地圖上輕觸建築，閱讀地點註記。</span></p>
-      <aside className="guogang-map-info" id="guogang-map-info" aria-label="地點介紹">
-        <div className="guogang-map-place">
+      <aside className="guogang-map-info" id="guogang-map-info" aria-label="地點介紹" hidden={!activeLocation}>
+        {activeLocation && details && placeCopy && <div className="guogang-map-place">
           <div className="guogang-map-place-copy" aria-live="polite" aria-atomic="true">
             <div className="guogang-map-place-heading">
               <img src={sitePath(`/images/guogang-map-2026/${activeLocation.id}.png`)} alt="" width={108} height={104} />
@@ -113,7 +115,7 @@ export function GuogangInteractiveMap() {
             <a className="text-link" href={googleMapUrl} target="_blank" rel="noopener noreferrer">在 Google 地圖中開啟 <span aria-hidden="true">↗</span></a>
             {details.mapNote && <p className="guogang-map-google-note">{details.mapNote}</p>}
           </div>
-        </div>
+        </div>}
       </aside>
     </section>
   );

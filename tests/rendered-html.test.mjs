@@ -185,9 +185,11 @@ test("original page copy is preserved except the supplied replacement map introd
   }
 });
 
-test("homepage exposes all four photo chapters and their unchanged text without scroll trapping", async () => {
+test("homepage preserves four photo chapters and original copy in the book presentation", async () => {
   const html = await (await render("/")).text();
   assert.match(html, /home-narrative/);
+  assert.match(html, /aria-roledescription="翻頁書"/);
+  assert.equal((html.match(/data-scene="[0-3]"[^>]*aria-hidden="true"[^>]*inert/g) ?? []).length, 3);
   for (const number of ["01", "02", "03", "04"]) {
     assert.match(html, new RegExp(`id="scene-${number}"`));
     assert.match(html, new RegExp(`home-scroll-${number}\\.webp`));
@@ -202,7 +204,7 @@ test("the editorial system shares typography roles and removes dark photo overla
   const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
   const intro = await readFile(new URL("../app/components/PageIntro.tsx", import.meta.url), "utf8");
   for (const role of ["hero", "page", "section", "card", "name", "article-title", "article-section", "body", "label"]) assert.ok(css.includes(`--type-${role}:`));
-  assert.match(css, /--paper:\s*#fff;/);
+  assert.match(css, /--paper:\s*#f5f4f2;/);
   assert.match(css, /h2\s*\{\s*font-size:\s*var\(--type-section\)/);
   assert.match(css, /\.people-article-heading h1\s*\{\s*font-size:\s*var\(--type-article-title\)/);
   assert.match(css, /\.heading-unit\s*\{[^}]*white-space:\s*nowrap/);
@@ -248,25 +250,22 @@ test("new map configuration is complete, source-specific and independently posit
 test("map has real labels, stable hit areas and equivalent pointer, touch and keyboard controls", async () => {
   const source = await readFile(new URL("../app/components/GuogangInteractiveMap.tsx", import.meta.url), "utf8");
   const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
-  for (const contract of ["onPointerEnter", "onFocus", "onBlur", "onClick", "onKeyDown", "onPointerDown", "onPointerMove", "scrollLeft", "suppressActivationRef", "aria-expanded", "guogang-map-labels", "map-place-picker"]) assert.ok(source.includes(contract), contract);
+  for (const contract of ["onPointerEnter", "onPointerLeave", "onFocus", "onClick", "onPointerDown", "onPointerMove", "scrollLeft", "suppressActivationRef", "aria-expanded", "guogang-map-labels", "map-place-picker"]) assert.ok(source.includes(contract), contract);
   assert.match(css, /\.guogang-map-landmark\.is-active img\s*\{[^}]*translateY\(-8px\)/);
   assert.match(css, /\.guogang-handdrawn-map-canvas\s*\{[^}]*aspect-ratio:\s*16 \/ 9/);
   assert.match(css, /\.guogang-map-scroll\s*\{[^}]*overflow-x:\s*auto/);
   assert.doesNotMatch(source, /guogang-map-stamps|guogang-map-landmarks\/|guogang-handdrawn-map\.jpg/);
 });
 
-test("every illustrated place has a sourced introduction and the initial Google map is accessible", async () => {
+test("every illustrated place has location metadata and details stay hidden before activation", async () => {
   const mapSource = await readFile(new URL("../app/data/guogangMap.ts", import.meta.url), "utf8");
   const locations = JSON.parse(mapSource.split("export const GUOGANG_MAP_LOCATIONS: MapLandmark[] = ")[1].trim().replace(/;$/, ""));
   const details = await readFile(new URL("../app/data/guogangMapDetails.ts", import.meta.url), "utf8");
   assert.deepEqual([...details.matchAll(/^ {2}"([^"]+)": \{/gm)].map(match => match[1]), locations.map(location => location.id));
   const html = await (await render("/guogang")).text();
-  assert.match(html, /<aside[^>]*aria-label="地點介紹"/);
-  assert.match(html, /<iframe[^>]*title="小倆口福利社 Google 地圖"/);
-  assert.match(html, /https:\/\/maps\.google\.com\/maps\?q=/);
-  assert.match(html, /在 Google 地圖中開啟/);
-  assert.match(html, /地點資料：/);
-  assert.match(html, /基隆市暖暖區寧靜街60巷10號/);
+  assert.match(html, /<aside[^>]*aria-label="地點介紹"[^>]*hidden/);
+  assert.doesNotMatch(html, /<iframe\b/);
+  assert.equal((html.match(/data-landmark="[^"]+"[^>]*aria-expanded="false"/g) ?? []).length, 14);
 });
 
 test("the map introduction and every place preserve the supplied DOCX text", async () => {
@@ -282,5 +281,5 @@ test("the map introduction and every place preserve the supplied DOCX text", asy
   }
   const html = await (await render("/guogang")).text();
   const plain = html.replace(/<[^>]*>/g, "");
-  for (const lines of [...blocks["散步地圖｜開頭介紹"], ...copy.places[0].paragraphs]) assert.ok(plain.includes(lines.join("")), "Supplied introduction and initial place must render intact");
+  for (const lines of blocks["散步地圖｜開頭介紹"]) assert.ok(plain.includes(lines.join("")), "Supplied opening must render intact; activated place copy is checked in browser QA");
 });

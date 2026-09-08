@@ -33,7 +33,7 @@ for(const width of widths){
   await page.goto(origin+route,{waitUntil:'networkidle'});await ready();
   const audit=await page.evaluate(({route,width})=>{
    const outside=[...document.querySelectorAll('main *')].filter(el=>{
-    if(el.closest('.guogang-map-scroll')||el.classList.contains('sr-only'))return false;
+    if(el.closest('.guogang-map-scroll, [inert]')||el.classList.contains('sr-only'))return false;
     const r=el.getBoundingClientRect();return r.width>0&&(r.right>innerWidth+1||r.left<-1);
    }).map(el=>({tag:el.tagName,class:el.className,text:el.textContent.slice(0,65)}));
    const contentEscapes=[...document.querySelectorAll('.narrative-scene')].flatMap(scene=>{
@@ -61,6 +61,7 @@ for(const width of widths){
     const landmark=page.locator(`[data-landmark="${id}"]`);
     await landmark.hover();
     await page.waitForFunction(id=>getComputedStyle(document.querySelector(`[data-landmark="${id}"] img`)).transform==='matrix(1, 0, 0, 1, 0, -8)',id);
+    await landmark.click();
     const state=await page.evaluate(id=>{
      const object=document.querySelector(`[data-landmark="${id}"]`);const label=document.querySelector(`[data-label="${id}"]`);
      const labels=[...document.querySelectorAll('[data-label]')];const objects=[...document.querySelectorAll('[data-landmark] img')];
@@ -79,7 +80,7 @@ for(const width of widths){
     const left=Math.max(0,Math.min(r.x,l.x)-20),top=Math.max(0,Math.min(r.y,l.y)-24);
     const right=Math.min(width,Math.max(r.x+r.width,l.x+l.width)+20),bottom=Math.min(1000,Math.max(r.y+r.height,l.y+l.height)+24);
     if(width===1440||width===360)await page.screenshot({path:path.join(output,`map-${width}-${id}.png`),clip:{x:left,y:top,width:right-left,height:bottom-top}});
-    await landmark.focus();assert.equal(await landmark.getAttribute('aria-expanded'),'true',`${width} ${id} keyboard focus`);
+    await landmark.focus();assert.equal(await landmark.getAttribute('aria-expanded'),'true',`${width} ${id} focus preserves the clicked selection`);
    }
   }
  }

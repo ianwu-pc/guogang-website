@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { sitePath } from "../utils/sitePath";
 import { HeadingLines } from "./HeadingLines";
 
@@ -57,39 +57,139 @@ const STAGES: StoryStage[] = [
   },
 ];
 
+function StoryPhoto({ index, decorative = false }: { index: number; decorative?: boolean }) {
+  const stage = STAGES[index];
+  return <figure className="narrative-image">
+    <img src={sitePath(stage.image!)} srcSet={`${sitePath(stage.imageMobile!)} 1280w, ${sitePath(stage.image!)} 2560w`}
+      sizes="(max-width: 700px) 90vw, 52vw" style={{ objectPosition: stage.objectPosition }}
+      alt={decorative ? "" : stage.imageLabel} loading="eager" fetchPriority={index === 0 && !decorative ? "high" : "low"} />
+    <figcaption><span>{stage.number} / GUOGANG</span><span>{stage.imageLabel}</span></figcaption>
+  </figure>;
+}
+
+function StoryCopy({ index, onNext, decorative = false }: { index: number; onNext?: () => void; decorative?: boolean }) {
+  const stage = STAGES[index], title = <HeadingLines lines={stage.titleLines} />;
+  return <div className="narrative-copy">
+    {decorative ? <p className="story-heading">{title}</p> : index === 0 ? <h1>{title}</h1> : <h2>{title}</h2>}
+    <p>{stage.description}</p>
+    {index === 0 && <a className="scroll-story-cue" href="#scene-02" onClick={(event) => { event.preventDefault(); onNext?.(); }} aria-label="繼續閱讀過港地方故事"><span aria-hidden="true">⌄</span></a>}
+    {index === STAGES.length - 1 && <div className="button-row">
+      <a className="text-link" href={sitePath("/guogang")}>閱讀過港的故事 <span aria-hidden="true">→</span></a>
+      <a className="text-link" href="#home-guides">繼續往下</a>
+    </div>}
+  </div>;
+}
+
 export function HomeScrollStory() {
   const storyRef = useRef<HTMLElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      for (const entry of entries) if (entry.isIntersecting) setActiveIndex(Number((entry.target as HTMLElement).dataset.scene));
-    }, { rootMargin: "-15% 0px -35% 0px", threshold: 0.1 });
-    storyRef.current?.querySelectorAll("[data-scene]").forEach((scene) => observer.observe(scene));
-    return () => observer.disconnect();
+  const [turn, setTurn] = useState<{ from: number; to: number; direction: 'forward' | 'backward' } | null>(null);
+  const indexRef = useRef(0);
+  const transitionUntil = useRef(0);
+  const goTo = useCallback((index: number) => {
+    const next = Math.max(0, Math.min(STAGES.length - 1, index));
+    if (next === indexRef.current || performance.now() < transitionUntil.current) return;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    setTurn(reducedMotion ? null : { from: indexRef.current, to: next, direction: next > indexRef.current ? 'forward' : 'backward' });
+    indexRef.current = next;
+    transitionUntil.current = reducedMotion ? 0 : performance.now() + 900;
+    setActiveIndex(next);
   }, []);
+  useEffect(() => {
+    if (!turn) return;
+    const fallback = window.setTimeout(() => { setTurn(null); transitionUntil.current = 0; }, 1200);
+    return () => window.clearTimeout(fallback);
+  }, [turn]);
+  useEffect(() => {
+    const story = storyRef.current;
+    if (!story) return;
+    const header = document.querySelector('.site-header');
+    const fitHeader = () => { if (header) story.style.setProperty('--story-header-height', `${header.getBoundingClientRect().height}px`); };
+    fitHeader();
+    const headerSize = new ResizeObserver(fitHeader);
+    if (header) headerSize.observe(header);
+    const canTurn = (direction: number) => indexRef.current + direction >= 0 && indexRef.current + direction < STAGES.length;
+    // Oversized text / short screens remain scrollable before changing chapters.
+    const atReadingEdge = (direction: number) => {
+      const bounds = story.getBoundingClientRect();
+      return direction > 0 ? bounds.bottom <= innerHeight + 2 && bounds.top < innerHeight / 2 : bounds.top >= -2 && bounds.bottom > innerHeight / 2;
+    };
+    let lastWheel = 0, lastDirection = 0, wheelDistance = 0, gestureHandled = false;
+    const wheel = (event: WheelEvent) => {
+      if (event.ctrlKey || Math.abs(event.deltaX) > Math.abs(event.deltaY) || !event.deltaY || document.querySelector('.menu-open')) return;
+      const direction = Math.sign(event.deltaY), now = performance.now();
+      if (!atReadingEdge(direction)) return;
+      if (now - lastWheel > 180 || direction !== lastDirection) { wheelDistance = 0; gestureHandled = false; }
+      lastWheel = now; lastDirection = direction;
+      // Consume the rest of one gesture, including its momentum at the final page.
+      if (gestureHandled || now < transitionUntil.current) { event.preventDefault(); return; }
+      if (!canTurn(direction)) return;
+      event.preventDefault();
+      wheelDistance += Math.abs(event.deltaY) * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? innerHeight : 1);
+      if (wheelDistance >= 24) { gestureHandled = true; goTo(indexRef.current + direction); }
+    };
+    let touch: { x: number; y: number; handled: boolean } | null = null;
+    const touchStart = (event: TouchEvent) => {
+      touch = event.touches.length === 1 ? { x: event.touches[0].clientX, y: event.touches[0].clientY, handled: false } : null;
+    };
+    const touchMove = (event: TouchEvent) => {
+      if (!touch || event.touches.length !== 1) return;
+      const dx = event.touches[0].clientX - touch.x, dy = touch.y - event.touches[0].clientY;
+      if (Math.abs(dx) > Math.abs(dy)) { touch = null; return; }
+      if (Math.abs(dy) < 8) return;
+      const direction = Math.sign(dy);
+      if (touch.handled) { event.preventDefault(); return; }
+      if (!canTurn(direction) || !atReadingEdge(direction)) return;
+      event.preventDefault();
+      if (Math.abs(dy) >= 45 && performance.now() >= transitionUntil.current) { touch.handled = true; goTo(indexRef.current + direction); }
+    };
+    const touchEnd = () => { touch = null; };
+    window.addEventListener('wheel', wheel, { passive: false });
+    story.addEventListener('touchstart', touchStart, { passive: true });
+    story.addEventListener('touchmove', touchMove, { passive: false });
+    story.addEventListener('touchend', touchEnd);
+    story.addEventListener('touchcancel', touchEnd);
+    return () => {
+      headerSize.disconnect();
+      window.removeEventListener('wheel', wheel);
+      story.removeEventListener('touchstart', touchStart);
+      story.removeEventListener('touchmove', touchMove);
+      story.removeEventListener('touchend', touchEnd);
+      story.removeEventListener('touchcancel', touchEnd);
+    };
+  }, [goTo]);
   return (
-    <section className="home-narrative" ref={storyRef} aria-label="捲動閱讀過港地方故事">
+    <section className="home-narrative" ref={storyRef} data-active-scene={activeIndex} aria-label="捲動閱讀過港地方故事" aria-roledescription="翻頁書">
+      <div className="narrative-pages">
       {STAGES.map((stage, index) => (
-        <article className={`narrative-scene narrative-scene-${index + 1}`} id={`scene-${stage.number}`} data-scene={index} key={stage.number}>
-          <figure className="narrative-image">
-            <img src={sitePath(stage.image!)} srcSet={`${sitePath(stage.imageMobile!)} 1280w, ${sitePath(stage.image!)} 2560w`}
-              sizes={index === 0 ? "(max-width: 700px) 100vw, 52vw" : "(max-width: 700px) 90vw, 60vw"}
-              alt={stage.imageLabel} loading={index === 0 ? "eager" : "lazy"} fetchPriority={index === 0 ? "high" : "auto"} />
-            <figcaption><span>{stage.number} / GUOGANG</span><span>{stage.imageLabel}</span></figcaption>
-          </figure>
-          <div className="narrative-copy">
-            {index === 0 ? <h1><HeadingLines lines={stage.titleLines} /></h1> : <h2><HeadingLines lines={stage.titleLines} /></h2>}
-            <p>{stage.description}</p>
-            {index === 0 && <a className="scroll-story-cue" href="#scene-02" aria-label="繼續閱讀過港地方故事"><span aria-hidden="true">⌄</span></a>}
-            {index === STAGES.length - 1 && <div className="button-row">
-              <a className="text-link" href={sitePath("/guogang")}>閱讀過港的故事 <span aria-hidden="true">→</span></a>
-              <a className="text-link" href="#home-guides">繼續往下</a>
-            </div>}
-          </div>
+        <article className={`narrative-scene narrative-scene-${index + 1} ${index === activeIndex ? 'is-current' : index < activeIndex ? 'is-before' : 'is-after'}`} id={`scene-${stage.number}`} data-scene={index} key={stage.number} aria-hidden={index !== activeIndex} inert={index !== activeIndex}>
+          <StoryPhoto index={index} />
+          <StoryCopy index={index} onNext={() => goTo(1)} />
         </article>
       ))}
+      {turn && <div className="book-turn" aria-hidden="true" inert>
+        <div className={`book-still-page is-${turn.direction}`}>
+          {turn.direction === 'forward' ? <StoryPhoto index={turn.from} decorative /> : <StoryCopy index={turn.from} decorative />}
+        </div>
+        <div className={`book-turn-leaf is-${turn.direction}`} onAnimationEnd={(event) => { if (event.target === event.currentTarget) { setTurn(null); transitionUntil.current = 0; } }}>
+          <div className="book-face book-face-front">
+            <div className="book-desktop-page">{turn.direction === 'forward' ? <StoryCopy index={turn.from} decorative /> : <StoryPhoto index={turn.from} decorative />}</div>
+            <div className="book-mobile-page"><StoryPhoto index={turn.from} decorative /><StoryCopy index={turn.from} decorative /></div>
+          </div>
+          <div className="book-face book-face-back"><div className="book-desktop-page">
+            {turn.direction === 'forward' ? <StoryPhoto index={turn.to} decorative /> : <StoryCopy index={turn.to} decorative />}
+          </div></div>
+        </div>
+      </div>}
+      </div>
       <nav className="narrative-index" aria-label="首頁敘事章節">
-        {STAGES.map((stage, index) => <a key={stage.number} href={`#scene-${stage.number}`} aria-label={stage.titleLines.join("")} aria-current={activeIndex === index ? "step" : undefined}>{stage.number}</a>)}
+        <span className="narrative-scroll-hint">向下捲動，翻閱過港</span>
+        <div>{STAGES.map((stage, index) => <a key={stage.number} href={`#scene-${stage.number}`} onClick={(event) => { event.preventDefault(); goTo(index); }}
+          onKeyDown={(event) => {
+            const direction = ['ArrowDown', 'ArrowRight', 'PageDown'].includes(event.key) ? 1 : ['ArrowUp', 'ArrowLeft', 'PageUp'].includes(event.key) ? -1 : 0;
+            const next = activeIndex + direction;
+            if (direction && next >= 0 && next < STAGES.length) { event.preventDefault(); goTo(next); storyRef.current?.querySelectorAll<HTMLAnchorElement>('.narrative-index a')[next]?.focus(); }
+          }} aria-label={stage.titleLines.join("")} aria-current={activeIndex === index ? "step" : undefined}>{stage.number}</a>)}</div>
       </nav>
     </section>
   );
