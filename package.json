@@ -15,6 +15,7 @@
     "test:pages": "node --test tests/github-pages-export.test.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "test:visual": "node scripts/visual-qa.mjs",
+    "test:map": "node scripts/map-qa.mjs",
     "typecheck": "tsc --noEmit --incremental false",
     "types:worker": "wrangler types worker/runtime.d.ts --config dist/server/wrangler.json --include-env false",
     "db:generate": "drizzle-kit generate"

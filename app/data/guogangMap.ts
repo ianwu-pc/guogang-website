@@ -75,7 +75,7 @@ export const GUOGANG_MAP_LOCATIONS: MapLandmark[] = [
     "y": 45.13889,
     "width": 8.74023,
     "height": 13.28125,
-    "labelX": 66.30859,
+    "labelX": 67.5,
     "labelY": 42.44792,
     "row": "middle"
   },
@@ -86,7 +86,7 @@ export const GUOGANG_MAP_LOCATIONS: MapLandmark[] = [
     "y": 44.96528,
     "width": 11.23047,
     "height": 14.49653,
-    "labelX": 54.10156,
+    "labelX": 54.5,
     "labelY": 40.97222,
     "href": "/about",
     "linkLabel": "認識協會 →",
@@ -99,7 +99,7 @@ export const GUOGANG_MAP_LOCATIONS: MapLandmark[] = [
     "y": 46.875,
     "width": 10.30273,
     "height": 12.58681,
-    "labelX": 42.91992,
+    "labelX": 42,
     "labelY": 43.1,
     "row": "middle"
   },
@@ -110,7 +110,7 @@ export const GUOGANG_MAP_LOCATIONS: MapLandmark[] = [
     "y": 47.48264,
     "width": 6.29883,
     "height": 10.32986,
-    "labelX": 33.69141,
+    "labelX": 33,
     "labelY": 44.35764,
     "row": "middle"
   },

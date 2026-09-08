@@ -165,14 +165,23 @@ test("unset LINE links render safe buttons without fake URLs", async () => {
   assert.doesNotMatch(html, /line\.me|lin\.ee/i);
 });
 
-test("redesign preserves every original published paragraph and heading", async () => {
+test("original page copy is preserved except the supplied replacement map introduction", async () => {
   const { createHash } = await import("node:crypto");
   const baseline = JSON.parse(await readFile(new URL("./fixtures/editorial-content-integrity.json", import.meta.url), "utf8"));
+  // The user's 建築物文字敘述.docx explicitly supplies a new map opening.
+  // Keep the historical fixture intact; only these two superseded nodes are exempt.
+  const replacedMapOpening = new Set([
+    "21191945e15e2cc05fc52373a5d8775e5df03cc2f62c156c2bf4bc32d66f8fb1",
+    "22100d0d4b19151508f86eccef945f26a610145163ca0a1ac31b48787cc7677f",
+  ]);
   const clean = (text) => text.replace(/<[^>]*>/g, "").replaceAll("&quot;", '"').replaceAll("&#x27;", "'").replaceAll("&amp;", "&").replaceAll("&lt;", "<").replaceAll("&gt;", ">").replace(/\s/g, "");
   for (const [route, expected] of Object.entries(baseline)) {
     const html = await (await render(route)).text();
     const actual = new Set([...html.matchAll(/<(p|h[123]|figcaption)\b[^>]*>([\s\S]*?)<\/\1>/g)].map((match) => createHash("sha256").update(clean(match[2])).digest("hex")));
-    for (const record of expected) assert.ok(actual.has(record.sha256), `${route}: original ${record.tag} (${record.characters} characters) must be preserved: ${record.sha256}`);
+    for (const record of expected) {
+      if (route === "/guogang" && replacedMapOpening.has(record.sha256)) continue;
+      assert.ok(actual.has(record.sha256), `${route}: original ${record.tag} (${record.characters} characters) must be preserved: ${record.sha256}`);
+    }
   }
 });
 
@@ -244,4 +253,34 @@ test("map has real labels, stable hit areas and equivalent pointer, touch and ke
   assert.match(css, /\.guogang-handdrawn-map-canvas\s*\{[^}]*aspect-ratio:\s*16 \/ 9/);
   assert.match(css, /\.guogang-map-scroll\s*\{[^}]*overflow-x:\s*auto/);
   assert.doesNotMatch(source, /guogang-map-stamps|guogang-map-landmarks\/|guogang-handdrawn-map\.jpg/);
+});
+
+test("every illustrated place has a sourced introduction and the initial Google map is accessible", async () => {
+  const mapSource = await readFile(new URL("../app/data/guogangMap.ts", import.meta.url), "utf8");
+  const locations = JSON.parse(mapSource.split("export const GUOGANG_MAP_LOCATIONS: MapLandmark[] = ")[1].trim().replace(/;$/, ""));
+  const details = await readFile(new URL("../app/data/guogangMapDetails.ts", import.meta.url), "utf8");
+  assert.deepEqual([...details.matchAll(/^ {2}"([^"]+)": \{/gm)].map(match => match[1]), locations.map(location => location.id));
+  const html = await (await render("/guogang")).text();
+  assert.match(html, /<aside[^>]*aria-label="地點介紹"/);
+  assert.match(html, /<iframe[^>]*title="小倆口福利社 Google 地圖"/);
+  assert.match(html, /https:\/\/maps\.google\.com\/maps\?q=/);
+  assert.match(html, /在 Google 地圖中開啟/);
+  assert.match(html, /地點資料：/);
+  assert.match(html, /基隆市暖暖區寧靜街60巷10號/);
+});
+
+test("the map introduction and every place preserve the supplied DOCX text", async () => {
+  const { createHash } = await import("node:crypto");
+  const copy = JSON.parse(await readFile(new URL("../app/data/guogangMapCopy.json", import.meta.url), "utf8"));
+  const fixture = JSON.parse(await readFile(new URL("./fixtures/map-copy-integrity.json", import.meta.url), "utf8"));
+  const blocks = { "散步地圖｜開頭介紹": [copy.intro.titleLines, ...copy.intro.paragraphs], ...Object.fromEntries(copy.places.map(place => [place.name, place.paragraphs])) };
+  assert.deepEqual(Object.keys(blocks), Object.keys(fixture.blocks));
+  for (const [name, paragraphs] of Object.entries(blocks)) {
+    const text = paragraphs.map(lines => lines.join("")).join("");
+    assert.equal(createHash("sha256").update(text).digest("hex"), fixture.blocks[name].sha256, `${name}: original DOCX wording`);
+    assert.equal(paragraphs.length, fixture.blocks[name].paragraphCount);
+  }
+  const html = await (await render("/guogang")).text();
+  const plain = html.replace(/<[^>]*>/g, "");
+  for (const lines of [...blocks["散步地圖｜開頭介紹"], ...copy.places[0].paragraphs]) assert.ok(plain.includes(lines.join("")), "Supplied introduction and initial place must render intact");
 });

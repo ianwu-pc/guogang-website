@@ -1,0 +1,81 @@
+{
+  "sourceFile": "建築物文字敘述.docx",
+  "sourceSha256": "1bc42179e4c50455b8decba98e89dd9f510e471ff4d4409279f1c417ba1ff42b",
+  "blocks": {
+    "散步地圖｜開頭介紹": {
+      "sha256": "aae14f3e47d79d0a68f6cdfa4fb025cbd0bb8082e5436be8306b6ad91e34c7c8",
+      "paragraphCount": 4,
+      "lineCount": 7
+    },
+    "小倆口福利社": {
+      "sha256": "4daad6d91847f96e8ba3d982de84499cb69c2604ae303a38bd65661d7952d6b3",
+      "paragraphCount": 1,
+      "lineCount": 3
+    },
+    "美食坊早餐店": {
+      "sha256": "52b5910f59eed683652197257a75589f48a04c734e53b0cc2af0c8975105d364",
+      "paragraphCount": 1,
+      "lineCount": 3
+    },
+    "舊警察宿舍": {
+      "sha256": "238bb7a8e68d9b070d19b886b5074d91445f9708a33288cbd600fce68c178369",
+      "paragraphCount": 1,
+      "lineCount": 3
+    },
+    "暖江國小": {
+      "sha256": "c945fe9990cf5eedc6e0d7e8ed2ca407d23888e2f0bfd46d4f90898d1d937271",
+      "paragraphCount": 1,
+      "lineCount": 3
+    },
+    "聖光堂": {
+      "sha256": "357c72ffef657f0589ff6199d9c0ed49a16fb62959f9b5a33ecb740eacc6f457",
+      "paragraphCount": 1,
+      "lineCount": 3
+    },
+    "黃蠟石文化館": {
+      "sha256": "7fddc35fb3ccff07346412a42316c4ee44de9cbd8602e41d85147588a098be7e",
+      "paragraphCount": 1,
+      "lineCount": 3
+    },
+    "過港社區發展協會": {
+      "sha256": "5ce15bb977501d3e3f34a3a503c896164023dda86f6b6ec8badcfcf833445ebb",
+      "paragraphCount": 1,
+      "lineCount": 3
+    },
+    "過港幼兒園": {
+      "sha256": "eb0f082a6cdfcbefd2f1e416477cc4555d0724fa37a4de254c2b7db0f64eba36",
+      "paragraphCount": 1,
+      "lineCount": 3
+    },
+    "過港郵局": {
+      "sha256": "90e7f1d4bad2546d8fa49a93d0a283ae89fcb5afb0809970631c3ae2bf5d1b85",
+      "paragraphCount": 1,
+      "lineCount": 3
+    },
+    "暖江步道": {
+      "sha256": "00dbbff2b0d9aa9516c458cf5466c3d494d6c83408a98b9df1fcd0f399eece16",
+      "paragraphCount": 1,
+      "lineCount": 3
+    },
+    "暖江兒童公園": {
+      "sha256": "0024a5e7fa9d609ba1e6c1fc63a5b34e0df4419eb20f6e2b961652871cd9fc9e",
+      "paragraphCount": 1,
+      "lineCount": 3
+    },
+    "北方大陸餅": {
+      "sha256": "56d8c81ad64f2db4dff1b943925cf5daf3bcaad02fde7bf9ee3a5a63f10da09c",
+      "paragraphCount": 2,
+      "lineCount": 5
+    },
+    "暖新住民會館": {
+      "sha256": "f2c5526acb0c1c59734f8342d1d48932bc0dc16780e8def058088d0e5f982d5f",
+      "paragraphCount": 1,
+      "lineCount": 3
+    },
+    "過港福德宮": {
+      "sha256": "4c5ab060efd4de6bfc3d3b1cc6bb3ee59a3a27e1c3fb3ddd6680d5fcb5021162",
+      "paragraphCount": 1,
+      "lineCount": 4
+    }
+  }
+}
