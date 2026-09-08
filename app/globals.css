@@ -625,6 +625,8 @@ body:has(.scroll-story-sticky.has-photo) .site-header::before {
 .footer-lead h2 { margin-bottom: 2rem; color: var(--paper); font-size: clamp(2.6rem, 6vw, 6rem); }
 .footer-grid { padding: 3rem 0; display: grid; grid-template-columns: 1.1fr 0.8fr 1fr 1fr; gap: 2rem; }
 .footer-wordmark { color: var(--paper); font-family: var(--serif); font-size: 2.5rem; font-weight: 700; letter-spacing: 0.15em; }
+.footer-wordmark-logo { width: 9.5rem; padding: 0.45rem 0.6rem; display: block; background: rgba(255, 255, 255, 0.94); }
+.footer-wordmark-logo img { width: 100%; height: auto; }
 .footer-grid p,
 .footer-grid span,
 .footer-grid a { font-size: 0.82rem; }
@@ -1102,6 +1104,12 @@ body:has(.scroll-story-sticky.has-photo) .site-header:not(.is-scrolled) { color:
 .home-feature-card h3 { margin: 0.5rem 0 0.7rem; }
 .home-feature-card p { min-height: 3.5em; margin-bottom: 1.1rem; color: var(--green-soft); font-size: 0.82rem; }
 .home-feature-card .text-link { font-size: 0.72rem; }
+.home-feature-single { max-width: 34rem; }
+.home-feature-single .image-placeholder { margin-bottom: 1.35rem; }
+.home-feature-single .ratio-portrait { max-width: 27rem; }
+.home-feature-single-kicker { margin: 0 0 0.6rem; color: var(--clay); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em; }
+.home-feature-single blockquote { max-width: 29rem; margin: 0 0 1.25rem; color: var(--ink); font-family: var(--serif); font-size: clamp(1.25rem, 2vw, 1.75rem); line-height: 1.65; }
+.home-guide:nth-child(odd) .home-feature-single { grid-column: 3; }
 
 .home-more {
   width: min(calc(100% - var(--page-x) * 2), calc(var(--max) - var(--page-x) * 2));
@@ -1209,9 +1217,11 @@ body:has(.scroll-story-sticky.has-photo) .site-header:not(.is-scrolled) { color:
   .home-guide .image-placeholder,
   .home-guide .home-people-placeholder,
   .home-guide .home-feature-grid,
+  .home-guide .home-feature-single,
   .home-guide:nth-child(odd) .image-placeholder,
   .home-guide:nth-child(odd) .home-people-placeholder,
   .home-guide:nth-child(odd) .home-feature-grid,
+  .home-guide:nth-child(odd) .home-feature-single,
   .home-guide .home-guide-copy,
   .home-guide:nth-child(odd) .home-guide-copy { grid-column: 2; grid-row: auto; }
   .home-guide-number { grid-row: 1 / span 2; }
@@ -1241,6 +1251,8 @@ body:has(.scroll-story-sticky.has-photo) .site-header:not(.is-scrolled) { color:
   .home-guide-copy { margin-top: 2rem; }
   .scroll-story-art small { right: 1.2rem; bottom: 3.8rem; max-width: 14rem; }
   .home-feature-grid { grid-template-columns: 1fr; }
+  .home-feature-single { max-width: none; }
+  .home-feature-single .ratio-portrait { max-width: none; }
   .home-more { width: 100%; padding: 4rem 1.4rem; margin: 0; grid-template-columns: 1fr; }
   .home-more .button-row .button { width: 100%; }
   .timeline-opening h2 { font-size: clamp(2.9rem, 13vw, 4.6rem); }
@@ -2082,6 +2094,9 @@ h3 {
 .people-article-section-copy blockquote { margin: clamp(2.5rem, 5vw, 4.5rem) 0; padding: 0.2rem 0 0.2rem clamp(1.25rem, 3vw, 2.5rem); border-left: 2px solid var(--clay); color: var(--ink); font-family: var(--serif); font-size: clamp(1.25rem, 2.2vw, 1.85rem); line-height: 1.8; }
 .people-article-inline-image { grid-column: 2; width: min(100%, 52rem); margin-top: clamp(2rem, 5vw, 4rem); }
 .people-article-page .article-navigation { padding-top: clamp(3rem, 5vw, 5rem); }
+.people-article-gallery { padding: clamp(3.5rem, 7vw, 7rem) 0 clamp(4.5rem, 8vw, 7rem); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(0.75rem, 2vw, 1.5rem); }
+.people-article-gallery .people-article-figure:first-child { grid-column: 1 / -1; }
+.people-article-gallery img { width: 100%; height: 100%; min-height: 16rem; object-fit: cover; }
 
 @media (max-width: 900px) {
   .people-article-hero { grid-template-columns: 1fr; }
@@ -2102,6 +2117,8 @@ h3 {
   .people-article-section { grid-template-columns: 2rem minmax(0, 1fr); column-gap: 0.8rem; }
   .people-article-section-marker { font-size: 0.95rem; }
   .people-article-inline-image { grid-column: 1 / -1; }
+  .people-article-gallery { grid-template-columns: 1fr; }
+  .people-article-gallery .people-article-figure:first-child { grid-column: auto; }
   .people-article-page .article-navigation { display: grid; grid-template-columns: 1fr 1fr; }
   .people-article-page .article-navigation a:nth-child(2) { grid-column: 1 / -1; grid-row: 1; text-align: center; }
   .people-article-page .article-navigation a:last-child { text-align: right; }

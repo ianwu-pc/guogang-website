@@ -11,10 +11,10 @@ export const metadata: Metadata = {
 };
 
 const WORK_AREAS = [
-  { number: "01", title: "陪伴長者", description: "從關懷據點、樂齡學習，到巷弄長照、餐食與關懷訪視，讓長輩在熟悉的社區裡，有人陪伴，也能繼續參與生活。", image: "長者課程、共餐與志工陪伴｜待提供" },
-  { number: "02", title: "陪孩子成長", description: "透過課後陪伴、安心學園、親子活動與不同的學習體驗，陪孩子在社區裡安心長大，也慢慢認識自己生活的地方。", image: "兒少課程、親子活動與學習畫面｜待提供" },
-  { number: "03", title: "守護生活的環境", description: "從河川巡守、環境教育，到地方環境與壺穴等自然資源的關心，居民用自己的方式，一起照顧每天生活的地方。", image: "河川巡守、環境整理與壺穴守護｜待提供" },
-  { number: "04", title: "一起讓社區變得更好", description: "累積多年社區工作的經驗後，過港也開始和暖暖地區其他社區交流、合作，讓原本從過港開始的力量，慢慢連結到更多地方。", image: "跨社區交流、工作坊與聯合活動｜待提供" },
+  { number: "01", title: "陪伴長者", description: "從關懷據點、樂齡學習，到巷弄長照、餐食與關懷訪視，讓長輩在熟悉的社區裡，有人陪伴，也能繼續參與生活。", image: "/images/people-drive/meihua/meihua-3769.webp", alt: "社區義剪服務陪伴長輩" },
+  { number: "02", title: "陪孩子成長", description: "透過課後陪伴、安心學園、親子活動與不同的學習體驗，陪孩子在社區裡安心長大，也慢慢認識自己生活的地方。", image: "/images/people-drive/lin/lin-3753.webp", alt: "居民與孩子一起參與社區活動" },
+  { number: "03", title: "守護生活的環境", description: "從河川巡守、環境教育，到地方環境與壺穴等自然資源的關心，居民用自己的方式，一起照顧每天生活的地方。", image: "/images/people-drive/lin/lin-dscf5586.webp", alt: "林秀英介紹瓶蓋牆作品" },
+  { number: "04", title: "一起讓社區變得更好", description: "累積多年社區工作的經驗後，過港也開始和暖暖地區其他社區交流、合作，讓原本從過港開始的力量，慢慢連結到更多地方。", image: "/images/people-drive/qinji/qinji-362.webp", alt: "不同世代居民一起參與活動" },
 ];
 
 const JOURNEY = [
@@ -32,7 +32,7 @@ export default function AboutPage() {
       <PageIntro index="04" title="關於我們" description="過港社區發展協會成立於民國 82 年，做的事情一直從一個很簡單的問題開始：這個地方，現在需要什麼？" vertical="ABOUT US / GUOGANG" />
 
       <section className="about-who">
-        <ImagePlaceholder label="協會成員、志工與居民一起工作的自然照片｜待提供" ratio="landscape" tone="paper" />
+        <ImagePlaceholder label="/images/people-drive/qinji/qinji-362.webp" alt="居民一起參與社區活動" ratio="landscape" tone="paper" />
         <div>
           <p className="eyebrow">WHO WE ARE</p>
           <h2><span className="heading-line">從一起生活，</span><span className="heading-line">到一起做社區。</span></h2>
@@ -49,7 +49,7 @@ export default function AboutPage() {
         <div className="about-work-grid">
           {WORK_AREAS.map((area, index) => (
             <article key={area.number}>
-              <ImagePlaceholder label={area.image} ratio="landscape" tone={index % 2 ? "clay" : "green"} />
+              <ImagePlaceholder label={area.image} alt={area.alt} ratio="landscape" tone={index % 2 ? "clay" : "green"} />
               <span>{area.number}</span>
               <h3>{area.title}</h3>
               <p>{area.description}</p>
@@ -82,7 +82,7 @@ export default function AboutPage() {
           <h2><span className="heading-line">讓過港被看見，</span><span className="heading-line">也讓地方的生活</span><span className="heading-line">繼續走下去。</span></h2>
           <p>現在的過港，除了持續陪伴居民與推動社區服務，也開始把地方的故事、人物與好味整理下來。希望讓原本發生在社區裡的事情，能被更多人認識；也讓過港的產品與生活故事，有機會走到更遠的地方。</p>
         </div>
-        <ImagePlaceholder label="人物訪談、產品製作與過港現在的生活景象｜待提供" ratio="portrait" tone="ochre" />
+        <ImagePlaceholder label="/images/people-drive/qing/qing-380.webp" alt="居民拿著過港社區產品" ratio="portrait" tone="ochre" />
       </section>
 
       <section className="about-ending">

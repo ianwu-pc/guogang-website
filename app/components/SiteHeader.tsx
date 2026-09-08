@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { NAV_ITEMS, SITE_CONFIG } from "../data/site";
+import { NAV_ITEMS } from "../data/site";
 import { sitePath, stripSiteBasePath } from "../utils/sitePath";
 import { LineAction } from "./LineAction";
 
@@ -83,14 +83,10 @@ export function SiteHeader() {
             href={sitePath("/")}
             aria-label="過港首頁"
           >
-            {SITE_CONFIG.logoImage ? (
-              <img src={sitePath(SITE_CONFIG.logoImage)} alt="過港" />
-            ) : (
-              <>
-                <span>過港</span>
-                <small>GUOGANG</small>
-              </>
-            )}
+            <>
+              <span>過港</span>
+              <small>GUOGANG</small>
+            </>
           </a>
 
           <button

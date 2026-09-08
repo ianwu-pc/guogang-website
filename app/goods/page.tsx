@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function GoodsPage() {
   return (
     <main className="inner-page goods-page">
-      <PageIntro index="03" title="過港好味" description="有些味道，原本就在過港的餐桌、廚房與生活裡，也慢慢成為屬於這個地方的味道。" vertical="TASTE OF GUOGANG" />
+      <PageIntro index="03" title="過港好味" description="有些味道，原本就在過港的日常裡。做著、吃著，慢慢也成了大家熟悉的滋味。" vertical="TASTE OF GUOGANG" />
 
       <section className="goods-story-intro">
         <div>
@@ -22,8 +22,8 @@ export default function GoodsPage() {
           <h2><span className="heading-line">過港的好味，</span><span className="heading-line">從日常開始。</span></h2>
         </div>
         <div>
-          <p>過港的產品，來自居民熟悉的料理方式與生活經驗。有人負責備料，有人製作，也有人一起把一份份成品整理完成。</p>
-          <p>這些看似平常的工作，把社區裡原本熟悉的味道，慢慢變成可以和更多人分享的過港好味。</p>
+          <p>這些味道，原本就在過港的日常裡。有人備料、有人下鍋，從一次次共餐、活動和製作裡，慢慢成了現在會一起做、一起分享的東西。</p>
+          <p>沒有太多花樣，就是把熟悉的味道好好做好。</p>
         </div>
         <ImagePlaceholder label="/images/goods/guogang-goods-collection.jpg" alt="過港好味五款商品合照" ratio="wide" tone="green" />
       </section>
@@ -31,9 +31,9 @@ export default function GoodsPage() {
       <header className="goods-catalog-intro">
         <div>
           <p className="eyebrow">GUOGANG GOODS</p>
-          <h2><span className="heading-line">今天，</span><span className="heading-line">想帶哪一份過港</span><span className="heading-line">回家？</span></h2>
+          <h2><span className="heading-line">過港的好味，</span><span className="heading-line">從日常開始。</span></h2>
         </div>
-        <p>商品名稱與正式商品照片已更新；詳細介紹與價格仍待社區確認。</p>
+        <p>每一次能訂購的品項、價格與數量，會隨當期製作安排而不同；最新資訊會公布在 LINE。</p>
       </header>
       <section className="goods-catalog">
         {GOODS.map((good, index) => (
@@ -56,15 +56,15 @@ export default function GoodsPage() {
         <div>
           <p className="eyebrow">THE HANDS BEHIND THE TASTE</p>
           <h2><span className="heading-line">味道的背後，</span><span className="heading-line">是一雙雙熟悉的手。</span></h2>
-          <p>每一份過港好味的背後，都有居民投入其中。從準備食材、製作到包裝，這些產品不只是地方的味道，也記錄著人們一起工作的日常。</p>
+          <p>這些產品，就在過港一次次的製作裡慢慢完成。做久了，也成了大家熟悉的味道。</p>
         </div>
-        <ImagePlaceholder label="人物工作、製作過程與產品合照｜待提供" ratio="landscape" tone="paper" />
+        <ImagePlaceholder label="/images/people-drive/li/li-48.webp" alt="社區媽媽一起準備料理" ratio="landscape" tone="paper" />
       </section>
 
       <section className="goods-small-batch">
         <p className="eyebrow light">SMALL BATCH / 慢慢做</p>
         <h2><span className="heading-line">慢慢做，</span><span className="heading-line">把每一份好味做好。</span></h2>
-        <p>過港好味目前以社區小量製作為主，會依照實際產量與製作情況不定期開團。因此網站不提供固定庫存與線上結帳，最新商品與開團資訊會於 LINE 社群中公告。</p>
+        <p>過港的產品以小量製作為主。每次做什麼、做多少，會跟著當期的製作安排而不同，所以不一定隨時都有固定的品項與數量。有什麼，就把這次做好的分享出去；每一次能訂購的品項，也可能不太一樣。</p>
       </section>
 
       <section className="goods-order" aria-labelledby="goods-order-title">
@@ -72,12 +72,8 @@ export default function GoodsPage() {
           <p className="eyebrow">HOW TO ORDER</p>
           <h2 id="goods-order-title">想把過港的味道帶回家？</h2>
         </header>
-        <ol>
-          <li><span>STEP 01</span><strong>加入過港 LINE 社群</strong></li>
-          <li><span>STEP 02</span><strong>查看當期開團商品</strong></li>
-          <li><span>STEP 03</span><strong>依社群公告方式接龍訂購</strong></li>
-        </ol>
-        <LineAction label="加入 LINE 看本期好味" />
+        <p>最新品項、價格與可訂購數量，都會公布在 LINE。看看這次做了什麼，再挑一份喜歡的帶回家。</p>
+        <LineAction label="前往 LINE 查看最新訂購資訊" />
       </section>
 
       <section className="goods-ending">

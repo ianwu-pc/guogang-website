@@ -12,7 +12,8 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const getEditorialCardTheme = (slug: string) => (slug === "bottle-cap-grandma" ? "TIME" : "MORNING");
+  const featuredGood = GOODS[0];
+  const featuredPerson = PEOPLE.find((person) => person.slug === "bottle-cap-grandma")!;
 
   return (
     <main>
@@ -37,22 +38,11 @@ export default function Home() {
 
         <article className="home-guide home-guide-goods">
           <div className="home-guide-number">02</div>
-          <div className="home-feature-grid home-goods-grid">
-            {GOODS.slice(0, 3).map((good, index) => (
-              <article className="home-feature-card" key={good.id}>
-                <ImagePlaceholder
-                  label={good.coverImage}
-                  alt={`${good.name}商品照片`}
-                  ratio="square"
-                  tone={index % 2 ? "ochre" : "clay"}
-                  className={good.coverImage.includes("-cutout.") ? "product-image-cutout" : ""}
-                />
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <h3>{good.name}</h3>
-                <p>{good.summary}</p>
-                <a className="text-link" href={sitePath(`/goods/${good.slug}`)}>查看商品 <span aria-hidden="true">→</span></a>
-              </article>
-            ))}
+          <div className="home-feature-single home-goods-feature">
+            <ImagePlaceholder label={featuredGood.coverImage} alt={`${featuredGood.name}商品照片`} ratio="landscape" tone="clay" />
+            <p className="home-feature-single-kicker">GUOGANG GOODS</p>
+            <blockquote>「{featuredGood.summary}」</blockquote>
+            <a className="text-link" href={sitePath(`/goods/${featuredGood.slug}`)}>看看這份好味 <span aria-hidden="true">→</span></a>
           </div>
           <div className="home-guide-copy">
             <p className="eyebrow">02 / 過港好味</p>
@@ -64,37 +54,15 @@ export default function Home() {
 
         <article className="home-guide home-guide-people">
           <div className="home-guide-number">03</div>
-          <div className="home-feature-grid home-people-grid">
-            {PEOPLE.slice(0, 3).map((person, index) => (
-              <article className="home-feature-card" key={person.id}>
-                {["bottle-cap-grandma", "breakfast-shop-owner", "couple-story-two"].includes(person.slug) ? (
-                  <div
-                    className="image-placeholder ratio-portrait tone-paper people-story-editorial-cover"
-                    role="img"
-                    aria-label={`${person.name}人物故事文字封面`}
-                  >
-                    <div>
-                      <span className="eyebrow">
-                        STORY {String(index + 1).padStart(2, "0")} / {getEditorialCardTheme(person.slug)}
-                      </span>
-                      <strong>{person.quoteLines ? <HeadingLines lines={person.quoteLines} /> : person.quote}</strong>
-                      <small>{person.name}{person.role ? ` · ${person.role}` : ""}</small>
-                    </div>
-                  </div>
-                ) : (
-                  <ImagePlaceholder label={person.coverImage} alt={`${person.name}人物紀錄照片`} ratio="portrait" tone={index % 2 ? "paper" : "green"} />
-                )}
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <h3>{person.name}</h3>
-                {person.role && person.role !== "人物姓名待確認" ? <small className="home-feature-role">{person.role}</small> : null}
-                <p>{person.quote}</p>
-                <a className="text-link" href={sitePath(`/people/${person.slug}`)}>閱讀故事 <span aria-hidden="true">→</span></a>
-              </article>
-            ))}
+          <div className="home-feature-single home-people-feature">
+            <ImagePlaceholder label="/images/people-drive/lin/lin-dscf5586.webp" alt="林秀英站在瓶蓋牆前" ratio="portrait" tone="green" />
+            <p className="home-feature-single-kicker">{featuredPerson.name}</p>
+            <blockquote>「{featuredPerson.summary}」</blockquote>
+            <a className="text-link" href={sitePath(`/people/${featuredPerson.slug}`)}>閱讀她的故事 <span aria-hidden="true">→</span></a>
           </div>
           <div className="home-guide-copy">
             <p className="eyebrow">03 / 人與過港</p>
-            <h2><HeadingLines lines={["過港的樣子，", "藏在這裡的人身上。"]} /></h2>
+            <h2><HeadingLines lines={["過港的樣子，", "藏在生活於這裡的人身上。"]} /></h2>
             <p>有人守著每天清晨的味道，有人用雙手留下地方的風景，也有人默默投入社區，把一件件平凡的小事慢慢累積成今天的過港。從他們的生活裡，也能看見這個地方不同的模樣。</p>
             <a className="text-link" href={sitePath("/people")}>認識更多過港的人 <span aria-hidden="true">→</span></a>
           </div>
@@ -102,7 +70,7 @@ export default function Home() {
 
         <article className="home-guide home-guide-about">
           <div className="home-guide-number">04</div>
-          <ImagePlaceholder label="協會成員、志工與居民互動畫面｜待提供" ratio="landscape" tone="clay" />
+          <ImagePlaceholder label="/images/people-drive/qinji/qinji-362.webp" alt="居民一起參與過港社區活動" ratio="landscape" tone="clay" />
           <div className="home-guide-copy">
             <p className="eyebrow">04 / 關於我們</p>
             <h2><HeadingLines lines={["一群人一起做的事，", "慢慢成了社區的力量。"]} /></h2>

@@ -48,12 +48,10 @@ test("homepage contains the complete editorial structure", async () => {
   assert.doesNotMatch(html, /scroll-story-progress/);
   assert.match(html, /一個名字，/);
   assert.match(html, /把熟悉的日常/);
-  assert.match(html, /double-bamboo-shoot-dumplings\.jpg/);
-  assert.match(html, /港式蘿蔔糕/);
-  assert.match(html, /鴉片鐵蛋/);
+  assert.match(html, /radish-cake\.jpg/);
+  assert.match(html, /港式／原味蘿蔔糕/);
+  assert.match(html, /原味吃得到米香和蘿蔔味/);
   assert.match(html, /林秀英/);
-  assert.match(html, /早餐店老闆娘/);
-  assert.match(html, /煮飯阿姨/);
   assert.match(html, /一群人一起做的[\s\S]*?事/);
   assert.match(html, /如果喜歡過港/);
   assert.match(html, /205 基隆市暖暖區過港里過港路 54 號/);
@@ -192,7 +190,7 @@ test("revision 3 headings use the Word-authored semantic line data", async () =>
   for (const lines of [
     '["一個名字，", "從河的另一岸開始。"]',
     '["把熟悉的日常，", "做成可以分享的味道。"]',
-    '["過港的樣子，", "藏在這裡的人身上。"]',
+    '["過港的樣子，", "藏在生活於這裡的人身上。"]',
     '["一群人一起做的事，", "慢慢成了社區的力量。"]',
     '["如果喜歡過港，", "也歡迎把這份味道帶回家。"]',
   ]) {
@@ -295,6 +293,10 @@ test("chapter order, supplied goods photos and interactive map match the current
   for (const locationName of ["過港聖光堂", "過港義大利麵", "小倆口柑仔店", "基隆過港路郵局", "過港社區發展協會", "黃蠟石文化館", "暖暖過港福德宮", "暖新住民會館", "暖江橋", "暖暖車站"]) {
     assert.match(guogangHtml, new RegExp(locationName));
   }
+  for (const name of ["港式／原味蘿蔔糕", "鴉片鐵蛋", "雙匯水餃", "清潤銀耳露", "海涼石花凍｜黑糖／百香果"]) {
+    assert.match(goodsHtml, new RegExp(name));
+  }
+  assert.doesNotMatch(goodsHtml, /商品故事與特色待社區確認後補上|味道或特色｜待確認|製作者｜待確認/);
   assert.doesNotMatch(guogangHtml, /地點名單待確認/);
   assert.match(guogangHtml, /故事走到今天/);
   assert.doesNotMatch(guogangHtml, /ABOUT THE SOURCE/);
@@ -404,6 +406,17 @@ test("finalized people stories render complete editorial pages from shared data"
     assert.match(html, /返回全部人物/);
     assert.match(html, /下一篇人物 →/);
   }
+});
+
+test("shared Drive people photos are connected to all six finalized articles", async () => {
+  const photos = await readFile(new URL("../app/data/peopleStoryPhotos.ts", import.meta.url), "utf8");
+  for (const slug of ["bottle-cap-grandma", "breakfast-shop-owner", "community-kitchen-mother", "community-volunteer", "couple-story-one", "couple-story-two"]) {
+    assert.match(photos, new RegExp(`"${slug}"`));
+  }
+  assert.match(photos, /people-drive\/lin\/lin-dscf5586\.webp/);
+  assert.match(photos, /people-drive\/breakfast\/breakfast-dscf5920\.webp/);
+  assert.match(photos, /people-drive\/li\/li-48\.webp/);
+  assert.match(photos, /people-drive\/meihua\/meihua-29\.webp/);
 });
 
 test("finalized story pages share one responsive typography scale and semantic title lines", async () => {

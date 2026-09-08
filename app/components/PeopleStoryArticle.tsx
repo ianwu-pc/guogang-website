@@ -1,5 +1,6 @@
 import { HeadingLines } from "./HeadingLines";
 import type { PeopleStory, StoryBlock, StoryImage } from "../data/peopleStories";
+import { PEOPLE_STORY_PHOTOS } from "../data/peopleStoryPhotos";
 import type { Person } from "../data/site";
 import { sitePath } from "../utils/sitePath";
 
@@ -27,6 +28,9 @@ function StoryBlocks({ blocks }: { blocks: StoryBlock[] }) {
 }
 
 export function PeopleStoryArticle({ story, previous, next }: PeopleStoryArticleProps) {
+  const photos = PEOPLE_STORY_PHOTOS[story.slug];
+  const heroImage = photos?.hero ?? story.heroImage;
+
   return (
     <main className="article-page people-article-page">
       <div className="breadcrumb">
@@ -37,7 +41,7 @@ export function PeopleStoryArticle({ story, previous, next }: PeopleStoryArticle
         <span>故事 {story.storyNumber}</span>
       </div>
 
-      <header className={`people-article-hero${story.heroImage ? "" : " people-article-hero-text-only"}`}>
+      <header className={`people-article-hero${heroImage ? "" : " people-article-hero-text-only"}`}>
         <div className="people-article-heading">
           <p className="eyebrow">INTERVIEW / {story.storyNumber}</p>
           <div className="people-article-identity">
@@ -47,7 +51,7 @@ export function PeopleStoryArticle({ story, previous, next }: PeopleStoryArticle
           <h1><HeadingLines lines={story.titleLines} /></h1>
           {story.subtitleLines.length ? <p className="people-article-subtitle"><HeadingLines lines={story.subtitleLines} /></p> : null}
         </div>
-        {story.heroImage ? <StoryFigure image={story.heroImage} className="people-article-hero-image" /> : null}
+        {heroImage ? <StoryFigure image={heroImage} className="people-article-hero-image" /> : null}
       </header>
 
       <article className="people-article-content">
@@ -72,6 +76,11 @@ export function PeopleStoryArticle({ story, previous, next }: PeopleStoryArticle
           <p className="people-article-ending-large"><HeadingLines lines={story.ending.largeLines} /></p>
           <p className="people-article-ending-small"><HeadingLines lines={story.ending.smallLines} /></p>
         </footer>
+        {photos?.gallery.length ? (
+          <section className="people-article-gallery" aria-label={`${story.name}的影像紀錄`}>
+            {photos.gallery.map((image) => <StoryFigure image={image} key={image.src} />)}
+          </section>
+        ) : null}
       </article>
 
       <nav className="article-navigation" aria-label="人物專訪導覽">

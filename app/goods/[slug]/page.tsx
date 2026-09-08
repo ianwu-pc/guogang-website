@@ -32,11 +32,11 @@ export default async function GoodDetailPage({ params }: GoodPageProps) {
         <ProductGallery images={[good.coverImage, ...good.galleryImages]} name={good.name} ratio="landscape" tone="clay" />
       </header>
       <section className="article-body good-story-body">
-        <aside><span>STORY</span><strong>好物與地方的關係</strong></aside>
+        <aside><span>GUOGANG GOODS</span><strong>熟悉的味道，好好做好。</strong></aside>
         <div>
-          <h2>一段簡短的好物故事</h2>
+          <h2>從日常開始</h2>
           <p>{good.story}</p>
-          <p>正式產品資料到位後，這裡會保留最能說明味道、製作與過港關係的短文，不加入冗長規格。</p>
+          <p>{good.purchaseMethod}</p>
         </div>
       </section>
       <nav className="article-navigation" aria-label="好物文章導覽">
