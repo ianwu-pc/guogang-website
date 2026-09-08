@@ -27,7 +27,9 @@ export function SiteHeader() {
   return (
     <header className={`site-header${menuOpen ? " menu-open" : ""}`}>
       <div className="header-inner">
-        <a className="wordmark" href={sitePath("/")} aria-label="過港首頁"><span>過港</span><small>GUOGANG</small></a>
+        <a className="wordmark" href={sitePath("/")} aria-label="過港首頁">
+          <img src={sitePath("/images/guogang-header-logo.png")} width={739} height={351} alt="過港社區發展協會商標" fetchPriority="high" />
+        </a>
         <button ref={toggleRef} className="menu-toggle" type="button" aria-expanded={menuOpen} aria-controls="primary-navigation" onClick={() => setMenuOpen(!menuOpen)}>
           <span className="sr-only">{menuOpen ? "關閉選單" : "開啟選單"}</span><span aria-hidden="true" /><span aria-hidden="true" />
         </button>

@@ -25,6 +25,7 @@ const requiredFiles = [
   "fonts/OFL-NotoSerifTC.txt",
   "_next/static/fonts/guogang-serif-mobile.woff2",
   "images/guogang-history-1949.png",
+  "images/guogang-header-logo.png",
   "images/guogang-map-2026/background.webp",
   "images/guogang-map-2026/little-couple-store.png",
   "images/guogang-map-2026/breakfast-shop.png",
