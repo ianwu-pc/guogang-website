@@ -47,9 +47,9 @@ try {
         const hit = (a, b) => a.left < b.right - .5 && a.right > b.left + .5 && a.top < b.bottom - .5 && a.bottom > b.top + .5;
         const collisions = labels.flatMap((a, i) => [...labels.slice(i + 1), ...images].filter(b => hit(a.getBoundingClientRect(), b.getBoundingClientRect())).map(b => [a.textContent, b.dataset.label || b.parentElement.dataset.landmark]));
         const outside = [label, object].filter(e => { const r = e.getBoundingClientRect(); return r.left < viewport.left - 1 || r.right > viewport.right + 1 || r.top < viewport.top - 1 || r.bottom > viewport.bottom + 1; }).map(e => e.tagName);
-        const style = getComputedStyle(label);
+        const style = getComputedStyle(label), backdrop = getComputedStyle(label, '::before');
         const link = document.querySelector('.guogang-map-google > a');
-        return { id, name: label.textContent, collisions, outside, font: style.fontFamily, fontSize: style.fontSize, background: style.backgroundColor, heading: document.querySelector('.guogang-map-info h3').textContent, description: document.querySelector('.guogang-map-place-text').textContent, mapUrl: link.href, frameUrl: document.querySelector('.guogang-map-google iframe').src };
+        return { id, name: label.textContent, collisions, outside, font: style.fontFamily, fontSize: style.fontSize, background: backdrop.backgroundColor, borderWidth: style.borderWidth, backdropShape: backdrop.clipPath, heading: document.querySelector('.guogang-map-info h3').textContent, description: document.querySelector('.guogang-map-place-text').textContent, mapUrl: link.href, frameUrl: document.querySelector('.guogang-map-google iframe').src };
       }, id);
       report.states.push({ width, ...state });
       assert.deepEqual(state.collisions, [], `${width} ${id}: label collisions`);
@@ -57,6 +57,9 @@ try {
       assert.match(state.font, /Guogang Serif/);
       assert.equal(state.fontSize, '14px');
       assert.notEqual(state.background, 'rgba(0, 0, 0, 0)');
+      assert.equal(state.borderWidth, '0px');
+      assert.match(state.background, /^rgba\(.+, 0\.\d+\)$/);
+      assert.match(state.backdropShape, /^polygon\(/);
       assert.equal(state.heading, state.name);
       assert.ok(state.description.length > 35);
       assert.equal(state.description, suppliedCopy.places.find(place => place.id === id).paragraphs.flat().join(''), `${id}: user-supplied copy renders intact`);

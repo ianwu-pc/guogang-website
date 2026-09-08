@@ -474,9 +474,10 @@ p { text-wrap: pretty; } p:last-child { margin-bottom: 0; }
 .guogang-map-landmark img { width: 100%; height: 100%; object-fit: contain; transition: transform 220ms ease-out, filter 220ms ease-out; pointer-events: none; }
 .guogang-map-landmark.is-active img { transform: translateY(-8px); filter: drop-shadow(0 5px 3px #36463a22); }
 .guogang-map-landmark:focus-visible { outline-offset: 2px; }
-.guogang-map-landmark-label { position: absolute; left: var(--label-x); top: var(--label-y); transform: translate(-50%, -100%); padding: 3px 7px; border: 1px solid #d8d8c9; background: #fffcf4; font-family: var(--serif); font-size: 14px; font-weight: 400; line-height: 1.6; letter-spacing: .04em; white-space: nowrap; color: #303c32; }
+.guogang-map-landmark-label { position: absolute; isolation: isolate; left: var(--label-x); top: var(--label-y); transform: translate(-50%, -100%); padding: 4px 8px; border: 0; background: transparent; font-family: var(--serif); font-size: 14px; font-weight: 400; line-height: 1.6; letter-spacing: .04em; white-space: nowrap; color: #303c32; }
+.guogang-map-landmark-label::before { content: ""; position: absolute; inset: 0; z-index: -1; background: rgb(183 167 136 / .68); clip-path: polygon(2% 14%, 16% 5%, 31% 9%, 48% 2%, 65% 8%, 84% 4%, 98% 16%, 100% 44%, 97% 62%, 99% 86%, 84% 93%, 68% 90%, 48% 98%, 29% 92%, 13% 96%, 1% 82%, 3% 58%, 0% 36%); }
 .guogang-map-landmark-label[data-placement="below"] { transform: translate(-50%, 0); }
-.guogang-map-landmark-label.is-active { border-color: var(--green); background: #e9efdf; }
+.guogang-map-landmark-label.is-active::before { background: rgb(129 148 113 / .73); }
 .guogang-map-hint { margin: 16px 0 0; font-size: 13px; color: var(--muted); }
 .guogang-map-hint span + span { display: none; }
 .guogang-map-section .eyebrow { font-family: var(--serif); }
