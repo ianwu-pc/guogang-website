@@ -114,9 +114,7 @@ const PEOPLE_INDEX_ORDER: IndexEntry[] = [
 });
 
 function renderSummaryLines(lines: string[]) {
-  return lines
-    .filter((line) => line.trim())
-    .map((line, index) => <p key={`${line}-${index}`}>{line}</p>);
+  return <p style={{ whiteSpace: "pre-wrap" }}>{lines.join("\n")}</p>;
 }
 
 function renderHeadlineLines(lines: IndexEntry["headlineLines"]) {

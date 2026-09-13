@@ -114,7 +114,7 @@ test("exported pages preserve revision content and interactions", async () => {
   assert.match(people, /過港的樣子，[\s\S]*?藏在不同人的日常裡。/);
 
   const peopleCards = [...people.matchAll(/<article class="people-story-card[\s\S]*?<\/article>/g)].map((match) => match[0]);
-  const peopleOrder = ["林秀英", "早餐店老闆娘", "丁梅花", "清爽 × 阿笑", "煮飯阿姨", "親家阿公阿嬤"];
+  const peopleOrder = ["林秀英", "黃淑惠", "丁梅花", "清爽 × 阿笑", "李水錦", "順發阿公 × 宜慧阿嬤"];
   assert.equal(peopleCards.length, peopleOrder.length, "exported People page should contain six editorial entries");
   assert.deepEqual(
     peopleCards.map((card) => peopleOrder.find((name) => card.includes(`>${name}<`))),
@@ -124,18 +124,18 @@ test("exported pages preserve revision content and interactions", async () => {
 
   for (const [name, href] of [
     ["林秀英", "/people/bottle-cap-grandma"],
-    ["早餐店老闆娘", "/people/breakfast-shop-owner"],
+    ["黃淑惠", "/people/breakfast-shop-owner"],
     ["丁梅花", "/people/couple-story-two"],
     ["清爽 × 阿笑", "/people/couple-story-one"],
-    ["煮飯阿姨", "/people/community-kitchen-mother"],
-    ["親家阿公阿嬤", "/people/community-volunteer"],
+    ["李水錦", "/people/community-kitchen-mother"],
+    ["順發阿公 × 宜慧阿嬤", "/people/community-volunteer"],
   ]) {
     assert.match(people, new RegExp(`${name}[\\s\\S]*?href="[^"]*${href}`));
   }
 
-  assert.match(people, /把時間，[\s\S]*?一個瓶蓋一個瓶蓋[\s\S]*?留在過港。/);
+  assert.match(people, /把時間，[\s\S]*?一個瓶蓋[\s\S]*?一個瓶蓋[\s\S]*?留在過港。/);
   assert.match(people, /二十五年，[\s\S]*?早晨裡的人[\s\S]*?慢慢熟了。/);
-  assert.match(people, /四十多年，[\s\S]*?他們一起把日子[\s\S]*?過到了過港。/);
+  assert.match(people, /四十多年，[\s\S]*?他們一起[\s\S]*?把日子[\s\S]*?過到了過港。/);
   assert.match(people, /這條半小時的路，[\s\S]*?她走了十年。/);
   assert.match(people, /六個故事，[\s\S]*?六種與過港產生關係的方式。/);
   assert.doesNotMatch(people, /STORY 01|STORY 02|STORY 03|STORY 04/);

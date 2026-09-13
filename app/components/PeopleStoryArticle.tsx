@@ -73,8 +73,8 @@ export function PeopleStoryArticle({ story, previous, next }: PeopleStoryArticle
           </section>
         ))}
         <footer className="people-article-ending">
-          <p className="people-article-ending-large"><HeadingLines lines={story.ending.largeLines} /></p>
-          <p className="people-article-ending-small"><HeadingLines lines={story.ending.smallLines} /></p>
+          <p className="people-article-ending-large">{story.ending.largeLines.join("\n")}</p>
+          <p className="people-article-ending-small">{story.ending.smallLines.join("\n")}</p>
         </footer>
         {photos?.gallery.length ? (
           <section className="people-article-gallery" aria-label={`${story.name}的影像紀錄`}>

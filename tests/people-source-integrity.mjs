@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 
-// Expected hashes were extracted directly from the supplied Word documents,
+// Source paragraphs were read from the six supplied Google Docs tabs,
 // excluding only layout labels, heading brackets, dividers and whitespace.
 export const peopleSources = JSON.parse(await readFile(
   new URL("./fixtures/people-source-integrity.json", import.meta.url), "utf8",
@@ -27,4 +27,11 @@ export function assertPeopleSourceIntegrity(html, source) {
   assert.doesNotMatch(article, /人物頁最後大字|主標題：|小字：|待提供|來源未提供/);
   assert.match(article, /people-article-ending-large/);
   assert.match(article, /people-article-ending-small/);
+  const decode = (value) => value.replace(/<[^>]*>/g, "").replace(/&quot;/g, '"').replace(/&#x27;|&apos;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
+  const expectedGroups = source.paragraphs.join("").split("主標題：\n")[1].trim().split(/\n{2,}/)
+    .filter(group => !/^─+$/.test(group) && group !== "【人物頁最後大字】" && group !== "小字：")
+    .map(group => /^【[^\n]+】$/.test(group) ? group.slice(1, -1) : group);
+  const titleText = decode(title.replace(/<span class="heading-line">/g, "\n")).replace(/^\n/, "");
+  const renderedGroups = [titleText, ...[...article.matchAll(/<(p|blockquote|h2)\b[^>]*>([\s\S]*?)<\/\1>/g)].flatMap(match => decode(match[2]).split(/\n{2,}/))];
+  assert.deepEqual(renderedGroups, expectedGroups, `${source.slug}: exact source paragraphs and manual line breaks`);
 }

@@ -131,15 +131,15 @@ test("chapter order, supplied goods photos and interactive map match the current
   assert.doesNotMatch(guogangHtml, /ABOUT THE SOURCE/);
 });
 
-test("People article titles use explicit natural-language lines instead of browser balancing", async () => {
+test("People article titles preserve the Google document's explicit line breaks", async () => {
   const peopleStories = await readFile(new URL("../app/data/peopleStories.ts", import.meta.url), "utf8");
   const stories = JSON.parse(peopleStories.split("export const PEOPLE_STORIES: PeopleStory[] = ")[1].split(";\n")[0]);
 
   for (const [slug, lines] of Object.entries({
-    "bottle-cap-grandma": ["把時間，", "一個瓶蓋一個瓶蓋", "留在過港。"],
-    "breakfast-shop-owner": ["二十五年，", "早晨裡的人", "慢慢熟了。"],
-    "couple-story-one": ["四十多年，", "他們一起把日子", "過到了過港。"],
-    "couple-story-two": ["去看看，", "最近好不好。"],
+    "bottle-cap-grandma": ["把時間，", "一個瓶蓋一個瓶蓋留在過港。"],
+    "breakfast-shop-owner": ["二十五年，早晨裡的人慢慢熟了。"],
+    "couple-story-one": ["四十多年，他們一起把日子過到了過港。"],
+    "couple-story-two": ["去看看，最近好不好。"],
   })) {
     assert.deepEqual(stories.find((story) => story.slug === slug).titleLines, lines);
   }
@@ -218,7 +218,12 @@ test("original page copy is preserved except explicitly replaced map copy and re
     "8ee2612181b07cb45e2628f66b9b74cd1cfc6c310d2d51d9ed845cf467f0eb52",
   ]);
   const clean = (text) => text.replace(/<[^>]*>/g, "").replaceAll("&quot;", '"').replaceAll("&#x27;", "'").replaceAll("&amp;", "&").replaceAll("&lt;", "<").replaceAll("&gt;", ">").replace(/\s/g, "");
+  // These index excerpts are superseded by the user's six Google Docs stories.
+  // Exact new paragraphs and line breaks are checked by assertPeopleSourceIntegrity.
+  const replacedPeopleExcerpts = new Set(JSON.parse(await readFile(new URL("./fixtures/people-replaced-excerpts.json", import.meta.url), "utf8")));
   for (const [route, expected] of Object.entries(baseline)) {
+    // The six replacement articles have their own exact-source integrity checks.
+    if (peopleSources.some(source => route === `/people/${source.slug}`)) continue;
     const html = await (await render(route)).text();
     const actual = new Set([...html.matchAll(/<(p|h[123]|figcaption)\b[^>]*>([\s\S]*?)<\/\1>/g)].map((match) => createHash("sha256").update(clean(match[2])).digest("hex")));
     if (route === "/goods") {
@@ -228,6 +233,7 @@ test("original page copy is preserved except explicitly replaced map copy and re
     for (const record of expected) {
       if (route === "/guogang" && replacedMapOpening.has(record.sha256)) continue;
       if (route === "/goods" && removedGoodsSummaries.has(record.sha256)) continue;
+      if (route === "/people" && replacedPeopleExcerpts.has(record.sha256)) continue;
       assert.ok(actual.has(record.sha256), `${route}: original ${record.tag} (${record.characters} characters) must be preserved: ${record.sha256}`);
     }
   }
@@ -263,7 +269,7 @@ test("the editorial system shares typography roles and removes dark photo overla
 test("all six People entries include photographs while preserving the original editorial order", async () => {
   const html = await (await render("/people")).text();
   const cards = [...html.matchAll(/<article class="people-story-card[\s\S]*?<\/article>/g)].map((match) => match[0]);
-  const order = ["林秀英", "早餐店老闆娘", "丁梅花", "清爽 × 阿笑", "煮飯阿姨", "親家阿公阿嬤"];
+  const order = ["林秀英", "黃淑惠", "丁梅花", "清爽 × 阿笑", "李水錦", "順發阿公 × 宜慧阿嬤"];
   assert.equal(cards.length, 6);
   cards.forEach((card, index) => { assert.ok(card.includes(`>${order[index]}<`)); assert.match(card, /<img\b/); assert.match(card, /people-story-summary/); });
 });

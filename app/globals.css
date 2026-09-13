@@ -257,11 +257,12 @@ p { text-wrap: pretty; } p:last-child { margin-bottom: 0; }
 .people-article-section-copy { min-width: 0; grid-column: 2; }
 .people-article-section-copy h2 { font-size: var(--type-article-section); letter-spacing: .075em; margin-bottom: 32px; }
 .people-article-section-copy p { line-height: 2.15; margin-bottom: 28px; white-space: pre-line; }
-.people-article-section-copy blockquote { margin: 40px 0; padding: 8px 0 8px 28px; border-left: 1px solid var(--green); font-size: 21px; line-height: 1.9; white-space: pre-line; }
+.people-article-section-copy blockquote { margin: 40px 0; padding: 8px 20px 8px 28px; border-left: 1px solid var(--green); font-size: 21px; line-height: 1.9; white-space: pre-wrap; overflow-wrap: anywhere; }
 .people-article-inline-image { grid-column: 2; margin-top: 36px; }
 .people-article-ending { padding: var(--section-space) 5%; text-align: center; }
 .people-article-ending-large { font-size: var(--type-article-section); line-height: 1.9; }
 .people-article-ending-small { margin-top: 40px; color: var(--muted); }
+.people-article-ending-large, .people-article-ending-small { white-space: pre-wrap; }
 .people-article-gallery { display: grid; grid-template-columns: 1.25fr 1fr; gap: 72px 8%; align-items: start; padding-bottom: 80px; }
 .people-article-gallery .people-article-figure:nth-child(even) { margin-top: 100px; }
 .people-article-gallery .people-article-figure:first-child { grid-column: 1 / -1; width: 85%; }
