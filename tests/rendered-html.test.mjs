@@ -180,7 +180,7 @@ test("unset LINE links render safe buttons without fake URLs", async () => {
   assert.doesNotMatch(html, /line\.me|lin\.ee/i);
 });
 
-test("original page copy is preserved except the supplied replacement map introduction", async () => {
+test("original page copy is preserved except explicitly replaced map copy and removed goods summaries", async () => {
   const { createHash } = await import("node:crypto");
   const baseline = JSON.parse(await readFile(new URL("./fixtures/editorial-content-integrity.json", import.meta.url), "utf8"));
   // The user's 建築物文字敘述.docx explicitly supplies a new map opening.
@@ -189,12 +189,26 @@ test("original page copy is preserved except the supplied replacement map introd
     "21191945e15e2cc05fc52373a5d8775e5df03cc2f62c156c2bf4bc32d66f8fb1",
     "22100d0d4b19151508f86eccef945f26a610145163ca0a1ac31b48787cc7677f",
   ]);
+  // On 2026-09-13 the user removed these five duplicated catalog summaries.
+  // The full stories remain covered by the catalog story preservation test.
+  const removedGoodsSummaries = new Set([
+    "8e0517396f26c9abaf4fc0af64c64b4fb45f2ec331e6943dd7ab824b1ee08051",
+    "c59edc9587355ade59dc111a8eef6bc9a0385e704fe93aec9cbc341a4c07b50b",
+    "8db6533a18a3bde7f870a791cb4f04aba65db3a140230408d8872d1758a5e87b",
+    "8a6cff173253b21992a8170276bbbb7a0e002f3fca9bc96b6eeb6d8074e4ea16",
+    "8ee2612181b07cb45e2628f66b9b74cd1cfc6c310d2d51d9ed845cf467f0eb52",
+  ]);
   const clean = (text) => text.replace(/<[^>]*>/g, "").replaceAll("&quot;", '"').replaceAll("&#x27;", "'").replaceAll("&amp;", "&").replaceAll("&lt;", "<").replaceAll("&gt;", ">").replace(/\s/g, "");
   for (const [route, expected] of Object.entries(baseline)) {
     const html = await (await render(route)).text();
     const actual = new Set([...html.matchAll(/<(p|h[123]|figcaption)\b[^>]*>([\s\S]*?)<\/\1>/g)].map((match) => createHash("sha256").update(clean(match[2])).digest("hex")));
+    if (route === "/goods") {
+      for (const hash of removedGoodsSummaries) assert.ok(!actual.has(hash), "removed catalog summaries stay absent");
+      assert.doesNotMatch(html, /<h3[^>]*>從日常開始<\/h3>/);
+    }
     for (const record of expected) {
       if (route === "/guogang" && replacedMapOpening.has(record.sha256)) continue;
+      if (route === "/goods" && removedGoodsSummaries.has(record.sha256)) continue;
       assert.ok(actual.has(record.sha256), `${route}: original ${record.tag} (${record.characters} characters) must be preserved: ${record.sha256}`);
     }
   }
