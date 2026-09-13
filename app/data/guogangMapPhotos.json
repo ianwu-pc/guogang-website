@@ -58,5 +58,23 @@
     "width": 1400,
     "height": 933,
     "sourceFile": "DSCF3819.jpg"
+  },
+  "community-association": {
+    "src": "/images/map-places/community-association.webp",
+    "width": 1400,
+    "height": 933,
+    "sourceFile": "2I9A0073.JPG"
+  },
+  "nuanjiang-walkway": {
+    "src": "/images/map-places/nuanjiang-walkway.webp",
+    "width": 1400,
+    "height": 933,
+    "sourceFile": "2I9A9897.JPG"
+  },
+  "breakfast-shop": {
+    "src": "/images/map-places/breakfast-shop.webp",
+    "width": 1400,
+    "height": 933,
+    "sourceFile": "DSCF5777.JPG"
   }
 }
