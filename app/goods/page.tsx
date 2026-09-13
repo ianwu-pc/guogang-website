@@ -37,14 +37,18 @@ export default function GoodsPage() {
       </header>
       <section className="goods-catalog">
         {GOODS.map((good, index) => (
-          <article className="catalog-item" key={good.id}>
+          <article className="catalog-item" id={good.slug} aria-labelledby={`${good.slug}-title`} key={good.id}>
             <ProductGallery images={[good.coverImage, ...good.galleryImages]} name={good.name} ratio="landscape" tone={index % 2 ? "ochre" : "clay"} />
             <div className="catalog-copy">
               <p className="eyebrow">GUOGANG GOODS / {String(index + 1).padStart(2, "0")}</p>
-              <h2>{good.name}</h2>
+              <h2 id={`${good.slug}-title`}>{good.name.split("｜").map((line) => <span className="heading-line" key={line}>{line}</span>)}</h2>
               <p>{good.summary}</p>
+              <div className="catalog-story">
+                <h3>從日常開始</h3>
+                <p>{good.story}</p>
+              </div>
+              <p className="catalog-purchase">{good.purchaseMethod}</p>
               <div className="card-actions">
-                <a className="text-link" href={sitePath(`/goods/${good.slug}`)}>查看這份好味 <span aria-hidden="true">→</span></a>
                 <LineAction label="LINE 詢問" />
               </div>
             </div>

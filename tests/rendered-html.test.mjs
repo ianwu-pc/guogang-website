@@ -63,6 +63,21 @@ test("homepage scroll story maps all four supplied photos in order", async () =>
   );
 });
 
+test("goods catalog contains every existing product story without detail-page navigation", async () => {
+  const html = await (await render("/goods")).text();
+  for (const number of ["01", "02", "03", "04", "05"]) {
+    const detail = await (await render(`/goods/goods-${number}`)).text();
+    const story = detail.match(/<section class="article-body good-story-body">([\s\S]*?)<\/section>/)?.[1];
+    assert.ok(story, `existing story ${number} is available`);
+    for (const paragraph of story.matchAll(/<p>([\s\S]*?)<\/p>/g)) {
+      assert.ok(html.includes(`<p>${paragraph[1]}</p>`) || html.includes(`class="catalog-purchase">${paragraph[1]}</p>`), `story ${number} remains readable on the catalog`);
+    }
+    assert.match(html, new RegExp(`id="goods-${number}"`));
+  }
+  assert.doesNotMatch(html, /href="[^\"]*\/goods\/goods-\d+/);
+  assert.doesNotMatch(html, /查看這份好味/);
+});
+
 test("chapter order, supplied goods photos and interactive map match the current site", async () => {
   const goodsResponse = await render("/goods");
   const goodsHtml = await goodsResponse.text();
