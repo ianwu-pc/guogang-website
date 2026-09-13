@@ -1,4 +1,5 @@
-import { cp, mkdir, readdir, rm, writeFile } from "node:fs/promises";
+import { cp, mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -108,6 +109,24 @@ await writeFile(
   `User-agent: *\nAllow: /\nSitemap: ${siteBaseUrl}/sitemap.xml\n`,
   "utf8",
 );
+
+// Publish the complete module graph under one release namespace. Unlike query
+// parameters on just the entry, this preserves matching URLs for module
+// registration/imports while avoiding stale responses for shared chunks.
+const release = createHash("sha256").update(await readFile(serverEntry)).digest("hex").slice(0, 12);
+await cp(path.join(outputDirectory, "_next", "static"), path.join(outputDirectory, "_next", "releases", release), { recursive: true });
+await rewriteReleasePaths(outputDirectory);
+async function rewriteReleasePaths(directory) {
+  for (const entry of await readdir(directory, { withFileTypes: true })) {
+    const file = path.join(directory, entry.name);
+    if (entry.isDirectory()) await rewriteReleasePaths(file);
+    else if (/\.(html|js|css)$/.test(entry.name)) {
+      const source = await readFile(file, "utf8");
+      const rewritten = source.replaceAll("/_next/static/", `/_next/releases/${release}/`);
+      if (rewritten !== source) await writeFile(file, rewritten, "utf8");
+    }
+  }
+}
 
 console.log(`GitHub Pages static site exported to ${outputDirectory}`);
 console.log(`Base URL: ${siteBaseUrl || "/"}`);

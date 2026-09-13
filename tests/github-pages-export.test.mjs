@@ -11,11 +11,13 @@ const basePath = normalizeBasePath(process.env.PAGES_BASE_PATH ?? inferBasePath(
 test("hydration entry uses a consistent hashed URL and high priority", async () => {
   for (const file of ["index.html", "guogang/index.html"]) {
     const html = await read(file);
+    assert.doesNotMatch(html, /\/_next\/static\//, "all framework resources share the release namespace");
     const entries = [...html.matchAll(/<(?:link|script)\b[^>]*(?:href|src)="([^"]*\/chunks\/index-[^"]+\.js[^\"]*)"[^>]*>/g)];
     assert.ok(entries.length >= 2, "entry preload and execution must both exist");
     assert.equal(new Set(entries.map((entry) => entry[1])).size, 1);
     for (const entry of entries) {
       assert.match(entry[1], /index-[A-Za-z0-9_-]+\.js$/);
+      assert.match(entry[1], /\/_next\/releases\/[a-f0-9]{12}\/chunks\//);
       assert.match(entry[0], /fetchpriority="high"/i);
     }
   }
