@@ -3,6 +3,7 @@ import { useRef, useState, type CSSProperties, type PointerEvent } from "react";
 import { GUOGANG_MAP_LOCATIONS, MAP_READING_ROWS } from "../data/guogangMap";
 import { GUOGANG_MAP_DETAILS } from "../data/guogangMapDetails";
 import mapCopy from "../data/guogangMapCopy.json";
+import mapPhotos from "../data/guogangMapPhotos.json";
 import { sitePath } from "../utils/sitePath";
 import { HeadingLines } from "./HeadingLines";
 
@@ -16,6 +17,7 @@ export function GuogangInteractiveMap() {
   // Hover controls elevation only; an explicit activation owns the persistent details.
   const activeLocation = GUOGANG_MAP_LOCATIONS.find((item) => item.id === selectedId);
   const details = activeLocation ? GUOGANG_MAP_DETAILS[activeLocation.id] : undefined;
+  const photo = activeLocation ? mapPhotos[activeLocation.id as keyof typeof mapPhotos] : undefined;
   const placeCopy = mapCopy.places.find((place) => place.id === selectedId);
   const googleMapUrl = details ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(details.mapQuery)}` : "";
   const panToLocation = (id: string) => {
@@ -109,6 +111,10 @@ export function GuogangInteractiveMap() {
             <p className="guogang-map-source">地點資料：<a href={details.source.href.startsWith("/") ? sitePath(details.source.href) : details.source.href} target={details.source.href.startsWith("/") ? undefined : "_blank"} rel="noopener noreferrer">{details.source.label}</a></p>
           </div>
           <div className="guogang-map-google">
+            {photo && <figure className="guogang-map-place-photo" key={photo.src}>
+              <img src={sitePath(photo.src)} alt={`${activeLocation.name}實景照片`} width={photo.width} height={photo.height} decoding="async" />
+              <figcaption>{activeLocation.name}</figcaption>
+            </figure>}
             <iframe key={activeLocation.id} title={`${activeLocation.name} Google 地圖${details.mapNote ? "（周邊位置）" : ""}`}
               src={`https://maps.google.com/maps?q=${encodeURIComponent(details.mapQuery)}&output=embed&hl=zh-TW&z=17`}
               loading="lazy" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />

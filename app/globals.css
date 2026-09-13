@@ -508,6 +508,9 @@ p { text-wrap: pretty; } p:last-child { margin-bottom: 0; }
 .guogang-map-source { font-size: 12px; margin-top: 24px; color: var(--muted); }
 .guogang-map-source a { text-decoration: underline; text-underline-offset: 3px; }
 .guogang-map-google { min-width: 0; }
+.guogang-map-place-photo { margin: 0 0 28px; }
+.guogang-map-place-photo img { display: block; width: 100%; height: auto; }
+.guogang-map-place-photo figcaption { margin-top: 10px; color: var(--muted); font-size: 13px; line-height: 1.7; }
 .guogang-map-google iframe { display: block; width: 100%; height: 320px; border: 1px solid var(--line); background: var(--paper-deep); }
 .guogang-map-google > a { width: 100%; }
 .guogang-map-google-note { margin-top: 12px; font-size: 13px; color: var(--muted); }
