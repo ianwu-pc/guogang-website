@@ -84,6 +84,10 @@ for (const route of routes) {
 
   let html = await response.text();
   html = rewriteMetadataUrls(html);
+  // Prioritize hydration over below-the-fold media. Keep the build's hashed
+  // URL unchanged: Rolldown uses that exact module identity during startup.
+  html = html.replace(/<(?:link|script)\b[^>]*(?:href|src)="[^"?]*\/chunks\/index-[^"?]+\.js"[^>]*>/g, (tag) =>
+    tag.replace(/\sfetchPriority="[^"]*"/gi, "").replace(/\s*\/?\>$/, ' fetchpriority="high">'));
   validateBasePath(html, route);
 
   const destination = routeToFile(route);

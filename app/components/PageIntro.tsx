@@ -2,10 +2,10 @@ import { sitePath } from "../utils/sitePath";
 
 type PageIntroProps = { index: string; title: string; description: string; vertical?: string; hideIndex?: boolean };
 const VISUALS: Record<string, { index: string; image: string; alt: string }> = {
-  認識過港: { index: "01", image: "認識過港.jpg", alt: "過港河岸的地景" },
-  人與過港: { index: "02", image: "過港人物.jpg", alt: "生活在過港的人們" },
-  過港好味: { index: "03", image: "過港好味.jpg", alt: "過港社區的手作好味" },
-  關於我們: { index: "04", image: "關於我們.jpg", alt: "過港社區的建築入口" },
+  認識過港: { index: "01", image: "認識過港.webp", alt: "過港河岸的地景" },
+  人與過港: { index: "02", image: "過港人物.webp", alt: "生活在過港的人們" },
+  過港好味: { index: "03", image: "過港好味.webp", alt: "過港社區的手作好味" },
+  關於我們: { index: "04", image: "關於我們.webp", alt: "過港社區的建築入口" },
 };
 export function PageIntro({ index, title, description, vertical = "LOCAL ARCHIVE", hideIndex = false }: PageIntroProps) {
   const visual = VISUALS[title];

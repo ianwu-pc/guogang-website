@@ -78,7 +78,7 @@ export function GuogangInteractiveMap() {
         onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag}
         onClickCapture={(event) => { if (suppressActivationRef.current) { event.preventDefault(); event.stopPropagation(); suppressActivationRef.current = false; } }}>
         <div className="guogang-handdrawn-map-canvas" role="group" aria-label="可探索的過港手繪生活地圖">
-          <img className="guogang-map-base" src={sitePath("/images/guogang-map-2026/background.webp")} alt="手繪過港生活地圖，標示寧靜街、過港路與基隆河" draggable={false} width={2048} height={1152} />
+          <img className="guogang-map-base" src={sitePath("/images/guogang-map-2026/background.webp")} alt="手繪過港生活地圖，標示寧靜街、過港路與基隆河" loading="lazy" decoding="async" draggable={false} width={2048} height={1152} />
           <div className="guogang-map-landmarks">
             {GUOGANG_MAP_LOCATIONS.map((location) => <button key={location.id} type="button" data-landmark={location.id}
               className={`guogang-map-landmark${location.id === hoveredId ? " is-active" : ""}`}
@@ -86,7 +86,7 @@ export function GuogangInteractiveMap() {
               onPointerEnter={(event) => { if (event.pointerType !== "touch" && !isDragging) setHoveredId(location.id); }}
               onPointerLeave={() => setHoveredId(null)} onFocus={(event) => { if (event.currentTarget.matches(":focus-visible")) panToLocation(location.id); }}
               onClick={() => selectLocation(location.id)} aria-label={`查看${location.name}介紹`} aria-describedby={`map-label-${location.id}`} aria-controls="guogang-map-info" aria-expanded={location.id === selectedId}>
-              <img src={sitePath(`/images/guogang-map-2026/${location.id}.png`)} alt="" draggable={false} />
+              <img src={sitePath(`/images/guogang-map-2026/${location.id}.webp`)} alt="" draggable={false} loading="lazy" decoding="async" />
             </button>)}
           </div>
           <div className="guogang-map-labels">
@@ -102,7 +102,7 @@ export function GuogangInteractiveMap() {
         {activeLocation && details && placeCopy && <div className="guogang-map-place">
           <div className="guogang-map-place-copy" aria-live="polite" aria-atomic="true">
             <div className="guogang-map-place-heading">
-              <img src={sitePath(`/images/guogang-map-2026/${activeLocation.id}.png`)} alt="" width={108} height={104} />
+              <img src={sitePath(`/images/guogang-map-2026/${activeLocation.id}.webp`)} alt="" width={108} height={104} />
               <div><p className="eyebrow">地方筆記 / PLACE NOTE</p><h3>{activeLocation.name}</h3></div>
             </div>
             <div className="guogang-map-place-text">{placeCopy.paragraphs.map((lines, index) => <p key={index}>{lines.map((line) => <span className="map-copy-line" key={line}>{line}</span>)}</p>)}</div>

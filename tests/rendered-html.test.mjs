@@ -101,7 +101,7 @@ test("chapter order, supplied goods photos and interactive map match the current
   const goodsResponse = await render("/goods");
   const goodsHtml = await goodsResponse.text();
   assert.match(goodsHtml, /page-intro-index[^>]*>03</);
-  assert.match(goodsHtml, /過港好味\.jpg/);
+  assert.match(goodsHtml, /過港好味\.webp/);
   assert.doesNotMatch(goodsHtml, /catalog-index|product-gallery-count|product-gallery-dots|product-gallery-controls/);
   assert.doesNotMatch(goodsHtml, /商品完整照｜待提供|商品製作過程照｜待提供|商品料理或食用情境照｜待提供/);
   for (const image of ["double-bamboo-shoot-dumplings", "radish-cake", "iron-eggs", "white-fungus-drink", "stone-flower-jelly", "guogang-goods-collection"]) {
@@ -111,12 +111,12 @@ test("chapter order, supplied goods photos and interactive map match the current
   const guogangResponse = await render("/guogang");
   const guogangHtml = await guogangResponse.text();
   assert.match(guogangHtml, /page-intro-index[^>]*>01</);
-  assert.match(guogangHtml, /認識過港\.jpg/);
+  assert.match(guogangHtml, /認識過港\.webp/);
   assert.match(guogangHtml, /新的居民，在過港落腳/);
   assert.match(guogangHtml, /可探索的過港手繪生活地圖/);
   assert.match(guogangHtml, /guogang-map-2026\/background\.webp/);
-  assert.match(guogangHtml, /guogang-map-2026\/shengguang-church\.png/);
-  assert.match(guogangHtml, /guogang-map-2026\/nuanjiang-walkway\.png/);
+  assert.match(guogangHtml, /guogang-map-2026\/shengguang-church\.webp/);
+  assert.match(guogangHtml, /guogang-map-2026\/nuanjiang-walkway\.webp/);
   assert.match(guogangHtml, /小倆口福利社/);
   assert.match(guogangHtml, /過港社區發展協會/);
   for (const locationName of ["小倆口福利社", "美食坊早餐店", "舊警察宿舍", "暖江國小", "聖光堂", "黃蠟石文化館", "過港社區發展協會", "過港幼兒園", "過港郵局", "暖江步道", "暖江兒童公園", "北方大陸餅", "暖新住民會館", "過港福德宮"]) {
@@ -174,7 +174,7 @@ test("about page does not publish the supplied organization chart", async () => 
   const response = await render("/about");
   const html = await response.text();
   assert.match(html, /page-intro-index[^>]*>04</);
-  assert.match(html, /關於我們\.jpg/);
+  assert.match(html, /關於我們\.webp/);
   assert.doesNotMatch(html, /association-structure\.png|組織架構圖|會員大會/);
 });
 

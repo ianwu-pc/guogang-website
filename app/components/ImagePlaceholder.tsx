@@ -20,7 +20,7 @@ export function ImagePlaceholder({
   if (isImageSource) {
     return (
       <div className={`image-placeholder ratio-${ratio} has-image ${className}`.trim()}>
-        <img src={sitePath(label)} alt={alt ?? "過港影像"} />
+        <img src={sitePath(label)} alt={alt ?? "過港影像"} loading="lazy" decoding="async" />
       </div>
     );
   }

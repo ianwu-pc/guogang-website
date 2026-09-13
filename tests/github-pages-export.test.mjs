@@ -8,6 +8,19 @@ const projectRoot = path.resolve(import.meta.dirname, "..");
 const outputRoot = path.join(projectRoot, "github-pages-dist");
 const basePath = normalizeBasePath(process.env.PAGES_BASE_PATH ?? inferBasePath());
 
+test("hydration entry uses a consistent hashed URL and high priority", async () => {
+  for (const file of ["index.html", "guogang/index.html"]) {
+    const html = await read(file);
+    const entries = [...html.matchAll(/<(?:link|script)\b[^>]*(?:href|src)="([^"]*\/chunks\/index-[^"]+\.js[^\"]*)"[^>]*>/g)];
+    assert.ok(entries.length >= 2, "entry preload and execution must both exist");
+    assert.equal(new Set(entries.map((entry) => entry[1])).size, 1);
+    for (const entry of entries) {
+      assert.match(entry[1], /index-[A-Za-z0-9_-]+\.js$/);
+      assert.match(entry[0], /fetchpriority="high"/i);
+    }
+  }
+});
+
 const requiredFiles = [
   "index.html",
   "goods/index.html",
@@ -97,19 +110,19 @@ test("exported pages preserve revision content and interactions", async () => {
   assert.match(home, /02-2458-8802/);
   assert.match(goods, /guogang-goods-collection\.jpg/);
   assert.match(goods, /double-bamboo-shoot-dumplings\.jpg/);
-  assert.match(goods, /過港好味\.jpg/);
-  assert.match(guogang, /認識過港\.jpg/);
+  assert.match(goods, /過港好味\.webp/);
+  assert.match(guogang, /認識過港\.webp/);
   assert.match(guogang, /可探索的過港手繪生活地圖/);
   assert.match(guogang, /guogang-map-2026\/background\.webp/);
-  assert.match(guogang, /guogang-map-2026\/shengguang-church\.png/);
-  assert.match(guogang, /guogang-map-2026\/nuanjiang-walkway\.png/);
+  assert.match(guogang, /guogang-map-2026\/shengguang-church\.webp/);
+  assert.match(guogang, /guogang-map-2026\/nuanjiang-walkway\.webp/);
   assert.match(guogang, /小倆口福利社/);
   assert.match(guogang, /過港社區發展協會/);
   for (const locationName of ["小倆口福利社", "美食坊早餐店", "舊警察宿舍", "暖江國小", "聖光堂", "黃蠟石文化館", "過港社區發展協會", "過港幼兒園", "過港郵局", "暖江步道", "暖江兒童公園", "北方大陸餅", "暖新住民會館", "過港福德宮"]) {
     assert.match(guogang, new RegExp(locationName));
   }
   assert.doesNotMatch(guogang, /地點名單待確認/);
-  assert.match(people, /過港人物\.jpg/);
+  assert.match(people, /過港人物\.webp/);
   assert.match(people, /PEOPLE OF GUOGANG \/ 人與過港/);
   assert.match(people, /過港的樣子，[\s\S]*?藏在不同人的日常裡。/);
 
@@ -165,7 +178,7 @@ test("exported pages preserve revision content and interactions", async () => {
   for (const source of peopleSources) {
     assertPeopleSourceIntegrity(await read(`people/${source.slug}/index.html`), source);
   }
-  assert.match(about, /關於我們\.jpg/);
+  assert.match(about, /關於我們\.webp/);
   assert.doesNotMatch(`${home}${about}`, /association-structure\.png|組織架構圖|會員大會/);
 });
 
