@@ -42,6 +42,23 @@ test("all required public routes render", async () => {
   }
 });
 
+test("self-hosted serif Unicode ranges cover all published Chinese text", async () => {
+  const css = await readFile(new URL("../app/fonts.css", import.meta.url), "utf8");
+  const globals = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.match(globals, /@import "\.\/fonts\.css"/);
+  assert.doesNotMatch(css, /url\(https?:/);
+  const covered = new Set();
+  for (const range of css.matchAll(/U\+([0-9a-f]+)(?:-([0-9a-f]+))?/gi)) {
+    const start = parseInt(range[1], 16), end = parseInt(range[2] ?? range[1], 16);
+    for (let code = start; code <= end; code++) covered.add(code);
+  }
+  for (const route of routes) {
+    const html = await (await render(route)).text();
+    const missing = [...new Set(html.match(/[\u3000-\u303f\u3400-\u9fff]/gu) ?? [])].filter(character => !covered.has(character.codePointAt(0)));
+    assert.deepEqual(missing, [], `${route} must not need a system font for Chinese glyphs`);
+  }
+});
+
 test("homepage scroll story maps all four supplied photos in order", async () => {
   const source = await readFile(
     new URL("../app/components/HomeScrollStory.tsx", import.meta.url),
@@ -70,12 +87,14 @@ test("goods catalog contains every existing product story without detail-page na
     const story = detail.match(/<section class="article-body good-story-body">([\s\S]*?)<\/section>/)?.[1];
     assert.ok(story, `existing story ${number} is available`);
     for (const paragraph of story.matchAll(/<p>([\s\S]*?)<\/p>/g)) {
-      assert.ok(html.includes(`<p>${paragraph[1]}</p>`) || html.includes(`class="catalog-purchase">${paragraph[1]}</p>`), `story ${number} remains readable on the catalog`);
+      assert.ok(html.includes(paragraph[1]), `story and shared ordering information ${number} remain readable on the catalog`);
     }
     assert.match(html, new RegExp(`id="goods-${number}"`));
   }
   assert.doesNotMatch(html, /href="[^\"]*\/goods\/goods-\d+/);
   assert.doesNotMatch(html, /查看這份好味/);
+  assert.doesNotMatch(html, /catalog-purchase/);
+  assert.equal((html.match(/<p[^>]*>過港的產品以小量製作為主。/g) ?? []).length, 1, "small-batch information appears once in the shared section");
 });
 
 test("chapter order, supplied goods photos and interactive map match the current site", async () => {

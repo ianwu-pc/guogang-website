@@ -45,7 +45,6 @@ export default function GoodsPage() {
               <div className="catalog-story">
                 <p>{good.story}</p>
               </div>
-              <p className="catalog-purchase">{good.purchaseMethod}</p>
               <div className="card-actions">
                 <LineAction label="LINE 詢問" />
               </div>

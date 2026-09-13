@@ -1,4 +1,4 @@
-@font-face { font-family: "Guogang Serif"; src: url("/fonts/guogang-serif-mobile.woff2") format("woff2"); font-style: normal; font-weight: 100 900; font-display: swap; }
+@import "./fonts.css";
 /* All type sizes belong to semantic roles. No individual heading exceptions. */
 :root {
   --paper: #f5f4f2; --paper-deep: #f6f6f2; --ink: #282d29; --charcoal: #414640; --muted: #6a7069;
@@ -192,7 +192,6 @@ p { text-wrap: pretty; } p:last-child { margin-bottom: 0; }
 .catalog-copy h2 { font-size: var(--type-card); }
 .catalog-copy > p, .catalog-story { max-width: 34em; }
 .catalog-story { margin-top: 24px; }
-.catalog-purchase { padding-top: 24px; margin-top: 28px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
 .catalog-copy .card-actions { margin-top: 20px; }
 .product-gallery { min-width: 0; }
 .product-gallery-main { position: relative; }
