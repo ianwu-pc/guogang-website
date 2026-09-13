@@ -251,7 +251,7 @@ p { text-wrap: pretty; } p:last-child { margin-bottom: 0; }
 .people-article-figure img { width: 100%; height: auto; }
 .people-article-figure figcaption { margin-top: 16px; letter-spacing: .05em; }
 .people-article-content { max-width: 1160px; margin: auto; }
-.people-article-section { display: grid; grid-template-columns: 80px minmax(0, 680px); justify-content: center; gap: 0 64px; padding: 72px 0; border-bottom: 1px solid var(--line); }
+.people-article-section { display: grid; grid-template-columns: 80px minmax(0, 680px); justify-content: center; gap: 0 64px; padding: 72px 0; }
 .people-article-opening { padding-top: 0; }
 .people-article-section-marker { color: var(--muted); font-family: var(--sans); font-size: 12px; padding-top: 16px; }
 .people-article-section-copy { min-width: 0; grid-column: 2; }
