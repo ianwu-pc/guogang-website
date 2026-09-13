@@ -61,7 +61,7 @@ function StoryPhoto({ index, decorative = false }: { index: number; decorative?:
   const stage = STAGES[index];
   return <figure className={`narrative-image narrative-page-${index % 2 === 0 ? 'left' : 'right'}`}>
     <img src={sitePath(stage.image!)} srcSet={`${sitePath(stage.imageMobile!)} 1280w, ${sitePath(stage.image!)} 2560w`}
-      sizes="(max-width: 700px) 90vw, 52vw" style={{ objectPosition: stage.objectPosition }}
+      sizes="(max-width: 700px) 100vw, 50vw" style={{ objectPosition: stage.objectPosition }}
       alt={decorative ? "" : stage.imageLabel} loading="eager" fetchPriority={index === 0 && !decorative ? "high" : "low"} />
     <figcaption><span>{stage.number} / GUOGANG</span><span>{stage.imageLabel}</span></figcaption>
   </figure>;
