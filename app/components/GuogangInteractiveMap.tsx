@@ -111,16 +111,16 @@ export function GuogangInteractiveMap() {
             <p className="guogang-map-source">地點資料：<a href={details.source.href.startsWith("/") ? sitePath(details.source.href) : details.source.href} target={details.source.href.startsWith("/") ? undefined : "_blank"} rel="noopener noreferrer">{details.source.label}</a></p>
           </div>
           <div className="guogang-map-google">
-            {photo && <figure className="guogang-map-place-photo" key={photo.src}>
-              <img src={sitePath(photo.src)} alt={`${activeLocation.name}實景照片`} width={photo.width} height={photo.height} decoding="async" />
-              <figcaption>{activeLocation.name}</figcaption>
-            </figure>}
             <iframe key={activeLocation.id} title={`${activeLocation.name} Google 地圖${details.mapNote ? "（周邊位置）" : ""}`}
               src={`https://maps.google.com/maps?q=${encodeURIComponent(details.mapQuery)}&output=embed&hl=zh-TW&z=17`}
               loading="lazy" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
             <a className="text-link" href={googleMapUrl} target="_blank" rel="noopener noreferrer">在 Google 地圖中開啟 <span aria-hidden="true">↗</span></a>
             {details.mapNote && <p className="guogang-map-google-note">{details.mapNote}</p>}
           </div>
+            {photo && <figure className="guogang-map-place-photo" key={photo.src}>
+              <img src={sitePath(photo.src)} alt={`${activeLocation.name}實景照片`} width={photo.width} height={photo.height} decoding="async" />
+              <figcaption>{activeLocation.name}</figcaption>
+            </figure>}
         </div>}
       </aside>
     </section>
