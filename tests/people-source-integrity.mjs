@@ -7,6 +7,7 @@ import { readFile } from "node:fs/promises";
 export const peopleSources = JSON.parse(await readFile(
   new URL("./fixtures/people-source-integrity.json", import.meta.url), "utf8",
 ));
+const quoteStyles = JSON.parse(await readFile(new URL("./fixtures/people-quote-styles.json", import.meta.url), "utf8"));
 
 export function assertPeopleSourceIntegrity(html, source) {
   const title = html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)?.[1];
@@ -34,4 +35,6 @@ export function assertPeopleSourceIntegrity(html, source) {
   const titleText = decode(title.replace(/<span class="heading-line">/g, "\n")).replace(/^\n/, "");
   const renderedGroups = [titleText, ...[...article.matchAll(/<(p|blockquote|h2)\b[^>]*>([\s\S]*?)<\/\1>/g)].flatMap(match => decode(match[2]).split(/\n{2,}/))];
   assert.deepEqual(renderedGroups, expectedGroups, `${source.slug}: exact source paragraphs and manual line breaks`);
+  const emphasized = [...article.matchAll(/<blockquote\b[^>]*>([\s\S]*?)<\/blockquote>|<span class="people-inline-quote">([\s\S]*?)<\/span>/g)].map(match => decode(match[1] ?? match[2]));
+  assert.deepEqual(emphasized, quoteStyles.find(item => item.slug === source.slug).quotes, `${source.slug}: only source bold and italic quotations are emphasized`);
 }

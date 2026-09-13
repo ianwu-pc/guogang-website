@@ -23,7 +23,9 @@ function StoryBlocks({ blocks }: { blocks: StoryBlock[] }) {
   return blocks.map((block, index) => block.type === "quote" ? (
     <blockquote key={index}>{block.text}</blockquote>
   ) : (
-    <p key={index}>{block.text}</p>
+    <p key={index}>{block.emphasizedLines ? block.text.split("\n").map((line, lineIndex) => (
+      <span key={lineIndex}>{lineIndex > 0 ? "\n" : ""}{block.emphasizedLines!.includes(lineIndex) ? <span className="people-inline-quote">{line}</span> : line}</span>
+    )) : block.text}</p>
   ));
 }
 
