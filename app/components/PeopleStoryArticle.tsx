@@ -64,13 +64,11 @@ export function PeopleStoryArticle({ story, previous, next }: PeopleStoryArticle
         </div>
         {story.sections.map((section, sectionIndex) => (
           <section className="people-article-section" key={section.heading}>
-            <header className="people-article-section-heading">
-              <div className="people-article-section-marker" aria-hidden="true">
-                {String(sectionIndex + 1).padStart(2, "0")}
-              </div>
-              <h2>{section.heading}</h2>
-            </header>
+            <div className="people-article-section-marker" aria-hidden="true">
+              {String(sectionIndex + 1).padStart(2, "0")}
+            </div>
             <div className="people-article-section-copy">
+              <h2>{section.heading}</h2>
               <StoryBlocks blocks={section.blocks} />
             </div>
             {section.image ? <StoryFigure image={section.image} className="people-article-inline-image" /> : null}
