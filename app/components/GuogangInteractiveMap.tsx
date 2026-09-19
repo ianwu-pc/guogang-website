@@ -118,7 +118,7 @@ export function GuogangInteractiveMap() {
             {details.mapNote && <p className="guogang-map-google-note">{details.mapNote}</p>}
           </div>
             {photo && <figure className="guogang-map-place-photo" key={photo.src}>
-              <img src={sitePath(photo.src)} alt={`${activeLocation.name}實景照片`} width={photo.width} height={photo.height} decoding="async" />
+              <img src={sitePath(photo.src)} alt={`${activeLocation.name}實景照片`} width={photo.width} height={photo.height} style={{ objectFit: photo.width < photo.height ? "contain" : undefined }} decoding="async" />
               <figcaption>{activeLocation.name}</figcaption>
             </figure>}
         </div>}
