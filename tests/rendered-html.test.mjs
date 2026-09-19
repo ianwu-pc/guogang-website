@@ -181,7 +181,7 @@ test("about page does not publish the supplied organization chart", async () => 
   const response = await render("/about");
   const html = await response.text();
   assert.match(html, /page-intro-index[^>]*>04</);
-  assert.match(html, /關於我們\.webp/);
+  assert.match(html, /about-updated-20260920\/hero\.webp/);
   assert.doesNotMatch(html, /association-structure\.png|組織架構圖|會員大會/);
 });
 

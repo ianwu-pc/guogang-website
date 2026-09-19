@@ -206,7 +206,7 @@ test("exported pages preserve revision content and interactions", async () => {
   for (const source of peopleSources) {
     assertPeopleSourceIntegrity(await read(`people/${source.slug}/index.html`), source);
   }
-  assert.match(about, /關於我們\.webp/);
+  assert.match(about, /about-updated-20260920\/hero\.webp/);
   assert.doesNotMatch(`${home}${about}`, /association-structure\.png|組織架構圖|會員大會/);
 });
 
