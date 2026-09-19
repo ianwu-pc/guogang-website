@@ -106,7 +106,7 @@ test("chapter order, supplied goods photos and interactive map match the current
   assert.match(goodsHtml, /updated-20260919\/collection\.webp/);
   for (let index = 1; index <= 5; index++) {
     const id = String(index).padStart(2, "0");
-    assert.match(goodsHtml, new RegExp(`processed-20260920/${id}-cutout\\.webp`));
+    assert.match(goodsHtml, new RegExp(`processed-20260920/${id}-cutout${id === "04" ? "-rim" : ""}\\.webp`));
     assert.match(goodsHtml, new RegExp(`updated-20260919/${id}-photo\\.webp`));
   }
 

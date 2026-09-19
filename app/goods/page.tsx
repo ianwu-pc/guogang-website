@@ -31,7 +31,7 @@ export default function GoodsPage() {
       <section className="goods-catalog" style={{ "--goods-paper": `url("${sitePath("/images/textures/goods-paper.png")}")` } as CSSProperties}>
         {GOODS.map((good, index) => (
           <article className="catalog-item" id={good.slug} aria-labelledby={`${good.slug}-title`} key={good.id}>
-            <ProductGallery images={[`/images/goods/processed-20260920/${String(index + 1).padStart(2, "0")}-cutout.webp`, ...good.galleryImages]} name={good.name} ratio="landscape" tone={index % 2 ? "ochre" : "clay"} />
+            <ProductGallery images={[`/images/goods/processed-20260920/${String(index + 1).padStart(2, "0")}-cutout${index === 3 ? "-rim" : ""}.webp`, ...good.galleryImages]} name={good.name} ratio="landscape" tone={index % 2 ? "ochre" : "clay"} />
             <div className="catalog-copy">
               <p className="eyebrow">GUOGANG GOODS / {String(index + 1).padStart(2, "0")}</p>
               <h2 id={`${good.slug}-title`}>{good.name.split("｜").map((line, index) => <span className="heading-line" key={line}>{index > 0 && <span className="sr-only">｜</span>}{line}</span>)}</h2>
