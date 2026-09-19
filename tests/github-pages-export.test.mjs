@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
-import { access, readFile } from "node:fs/promises";
+import { access, readFile, readdir } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import test from "node:test";
 import { peopleSources, assertPeopleSourceIntegrity } from "./people-source-integrity.mjs";
@@ -7,6 +8,25 @@ import { peopleSources, assertPeopleSourceIntegrity } from "./people-source-inte
 const projectRoot = path.resolve(import.meta.dirname, "..");
 const outputRoot = path.join(projectRoot, "github-pages-dist");
 const basePath = normalizeBasePath(process.env.PAGES_BASE_PATH ?? inferBasePath());
+
+test("font URLs depend on font bytes rather than the application release", async () => {
+  const releases = path.join(outputRoot, "_next", "releases");
+  let checked = 0;
+  for (const release of await readdir(releases)) {
+    const assets = path.join(releases, release);
+    for (const file of await readdir(assets, { recursive: true })) {
+      if (!file.endsWith(".css")) continue;
+      const css = await readFile(path.join(assets, file), "utf8");
+      assert.doesNotMatch(css, /\/_next\/releases\/[^/]+\/fonts\//);
+      for (const match of css.matchAll(/\/fonts\/noto-serif-tc\/(\d{3})-([a-f0-9]{12})\.woff2/g)) {
+        const font = await readFile(path.join(outputRoot, "fonts", "noto-serif-tc", `${match[1]}-${match[2]}.woff2`));
+        assert.equal(createHash("sha256").update(font).digest("hex").slice(0, 12), match[2]);
+        checked++;
+      }
+    }
+  }
+  assert.ok(checked >= 108, "the entire segmented font family must use stable URLs");
+});
 
 test("hydration entry uses a consistent hashed URL and high priority", async () => {
   for (const file of ["index.html", "guogang/index.html"]) {

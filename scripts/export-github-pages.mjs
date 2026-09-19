@@ -114,6 +114,17 @@ await writeFile(
 // parameters on just the entry, this preserves matching URLs for module
 // registration/imports while avoiding stale responses for shared chunks.
 const release = createHash("sha256").update(await readFile(serverEntry)).digest("hex").slice(0, 12);
+// Fonts are independent of the JavaScript module graph. Keep their URLs stable
+// across content releases, but invalidate them when the font bytes change.
+const fontUrls = new Map();
+const fontDirectory = path.join(outputDirectory, "fonts", "noto-serif-tc");
+for (const name of (await readdir(fontDirectory)).filter((name) => name.endsWith(".woff2"))) {
+  const bytes = await readFile(path.join(fontDirectory, name));
+  const hash = createHash("sha256").update(bytes).digest("hex").slice(0, 12);
+  const versionedName = name.replace(".woff2", `-${hash}.woff2`);
+  await writeFile(path.join(fontDirectory, versionedName), bytes);
+  fontUrls.set(`/_next/static/fonts/noto-serif-tc/${name}`, `/fonts/noto-serif-tc/${versionedName}`);
+}
 await cp(path.join(outputDirectory, "_next", "static"), path.join(outputDirectory, "_next", "releases", release), { recursive: true });
 await rewriteReleasePaths(outputDirectory);
 async function rewriteReleasePaths(directory) {
@@ -122,7 +133,9 @@ async function rewriteReleasePaths(directory) {
     if (entry.isDirectory()) await rewriteReleasePaths(file);
     else if (/\.(html|js|css)$/.test(entry.name)) {
       const source = await readFile(file, "utf8");
-      const rewritten = source.replaceAll("/_next/static/", `/_next/releases/${release}/`);
+      let rewritten = source;
+      for (const [bundled, stable] of fontUrls) rewritten = rewritten.replaceAll(bundled, stable);
+      rewritten = rewritten.replaceAll("/_next/static/", `/_next/releases/${release}/`);
       if (rewritten !== source) await writeFile(file, rewritten, "utf8");
     }
   }
