@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import { ImagePlaceholder } from "../components/ImagePlaceholder";
 import { LineAction } from "../components/LineAction";
 import { PageIntro } from "../components/PageIntro";
@@ -35,7 +36,7 @@ export default function GoodsPage() {
         </div>
         <p>每一次能訂購的品項、價格與數量，會隨當期製作安排而不同；最新資訊會公布在 LINE。</p>
       </header>
-      <section className="goods-catalog">
+      <section className="goods-catalog" style={{ "--goods-paper": `url("${sitePath("/images/textures/goods-paper.png")}")` } as CSSProperties}>
         {GOODS.map((good, index) => (
           <article className="catalog-item" id={good.slug} aria-labelledby={`${good.slug}-title`} key={good.id}>
             <ProductGallery images={[good.coverImage, ...good.galleryImages]} name={good.name} ratio="landscape" tone={index % 2 ? "ochre" : "clay"} />

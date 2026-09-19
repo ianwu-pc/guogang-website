@@ -195,6 +195,8 @@ p { text-wrap: pretty; } p:last-child { margin-bottom: 0; }
 .catalog-copy .card-actions { margin-top: 20px; }
 .product-gallery { min-width: 0; }
 .product-gallery-main { position: relative; }
+.goods-catalog .product-gallery-main { background: #f5f4f2 var(--goods-paper) repeat; background-size: 546px 274px; isolation: isolate; }
+.goods-catalog .product-gallery .has-image img { mix-blend-mode: multiply; }
 .product-gallery .image-placeholder { border: 0; }
 .product-gallery .has-image { aspect-ratio: 4 / 3; }
 .product-gallery img { object-fit: contain; }
