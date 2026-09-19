@@ -133,7 +133,7 @@ test("exported pages preserve revision content and interactions", async () => {
   assert.match(goods, /updated-20260919\/collection\.webp/);
   for (let index = 1; index <= 5; index++) {
     const id = String(index).padStart(2, "0");
-    assert.match(goods, new RegExp(`updated-20260919/${id}-cutout\\.webp`));
+    assert.match(goods, new RegExp(`processed-20260920/${id}-cutout\\.webp`));
     assert.match(goods, new RegExp(`updated-20260919/${id}-photo\\.webp`));
   }
   assert.match(goods, /過港好味\.webp/);

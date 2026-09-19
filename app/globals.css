@@ -208,6 +208,9 @@ p { text-wrap: pretty; } p:last-child { margin-bottom: 0; }
 .product-image-cutout img { object-fit: contain; }
 .goods-makers { display: grid; grid-template-columns: 1fr 1.25fr; gap: 10%; align-items: center; }
 .goods-makers .image-placeholder { aspect-ratio: auto; }
+.goods-collection { width: min(calc(100% - var(--page-x) * 2), calc(var(--max) - var(--page-x) * 2)); margin-inline: auto; }
+.goods-order-details { align-self: end; }
+.goods-order-details .goods-order-note { margin-top: 24px; font-size: var(--text-small, 14px); line-height: 1.9; color: var(--muted); }
 .goods-small-batch { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: center; }
 .goods-small-batch > p:last-child { max-width: 38em; margin-inline: auto; }
 .goods-order { display: grid; grid-template-columns: 1.2fr 1fr; gap: 32px 10%; }
@@ -553,3 +556,6 @@ p { text-wrap: pretty; } p:last-child { margin-bottom: 0; }
 .image-placeholder.has-image img { aspect-ratio: inherit; height: auto; }
 .skip-link { top: -10000px; transform: none; }
 .skip-link:focus { top: 12px; }
+
+/* Uniform source canvases already include product and shadow breathing room. */
+.goods-catalog .product-gallery .product-image-cutout { padding: clamp(10px, 1.5vw, 24px); }

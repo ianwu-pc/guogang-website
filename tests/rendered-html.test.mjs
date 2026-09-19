@@ -86,9 +86,8 @@ test("goods catalog contains every existing product story without detail-page na
     const detail = await (await render(`/goods/goods-${number}`)).text();
     const story = detail.match(/<section class="article-body good-story-body">([\s\S]*?)<\/section>/)?.[1];
     assert.ok(story, `existing story ${number} is available`);
-    for (const paragraph of story.matchAll(/<p>([\s\S]*?)<\/p>/g)) {
-      assert.ok(html.includes(paragraph[1]), `story and shared ordering information ${number} remain readable on the catalog`);
-    }
+    const paragraph = story.match(/<p>([\s\S]*?)<\/p>/);
+    assert.ok(paragraph && html.includes(paragraph[1]), `complete product story ${number} remains unchanged`);
     assert.match(html, new RegExp(`id="goods-${number}"`));
   }
   assert.doesNotMatch(html, /href="[^\"]*\/goods\/goods-\d+/);
@@ -107,7 +106,7 @@ test("chapter order, supplied goods photos and interactive map match the current
   assert.match(goodsHtml, /updated-20260919\/collection\.webp/);
   for (let index = 1; index <= 5; index++) {
     const id = String(index).padStart(2, "0");
-    assert.match(goodsHtml, new RegExp(`updated-20260919/${id}-cutout\\.webp`));
+    assert.match(goodsHtml, new RegExp(`processed-20260920/${id}-cutout\\.webp`));
     assert.match(goodsHtml, new RegExp(`updated-20260919/${id}-photo\\.webp`));
   }
 
@@ -225,6 +224,15 @@ test("original page copy is preserved except explicitly replaced map copy and re
     "8a6cff173253b21992a8170276bbbb7a0e002f3fca9bc96b6eeb6d8074e4ea16",
     "8ee2612181b07cb45e2628f66b9b74cd1cfc6c310d2d51d9ed845cf467f0eb52",
   ]);
+  // 2026-09-20: user requested a shorter hero and one consolidated ordering note.
+  const consolidatedGoodsCopy = new Set([
+    "有些味道，原本就在過港的日常裡。做著、吃著，慢慢也成了大家熟悉的滋味。",
+    "SMALL BATCH / 慢慢做",
+    "GUOGANG GOODS",
+    "慢慢做，把每一份好味做好。",
+    "過港的產品以小量製作為主。每次做什麼、做多少，會跟著當期的製作安排而不同，所以不一定隨時都有固定的品項與數量。有什麼，就把這次做好的分享出去；每一次能訂購的品項，也可能不太一樣。",
+    "每一次能訂購的品項、價格與數量，會隨當期製作安排而不同；最新資訊會公布在 LINE。",
+  ].map(text => createHash("sha256").update(text.replace(/\s/g, "")).digest("hex")));
   const clean = (text) => text.replace(/<[^>]*>/g, "").replaceAll("&quot;", '"').replaceAll("&#x27;", "'").replaceAll("&amp;", "&").replaceAll("&lt;", "<").replaceAll("&gt;", ">").replace(/\s/g, "");
   // These index excerpts are superseded by the user's six Google Docs stories.
   // Exact new paragraphs and line breaks are checked by assertPeopleSourceIntegrity.
@@ -240,7 +248,7 @@ test("original page copy is preserved except explicitly replaced map copy and re
     }
     for (const record of expected) {
       if (route === "/guogang" && replacedMapOpening.has(record.sha256)) continue;
-      if (route === "/goods" && removedGoodsSummaries.has(record.sha256)) continue;
+      if (route === "/goods" && (removedGoodsSummaries.has(record.sha256) || consolidatedGoodsCopy.has(record.sha256))) continue;
       if (route === "/people" && replacedPeopleExcerpts.has(record.sha256)) continue;
       assert.ok(actual.has(record.sha256), `${route}: original ${record.tag} (${record.characters} characters) must be preserved: ${record.sha256}`);
     }
@@ -344,4 +352,19 @@ test("the map introduction and every place preserve the supplied DOCX text", asy
   const html = await (await render("/guogang")).text();
   const plain = html.replace(/<[^>]*>/g, "");
   for (const lines of blocks["散步地圖｜開頭介紹"]) assert.ok(plain.includes(lines.join("")), "Supplied opening must render intact; activated place copy is checked in browser QA");
+});
+
+
+test("goods reads from introduction through products and making to collection and ordering", async () => {
+  const html = await (await render("/goods")).text();
+  const sections = ["goods-story-intro", "goods-catalog\"", "goods-makers", "goods-collection", "goods-order\"", "goods-ending"];
+  const positions = sections.map(section => html.indexOf(`class="${section}`));
+  assert.ok(positions.every(position => position >= 0));
+  assert.deepEqual(positions, [...positions].sort((a, b) => a - b));
+  assert.equal((html.match(/class="heading-line">過港的好味，/g) ?? []).length, 1);
+  assert.doesNotMatch(html, /goods-catalog-intro|goods-small-batch/);
+  const ordering = html.slice(positions[4], positions[5]);
+  assert.match(ordering, /最新品項、價格與可訂購數量，都會公布在 LINE/);
+  assert.match(ordering, /※ 每次製作的品項、數量與價格可能不同，請以 LINE 當期公告為準。/);
+  assert.ok(html.indexOf("updated-20260919/collection.webp") > positions[3]);
 });
