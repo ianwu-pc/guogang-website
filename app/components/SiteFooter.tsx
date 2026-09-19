@@ -14,7 +14,7 @@ export function SiteFooter() {
       <div className="footer-grid">
         <div>
           <a className="footer-wordmark footer-wordmark-logo" href={sitePath("/")} aria-label="過港首頁">
-            {SITE_CONFIG.logoImage ? <img src={sitePath(SITE_CONFIG.logoImage)} alt="過港社區發展協會" /> : "過港"}
+            {SITE_CONFIG.logoImage ? <img loading="lazy" decoding="async" src={sitePath(SITE_CONFIG.logoImage)} alt="過港社區發展協會" /> : "過港"}
           </a>
           <p>{SITE_CONFIG.associationName}</p>
         </div>

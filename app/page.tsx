@@ -23,7 +23,7 @@ export default function Home() {
         <article className="home-guide home-guide-place">
           <div className="home-guide-number">01</div>
           <ImagePlaceholder
-            label="/images/guogang-history-1949.png"
+            label="/images/guogang-history-1949.webp"
             alt="過港早期聚落歷史照片"
             ratio="wide"
             tone="paper"

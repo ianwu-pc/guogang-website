@@ -18,7 +18,7 @@ test("font URLs depend on font bytes rather than the application release", async
       if (!file.endsWith(".css")) continue;
       const css = await readFile(path.join(assets, file), "utf8");
       assert.doesNotMatch(css, /\/_next\/releases\/[^/]+\/fonts\//);
-      for (const match of css.matchAll(/\/fonts\/noto-serif-tc\/(\d{3})-([a-f0-9]{12})\.woff2/g)) {
+      for (const match of css.matchAll(/\/fonts\/noto-serif-tc\/(\d{3}(?:-site|-home)?)-([a-f0-9]{12})\.woff2/g)) {
         const font = await readFile(path.join(outputRoot, "fonts", "noto-serif-tc", `${match[1]}-${match[2]}.woff2`));
         assert.equal(createHash("sha256").update(font).digest("hex").slice(0, 12), match[2]);
         checked++;
@@ -283,3 +283,12 @@ function toArtifactAssetPath(reference) {
 
   return null;
 }
+
+
+test("homepage serif subsets stay within a 200 KB cold-load budget", async () => {
+  const fonts = path.join(outputRoot, "fonts", "noto-serif-tc");
+  const names = (await readdir(fonts)).filter(name => /^\d{3}-home\.woff2$/.test(name));
+  assert.ok(names.length > 0);
+  const sizes = await Promise.all(names.map(async name => (await readFile(path.join(fonts, name))).length));
+  assert.ok(sizes.reduce((a, b) => a + b, 0) < 200_000, "preserve the optimized homepage font budget");
+});

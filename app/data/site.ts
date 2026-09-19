@@ -99,7 +99,7 @@ export const GUOGANG_TIMELINE = [
     titleLines: ["新的居民，在過港落腳"],
     description:
       "戰後，大批軍人來到過港暫時居住，後來部分軍人轉任公職並在此定居。警察、教師、自來水與地方政府等公家單位宿舍陸續出現，也讓過港逐漸形成新的聚落生活。",
-    image: "/images/guogang-history-1949.png",
+    image: "/images/guogang-history-1949.webp",
     imageAlt: "民國三十八年後過港聚落相關歷史照片",
   },
   {
