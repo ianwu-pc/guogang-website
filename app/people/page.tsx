@@ -159,13 +159,13 @@ export default function PeoplePage() {
 
         <div className="people-open-collage" aria-label="人物誌開場剪影">
           <figure className={`people-open-collage-image people-open-collage-image--wide`}>
-            <img src={sitePath("/images/people/community-kitchen-mother/li-shui-jin-kitchen.jpg")} alt="早餐與社區裡的生活景象" loading="eager" />
+            <img src={sitePath("/images/people-updated-20260920/index-49.webp")} alt="過港生活影像 49" loading="lazy" />
           </figure>
           <figure className={`people-open-collage-image people-open-collage-image--small people-open-collage-image--portrait`}>
-            <img src={sitePath("/images/people/community-kitchen-mother/li-shui-jin-learning.jpg")} alt="社區料理準備與學習片段" loading="eager" />
+            <img src={sitePath("/images/people-updated-20260920/index-58.webp")} alt="過港生活影像 58" loading="lazy" />
           </figure>
           <figure className={`people-open-collage-image people-open-collage-image--small`}>
-            <img src={sitePath("/images/people/couple-story-one/qingshuang-axiao-community.jpg")} alt="清爽與阿笑參與社區活動" loading="eager" />
+            <img src={sitePath("/images/people-updated-20260920/index-105.webp")} alt="過港生活影像 105" loading="lazy" />
           </figure>
         </div>
 
@@ -187,7 +187,7 @@ export default function PeoplePage() {
               <div className={`people-story-visual people-story-visual--${entry.visual.ratio} people-story-visual--${entry.visual.type}${entry.visual.treatment ? ` people-story-visual--${entry.visual.treatment}` : ""}`}>
                 {entry.visual.type === "image" ? (
                   <figure>
-                    <img src={sitePath(entry.visual.src || "")} alt={entry.visual.alt || `${entry.name}相關人物照片`} />
+                    <img src={sitePath(PEOPLE_STORY_PHOTOS[entry.slug].hero.src)} alt={PEOPLE_STORY_PHOTOS[entry.slug].hero.alt} />
                   </figure>
                 ) : (
                   <div className="people-story-editorial-portrait">

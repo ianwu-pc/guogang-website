@@ -13,7 +13,7 @@ type PeopleStoryArticleProps = {
 function StoryFigure({ image, className = "" }: { image: StoryImage; className?: string }) {
   return (
     <figure className={`people-article-figure ${className}`.trim()}>
-      <img src={sitePath(image.src)} alt={image.alt} />
+      <img src={sitePath(image.src)} alt={image.alt} loading={className.includes("hero") ? "eager" : "lazy"} decoding="async" />
       {image.caption ? <figcaption>{image.caption}</figcaption> : null}
     </figure>
   );
@@ -71,7 +71,6 @@ export function PeopleStoryArticle({ story, previous, next }: PeopleStoryArticle
               <h2>{section.heading}</h2>
               <StoryBlocks blocks={section.blocks} />
             </div>
-            {section.image ? <StoryFigure image={section.image} className="people-article-inline-image" /> : null}
           </section>
         ))}
         <footer className="people-article-ending">

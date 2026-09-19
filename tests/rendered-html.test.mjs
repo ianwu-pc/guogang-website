@@ -156,6 +156,11 @@ test("finalized people stories render complete editorial pages from shared data"
     const html = await response.text();
     assertPeopleSourceIntegrity(html, source);
     assert.match(html, /people-article-page/);
+    assert.doesNotMatch(html, /people-article-inline-image/);
+    const galleryStart = html.indexOf('class="people-article-gallery"');
+    assert.ok(galleryStart > html.indexOf('class="people-article-ending"'), "gallery follows the complete story");
+    const bodyBeforeGallery = html.slice(html.indexOf('<article class="people-article-content">'), galleryStart);
+    assert.doesNotMatch(bodyBeforeGallery, /<img\b/, "no photos interrupt the article");
     assert.match(html, /← 上一篇人物/);
     assert.match(html, /返回全部人物/);
     assert.match(html, /下一篇人物 →/);
@@ -167,10 +172,10 @@ test("shared Drive people photos are connected to all six finalized articles", a
   for (const slug of ["bottle-cap-grandma", "breakfast-shop-owner", "community-kitchen-mother", "community-volunteer", "couple-story-one", "couple-story-two"]) {
     assert.match(photos, new RegExp(`"${slug}"`));
   }
-  assert.match(photos, /people-drive\/lin\/lin-dscf5586\.webp/);
-  assert.match(photos, /people-drive\/breakfast\/breakfast-dscf5920\.webp/);
-  assert.match(photos, /people-drive\/li\/li-48\.webp/);
-  assert.match(photos, /people-drive\/meihua\/meihua-29\.webp/);
+  assert.match(photos, /people-updated-20260920\/lin-hero\.webp/);
+  assert.match(photos, /people-updated-20260920\/breakfast-hero\.webp/);
+  assert.match(photos, /people-updated-20260920\/kitchen-hero\.webp/);
+  assert.match(photos, /people-updated-20260920\/meihua-hero\.webp/);
 });
 
 test("about page does not publish the supplied organization chart", async () => {

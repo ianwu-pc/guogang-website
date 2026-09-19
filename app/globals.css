@@ -113,7 +113,7 @@ p { text-wrap: pretty; } p:last-child { margin-bottom: 0; }
 .page-intro-cue { grid-column: 2; width: 44px; height: 44px; font-size: 22px; margin-top: 16px; }
 .timeline-page .page-intro-image { grid-column: 7 / -1; }
 .timeline-page .page-intro-image img { aspect-ratio: 1; object-position: 40% center; }
-.people-page .page-intro-image img { object-position: 68% center; }
+.people-page .page-intro-image img { aspect-ratio: auto; height: auto; object-fit: contain; }
 .goods-page .page-intro-image img { aspect-ratio: 1; object-position: 68% center; }
 .about-page .page-intro-image img { aspect-ratio: 1; }
 .image-placeholder { width: 100%; min-width: 0; position: relative; background: var(--paper-deep); display: grid; align-content: center; justify-items: center; padding: 32px; }

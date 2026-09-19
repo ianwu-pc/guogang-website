@@ -148,7 +148,7 @@ test("exported pages preserve revision content and interactions", async () => {
     assert.match(guogang, new RegExp(locationName));
   }
   assert.doesNotMatch(guogang, /地點名單待確認/);
-  assert.match(people, /過港人物\.webp/);
+  assert.match(people, /people-updated-20260920\/index-hero\.webp/);
   assert.match(people, /PEOPLE OF GUOGANG \/ 人與過港/);
   assert.match(people, /過港的樣子，[\s\S]*?藏在不同人的日常裡。/);
 
@@ -184,7 +184,7 @@ test("exported pages preserve revision content and interactions", async () => {
   assert.ok(breakfastCard, "exported Huang Shu-hui entry should exist");
   assert.match(breakfastCard, /href="[^"]*\/people\/breakfast-shop-owner/);
   assert.match(breakfastCard, /people-story-editorial-cover/);
-  assert.match(breakfastCard, /breakfast-dscf5920\.webp/);
+  assert.match(breakfastCard, /breakfast-hero\.webp/);
 
   const bottleCapStory = await read("people/bottle-cap-grandma/index.html");
   const breakfastStory = await read("people/breakfast-shop-owner/index.html");
@@ -197,8 +197,8 @@ test("exported pages preserve revision content and interactions", async () => {
   assert.match(bottleCapStory, /時間留下來的形狀/);
   assert.doesNotMatch(bottleCapArticle, /來源未提供|IMAGE|待提供/);
   assert.match(breakfastStory, /早晨裡的人慢慢熟了。/);
-  assert.match(kitchenStory, /people-drive\/li\/li-48\.webp/);
-  assert.match(coupleStory, /people-drive\/qing\/qing-dscf5762\.webp/);
+  assert.match(kitchenStory, /people-updated-20260920\/kitchen-hero\.webp/);
+  assert.match(coupleStory, /people-updated-20260920\/qing-hero\.webp/);
   assert.match(meiHuaStory, /丁梅花/);
   assert.match(meiHuaStory, /去看看，最近好不好。/);
   for (const source of peopleSources) {
