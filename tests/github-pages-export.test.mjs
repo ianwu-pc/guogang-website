@@ -131,7 +131,11 @@ test("exported pages preserve revision content and interactions", async () => {
   assert.doesNotMatch(home, /往下看看/);
   assert.match(home, /02-2458-8802/);
   assert.match(goods, /guogang-goods-collection\.jpg/);
-  assert.match(goods, /double-bamboo-shoot-dumplings\.jpg/);
+  for (let index = 1; index <= 5; index++) {
+    const id = String(index).padStart(2, "0");
+    assert.match(goods, new RegExp(`updated-20260919/${id}-cutout\\.webp`));
+    assert.match(goods, new RegExp(`updated-20260919/${id}-photo\\.webp`));
+  }
   assert.match(goods, /過港好味\.webp/);
   assert.match(guogang, /認識過港\.webp/);
   assert.match(guogang, /可探索的過港手繪生活地圖/);

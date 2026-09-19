@@ -188,8 +188,8 @@ export const GOODS: Good[] = [
     maker: "過港社區小量製作",
     story: "蘿蔔糕做成原味和港式兩種。原味簡單，吃得到米香和蘿蔔味；港式則加入豬肉、香菇和蝦米，多了一點香氣和口感。切片煎香後，外層微焦、裡面還是柔軟，是很熟悉的一餐。",
     purchaseMethod: "過港的產品以小量製作為主。每次做什麼、做多少，會跟著當期的製作安排而不同，所以不一定隨時都有固定的品項與數量。",
-    coverImage: "/images/goods/radish-cake.jpg",
-    galleryImages: ["/images/goods/goods-01-photo.jpg", "/images/goods/goods-01-cutout.png"],
+    coverImage: "/images/goods/updated-20260919/01-cutout.webp",
+    galleryImages: ["/images/goods/updated-20260919/01-photo.webp"],
   },
   {
     id: "good-02",
@@ -200,8 +200,8 @@ export const GOODS: Good[] = [
     maker: "過港社區小量製作",
     story: "一顆顆反覆滷煮，讓滷汁慢慢收進蛋裡，也讓口感變得更加扎實有嚼勁。入口先是濃郁的滷香，越嚼越能吃到蛋本身的香氣。份量小巧，單吃就是方便的小點，搭配白飯、粥品或其他料理也很合適。",
     purchaseMethod: "過港的產品以小量製作為主。每次做什麼、做多少，會跟著當期的製作安排而不同，所以不一定隨時都有固定的品項與數量。",
-    coverImage: "/images/goods/iron-eggs.jpg",
-    galleryImages: [],
+    coverImage: "/images/goods/updated-20260919/02-cutout.webp",
+    galleryImages: ["/images/goods/updated-20260919/02-photo.webp"],
   },
   {
     id: "good-03",
@@ -212,8 +212,8 @@ export const GOODS: Good[] = [
     maker: "過港社區小量製作",
     story: "高麗菜和韭菜兩種餡料拌在一起，才有了「雙匯」這個名字。高麗菜帶著清甜，韭菜則多一點香氣，兩種味道包進同一顆水餃裡。煮熟後外皮柔軟、內餡飽滿，不需要太多調味，就能吃到兩種蔬菜混在一起的味道。",
     purchaseMethod: "過港的產品以小量製作為主。每次做什麼、做多少，會跟著當期的製作安排而不同，所以不一定隨時都有固定的品項與數量。",
-    coverImage: "/images/goods/double-bamboo-shoot-dumplings.jpg",
-    galleryImages: [],
+    coverImage: "/images/goods/updated-20260919/03-cutout.webp",
+    galleryImages: ["/images/goods/updated-20260919/03-photo.webp"],
   },
   {
     id: "good-04",
@@ -224,8 +224,8 @@ export const GOODS: Good[] = [
     maker: "過港社區小量製作",
     story: "將銀耳慢慢熬煮，直到質地柔軟、湯汁帶有自然的滑順口感。入口清爽，不會過於厚重，冰過之後更適合慢慢喝。無論是飯後、午後，或忙完一天想喝點清涼的時候，都是一瓶簡單舒服的日常飲品。",
     purchaseMethod: "過港的產品以小量製作為主。每次做什麼、做多少，會跟著當期的製作安排而不同，所以不一定隨時都有固定的品項與數量。",
-    coverImage: "/images/goods/white-fungus-drink.jpg",
-    galleryImages: [],
+    coverImage: "/images/goods/updated-20260919/04-cutout.webp",
+    galleryImages: ["/images/goods/updated-20260919/04-photo.webp"],
   },
   {
     id: "good-05",
@@ -236,8 +236,8 @@ export const GOODS: Good[] = [
     maker: "過港社區小量製作",
     story: "將石花熬煮後凝成滑嫩清透的石花凍，冰過之後吃起來更加清爽。共有黑糖與百香果兩種口味，黑糖溫潤帶甜，百香果則多了一點酸香。飯後來一份，或天氣熱的時候冰冰地吃，都很適合。",
     purchaseMethod: "過港的產品以小量製作為主。每次做什麼、做多少，會跟著當期的製作安排而不同，所以不一定隨時都有固定的品項與數量。",
-    coverImage: "/images/goods/stone-flower-jelly.jpg",
-    galleryImages: [],
+    coverImage: "/images/goods/updated-20260919/05-cutout.webp",
+    galleryImages: ["/images/goods/updated-20260919/05-photo.webp"],
   },
 ];
 
