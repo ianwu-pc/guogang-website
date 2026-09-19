@@ -52,7 +52,7 @@ export default function GoodsPage() {
           <h2><span className="heading-line">味道的背後，</span><span className="heading-line">是一雙雙熟悉的手。</span></h2>
           <p>這些產品，就在過港一次次的製作裡慢慢完成。做久了，也成了大家熟悉的味道。</p>
         </div>
-        <ImagePlaceholder label="/images/people-drive/li/li-48.webp" alt="社區媽媽一起準備料理" ratio="landscape" tone="paper" />
+        <ImagePlaceholder label="/images/goods/processed-20260920/makers.webp" alt="社區製作水餃時，雙手包餡的近景" ratio="landscape" tone="paper" />
       </section>
 
       <section className="goods-collection" aria-label="過港好味五款商品合照">
