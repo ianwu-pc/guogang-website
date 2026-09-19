@@ -93,7 +93,7 @@ const requiredFiles = [
   "images/goods/iron-eggs.jpg",
   "images/goods/white-fungus-drink.jpg",
   "images/goods/stone-flower-jelly.jpg",
-  "images/goods/guogang-goods-collection.jpg",
+  "images/goods/updated-20260919/collection.webp",
   "images/people/community-kitchen-mother/li-shui-jin-kitchen.jpg",
   "images/people/community-kitchen-mother/li-shui-jin-community.jpg",
   "images/people/community-kitchen-mother/li-shui-jin-learning.jpg",
@@ -130,7 +130,7 @@ test("exported pages preserve revision content and interactions", async () => {
   assert.match(home, /首頁敘事章節/);
   assert.doesNotMatch(home, /往下看看/);
   assert.match(home, /02-2458-8802/);
-  assert.match(goods, /guogang-goods-collection\.jpg/);
+  assert.match(goods, /updated-20260919\/collection\.webp/);
   for (let index = 1; index <= 5; index++) {
     const id = String(index).padStart(2, "0");
     assert.match(goods, new RegExp(`updated-20260919/${id}-cutout\\.webp`));

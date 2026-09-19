@@ -104,7 +104,7 @@ test("chapter order, supplied goods photos and interactive map match the current
   assert.match(goodsHtml, /過港好味\.webp/);
   assert.doesNotMatch(goodsHtml, /catalog-index|product-gallery-count|product-gallery-dots|product-gallery-controls/);
   assert.doesNotMatch(goodsHtml, /商品完整照｜待提供|商品製作過程照｜待提供|商品料理或食用情境照｜待提供/);
-  assert.match(goodsHtml, /guogang-goods-collection\.jpg/);
+  assert.match(goodsHtml, /updated-20260919\/collection\.webp/);
   for (let index = 1; index <= 5; index++) {
     const id = String(index).padStart(2, "0");
     assert.match(goodsHtml, new RegExp(`updated-20260919/${id}-cutout\\.webp`));

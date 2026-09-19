@@ -26,7 +26,7 @@ export default function GoodsPage() {
           <p>這些味道，原本就在過港的日常裡。有人備料、有人下鍋，從一次次共餐、活動和製作裡，慢慢成了現在會一起做、一起分享的東西。</p>
           <p>沒有太多花樣，就是把熟悉的味道好好做好。</p>
         </div>
-        <ImagePlaceholder label="/images/goods/guogang-goods-collection.jpg" alt="過港好味五款商品合照" ratio="wide" tone="green" />
+        <ImagePlaceholder label="/images/goods/updated-20260919/collection.webp" alt="過港好味五款商品合照" ratio="wide" tone="green" />
       </section>
 
       <header className="goods-catalog-intro">
