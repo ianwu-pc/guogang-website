@@ -216,20 +216,18 @@ export default function PeoplePage() {
       </section>
 
       <section className="people-ending">
-        <p className="eyebrow">SIX WAYS OF LIVING WITH PLACE</p>
+        <p className="eyebrow">ABOUT THE STORIES</p>
         <h2>
-          <HeadingLines lines={["六個故事，", "六種與過港產生關係的方式。"]} />
+          <HeadingLines lines={["六篇人物故事，", "來自十八天的", "訪談與相處。"]} />
         </h2>
         <div className="people-ending-copy">
-          <p>有人住在這裡，</p>
-          <p>有人每天來到這裡，</p>
-          <p>有人因為工作、家人，</p>
-          <p>或一次次的往來，</p>
-          <p>慢慢和這個地方熟了起來。</p>
-          <p>和一個地方產生關係，</p>
-          <p>從來不只有一種方式。</p>
-          <p>而這些不同的生活，</p>
-          <p>一起成了今天的過港。</p>
+          <p>我們是參與「蹲點・台灣」的學生團隊。</p>
+          <p>在過港的十八天裡，我們參與社區活動、跟著居民走訪，也一次次坐下來，聽他們說起自己的生活。</p>
+          <p>這六篇故事，就是從這些訪談與相處裡慢慢整理出來的。</p>
+          <div className="people-ending-credits">
+            <p>採訪、文字與製作｜XXX、XXX</p>
+            <p>參與計畫｜蹲點・台灣</p>
+          </div>
         </div>
       <div className="people-ending-links">
           <a href={sitePath("/guogang")}>認識過港</a>

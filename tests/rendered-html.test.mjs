@@ -236,6 +236,20 @@ test("original page copy is preserved except explicitly replaced map copy and re
   const clean = (text) => text.replace(/<[^>]*>/g, "").replaceAll("&quot;", '"').replaceAll("&#x27;", "'").replaceAll("&amp;", "&").replaceAll("&lt;", "<").replaceAll("&gt;", ">").replace(/\s/g, "");
   // These index excerpts are superseded by the user's six Google Docs stories.
   // Exact new paragraphs and line breaks are checked by assertPeopleSourceIntegrity.
+  // 2026-09-20: replace only the final People index block with author credits.
+  const replacedPeopleEnding = new Set([
+    "51ecad67e4e22b234c4bdf9917571d145b1cf9bd83fbc2b76dbf966870555905",
+    "0640097a2aeeee09b6368a91275adf01f213c3e655f99d4e12dff990d062f675",
+    "6e8eaff845f59dc35315b443ce51119e624a2debb7da5513be6a5d17ba2cbe2e",
+    "21e99724082ecdcb0a9e56123f436a1556ff9a5a4d84cdaea023507a05e28e01",
+    "551acc38e27f0332b454c010ed1de412930dd0503b0c587dcd683e25675b4ed1",
+    "57b66617f3b05f1544796a08ee4f4a00bbb0a9f5e37231d378911ee3ad8b3aa1",
+    "1b8918a9221ffb01831cb5ed831deb66a52084cf025bf3a5b008bee15f8a788a",
+    "c42a1955161f42cb8d3c3e70cd39f83e08422733c551522e6d523662015d71b6",
+    "11120f5f616516468aca22fb6941b97d78b9f28af9564ddcad0aac23cef33309",
+    "48f128f7720b1ceae7c32c98b359b47d2bb9533e776fb148865757bf5fb626b2",
+    "c4bce28fa6aa9c66e86e89fdc6f10cc9285b5ca53e2d3b22a3afa8acc4370fd1",
+  ]);
   const replacedPeopleExcerpts = new Set(JSON.parse(await readFile(new URL("./fixtures/people-replaced-excerpts.json", import.meta.url), "utf8")));
   for (const [route, expected] of Object.entries(baseline)) {
     // The six replacement articles have their own exact-source integrity checks.
@@ -249,7 +263,7 @@ test("original page copy is preserved except explicitly replaced map copy and re
     for (const record of expected) {
       if (route === "/guogang" && replacedMapOpening.has(record.sha256)) continue;
       if (route === "/goods" && (removedGoodsSummaries.has(record.sha256) || consolidatedGoodsCopy.has(record.sha256))) continue;
-      if (route === "/people" && replacedPeopleExcerpts.has(record.sha256)) continue;
+      if (route === "/people" && (replacedPeopleExcerpts.has(record.sha256) || replacedPeopleEnding.has(record.sha256))) continue;
       assert.ok(actual.has(record.sha256), `${route}: original ${record.tag} (${record.characters} characters) must be preserved: ${record.sha256}`);
     }
   }
