@@ -64,6 +64,9 @@ const workerUrl = pathToFileURL(serverEntry);
 workerUrl.searchParams.set("github-pages-export", `${Date.now()}`);
 const worker = (await import(workerUrl.href)).default;
 
+const pageFonts = JSON.parse(await readFile(path.join(projectRoot, "scripts", "page-fonts.json"), "utf8"));
+const imageSizes = JSON.parse(await readFile(path.join(projectRoot, "scripts", "image-sizes.json"), "utf8"));
+
 for (const route of routes) {
   const requestPath = toRequestPath(route);
   const response = await worker.fetch(
@@ -85,6 +88,25 @@ for (const route of routes) {
 
   let html = await response.text();
   html = rewriteMetadataUrls(html);
+  // One complete, route-specific font replaces dozens of overlapping network requests.
+  const font = pageFonts[route];
+  if (!font) throw new Error(`Missing page font for ${route}`);
+  const fontBytes = await readFile(path.join(projectRoot, "public", "fonts", "pages", font.file));
+  if (createHash("sha256").update(fontBytes).digest("hex") !== font.sha256) throw new Error(`Stale font manifest: ${route}`);
+  const fontName = font.file.replace(".woff2", `-${font.sha256.slice(0, 12)}.woff2`);
+  await mkdir(path.join(outputDirectory, "fonts", "pages"), { recursive: true });
+  await writeFile(path.join(outputDirectory, "fonts", "pages", fontName), fontBytes);
+  const fontUrl = `${basePath}/fonts/pages/${fontName}`;
+  html = html.replace("</head>", `<link rel="preload" href="${fontUrl}" as="font" type="font/woff2" crossorigin="anonymous"><style id="page-font">@font-face{font-family:"Guogang Page Serif";font-style:normal;font-weight:200 900;font-display:swap;src:url("${fontUrl}") format("woff2")} :root{--serif:"Guogang Page Serif","Guogang Serif","Noto Serif TC","PMingLiU",serif}</style></head>`);
+  // Reserve the intrinsic layout before downloads finish; lazy images cannot collapse upward.
+  html = html.replace(/<img\b[^>]*>/g, tag => {
+    if (/\bwidth=/.test(tag) && /\bheight=/.test(tag)) return tag;
+    const src = tag.match(/\bsrc="([^"]+)"/)?.[1];
+    const key = src && decodeURIComponent(src).replace(basePath, "");
+    const size = imageSizes[key];
+    if (!size) return tag;
+    return tag.replace(/\s*\/?\>$/, `${/\bwidth=/.test(tag) ? "" : ` width="${size[0]}"`}${/\bheight=/.test(tag) ? "" : ` height="${size[1]}"`}>`);
+  });
   // Prioritize hydration over below-the-fold media. Keep the build's hashed
   // URL unchanged: Rolldown uses that exact module identity during startup.
   html = html.replace(/<(?:link|script)\b[^>]*(?:href|src)="[^"?]*\/chunks\/index-[^"?]+\.js"[^>]*>/g, (tag) =>

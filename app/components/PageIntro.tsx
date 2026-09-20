@@ -1,11 +1,11 @@
 import { sitePath } from "../utils/sitePath";
 
 type PageIntroProps = { index: string; title: string; description: string; vertical?: string; hideIndex?: boolean };
-const VISUALS: Record<string, { index: string; image: string; alt: string }> = {
-  認識過港: { index: "01", image: "認識過港.webp", alt: "過港河岸的地景" },
-  人與過港: { index: "02", image: "people-updated-20260920/index-hero.webp", alt: "生活在過港的人們" },
-  過港好味: { index: "03", image: "goods/processed-20260920/hero-updated.webp", alt: "過港社區大鍋滷製中的雞蛋" },
-  關於我們: { index: "04", image: "about-updated-20260920/hero.webp", alt: "過港社區的建築入口" },
+const VISUALS: Record<string, { index: string; image: string; width: number; alt: string }> = {
+  認識過港: { index: "01", image: "認識過港.webp", width: 1600, alt: "過港河岸的地景" },
+  人與過港: { index: "02", image: "people-updated-20260920/index-hero.webp", width: 1800, alt: "生活在過港的人們" },
+  過港好味: { index: "03", image: "goods/processed-20260920/hero-updated.webp", width: 1400, alt: "過港社區大鍋滷製中的雞蛋" },
+  關於我們: { index: "04", image: "about-updated-20260920/hero.webp", width: 1800, alt: "過港社區的建築入口" },
 };
 export function PageIntro({ index, title, description, vertical = "LOCAL ARCHIVE", hideIndex = false }: PageIntroProps) {
   const visual = VISUALS[title];
@@ -17,7 +17,7 @@ export function PageIntro({ index, title, description, vertical = "LOCAL ARCHIVE
         <p className="page-intro-description">{description}</p>
       </header>
       {visual && <figure className="page-intro-image">
-        <img src={sitePath(`/images/${visual.image}`)} alt={visual.alt} fetchPriority="high" />
+        <img src={sitePath(`/images/${visual.image}`)} srcSet={`${sitePath(`/images/${visual.image.replace(".webp", "-768.webp")}`)} 768w, ${sitePath(`/images/${visual.image}`)} ${visual.width}w`} sizes="(max-width: 700px) 85vw, 45vw" alt={visual.alt} fetchPriority="high" />
         <figcaption>{vertical}</figcaption>
       </figure>}
       <a className="page-intro-cue" href="#page-story" aria-label={`繼續閱讀${title}`}><span aria-hidden="true">↓</span></a>

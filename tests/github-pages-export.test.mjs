@@ -292,3 +292,23 @@ test("homepage serif subsets stay within a 200 KB cold-load budget", async () =>
   const sizes = await Promise.all(names.map(async name => (await readFile(path.join(fonts, name))).length));
   assert.ok(sizes.reduce((a, b) => a + b, 0) < 200_000, "preserve the optimized homepage font budget");
 });
+
+test("each page loads one complete content-addressed font and reserves image space", async () => {
+  const manifest = JSON.parse(await readFile(path.join(projectRoot, "scripts/page-fonts.json"), "utf8"));
+  for (const [route, font] of Object.entries(manifest)) {
+    const html = await read(route === "/" ? "index.html" : `${route.slice(1)}/index.html`);
+    const name = font.file.replace(".woff2", `-${font.sha256.slice(0, 12)}.woff2`);
+    assert.ok(html.includes(`${basePath}/fonts/pages/${name}`));
+    assert.match(html, /id="page-font"/);
+    const bytes = await readFile(path.join(outputRoot, "fonts/pages", name));
+    assert.equal(createHash("sha256").update(bytes).digest("hex"), font.sha256);
+    const visible = html.replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/g, "").replace(/<[^>]*>/g, "");
+    const missing = [...new Set(visible.match(/[\u3000-\u303f\u3400-\u9fff]/gu) ?? [])].filter(c => !font.codepoints.includes(c.codePointAt(0)));
+    assert.deepEqual(missing, [], `${route}: regenerate page fonts after adding characters`);
+    for (const tag of html.match(/<img\b[^>]*>/g) ?? []) {
+      if (!/src="[^"]*\/images\//.test(tag)) continue;
+      assert.match(tag, /\bwidth="\d+"/, `${route}: image needs reserved width`);
+      assert.match(tag, /\bheight="\d+"/, `${route}: image needs reserved height`);
+    }
+  }
+});

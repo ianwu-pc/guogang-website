@@ -187,7 +187,7 @@ export default function PeoplePage() {
               <div className={`people-story-visual people-story-visual--${entry.visual.ratio} people-story-visual--${entry.visual.type}${entry.visual.treatment ? ` people-story-visual--${entry.visual.treatment}` : ""}`}>
                 {entry.visual.type === "image" ? (
                   <figure>
-                    <img src={sitePath(PEOPLE_STORY_PHOTOS[entry.slug].hero.src)} alt={PEOPLE_STORY_PHOTOS[entry.slug].hero.alt} />
+                    <img src={sitePath(PEOPLE_STORY_PHOTOS[entry.slug].hero.src)} alt={PEOPLE_STORY_PHOTOS[entry.slug].hero.alt} loading="lazy" decoding="async" />
                   </figure>
                 ) : (
                   <div className="people-story-editorial-portrait">

@@ -66,7 +66,7 @@ function StoryPhoto({ index, decorative = false }: { index: number; decorative?:
   return <figure className={`narrative-image narrative-page-${index % 2 === 0 ? 'left' : 'right'}`}>
     <img src={sitePath(stage.image!)} srcSet={`${sitePath(stage.image!.replace(".webp", "-768.webp"))} 768w, ${sitePath(stage.imageMobile!)} 1280w, ${sitePath(stage.image!)} ${stage.imageWidth ?? 2560}w`}
       sizes="(max-width: 700px) 100vw, 50vw" style={{ objectPosition: stage.objectPosition, objectFit: stage.objectFit }}
-      alt={decorative ? "" : stage.imageLabel} loading="eager" fetchPriority={index === 0 && !decorative ? "high" : "low"} />
+      alt={decorative ? "" : stage.imageLabel} loading={index === 0 || decorative ? "eager" : "lazy"} fetchPriority={index === 0 && !decorative ? "high" : "low"} />
     <figcaption><span>{stage.number} / GUOGANG</span><span>{stage.imageLabel}</span></figcaption>
   </figure>;
 }
