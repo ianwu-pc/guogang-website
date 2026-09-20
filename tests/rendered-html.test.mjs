@@ -212,6 +212,18 @@ test("original page copy is preserved except explicitly replaced map copy and re
   // The user's 建築物文字敘述.docx explicitly supplies a new map opening.
   // Keep the historical fixture intact; only these two superseded nodes are exempt.
   const replacedHistory = new Set(JSON.parse(await readFile(new URL("./fixtures/history-replaced-copy.json", import.meta.url), "utf8")));
+  // Home copy explicitly replaced by the user's 2026-09-20 document.
+  const replacedHome = new Set([
+    "d711c5049a39761f5f71a4a139bc9b9e76bca49456760a348c2b022c58f55c16",
+    "7e368e1c35d379f7ff1e214cdc8665acdb746fb2c92005278a8409b8a2ec4650",
+    "df53acb6ee734cc1b62b4fca2822081c70d06f65fba7a88bcf928101b2d19485",
+    "25916a6e8bf76d96257aa80132b34424b2ba262faf375169e244e4245809f288",
+    "e07cc64a76a0e2546631c9a64297eb3d874cf6adc9076e8601560a5b01f47cbb",
+    "00581d197d229e577192e217ad8c5c4b29c3c26fb15c5245c09435af83e0a100",
+    "5305bf164061b090cc0490a567222fe34be7437a4bbac3ece511468168c74752",
+    "f4abf91e41123a25e0e200b4a3197d91fab633035015462f9ef19d4ebedde2fd",
+    "eb8c547feac9194ae3fd3ee9d0a7337c466e6c728e821a4fe6425df19044b7a7",
+  ]);
   const replacedMapOpening = new Set([
     "21191945e15e2cc05fc52373a5d8775e5df03cc2f62c156c2bf4bc32d66f8fb1",
     "22100d0d4b19151508f86eccef945f26a610145163ca0a1ac31b48787cc7677f",
@@ -262,6 +274,7 @@ test("original page copy is preserved except explicitly replaced map copy and re
       assert.doesNotMatch(html, /<h3[^>]*>從日常開始<\/h3>/);
     }
     for (const record of expected) {
+      if (route === "/" && replacedHome.has(record.sha256)) continue;
       if (route === "/guogang" && (replacedMapOpening.has(record.sha256) || replacedHistory.has(record.sha256))) continue;
       if (route === "/goods" && (removedGoodsSummaries.has(record.sha256) || consolidatedGoodsCopy.has(record.sha256))) continue;
       if (route === "/people" && (replacedPeopleExcerpts.has(record.sha256) || replacedPeopleEnding.has(record.sha256))) continue;
@@ -402,4 +415,18 @@ test("history timeline uses the six supplied final texts and deliberate text-onl
   assert.match(nodes[3][0], /history-node-left history-node-text/);
   assert.match(nodes[5][0], /history-node-closing/);
   assert.match(nodes[0][1], /過港早期渡河情景的圖像紀錄/);
+});
+
+test("home people CTA avoids misidentification and community photos appear together", async () => {
+  const html = await (await render("/")).text();
+  const people = html.match(/<article class="home-guide home-guide-people">([\s\S]*?)<\/article>/)?.[1];
+  assert.ok(people);
+  assert.doesNotMatch(people, /林秀英|bottle-cap-grandma|閱讀她的故事|生活於這裡的人身上/);
+  assert.match(people, /href="\/people"[^>]*>認識更多過港的人/);
+  assert.match(people.replace(/<[^>]*>/g, ""), /藏在不同人的日常裡。/);
+  const about = html.match(/<article class="home-guide home-guide-about">([\s\S]*?)<\/article>/)?.[1];
+  assert.ok(about);
+  assert.equal((about.match(/<img\b/g) ?? []).length, 3);
+  assert.doesNotMatch(about, /product-gallery|上一張|下一張/);
+  assert.match(html, /revision-20260920\/place\.webp/);
 });

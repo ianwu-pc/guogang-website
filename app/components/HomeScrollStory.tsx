@@ -29,7 +29,7 @@ const STAGES: StoryStage[] = [
   },
   {
     number: "02",
-    titleLines: ["過港的樣子，", "藏在每個人的日常裡。"],
+    titleLines: ["過港的樣子，", "藏在不同人的日常裡。"],
     description: "居民相聚、活動的日常，也慢慢留下過港的樣子。",
     imageLabel: "過港居民在社區空間進行團體活動",
     image: "/images/home/updated-20260920/home-scroll-02.webp",

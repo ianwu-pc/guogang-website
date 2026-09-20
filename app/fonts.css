@@ -1122,8 +1122,16 @@
   font-style: normal;
   font-weight: 200 900;
   font-display: swap;
+  src: url(/fonts/noto-serif-tc/069-home.woff2) format('woff2');
+  unicode-range: U+5228;
+}
+@font-face {
+  font-family: 'Guogang Serif';
+  font-style: normal;
+  font-weight: 200 900;
+  font-display: swap;
   src: url(/fonts/noto-serif-tc/089-home.woff2) format('woff2');
-  unicode-range: U+6ef7, U+8514;
+  unicode-range: U+8514, U+9903;
 }
 @font-face {
   font-family: 'Guogang Serif';
@@ -1147,7 +1155,7 @@
   font-weight: 200 900;
   font-display: swap;
   src: url(/fonts/noto-serif-tc/093-home.woff2) format('woff2');
-  unicode-range: U+6cbf, U+6e21, U+863f;
+  unicode-range: U+6cbf, U+820d, U+863f;
 }
 @font-face {
   font-family: 'Guogang Serif';
@@ -1155,7 +1163,7 @@
   font-weight: 200 900;
   font-display: swap;
   src: url(/fonts/noto-serif-tc/094-home.woff2) format('woff2');
-  unicode-range: U+6089;
+  unicode-range: U+6089, U+8f29;
 }
 @font-face {
   font-family: 'Guogang Serif';
@@ -1163,7 +1171,7 @@
   font-weight: 200 900;
   font-display: swap;
   src: url(/fonts/noto-serif-tc/095-home.woff2) format('woff2');
-  unicode-range: U+4e58, U+6372, U+6668, U+8239, U+8766, U+8c6c, U+966a, U+9ed8;
+  unicode-range: U+51cd, U+6372, U+74f6, U+7cd5, U+8766, U+8c6c, U+966a;
 }
 @font-face {
   font-family: 'Guogang Serif';
@@ -1171,7 +1179,7 @@
   font-weight: 200 900;
   font-display: swap;
   src: url(/fonts/noto-serif-tc/096-home.woff2) format('woff2');
-  unicode-range: U+2192, U+51e1, U+586b, U+5cb8, U+934b;
+  unicode-range: U+2192, U+5cb8, U+62fc, U+7246, U+7de3;
 }
 @font-face {
   font-family: 'Guogang Serif';
@@ -1179,7 +1187,7 @@
   font-weight: 200 900;
   font-display: swap;
   src: url(/fonts/noto-serif-tc/097-home.woff2) format('woff2');
-  unicode-range: U+5b88, U+6162, U+6696, U+6cb3, U+719f, U+7d2f, U+805a, U+9686, U+96de, U+9858, U+ff5c;
+  unicode-range: U+5bbf, U+6162, U+6696, U+6cb3, U+719f, U+8033, U+805a, U+84cb, U+9686, U+ff5c;
 }
 @font-face {
   font-family: 'Guogang Serif';
@@ -1187,7 +1195,7 @@
   font-weight: 200 900;
   font-display: swap;
   src: url(/fonts/noto-serif-tc/098-home.woff2) format('woff2');
-  unicode-range: U+4f34, U+5354, U+61f7, U+79c0, U+8173;
+  unicode-range: U+4f34, U+5354, U+61f7;
 }
 @font-face {
   font-family: 'Guogang Serif';
@@ -1195,7 +1203,7 @@
   font-weight: 200 900;
   font-display: swap;
   src: url(/fonts/noto-serif-tc/099-home.woff2) format('woff2');
-  unicode-range: U+54ea, U+555f, U+5979, U+5abd, U+5f85, U+77f3, U+7e7c, U+7ffb, U+8089, U+86cb, U+8df3, U+9060, U+9435, U+ff1b;
+  unicode-range: U+4fc2, U+54ea, U+555f, U+5f85, U+5fd7, U+77f3, U+7e7c, U+7ffb, U+8089, U+86cb, U+8df3, U+9060, U+9280, U+9435, U+9732, U+9867, U+ff1b;
 }
 @font-face {
   font-family: 'Guogang Serif';
@@ -1203,7 +1211,7 @@
   font-weight: 200 900;
   font-display: swap;
   src: url(/fonts/noto-serif-tc/100-home.woff2) format('woff2');
-  unicode-range: U+53e6, U+5403, U+5411, U+5468, U+5473, U+5740, U+5883, U+59cb, U+5c45, U+5c6c, U+5f80, U+628a, U+6295, U+6545, U+65e9, U+666f, U+6a21, U+74b0, U+7a4d, U+7c73, U+7e8c, U+7fa4, U+843d, U+85cf, U+88e1, U+8b58, U+8b80, U+8fce, U+908a, U+91cc, U+96a8, U+96d9;
+  unicode-range: U+4f4f, U+534a, U+5403, U+5411, U+5468, U+5473, U+5740, U+5883, U+59cb, U+5c45, U+5f80, U+628a, U+6545, U+6a21, U+6e96, U+74b0, U+7c73, U+7e8c, U+7fa4, U+85cf, U+8857, U+88e1, U+89d2, U+8b58, U+8b80, U+8d70, U+8fce, U+908a, U+91cc, U+96d9;
 }
 @font-face {
   font-family: 'Guogang Serif';
@@ -1211,7 +1219,7 @@
   font-weight: 200 900;
   font-display: swap;
   src: url(/fonts/noto-serif-tc/101-home.woff2) format('woff2');
-  unicode-range: U+4e9b, U+4ea4, U+4eca, U+4efd, U+4f9b, U+4f9d, U+4fbf, U+505a, U+5099, U+5152, U+5305, U+5373, U+53c3, U+53e3, U+53ea, U+559c, U+5718, U+57fa, U+5c11, U+5c55, U+5e36, U+5f9e, U+6797, U+67e5, U+6a23, U+6b61, U+6bcf, U+6c11, U+6e05, U+6e2f, U+6eff, U+7559, U+79c1, U+7a2e, U+7a31, U+7a7a, U+800c, U+81f3, U+82f1, U+8457, U+88ab, U+88dd, U+88fd, U+8a8d, U+8b77, U+8b8a, U+8b93, U+8fd1, U+91cf, U+95b1, U+969b, U+96b1, U+9700, U+98a8, U+9999;
+  unicode-range: U+4e9b, U+4ea4, U+4eca, U+4efd, U+4f9b, U+4f9d, U+505a, U+5099, U+5152, U+5373, U+53c3, U+53e3, U+559c, U+56e0, U+5718, U+57fa, U+5c11, U+5c55, U+5e36, U+5f9e, U+6574, U+67e5, U+6a23, U+6b61, U+6bcf, U+6c11, U+6e2f, U+7167, U+7559, U+79c1, U+7a7a, U+800c, U+81f3, U+82b1, U+8457, U+88ab, U+88dd, U+88fd, U+8a8d, U+8b93, U+8fd1, U+91cf, U+95b1, U+969b, U+96b1, U+9700, U+9999;
 }
 @font-face {
   font-family: 'Guogang Serif';
@@ -1219,7 +1227,7 @@
   font-weight: 200 900;
   font-display: swap;
   src: url(/fonts/noto-serif-tc/102-home.woff2) format('woff2');
-  unicode-range: U+00a9, U+300c, U+300d, U+4e3b, U+4e5f, U+4e86, U+4e8b, U+4eab, U+4ed6, U+4ef6, U+4f86, U+5011, U+5167, U+5176, U+524d, U+529b, U+52a0, U+5340, U+539f, U+540c, U+540d, U+548c, U+54c1, U+5546, U+55ae, U+56de, U+5929, U+597d, U+5982, U+5b57, U+5b8c, U+5b9a, U+5bb9, U+5be6, U+5c07, U+5c08, U+5e02, U+5e38, U+5e73, U+5e74, U+5f0f, U+5f97, U+60c5, U+60f3, U+610f, U+611f, U+6210, U+624b, U+63d0, U+6599, U+65b9, U+66f4, U+671f, U+679c, U+6b0a, U+6c23, U+6d3b, U+7247, U+7269, U+7406, U+7522, U+76f8, U+770b, U+771f, U+77e5, U+793e, U+7ad9, U+7d50, U+8005, U+80fd, U+8207, U+865f, U+8981, U+898b, U+8a0a, U+8a2d, U+8a71, U+8cc7, U+8d77, U+8def, U+8eab, U+9019, U+901a, U+9023, U+9032, U+904e, U+9053, U+9078, U+9577, U+9593, U+9ad4, U+9ede;
+  unicode-range: U+00a9, U+300c, U+300d, U+4e3b, U+4e5f, U+4e86, U+4e8b, U+4eab, U+4ed6, U+4ef6, U+4f86, U+5011, U+5167, U+518d, U+524d, U+52a0, U+5340, U+539f, U+5408, U+540c, U+540d, U+548c, U+54c1, U+5546, U+55ae, U+56de, U+5929, U+597d, U+5982, U+5b57, U+5b8c, U+5b9a, U+5bb9, U+5be6, U+5c07, U+5c08, U+5c31, U+5de5, U+5e02, U+5e38, U+5f0f, U+5f8c, U+5f97, U+60c5, U+60f3, U+611f, U+6210, U+6216, U+624b, U+63d0, U+6599, U+65b9, U+66f4, U+671f, U+679c, U+689d, U+6a5f, U+6b0a, U+6c23, U+6c34, U+6d3b, U+7269, U+73fe, U+7406, U+7522, U+76f8, U+770b, U+771f, U+77e5, U+793e, U+7ad9, U+7d50, U+8005, U+80fd, U+8207, U+865f, U+8981, U+898b, U+8a0a, U+8a71, U+8cc7, U+8d77, U+8def, U+9019, U+901a, U+9023, U+9032, U+904e, U+9053, U+9078, U+90fd, U+9577, U+9593, U+9762, U+9ad4, U+9ede;
 }
 @font-face {
   font-family: 'Guogang Serif';
@@ -1227,7 +1235,7 @@
   font-weight: 200 900;
   font-display: swap;
   src: url(/fonts/noto-serif-tc/103-home.woff2) format('woff2');
-  unicode-range: U+0020, U+002d, U+002f, U+0030, U+0031, U+0032, U+0033, U+0034, U+0035, U+0036, U+0038, U+0041, U+0043, U+0044, U+0045, U+0046, U+0047, U+0048, U+0049, U+004b, U+004c, U+004d, U+004e, U+004f, U+0050, U+0051, U+0052, U+0053, U+0054, U+0055, U+0059, U+0061, U+0062, U+0063, U+0064, U+0065, U+006b, U+006f, U+3001, U+3002, U+4e00, U+4e0a, U+4e0b, U+4e0d, U+4e2d, U+4eba, U+4ee5, U+4f5c, U+500b, U+5165, U+51fa, U+5206, U+5230, U+52d5, U+53ef, U+5728, U+5730, U+591a, U+5927, U+5b50, U+5bb6, U+5c0f, U+6211, U+65b0, U+65bc, U+65e5, U+662f, U+6700, U+6703, U+6709, U+672c, U+6b63, U+70ba, U+751f, U+7528, U+767c, U+7684, U+7db2, U+884c, U+958b, U+95dc, U+96fb, U+9801, U+ff0c;
+  unicode-range: U+0020, U+002d, U+002f, U+0030, U+0031, U+0032, U+0033, U+0034, U+0035, U+0036, U+0038, U+0041, U+0043, U+0044, U+0045, U+0046, U+0047, U+0048, U+0049, U+004b, U+004c, U+004d, U+004e, U+004f, U+0050, U+0051, U+0052, U+0053, U+0054, U+0055, U+0059, U+0061, U+0062, U+0063, U+0064, U+0065, U+006b, U+006f, U+3001, U+3002, U+4e00, U+4e0b, U+4e0d, U+4eba, U+4ee5, U+4f5c, U+500b, U+5165, U+51fa, U+5206, U+5230, U+52d5, U+53ef, U+5728, U+5730, U+591a, U+5927, U+5b50, U+5bb6, U+5c0f, U+6211, U+65b0, U+65bc, U+65e5, U+662f, U+6642, U+6700, U+6703, U+6709, U+672c, U+6b63, U+70ba, U+751f, U+7528, U+767c, U+7684, U+7db2, U+884c, U+958b, U+95dc, U+96fb, U+9801, U+ff0c;
 }
 @font-face {
   font-family: 'Guogang Serif';

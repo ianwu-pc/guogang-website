@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { ProductGallery } from "./components/ProductGallery";
 import { HomeScrollStory } from "./components/HomeScrollStory";
 import { HeadingLines } from "./components/HeadingLines";
 import { ImagePlaceholder } from "./components/ImagePlaceholder";
 import { LineAction } from "./components/LineAction";
-import { GOODS, HOME_COPY, PEOPLE, SITE_CONFIG } from "./data/site";
+import { GOODS, SITE_CONFIG } from "./data/site";
 import { sitePath } from "./utils/sitePath";
 
 export const metadata: Metadata = {
@@ -14,7 +13,6 @@ export const metadata: Metadata = {
 
 export default function Home() {
   const featuredGood = GOODS[0];
-  const featuredPerson = PEOPLE.find((person) => person.slug === "bottle-cap-grandma")!;
 
   return (
     <main>
@@ -24,15 +22,16 @@ export default function Home() {
         <article className="home-guide home-guide-place">
           <div className="home-guide-number">01</div>
           <ImagePlaceholder
-            label="/images/home/updated-20260920/place.webp"
-            alt="過港街角的彩繪牆面"
+            label="/images/home/revision-20260920/place.webp"
+            alt="過港街角以瓶蓋拼成的鳥與樹木牆面"
             ratio="wide"
             tone="paper"
           />
           <div className="home-guide-copy">
             <p className="eyebrow">01 / 認識過港</p>
-            <h2><HeadingLines lines={["一個名字，", "從河的另一岸開始。"]} /></h2>
-            <p>早年暖暖河岸設有港口，往來的人們乘著渡船渡過基隆河，而港口的另一岸，便被稱作「過港」。隨著不同的人來到這裡生活、落腳，過港也一點一點成為今天的模樣。</p>
+            <h2><HeadingLines lines={["過港的故事，", "也留在今天的街角裡。"]} /></h2>
+            <p>一面用瓶蓋拼起來的牆、一條每天走過的路，都是現在看得見的過港。</p>
+            <p>再往前走，從河岸、宿舍到後來的社區生活，不同時期留下來的人與事，也一點一點成了今天的模樣。</p>
             <a className="text-link" href={sitePath("/guogang")}>認識過港 <span aria-hidden="true">→</span></a>
           </div>
         </article>
@@ -48,8 +47,9 @@ export default function Home() {
           <div className="home-guide-copy">
             <p className="eyebrow">02 / 過港好味</p>
             <h2><HeadingLines lines={["把熟悉的日常，", "做成可以分享的味道。"]} /></h2>
-            <p>有些味道，是在過港的生活裡慢慢累積下來的。從社區媽媽的一雙雙手，到大家一起製作、一起分享，這些屬於過港的好味，也成了認識這個地方的另一種方式。</p>
-            <a className="text-link" href={sitePath("/goods")}>更多過港好味 <span aria-hidden="true">→</span></a>
+            <p>蘿蔔糕、水餃、鐵蛋、銀耳露和石花凍，一樣一樣從社區裡做出來。</p>
+            <p>從備料、製作到裝好分享，原本熟悉的日常味道，也慢慢成了可以帶回家的過港好味。</p>
+            <a className="text-link" href={sitePath("/goods")}>看更多過港好味 <span aria-hidden="true">→</span></a>
           </div>
         </article>
 
@@ -57,25 +57,28 @@ export default function Home() {
           <div className="home-guide-number">03</div>
           <div className="home-feature-single home-people-feature">
             <ImagePlaceholder label="/images/home/updated-20260920/people.webp" alt="居民一起準備社區料理" ratio="landscape" tone="green" />
-            <p className="home-feature-single-kicker">{featuredPerson.name}</p>
-            <blockquote>「{featuredPerson.summary}」</blockquote>
-            <a className="text-link" href={sitePath(`/people/${featuredPerson.slug}`)}>閱讀她的故事 <span aria-hidden="true">→</span></a>
           </div>
           <div className="home-guide-copy">
             <p className="eyebrow">03 / 人與過港</p>
-            <h2><HeadingLines lines={["過港的樣子，", "藏在生活於這裡的人身上。"]} /></h2>
-            <p>有人守著每天清晨的味道，有人用雙手留下地方的風景，也有人默默投入社區，把一件件平凡的小事慢慢累積成今天的過港。從他們的生活裡，也能看見這個地方不同的模樣。</p>
+            <h2><HeadingLines lines={["過港的樣子，", "藏在不同人的日常裡。"]} /></h2>
+            <p>有人在這裡住了大半輩子，有人每天來這裡工作，也有人因為家人、志工，或生活裡的一些緣分，慢慢和過港有了關係。</p>
+            <p>從他們的日常裡，也能看見這個地方不同的樣子。</p>
             <a className="text-link" href={sitePath("/people")}>認識更多過港的人 <span aria-hidden="true">→</span></a>
           </div>
         </article>
 
         <article className="home-guide home-guide-about">
           <div className="home-guide-number">04</div>
-          <ProductGallery images={["/images/home/updated-20260920/community-01.webp", "/images/home/updated-20260920/community-02.webp", "/images/home/updated-20260920/community-03.webp"]} name="過港社區活動" ratio="landscape" tone="clay" />
+          <div className="home-community-collage" role="group" aria-label="居民一起關懷長者、整理環境的三張照片">
+            <img src={sitePath("/images/home/revision-20260920/community-care.webp")} width="1400" height="933" alt="居民在社區空間陪伴長者、協助量血壓" loading="lazy" decoding="async" />
+            <img src={sitePath("/images/home/revision-20260920/community-outdoors.webp")} width="800" height="600" alt="居民一起整理竹林環境" loading="lazy" decoding="async" />
+            <img src={sitePath("/images/home/revision-20260920/community-cleanup.webp")} width="800" height="450" alt="志工一起清掃社區街道" loading="lazy" decoding="async" />
+          </div>
           <div className="home-guide-copy">
             <p className="eyebrow">04 / 關於我們</p>
-            <h2><HeadingLines lines={["一群人一起做的事，", "慢慢成了社區的力量。"]} /></h2>
-            <p>{HOME_COPY.associationDescription}</p>
+            <h2><HeadingLines lines={["社區的事情，", "就是一件一件一起做。"]} /></h2>
+            <p>過港社區發展協會長期陪伴居民，從長者關懷、兒少陪伴，到環境整理與社區活動，把生活裡真正需要的事情，一件一件做起來。</p>
+            <p>也讓更多人有機會一起參與，一起把生活的地方照顧好。</p>
             <div className="button-row">
               <a className="button button-primary" href={sitePath("/about")}>認識過港社區發展協會</a>
               <LineAction />
