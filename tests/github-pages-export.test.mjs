@@ -177,7 +177,7 @@ test("exported pages preserve revision content and interactions", async () => {
   assert.match(people, /四十多年，[\s\S]*?他們一起[\s\S]*?把日子[\s\S]*?過到了過港。/);
   assert.match(people, /這條半小時的路，[\s\S]*?她走了十年。/);
   assert.match(people, /ABOUT THE STORIES[\s\S]*?六篇人物故事，[\s\S]*?來自十八天的[\s\S]*?訪談與相處。/);
-  assert.match(people, /採訪、文字與製作｜XXX、XXX/);
+  assert.match(people, /採訪、文字與製作｜林品均、李佩璇/);
   assert.match(people, /參與計畫｜蹲點・台灣/);
   assert.doesNotMatch(people, /STORY 01|STORY 02|STORY 03|STORY 04/);
   assert.doesNotMatch(people, /page-intro-index[^>]*>\d{2}/);

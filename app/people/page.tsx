@@ -217,15 +217,18 @@ export default function PeoplePage() {
 
       <section className="people-ending">
         <p className="eyebrow">ABOUT THE STORIES</p>
+        <div className="people-ending-intro">
         <h2>
           <HeadingLines lines={["六篇人物故事，", "來自十八天的", "訪談與相處。"]} />
         </h2>
+        <img className="people-authors-photo" src={sitePath("/images/people-authors.webp")} width="560" height="420" alt="林品均與李佩璇參與蹲點・台灣計畫的合照" loading="lazy" decoding="async" />
+        </div>
         <div className="people-ending-copy">
           <p>我們是參與「蹲點・台灣」的學生團隊。</p>
           <p>在過港的十八天裡，我們參與社區活動、跟著居民走訪，也一次次坐下來，聽他們說起自己的生活。</p>
           <p>這六篇故事，就是從這些訪談與相處裡慢慢整理出來的。</p>
           <div className="people-ending-credits">
-            <p>採訪、文字與製作｜XXX、XXX</p>
+            <p>採訪、文字與製作｜林品均、李佩璇</p>
             <p>參與計畫｜蹲點・台灣</p>
           </div>
         </div>
