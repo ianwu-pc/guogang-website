@@ -1,5 +1,5 @@
-import { ImagePlaceholder } from "./ImagePlaceholder";
 import { HeadingLines } from "./HeadingLines";
+import { sitePath } from "../utils/sitePath";
 
 export type TimelineEntry = {
   year: string;
@@ -7,37 +7,43 @@ export type TimelineEntry = {
   description: string;
   image?: string;
   imageAlt?: string;
-  status?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  imageCaption?: string;
 };
 
-type TimelineProps = {
-  entries: TimelineEntry[];
-  label: string;
-};
+type TimelineProps = { entries: TimelineEntry[]; label: string };
 
 export function Timeline({ entries, label }: TimelineProps) {
   return (
     <ol className="history-timeline" aria-label={label}>
       {entries.map((entry, index) => {
         const title = entry.titleLines.join("");
-        const [period, equivalentYear] = entry.year.split(/(?=（)/);
-
+        const [period, equivalentYear] = entry.year.split("／");
+        const layout = index === entries.length - 1 ? "closing" : index === 1 || index === 2 ? "right" : "left";
         return (
-          <li key={`${entry.year}-${title}`}>
-            <span className="timeline-dot" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-            <div className="timeline-year">
-              <strong><span>{period}</span>{equivalentYear ? <span className="timeline-year-equivalent">{equivalentYear}</span> : null}</strong>
-              {entry.status ? <small>{entry.status}</small> : null}
-            </div>
-            <article className="timeline-card">
-              <div>
-                <h2><HeadingLines lines={entry.titleLines} /></h2>
-                <p>{entry.description}</p>
+          <li key={`${entry.year}-${title}`} className={`history-node history-node-${layout}${index === 2 || index === 3 ? " history-node-text" : ""}${index === 4 ? " history-node-return" : ""}`}>
+            <article className="history-copy">
+              <div className="timeline-year">
+                <span className="eyebrow" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                <strong>{period}</strong>
+                {equivalentYear ? <span className="timeline-year-equivalent">{equivalentYear}</span> : null}
               </div>
-              {entry.image ? (
-                <ImagePlaceholder label={entry.image} alt={entry.imageAlt ?? title} ratio="landscape" tone={index % 2 ? "ochre" : "paper"} />
-              ) : null}
+              <h2><HeadingLines lines={entry.titleLines} /></h2>
+              <div className="history-paragraphs">
+                {entry.description.split("\n\n").map(paragraph => <p key={paragraph}>{paragraph}</p>)}
+              </div>
             </article>
+            {entry.image ? (
+              <figure className="history-photo">
+                <img src={sitePath(entry.image)}
+                  srcSet={`${sitePath(entry.image.replace(".webp", "-768.webp"))} 768w, ${sitePath(entry.image)} ${entry.imageWidth}w`}
+                  sizes={layout === "closing" ? "90vw" : "(max-width: 900px) 90vw, 48vw"}
+                  width={entry.imageWidth} height={entry.imageHeight}
+                  alt={entry.imageAlt ?? title} loading="lazy" decoding="async" />
+                {entry.imageCaption ? <figcaption>{entry.imageCaption}</figcaption> : null}
+              </figure>
+            ) : null}
           </li>
         );
       })}

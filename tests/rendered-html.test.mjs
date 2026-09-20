@@ -114,7 +114,7 @@ test("chapter order, supplied goods photos and interactive map match the current
   const guogangHtml = await guogangResponse.text();
   assert.match(guogangHtml, /page-intro-index[^>]*>01</);
   assert.match(guogangHtml, /認識過港\.webp/);
-  assert.match(guogangHtml, /新的居民，在過港落腳/);
+  assert.match(guogangHtml, /在這裡落腳/);
   assert.match(guogangHtml, /可探索的過港手繪生活地圖/);
   assert.match(guogangHtml, /guogang-map-2026\/background\.webp/);
   assert.match(guogangHtml, /guogang-map-2026\/shengguang-church\.webp/);
@@ -211,6 +211,7 @@ test("original page copy is preserved except explicitly replaced map copy and re
   const baseline = JSON.parse(await readFile(new URL("./fixtures/editorial-content-integrity.json", import.meta.url), "utf8"));
   // The user's 建築物文字敘述.docx explicitly supplies a new map opening.
   // Keep the historical fixture intact; only these two superseded nodes are exempt.
+  const replacedHistory = new Set(JSON.parse(await readFile(new URL("./fixtures/history-replaced-copy.json", import.meta.url), "utf8")));
   const replacedMapOpening = new Set([
     "21191945e15e2cc05fc52373a5d8775e5df03cc2f62c156c2bf4bc32d66f8fb1",
     "22100d0d4b19151508f86eccef945f26a610145163ca0a1ac31b48787cc7677f",
@@ -261,7 +262,7 @@ test("original page copy is preserved except explicitly replaced map copy and re
       assert.doesNotMatch(html, /<h3[^>]*>從日常開始<\/h3>/);
     }
     for (const record of expected) {
-      if (route === "/guogang" && replacedMapOpening.has(record.sha256)) continue;
+      if (route === "/guogang" && (replacedMapOpening.has(record.sha256) || replacedHistory.has(record.sha256))) continue;
       if (route === "/goods" && (removedGoodsSummaries.has(record.sha256) || consolidatedGoodsCopy.has(record.sha256))) continue;
       if (route === "/people" && (replacedPeopleExcerpts.has(record.sha256) || replacedPeopleEnding.has(record.sha256))) continue;
       assert.ok(actual.has(record.sha256), `${route}: original ${record.tag} (${record.characters} characters) must be preserved: ${record.sha256}`);
@@ -381,4 +382,24 @@ test("goods reads from introduction through products and making to collection an
   assert.match(ordering, /最新品項、價格與可訂購數量，都會公布在 LINE/);
   assert.match(ordering, /※ 每次製作的品項、數量與價格可能不同，請以 LINE 當期公告為準。/);
   assert.ok(html.indexOf("updated-20260919/collection.webp") > positions[3]);
+});
+
+test("history timeline uses the six supplied final texts and deliberate text-only chapters", async () => {
+  const expected = JSON.parse(await readFile(new URL("./fixtures/history-final-copy.json", import.meta.url), "utf8"));
+  const html = await (await render("/guogang")).text();
+  const timeline = html.match(/<ol class="history-timeline"[^>]*>([\s\S]*?)<\/ol>/)?.[1];
+  assert.ok(timeline);
+  const nodes = [...timeline.matchAll(/<li\b[^>]*>([\s\S]*?)<\/li>/g)];
+  assert.equal(nodes.length, 6);
+  const clean = text => text.replace(/<[^>]*>/g, "").replace(/\s/g, "");
+  for (const [index, entry] of expected.entries()) {
+    const node = nodes[index][1];
+    assert.ok(clean(node).includes(entry.titleLines.join("")));
+    for (const paragraph of entry.description.split("\n\n")) assert.ok(clean(node).includes(clean(paragraph)));
+    if (index === 2 || index === 3) assert.doesNotMatch(node, /<img|<figure|placeholder/);
+  }
+  assert.match(nodes[2][0], /history-node-right history-node-text/);
+  assert.match(nodes[3][0], /history-node-left history-node-text/);
+  assert.match(nodes[5][0], /history-node-closing/);
+  assert.match(nodes[0][1], /過港早期渡河情景的圖像紀錄/);
 });
