@@ -409,10 +409,14 @@ test("history timeline uses the six supplied final texts and deliberate text-onl
     const node = nodes[index][1];
     assert.ok(clean(node).includes(entry.titleLines.join("")));
     for (const paragraph of entry.description.split("\n\n")) assert.ok(clean(node).includes(clean(paragraph)));
-    if (index === 2 || index === 3) assert.doesNotMatch(node, /<img|<figure|placeholder/);
+    if (index === 3) assert.doesNotMatch(node, /<img|<figure|placeholder/);
   }
-  assert.match(nodes[2][0], /history-node-right history-node-text/);
-  assert.match(nodes[3][0], /history-node-left history-node-text/);
+  assert.match(nodes[2][0], /history-node-archive/);
+  assert.equal((nodes[2][1].match(/<img\b/g) ?? []).length, 4);
+  assert.equal((timeline.match(/圖片來源｜國家電影及視聽文化中心/g) ?? []).length, 1);
+  assert.match(nodes[3][0], /history-node-center/);
+  assert.doesNotMatch(nodes[5][1], /故事留在時間裡/);
+  assert.match(html, /class="history-transition"/);
   assert.match(nodes[5][0], /history-node-closing/);
   assert.match(nodes[0][1], /過港早期渡河情景的圖像紀錄/);
 });

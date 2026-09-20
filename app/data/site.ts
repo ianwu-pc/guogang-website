@@ -91,9 +91,9 @@ export const GUOGANG_TIMELINE = [
     "year": "早期",
     "titleLines": [
       "一個名字，",
-      "從河的另一岸開始"
+      "從河的另一岸開始。"
     ],
-    "description": "過港的名字，和基隆河有關。在橋梁與道路還沒有今天這麼方便以前，往來兩岸的人，需要靠渡船過河。\n\n一個「過」字，也慢慢留成了這個地方的名字。",
+    "description": "過港的名字，和基隆河有關。\n\n在橋梁與道路還沒有今天這麼方便以前，往來兩岸的人，需要靠渡船過河。\n\n一個「過」字，也慢慢留成了這個地方的名字。",
     "image": "/images/history-updated-20260920/01-river.webp",
     "imageAlt": "過港早期渡河情景的圖像紀錄",
     "imageWidth": 1400,
@@ -104,36 +104,64 @@ export const GUOGANG_TIMELINE = [
     "year": "1949／民國38年",
     "titleLines": [
       "新的居民，",
-      "在這裡落腳"
+      "在這裡落腳。"
     ],
-    "description": "戰後，不同地方來的人陸續來到過港生活。軍人、公教人員與眷屬在這裡落腳，宿舍、住家與新的生活，也慢慢沿著街道出現。\n\n過港的人口組成，從這時開始有了新的變化。",
-    "image": "/images/guogang-history-1949.webp",
-    "imageAlt": "過港原有的黑白歷史影像",
-    "imageWidth": 1383,
-    "imageHeight": 567
+    "description": "戰後，不同地方來的人陸續來到過港生活。\n\n不少軍人、公教人員與眷屬在這裡落腳，宿舍、住家慢慢多了起來，過港也多了新的居民與生活樣貌。",
+    "image": "/images/history-revision-20260920/02-residents.webp",
+    "imageAlt": "過港街道與居民的舊影像",
+    "imageWidth": 1400,
+    "imageHeight": 1006
   },
   {
     "year": "1967／民國56年",
     "titleLines": [
       "生活機能，",
-      "慢慢長出來"
+      "慢慢長出來。"
     ],
-    "description": "人住下來以後，生活需要的東西也一點一點增加。\n\n學校、郵局與其他公共設施陸續出現，原本以交通與住宿為主的地方，慢慢有了更完整的日常生活。"
+    "description": "人住下來以後，生活需要的東西也一點一點增加。\n\n交通、郵局、市場與各種生活機能陸續出現，上學、買東西、寄信、往返街區，過港也慢慢有了更完整的日常。",
+    "images": [
+      {
+        "src": "/images/history-revision-20260920/03-street.webp",
+        "alt": "過港早期街道與公車影像",
+        "width": 1400,
+        "height": 1017
+      },
+      {
+        "src": "/images/history-revision-20260920/03-post.webp",
+        "alt": "過港郵局舊影像",
+        "width": 1400,
+        "height": 1026
+      },
+      {
+        "src": "/images/history-revision-20260920/03-public.webp",
+        "alt": "過港公共設施舊影像",
+        "width": 1400,
+        "height": 1021
+      },
+      {
+        "src": "/images/history-revision-20260920/03-market.webp",
+        "alt": "過港合作市場舊影像",
+        "width": 1400,
+        "height": 1030
+      }
+    ],
+    "imageSource": "圖片來源｜國家電影及視聽文化中心"
   },
   {
     "year": "1980s–1990s",
     "titleLines": [
-      "新的家庭，",
-      "帶來新的生活樣貌"
+      "住進來的人多了，",
+      "過港也慢慢變了。"
     ],
-    "description": "住宅增加，新的家庭也陸續搬進過港。\n\n居民的組成和生活方式開始改變，街坊之間的關係，也隨著人口與環境的變化，慢慢長成今天比較熟悉的樣子。"
+    "description": "隨著住宅增加，新的家庭陸續搬進過港。\n\n住的人多了，街道和社區的樣子也跟著一點一點改變。\n\n沒有一個明確的轉折點，但就在這些年的累積裡，過港慢慢長成今天比較熟悉的模樣。"
   },
   {
     "year": "1993／民國82年",
     "titleLines": [
-      "社區發展協會成立"
+      "過港社區",
+      "發展協會成立。"
     ],
-    "description": "民國82年，過港社區發展協會成立。\n\n從環境、活動到居民彼此照顧，社區裡的事情開始有了一個可以一起討論、一起動手做的地方。",
+    "description": "從環境整理、社區活動，到居民彼此照顧，\n\n許多原本散在生活裡的事情，開始有了更固定的組織與參與方式。\n\n有人提出想法，也有人一起把事情做起來。",
     "image": "/images/history-updated-20260920/05-community.webp",
     "imageAlt": "過港社區空間的入口與植栽",
     "imageWidth": 1400,
@@ -142,10 +170,10 @@ export const GUOGANG_TIMELINE = [
   {
     "year": "1990s–TODAY",
     "titleLines": [
-      "過港的故事，",
-      "還在繼續"
+      "一起做的事情，",
+      "延續到今天。"
     ],
-    "description": "從環境整理、長輩關懷，到一次次居民參與的活動，過港的樣子仍然在改變。\n\n以前留下來的生活痕跡，和今天正在發生的事情，一起留在這個地方。\n\n故事留在時間裡，也留在今天的街坊裡。",
+    "description": "從環境整理、長輩關懷，到一次次居民一起參與的活動，過港仍然在每天的生活裡慢慢改變。\n\n以前留下來的生活痕跡，和今天正在發生的事情，也一起留在這個地方。",
     "image": "/images/history-updated-20260920/06-today.webp",
     "imageAlt": "過港居民的活動合照",
     "imageWidth": 1800,

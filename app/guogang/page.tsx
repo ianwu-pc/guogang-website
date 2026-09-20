@@ -30,6 +30,7 @@ export default function GuogangPage() {
 
       <section className="timeline-section">
         <Timeline entries={GUOGANG_TIMELINE} label="過港地方故事時間線" />
+        <p className="history-transition"><span className="heading-line">故事留在時間裡，</span><span className="heading-line">也留在今天的街坊裡。</span></p>
       </section>
 
       <GuogangInteractiveMap />
