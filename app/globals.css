@@ -190,6 +190,8 @@ p { text-wrap: pretty; } p:last-child { margin-bottom: 0; }
 .people-story-editorial-line { font-size: 19px; margin: 0; line-height: 1.9; }
 .people-ending { border-top: 1px solid var(--line); display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px 8%; }
 .people-ending .eyebrow { grid-column: 1 / -1; }
+.people-ending-intro { align-self: center; }
+.people-ending-intro h2 { margin-bottom: 0; }
 .people-authors-photo { width: min(240px, 100%); height: auto; margin-top: 32px; }
 .people-ending-copy > p + p { margin-top: 1.5rem; }
 .people-ending-credits { margin-top: 32px; font-size: 15px; color: var(--muted); }
