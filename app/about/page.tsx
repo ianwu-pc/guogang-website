@@ -29,7 +29,7 @@ const JOURNEY = [
 export default function AboutPage() {
   return (
     <main className="inner-page about-page">
-      <PageIntro index="04" title="關於我們" description="過港社區發展協會成立於民國 82 年，做的事情一直從一個很簡單的問題開始：這個地方，現在需要什麼？" vertical="ABOUT US / GUOGANG" />
+      <PageIntro index="04" title="關於我們" description="過港社區發展協會成立於民國 82 年，做的事情總是從一個很簡單的問題開始：這個地方，現在需要什麼？" vertical="ABOUT US / GUOGANG" />
 
       <section id="page-story" className="about-who">
         <ImagePlaceholder label="/images/about-updated-20260920/who.webp" alt="居民一起參與社區活動" ratio="landscape" tone="paper" />
