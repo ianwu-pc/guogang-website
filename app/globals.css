@@ -87,8 +87,8 @@ p { text-wrap: pretty; } p:last-child { margin-bottom: 0; }
 .home-guide-place > .image-placeholder { grid-column: 7 / -1; grid-row: 1; margin-top: 64px; }
 .home-guide-place .home-guide-copy { grid-column: 2 / 7; grid-row: 1; }
 .home-guide-copy p:not(.eyebrow) { max-width: 38em; }
-.home-guide-goods .home-feature-single { grid-column: 2 / 7; grid-row: 1; }
-.home-guide-goods .home-guide-copy { grid-column: 7 / -1; grid-row: 1; padding-top: 20%; }
+.home-guide-goods .home-feature-single { grid-column: 2 / 7; grid-row: 1; align-self: center; }
+.home-guide-goods .home-guide-copy { grid-column: 7 / -1; grid-row: 1; align-self: center; padding-top: 0; }
 .home-feature-single-kicker { font-family: var(--sans); font-size: 12px; letter-spacing: .12em; color: var(--muted); margin: 24px 0 12px; }
 .home-feature-single blockquote { margin-bottom: 24px; font-size: 19px; line-height: 1.9; }
 .home-guide-people .home-feature-single { grid-column: 8 / -1; grid-row: 1; }
@@ -573,6 +573,8 @@ p { text-wrap: pretty; } p:last-child { margin-bottom: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .guogang-map-landmark img { transition: none; } }
 .image-placeholder.has-image img { aspect-ratio: inherit; height: auto; }
+.home-guide-place > .image-placeholder.has-image { aspect-ratio: auto; align-self: start; }
+.home-guide-place > .image-placeholder.has-image img { aspect-ratio: auto; height: auto; object-fit: contain; }
 .skip-link { top: -10000px; transform: none; }
 .skip-link:focus { top: 12px; }
 

@@ -3,7 +3,7 @@ import { HomeScrollStory } from "./components/HomeScrollStory";
 import { HeadingLines } from "./components/HeadingLines";
 import { ImagePlaceholder } from "./components/ImagePlaceholder";
 import { LineAction } from "./components/LineAction";
-import { GOODS, SITE_CONFIG } from "./data/site";
+import { SITE_CONFIG } from "./data/site";
 import { sitePath } from "./utils/sitePath";
 
 export const metadata: Metadata = {
@@ -12,8 +12,6 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const featuredGood = GOODS[0];
-
   return (
     <main>
       <HomeScrollStory />
@@ -40,9 +38,6 @@ export default function Home() {
           <div className="home-guide-number">02</div>
           <div className="home-feature-single home-goods-feature">
             <ImagePlaceholder label="/images/home/updated-20260920/goods.webp" alt="過港好味餐點合照" ratio="landscape" tone="clay" />
-            <p className="home-feature-single-kicker">GUOGANG GOODS</p>
-            <blockquote>「{featuredGood.summary}」</blockquote>
-            <a className="text-link" href={sitePath(`/goods/${featuredGood.slug}`)}>看看這份好味 <span aria-hidden="true">→</span></a>
           </div>
           <div className="home-guide-copy">
             <p className="eyebrow">02 / 過港好味</p>
