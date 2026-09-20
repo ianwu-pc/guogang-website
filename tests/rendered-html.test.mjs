@@ -100,7 +100,7 @@ test("chapter order, supplied goods photos and interactive map match the current
   const goodsResponse = await render("/goods");
   const goodsHtml = await goodsResponse.text();
   assert.match(goodsHtml, /page-intro-index[^>]*>03</);
-  assert.match(goodsHtml, /過港好味\.webp/);
+  assert.match(goodsHtml, /hero-updated\.webp/);
   assert.doesNotMatch(goodsHtml, /catalog-index|product-gallery-count|product-gallery-dots|product-gallery-controls/);
   assert.doesNotMatch(goodsHtml, /商品完整照｜待提供|商品製作過程照｜待提供|商品料理或食用情境照｜待提供/);
   assert.match(goodsHtml, /updated-20260919\/collection\.webp/);

@@ -136,7 +136,7 @@ test("exported pages preserve revision content and interactions", async () => {
     assert.match(goods, new RegExp(`processed-20260920/${id}-cutout${id === "04" ? "-rim" : ""}\\.webp`));
     assert.match(goods, new RegExp(`updated-20260919/${id}-photo\\.webp`));
   }
-  assert.match(goods, /過港好味\.webp/);
+  assert.match(goods, /hero-updated\.webp/);
   assert.match(guogang, /認識過港\.webp/);
   assert.match(guogang, /可探索的過港手繪生活地圖/);
   assert.match(guogang, /guogang-map-2026\/background\.webp/);
