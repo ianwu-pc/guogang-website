@@ -132,23 +132,23 @@ export const PEOPLE_STORY_PHOTOS: Record<string, StoryPhotoCollection> = {
   "community-kitchen-mother": {
     "hero": {
       "src": "/images/people-updated-20260920/kitchen-hero.webp",
-      "alt": "李水錦的影像紀錄",
+      "alt": "謝水錦的影像紀錄",
       "caption": ""
     },
     "gallery": [
       {
         "src": "/images/people-updated-20260920/kitchen-1.webp",
-        "alt": "李水錦的影像紀錄",
+        "alt": "謝水錦的影像紀錄",
         "caption": ""
       },
       {
         "src": "/images/people-updated-20260920/kitchen-2.webp",
-        "alt": "李水錦的影像紀錄",
+        "alt": "謝水錦的影像紀錄",
         "caption": ""
       },
       {
         "src": "/images/people-updated-20260920/kitchen-3.webp",
-        "alt": "李水錦的影像紀錄",
+        "alt": "謝水錦的影像紀錄",
         "caption": ""
       }
     ]

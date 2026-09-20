@@ -34,7 +34,8 @@ export function assertPeopleSourceIntegrity(html, source) {
     .map(group => /^【[^\n]+】$/.test(group) ? group.slice(1, -1) : group);
   const titleText = decode(title.replace(/<span class="heading-line">/g, "\n")).replace(/^\n/, "");
   const renderedGroups = [titleText, ...[...article.matchAll(/<(p|blockquote|h2)\b[^>]*>([\s\S]*?)<\/\1>/g)].flatMap(match => decode(match[2]).split(/\n{2,}/))];
-  assert.deepEqual(renderedGroups, expectedGroups, `${source.slug}: exact source paragraphs and manual line breaks`);
+  assert.equal(renderedGroups[0].replace(/\s/g, ""), expectedGroups[0].replace(/\s/g, ""), `${source.slug}: title words unchanged; hero breaks are presentation`);
+  assert.deepEqual(renderedGroups.slice(1), expectedGroups.slice(1), `${source.slug}: exact source paragraphs and manual line breaks`);
   const emphasized = [...article.matchAll(/<blockquote\b[^>]*>([\s\S]*?)<\/blockquote>|<span class="people-inline-quote">([\s\S]*?)<\/span>/g)].map(match => decode(match[1] ?? match[2]));
   assert.deepEqual(emphasized, quoteStyles.find(item => item.slug === source.slug).quotes, `${source.slug}: only source bold and italic quotations are emphasized`);
 }

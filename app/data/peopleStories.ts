@@ -34,7 +34,7 @@ export const PEOPLE_STORIES: PeopleStory[] = [
     "slug": "bottle-cap-grandma",
     "storyNumber": "01",
     "name": "林秀英",
-    "role": "",
+    "role": "瓶蓋牆製作者",
     "titleLines": [
       "把時間，",
       "一個瓶蓋一個瓶蓋留在過港。"
@@ -410,8 +410,8 @@ export const PEOPLE_STORIES: PeopleStory[] = [
   {
     "slug": "community-kitchen-mother",
     "storyNumber": "03",
-    "name": "李水錦",
-    "role": "",
+    "name": "謝水錦",
+    "role": "過港社區煮飯阿姨",
     "titleLines": [
       "這條半小時的路，",
       "她走了十年。"
@@ -637,8 +637,8 @@ export const PEOPLE_STORIES: PeopleStory[] = [
   {
     "slug": "community-volunteer",
     "storyNumber": "04",
-    "name": "順發阿公 × 宜慧阿嬤",
-    "role": "",
+    "name": "親家阿公阿嬤",
+    "role": "一起來過港上課的老夫妻",
     "titleLines": [
       "一天過一天，他們一起走到了現在。"
     ],
@@ -770,7 +770,7 @@ export const PEOPLE_STORIES: PeopleStory[] = [
     "slug": "couple-story-one",
     "storyNumber": "05",
     "name": "清爽 × 阿笑",
-    "role": "",
+    "role": "過港的鬥嘴夫妻",
     "titleLines": [
       "四十多年，他們一起把日子過到了過港。"
     ],
@@ -961,7 +961,7 @@ export const PEOPLE_STORIES: PeopleStory[] = [
     "slug": "couple-story-two",
     "storyNumber": "06",
     "name": "丁梅花",
-    "role": "過港社區訪視組的組長",
+    "role": "過港社區訪視組組長",
     "titleLines": [
       "去看看，最近好不好。"
     ],

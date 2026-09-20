@@ -264,11 +264,14 @@ p { text-wrap: pretty; } p:last-child { margin-bottom: 0; }
 .article-page { max-width: var(--max); margin: auto; padding: 32px var(--page-x) 0; }
 .breadcrumb { display: flex; flex-wrap: wrap; gap: 12px; padding: 0 0 48px; letter-spacing: .06em; }
 .breadcrumb a { padding-block: 6px; }
-.people-article-hero { display: grid; grid-template-columns: 1fr 1fr; column-gap: 8%; align-items: center; padding: 40px 0 var(--section-space); }
-.people-article-identity { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px 24px; margin-bottom: 32px; }
+.people-article-hero { display: grid; grid-template-columns: minmax(0, 64fr) minmax(0, 30fr); column-gap: 6%; align-items: center; padding: 40px 0 var(--section-space); }
+.people-article-identity { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; margin-bottom: 32px; }
 .people-article-identity strong { font-size: var(--type-name); font-weight: 500; }
 .people-article-identity > span { font-family: var(--sans); font-size: 12px; color: var(--muted); }
-.people-article-heading h1 { font-size: var(--type-article-title); }
+.people-article-heading h1 { font-size: var(--type-article-title); width: 100%; max-width: 100%; }
+.people-title-line { display: block; white-space: nowrap; }
+.people-title-phrase { display: inline-block; white-space: nowrap; }
+.people-title-phrase-gap { margin-left: .25em; }
 .people-article-subtitle { font-size: 19px; color: var(--muted); }
 .people-article-figure img { width: 100%; height: auto; }
 .people-article-figure figcaption { margin-top: 16px; letter-spacing: .05em; }
@@ -286,9 +289,8 @@ p { text-wrap: pretty; } p:last-child { margin-bottom: 0; }
 .people-article-ending-large { font-size: var(--type-article-section); line-height: 1.9; }
 .people-article-ending-small { margin-top: 40px; color: var(--muted); }
 .people-article-ending-large, .people-article-ending-small { white-space: pre-wrap; }
-.people-article-gallery { display: grid; grid-template-columns: 1.25fr 1fr; gap: 72px 8%; align-items: start; padding-bottom: 80px; }
-.people-article-gallery .people-article-figure:nth-child(even) { margin-top: 100px; }
-.people-article-gallery .people-article-figure:first-child { grid-column: 1 / -1; width: 85%; }
+.people-article-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; padding-bottom: 80px; }
+.people-article-gallery img { aspect-ratio: 3 / 2; object-fit: contain; }
 .article-navigation { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px 32px; border-top: 1px solid var(--line); padding: 40px 0 72px; font-size: 14px; }
 .article-navigation a { padding: 12px 0; }
 .good-detail-hero { display: grid; grid-template-columns: 1fr 1.2fr; gap: 8%; align-items: center; padding: 32px 0 var(--section-space); }
@@ -470,9 +472,10 @@ p { text-wrap: pretty; } p:last-child { margin-bottom: 0; }
   .people-article-section-copy blockquote { padding-left: 20px; font-size: 19px; }
   .people-inline-quote { font-size: 19px; }
   .people-article-ending { padding-inline: 0; }
-  .people-article-gallery { grid-template-columns: 1fr; gap: 36px; }
-  .people-article-gallery .people-article-figure:first-child { width: 100%; }
-  .people-article-gallery .people-article-figure:nth-child(even) { margin-top: 0; width: 86%; justify-self: end; }
+  .people-title-line { white-space: normal; text-wrap: balance; }
+  .people-title-phrase-gap { margin-left: 0; }
+  .people-article-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .people-article-gallery .people-article-figure:last-child:nth-child(3) { grid-column: 1 / -1; width: 76%; justify-self: center; }
   .article-navigation { gap: 16px; font-size: 12px; padding-bottom: 48px; }
   .good-detail-hero { grid-template-columns: 1fr; gap: 40px; padding-top: 12px; }
   .article-body { grid-template-columns: 1fr; gap: 40px; padding: 48px 0 64px; }

@@ -135,7 +135,7 @@ test("chapter order, supplied goods photos and interactive map match the current
 
 test("People article titles preserve the Google document's explicit line breaks", async () => {
   const peopleStories = await readFile(new URL("../app/data/peopleStories.ts", import.meta.url), "utf8");
-  const stories = JSON.parse(peopleStories.split("export const PEOPLE_STORIES: PeopleStory[] = ")[1].split(";\n")[0]);
+  const stories = JSON.parse(peopleStories.split("export const PEOPLE_STORIES: PeopleStory[] = ")[1].split(/;\r?\n/)[0]);
 
   for (const [slug, lines] of Object.entries({
     "bottle-cap-grandma": ["把時間，", "一個瓶蓋一個瓶蓋留在過港。"],
@@ -251,6 +251,11 @@ test("original page copy is preserved except explicitly replaced map copy and re
   // Exact new paragraphs and line breaks are checked by assertPeopleSourceIntegrity.
   // 2026-09-20: replace only the final People index block with author credits.
   const replacedPeopleEnding = new Set([
+    // Explicit 2026-09-20 identity corrections; story text remains independently checked.
+    "07701d532a658e3df61d0a3ce66566c47c991caa09d31909ab86e37574ae4eaf",
+    "f5ccd27ee243cf0015b6ac156d29f2456bb993c9b6801674882e6c9941b26b4b",
+    "db94ad3d8570a447e3fb4055f5413d763711c1b74ace7f479fa58899720e6a27",
+
     "51ecad67e4e22b234c4bdf9917571d145b1cf9bd83fbc2b76dbf966870555905",
     "0640097a2aeeee09b6368a91275adf01f213c3e655f99d4e12dff990d062f675",
     "6e8eaff845f59dc35315b443ce51119e624a2debb7da5513be6a5d17ba2cbe2e",
@@ -313,7 +318,7 @@ test("the editorial system shares typography roles and removes dark photo overla
 test("all six People entries include photographs while preserving the original editorial order", async () => {
   const html = await (await render("/people")).text();
   const cards = [...html.matchAll(/<article class="people-story-card[\s\S]*?<\/article>/g)].map((match) => match[0]);
-  const order = ["林秀英", "黃淑惠", "丁梅花", "清爽 × 阿笑", "李水錦", "順發阿公 × 宜慧阿嬤"];
+  const order = ["林秀英", "黃淑惠", "丁梅花", "清爽 × 阿笑", "謝水錦", "親家阿公阿嬤"];
   assert.equal(cards.length, 6);
   cards.forEach((card, index) => { assert.ok(card.includes(`>${order[index]}<`)); assert.match(card, /<img\b/); assert.match(card, /people-story-summary/); });
 });
@@ -433,4 +438,24 @@ test("home people CTA avoids misidentification and community photos appear toget
   assert.equal((about.match(/<img\b/g) ?? []).length, 3);
   assert.doesNotMatch(about, /product-gallery|上一張|下一張/);
   assert.match(html, /revision-20260920\/place\.webp/);
+});
+
+
+test("People overview and articles share the approved names and roles", async () => {
+  const overview = await (await render("/people")).text();
+  const identities = [
+    ["bottle-cap-grandma", "林秀英", "瓶蓋牆製作者"],
+    ["breakfast-shop-owner", "黃淑惠", "早餐店老闆娘"],
+    ["couple-story-two", "丁梅花", "過港社區訪視組組長"],
+    ["couple-story-one", "清爽 × 阿笑", "過港的鬥嘴夫妻"],
+    ["community-kitchen-mother", "謝水錦", "過港社區煮飯阿姨"],
+    ["community-volunteer", "親家阿公阿嬤", "一起來過港上課的老夫妻"],
+  ];
+  for (const [slug, name, role] of identities) {
+    const html = await (await render(`/people/${slug}`)).text();
+    assert.ok(overview.includes(`<p class="people-story-name">${name}</p>`));
+    assert.ok(overview.includes(`<p class="people-story-role">${role}</p>`));
+    assert.ok(html.includes(`<strong>${name}</strong><span>${role}</span>`));
+    assert.doesNotMatch(html, /李水錦|過港社區課程學員|過港社區志工夫妻/);
+  }
 });

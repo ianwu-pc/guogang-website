@@ -29,6 +29,16 @@ function StoryBlocks({ blocks }: { blocks: StoryBlock[] }) {
   ));
 }
 
+// Hero-only phrase groups preserve the overview headings and all article copy.
+const HERO_TITLE_LINES: Record<string, string[][]> = {
+  "bottle-cap-grandma": [["把時間，"], ["一個瓶蓋一個瓶蓋", "留在過港。"]],
+  "breakfast-shop-owner": [["二十五年，"], ["早晨裡的人", "慢慢熟了。"]],
+  "community-kitchen-mother": [["這條半小時的路，"], ["她走了十年。"]],
+  "community-volunteer": [["一天過一天，"], ["他們一起", "走到了現在。"]],
+  "couple-story-one": [["四十多年，"], ["他們一起把日子", "過到了過港。"]],
+  "couple-story-two": [["去看看，", "最近好不好。"]],
+};
+
 export function PeopleStoryArticle({ story, previous, next }: PeopleStoryArticleProps) {
   const photos = PEOPLE_STORY_PHOTOS[story.slug];
   const heroImage = photos?.hero ?? story.heroImage;
@@ -50,7 +60,11 @@ export function PeopleStoryArticle({ story, previous, next }: PeopleStoryArticle
             <strong>{story.name}</strong>
             {story.role ? <span>{story.role}</span> : null}
           </div>
-          <h1><HeadingLines lines={story.titleLines} /></h1>
+          <h1>{HERO_TITLE_LINES[story.slug].map((line, index) => (
+            <span className="people-title-line" key={index}>{line.map((phrase, phraseIndex) => (
+              <span className={`people-title-phrase${story.slug === "bottle-cap-grandma" && phraseIndex > 0 ? " people-title-phrase-gap" : ""}`} key={phrase}>{phrase}</span>
+            ))}</span>
+          ))}</h1>
           {story.subtitleLines.length ? <p className="people-article-subtitle"><HeadingLines lines={story.subtitleLines} /></p> : null}
         </div>
         {heroImage ? <StoryFigure image={heroImage} className="people-article-hero-image" /> : null}
