@@ -11,7 +11,9 @@ type StoryStage = {
   tone: "paper" | "ink" | "ochre" | "green";
   image?: string;
   imageMobile?: string;
+  imageWidth?: number;
   objectPosition?: string;
+  objectFit?: "cover" | "contain";
 };
 
 const STAGES: StoryStage[] = [
@@ -20,8 +22,8 @@ const STAGES: StoryStage[] = [
     titleLines: ["這裡是過港。"],
     description: "一個沿著基隆河生活的地方。",
     imageLabel: "過港河岸、岩石與周邊環境",
-    image: "/images/home/home-scroll-01.webp",
-    imageMobile: "/images/home/home-scroll-01-1280.webp",
+    image: "/images/home/updated-20260920/home-scroll-01.webp",
+    imageMobile: "/images/home/updated-20260920/home-scroll-01-1280.webp",
     objectPosition: "center center",
     tone: "paper",
   },
@@ -30,8 +32,8 @@ const STAGES: StoryStage[] = [
     titleLines: ["過港的樣子，", "藏在每個人的日常裡。"],
     description: "居民相聚、活動的日常，也慢慢留下過港的樣子。",
     imageLabel: "過港居民在社區空間進行團體活動",
-    image: "/images/home/home-scroll-02.webp",
-    imageMobile: "/images/home/home-scroll-02-1280.webp",
+    image: "/images/home/updated-20260920/home-scroll-02.webp",
+    imageMobile: "/images/home/updated-20260920/home-scroll-02-1280.webp",
     objectPosition: "center center",
     tone: "ink",
   },
@@ -39,19 +41,21 @@ const STAGES: StoryStage[] = [
     number: "03",
     titleLines: ["而這些日常，", "也被一雙雙手做成了味道。"],
     description: "從備料到料理，一雙雙手把熟悉的味道慢慢做出來。",
-    imageLabel: "居民在大鍋中製作滷蛋",
-    image: "/images/home/home-scroll-03.webp",
-    imageMobile: "/images/home/home-scroll-03-1280.webp",
+    imageLabel: "居民雙手刨製蘿蔔、準備料理",
+    image: "/images/home/updated-20260920/home-scroll-03.webp",
+    imageMobile: "/images/home/updated-20260920/home-scroll-03-1280.webp",
     objectPosition: "center center",
     tone: "ochre",
   },
   {
     number: "04",
+    imageWidth: 1672,
+    objectFit: "contain",
     titleLines: ["把過港的故事，", "帶到更遠的地方。"],
     description: "完成的商品，也把過港的生活與故事帶向更遠的地方。",
-    imageLabel: "過港雞片鐵蛋包裝商品",
-    image: "/images/home/home-scroll-04.webp",
-    imageMobile: "/images/home/home-scroll-04-1280.webp",
+    imageLabel: "過港好味商品合照",
+    image: "/images/home/updated-20260920/home-scroll-04.webp",
+    imageMobile: "/images/home/updated-20260920/home-scroll-04-1280.webp",
     objectPosition: "center center",
     tone: "green",
   },
@@ -60,8 +64,8 @@ const STAGES: StoryStage[] = [
 function StoryPhoto({ index, decorative = false }: { index: number; decorative?: boolean }) {
   const stage = STAGES[index];
   return <figure className={`narrative-image narrative-page-${index % 2 === 0 ? 'left' : 'right'}`}>
-    <img src={sitePath(stage.image!)} srcSet={`${sitePath(stage.image!.replace(".webp", "-768.webp"))} 768w, ${sitePath(stage.imageMobile!)} 1280w, ${sitePath(stage.image!)} 2560w`}
-      sizes="(max-width: 700px) 100vw, 50vw" style={{ objectPosition: stage.objectPosition }}
+    <img src={sitePath(stage.image!)} srcSet={`${sitePath(stage.image!.replace(".webp", "-768.webp"))} 768w, ${sitePath(stage.imageMobile!)} 1280w, ${sitePath(stage.image!)} ${stage.imageWidth ?? 2560}w`}
+      sizes="(max-width: 700px) 100vw, 50vw" style={{ objectPosition: stage.objectPosition, objectFit: stage.objectFit }}
       alt={decorative ? "" : stage.imageLabel} loading="eager" fetchPriority={index === 0 && !decorative ? "high" : "low"} />
     <figcaption><span>{stage.number} / GUOGANG</span><span>{stage.imageLabel}</span></figcaption>
   </figure>;

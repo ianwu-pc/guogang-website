@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ProductGallery } from "./components/ProductGallery";
 import { HomeScrollStory } from "./components/HomeScrollStory";
 import { HeadingLines } from "./components/HeadingLines";
 import { ImagePlaceholder } from "./components/ImagePlaceholder";
@@ -23,8 +24,8 @@ export default function Home() {
         <article className="home-guide home-guide-place">
           <div className="home-guide-number">01</div>
           <ImagePlaceholder
-            label="/images/guogang-history-1949.webp"
-            alt="過港早期聚落歷史照片"
+            label="/images/home/updated-20260920/place.webp"
+            alt="過港街角的彩繪牆面"
             ratio="wide"
             tone="paper"
           />
@@ -39,7 +40,7 @@ export default function Home() {
         <article className="home-guide home-guide-goods">
           <div className="home-guide-number">02</div>
           <div className="home-feature-single home-goods-feature">
-            <ImagePlaceholder label={featuredGood.coverImage} alt={`${featuredGood.name}商品照片`} ratio="landscape" tone="clay" />
+            <ImagePlaceholder label="/images/home/updated-20260920/goods.webp" alt="過港好味餐點合照" ratio="landscape" tone="clay" />
             <p className="home-feature-single-kicker">GUOGANG GOODS</p>
             <blockquote>「{featuredGood.summary}」</blockquote>
             <a className="text-link" href={sitePath(`/goods/${featuredGood.slug}`)}>看看這份好味 <span aria-hidden="true">→</span></a>
@@ -55,7 +56,7 @@ export default function Home() {
         <article className="home-guide home-guide-people">
           <div className="home-guide-number">03</div>
           <div className="home-feature-single home-people-feature">
-            <ImagePlaceholder label="/images/people-drive/lin/lin-dscf5586.webp" alt="林秀英站在瓶蓋牆前" ratio="portrait" tone="green" />
+            <ImagePlaceholder label="/images/home/updated-20260920/people.webp" alt="居民一起準備社區料理" ratio="landscape" tone="green" />
             <p className="home-feature-single-kicker">{featuredPerson.name}</p>
             <blockquote>「{featuredPerson.summary}」</blockquote>
             <a className="text-link" href={sitePath(`/people/${featuredPerson.slug}`)}>閱讀她的故事 <span aria-hidden="true">→</span></a>
@@ -70,7 +71,7 @@ export default function Home() {
 
         <article className="home-guide home-guide-about">
           <div className="home-guide-number">04</div>
-          <ImagePlaceholder label="/images/people-drive/qinji/qinji-362.webp" alt="居民一起參與過港社區活動" ratio="landscape" tone="clay" />
+          <ProductGallery images={["/images/home/updated-20260920/community-01.webp", "/images/home/updated-20260920/community-02.webp", "/images/home/updated-20260920/community-03.webp"]} name="過港社區活動" ratio="landscape" tone="clay" />
           <div className="home-guide-copy">
             <p className="eyebrow">04 / 關於我們</p>
             <h2><HeadingLines lines={["一群人一起做的事，", "慢慢成了社區的力量。"]} /></h2>
