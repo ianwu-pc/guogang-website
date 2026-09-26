@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { LineAction } from "../../components/LineAction";
+import { PhoneAction, PhoneContact } from "../../components/PhoneAction";
 import { ProductGallery } from "../../components/ProductGallery";
 import { GOODS } from "../../data/site";
 import { sitePath } from "../../utils/sitePath";
@@ -27,7 +27,7 @@ export default async function GoodDetailPage({ params }: GoodPageProps) {
           <p className="eyebrow">GUOGANG GOODS / {String(index + 1).padStart(2, "0")}</p>
           <h1>{good.name}</h1>
           <p>{good.summary}</p>
-          <LineAction label="詢問購買" />
+          <PhoneAction />
         </div>
         <ProductGallery images={[good.coverImage, ...good.galleryImages]} name={good.name} ratio="landscape" tone="clay" />
       </header>
@@ -36,7 +36,7 @@ export default async function GoodDetailPage({ params }: GoodPageProps) {
         <div>
           <h2>從日常開始</h2>
           <p>{good.story}</p>
-          <p>{good.purchaseMethod}</p>
+          <PhoneContact />
         </div>
       </section>
       <nav className="article-navigation" aria-label="好物文章導覽">

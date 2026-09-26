@@ -93,7 +93,7 @@ test("goods catalog contains every existing product story without detail-page na
   assert.doesNotMatch(html, /href="[^\"]*\/goods\/goods-\d+/);
   assert.doesNotMatch(html, /查看這份好味/);
   assert.doesNotMatch(html, /catalog-purchase/);
-  assert.equal((html.match(/<p[^>]*>過港的產品以小量製作為主。/g) ?? []).length, 1, "small-batch information appears once in the shared section");
+  assert.equal((html.match(/<p>如欲訂購或了解更多，歡迎來電洽詢過港社區發展協會。<\/p>/g) ?? []).length, 1, "shared telephone information appears once");
 });
 
 test("chapter order, supplied goods photos and interactive map match the current site", async () => {
@@ -198,11 +198,11 @@ test("placeholder people detail pages are no longer public", async () => {
   assert.equal(response.status, 404);
 });
 
-test("unset LINE links render safe buttons without fake URLs", async () => {
+test("contact actions use the existing community telephone", async () => {
   const response = await render("/");
   const html = await response.text();
-  assert.match(html, /LINE 連結即將提供/);
-  assert.match(html, /加入 LINE 看本期好味/);
+  assert.match(html, /href="tel:0224588802"/);
+  assert.match(html, /電話洽詢/);
   assert.doesNotMatch(html, /line\.me|lin\.ee/i);
 });
 
@@ -224,6 +224,15 @@ test("original page copy is preserved except explicitly replaced map copy and re
     "f4abf91e41123a25e0e200b4a3197d91fab633035015462f9ef19d4ebedde2fd",
     "eb8c547feac9194ae3fd3ee9d0a7337c466e6c728e821a4fe6425df19044b7a7",
   ]);
+  // Previously approved home caption removal, plus current telephone-only contact copy.
+  const replacedContact = new Set([
+    "GUOGANG GOODS", "想把過港的味道帶回家？", "HOW TO ORDER",
+    "過港的產品以小量製作為主。每次做什麼、做多少，會跟著當期的製作安排而不同，所以不一定隨時都有固定的品項與數量。",
+    "最新品項、價格與可訂購數量，都會公布在 LINE。看看這次做了什麼，再挑一份喜歡的帶回家。",
+    "過港的產品以小量製作為主。※ 每次製作的品項、數量與價格可能不同，請以 LINE 當期公告為準。",
+    "過港好味以社區小量製作為主，商品會依實際產量不定期開團。如果想知道最近有哪些商品，可以加入 LINE 社群查看最新開團資訊；也可以從 Facebook 看見更多過港的日常與活動。",
+    "想知道最近的社區好味與活動，可以加入 LINE 社群；也歡迎從 Facebook 看見更多過港的日常。",
+  ].map(text => createHash("sha256").update(text.replace(/\s/g, "")).digest("hex")));
   const replacedMapOpening = new Set([
     "21191945e15e2cc05fc52373a5d8775e5df03cc2f62c156c2bf4bc32d66f8fb1",
     "22100d0d4b19151508f86eccef945f26a610145163ca0a1ac31b48787cc7677f",
@@ -279,6 +288,9 @@ test("original page copy is preserved except explicitly replaced map copy and re
       assert.doesNotMatch(html, /<h3[^>]*>從日常開始<\/h3>/);
     }
     for (const record of expected) {
+      if (replacedContact.has(record.sha256)) continue;
+      // Previously approved about hero wording: 一直 -> 總是.
+      if (route === "/about" && record.sha256 === "6de51d8e3000341dd1cdf508bec96858466ed9acdd8e7204e698b76beaaad780") continue;
       if (route === "/" && replacedHome.has(record.sha256)) continue;
       if (route === "/guogang" && (replacedMapOpening.has(record.sha256) || replacedHistory.has(record.sha256))) continue;
       if (route === "/goods" && (removedGoodsSummaries.has(record.sha256) || consolidatedGoodsCopy.has(record.sha256))) continue;
@@ -397,8 +409,8 @@ test("goods reads from introduction through products and making to collection an
   assert.equal((html.match(/class="heading-line">過港的好味，/g) ?? []).length, 1);
   assert.doesNotMatch(html, /goods-catalog-intro|goods-small-batch/);
   const ordering = html.slice(positions[4], positions[5]);
-  assert.match(ordering, /最新品項、價格與可訂購數量，都會公布在 LINE/);
-  assert.match(ordering, /※ 每次製作的品項、數量與價格可能不同，請以 LINE 當期公告為準。/);
+  assert.match(ordering, /如欲訂購或了解更多，歡迎來電洽詢過港社區發展協會。/);
+  assert.match(ordering, /02-2458-8802/);
   assert.ok(html.indexOf("updated-20260919/collection.webp") > positions[3]);
 });
 

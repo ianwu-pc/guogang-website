@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
 import { ImagePlaceholder } from "../components/ImagePlaceholder";
-import { LineAction } from "../components/LineAction";
+import { PhoneAction, PhoneContact } from "../components/PhoneAction";
 import { PageIntro } from "../components/PageIntro";
 import { ProductGallery } from "../components/ProductGallery";
 import { GOODS } from "../data/site";
@@ -39,7 +39,7 @@ export default function GoodsPage() {
                 <p>{good.story}</p>
               </div>
               <div className="card-actions">
-                <LineAction label="LINE 詢問" />
+                <PhoneAction />
               </div>
             </div>
           </article>
@@ -61,13 +61,12 @@ export default function GoodsPage() {
 
       <section className="goods-order" aria-labelledby="goods-order-title">
         <header>
-          <p className="eyebrow">HOW TO ORDER</p>
-          <h2 id="goods-order-title">想把過港的味道帶回家？</h2>
+          <p className="eyebrow">CONTACT US</p>
+          <h2 id="goods-order-title">電話洽詢</h2>
         </header>
         <div className="goods-order-details">
-          <p>最新品項、價格與可訂購數量，都會公布在 LINE。看看這次做了什麼，再挑一份喜歡的帶回家。</p>
-          <LineAction label="前往 LINE 查看最新訂購資訊" />
-          <p className="goods-order-note">過港的產品以小量製作為主。<br />※ 每次製作的品項、數量與價格可能不同，請以 LINE 當期公告為準。</p>
+          <PhoneContact />
+          <PhoneAction />
         </div>
       </section>
 

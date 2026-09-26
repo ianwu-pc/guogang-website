@@ -312,3 +312,18 @@ test("each page loads one complete content-addressed font and reserves image spa
     }
   }
 });
+
+// All exported routes, including unlinked product pages, must use phone contact only.
+test("exported HTML contains no online ordering or messaging contact remnants", async () => {
+  const { readdir } = await import("node:fs/promises");
+  const root = new URL("../github-pages-dist/", import.meta.url);
+  const entries = await readdir(root, { recursive: true });
+  for (const file of entries.filter(file => file.endsWith(".html"))) {
+    const html = await readFile(new URL(file.replaceAll("\\", "/"), root), "utf8");
+    assert.doesNotMatch(html, /\bLINE\b|賣貨便|線上訂購|線上下單|立即訂購|立即購買|下單|購買|line\.me|lin\.ee|myship\.7-11|shopee/, file);
+    if (file.endsWith("index.html") && !/http-equiv="refresh"/i.test(html)) {
+      assert.match(html, /href="tel:0224588802"/, file);
+      assert.match(html, /電話洽詢/, file);
+    }
+  }
+});

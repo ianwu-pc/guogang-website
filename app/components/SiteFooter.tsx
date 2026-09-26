@@ -1,6 +1,6 @@
 import { NAV_ITEMS, SITE_CONFIG } from "../data/site";
 import { sitePath } from "../utils/sitePath";
-import { LineAction } from "./LineAction";
+import { PhoneAction } from "./PhoneAction";
 import { HeadingLines } from "./HeadingLines";
 
 export function SiteFooter() {
@@ -9,7 +9,7 @@ export function SiteFooter() {
       <div className="footer-lead">
         <p className="eyebrow light">KEEP THE STORY GOING</p>
         <h2><HeadingLines lines={["從一個地方的名字開始，", "慢慢認識過港。"]} /></h2>
-        <LineAction />
+        <PhoneAction />
       </div>
       <div className="footer-grid">
         <div>
@@ -26,7 +26,6 @@ export function SiteFooter() {
           <a href={`tel:${SITE_CONFIG.phone.replace(/-/g, "")}`}>電話｜{SITE_CONFIG.phone}</a>
         </address>
         <div className="footer-social">
-          <span>LINE｜社群連結待提供</span>
           <a href={SITE_CONFIG.facebookUrl} target="_blank" rel="noreferrer">Facebook｜前往專頁</a>
         </div>
       </div>

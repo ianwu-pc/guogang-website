@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { HomeScrollStory } from "./components/HomeScrollStory";
 import { HeadingLines } from "./components/HeadingLines";
 import { ImagePlaceholder } from "./components/ImagePlaceholder";
-import { LineAction } from "./components/LineAction";
+import { PhoneAction, PhoneContact } from "./components/PhoneAction";
 import { SITE_CONFIG } from "./data/site";
 import { sitePath } from "./utils/sitePath";
 
@@ -76,7 +76,7 @@ export default function Home() {
             <p>也讓更多人有機會一起參與，一起把生活的地方照顧好。</p>
             <div className="button-row">
               <a className="button button-primary" href={sitePath("/about")}>認識過港社區發展協會</a>
-              <LineAction />
+              <PhoneAction />
             </div>
           </div>
         </article>
@@ -85,15 +85,14 @@ export default function Home() {
           <div className="home-more-copy">
             <p className="eyebrow">MORE GUOGANG / 更多過港</p>
             <h2 id="home-more-title"><HeadingLines lines={["如果喜歡過港，", "也歡迎把這份味道帶回家。"]} /></h2>
-            <p>過港好味以社區小量製作為主，商品會依實際產量不定期開團。如果想知道最近有哪些商品，可以加入 LINE 社群查看最新開團資訊；也可以從 Facebook 看見更多過港的日常與活動。</p>
+            <PhoneContact />
             <div className="button-row">
-              <LineAction label="加入 LINE 看本期好味" />
+              <PhoneAction />
               <a className="button button-outline" href={SITE_CONFIG.facebookUrl} target="_blank" rel="noreferrer">前往 Facebook</a>
               <a className="button button-outline" href={sitePath("/guogang#guogang-map")}>查看交通資訊</a>
             </div>
           </div>
           <div className="home-more-side">
-            <ImagePlaceholder label="LINE 社群 QR Code｜待提供" ratio="square" tone="paper" />
             <address>
               <strong>{SITE_CONFIG.associationName}</strong>
               <span>{SITE_CONFIG.address}</span>

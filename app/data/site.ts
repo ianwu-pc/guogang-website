@@ -44,7 +44,6 @@ export const SITE_CONFIG = {
   name: "過港",
   associationName: "過港社區發展協會",
   logoImage: "/images/guogang-logo.webp",
-  lineUrl: "", // 在此貼上正式 LINE 加好友網址。
   address: "205 基隆市暖暖區過港里過港路 54 號",
   phone: "02-2458-8802",
   email: "待提供",
