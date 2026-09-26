@@ -22,11 +22,6 @@ export const PEOPLE_STORY_PHOTOS: Record<string, StoryPhotoCollection> = {
         "caption": ""
       },
       {
-        "src": "/images/people-updated-20260920/lin-3.webp",
-        "alt": "林秀英的影像紀錄",
-        "caption": ""
-      },
-      {
         "src": "/images/people-updated-20260920/lin-4.webp",
         "alt": "林秀英的影像紀錄",
         "caption": ""
